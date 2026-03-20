@@ -13,8 +13,32 @@ related_concepts: "Equivalence, Generalisation"
 global_context: "Identities and Relationships"
 statement_of_inquiry: "Logic helps us generalise relationships and solve problems using algebraic representations."
 
+past_units:
+  - name: "Number — Integers & Rational Numbers"
+    term: "Term 1"
+  - name: "Geometry — Angles & Transformations"
+    term: "Term 2"
+
+powerpoints:
+  - name: "Algebraic Expressions"
+    url: "#"
+  - name: "Solving Equations"
+    url: "#"
+
+worksheets:
+  - name: "Function Machines Worksheet"
+    url: "#"
+  - name: "Pattern Investigation"
+    url: "#"
+
+games: []
+
+videos:
+  - name: "Introduction to Algebra"
+    url: "#"
+
 toolkit:
-  - name: "Desmos"
+  - name: "Desmos Calculator"
     url: "https://www.desmos.com/calculator"
     icon: "📈"
   - name: "GeoGebra"
@@ -23,24 +47,4 @@ toolkit:
   - name: "Mathigon"
     url: "https://mathigon.org/"
     icon: "🔮"
-
-resources:
-  - name: "Algebra Unit Slides"
-    type: "slides"
-    url: "#"
-    external: true
-  - name: "Function Machines Worksheet"
-    type: "worksheet"
-    url: "#"
-    external: false
-  - name: "Pattern Investigation"
-    type: "practice"
-    url: "#"
-    external: false
-
-past_units:
-  - name: "Number — Integers & Rational Numbers"
-    term: "Term 1"
-  - name: "Geometry — Angles & Transformations"
-    term: "Term 2"
 ---

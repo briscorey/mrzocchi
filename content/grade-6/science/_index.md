@@ -12,25 +12,33 @@ key_concept: "Change"
 global_context: "Orientation in Space and Time"
 statement_of_inquiry: "Changes within the Earth's structure have shaped the world we live in over time."
 
-resources:
-  - name: "Earth's Layers Slides"
-    type: "slides"
-    url: "#"
-    external: true
-  - name: "Ring of Fire Worksheet"
-    type: "worksheet"
-    url: "#"
-    external: false
-  - name: "Earth Science Review Game"
-    type: "game"
-    url: "https://learnlattice.org/games/revision/earth-science-g6/"
-    external: true
-  - name: "Plate Tectonics Video"
-    type: "video"
-    url: "#"
-    external: true
-
 past_units:
   - name: "Introduction to Science & Lab Safety"
     term: "Term 1"
+
+powerpoints:
+  - name: "Earth's Layers"
+    url: "#"
+  - name: "Plate Tectonics"
+    url: "#"
+  - name: "Ring of Fire"
+    url: "#"
+
+worksheets:
+  - name: "Earth's Layers Labelling"
+    url: "#"
+  - name: "Ring of Fire Worksheet"
+    url: "#"
+  - name: "Criterion A Summative"
+    url: "#"
+
+games:
+  - name: "Earth Science Review Game"
+    url: "https://learnlattice.org/games/revision/earth-science-g6/"
+
+videos:
+  - name: "Plate Tectonics Explained"
+    url: "#"
+  - name: "Inside the Earth — Layers"
+    url: "#"
 ---

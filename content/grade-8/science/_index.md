@@ -12,27 +12,29 @@ key_concept: "Systems"
 global_context: "Globalisation and Sustainability"
 statement_of_inquiry: "The balance of a system depends on the interdependence of its parts."
 
-resources:
-  - name: "Ecosystems Slides"
-    type: "slides"
-    url: "#"
-    external: true
-  - name: "Trophic Cascade Formative"
-    type: "worksheet"
-    url: "#"
-    external: false
-  - name: "Ecology Vocabulary (Quizlet)"
-    type: "game"
-    url: "#"
-    external: true
-  - name: "Energy in Ecosystems Video"
-    type: "video"
-    url: "#"
-    external: true
-
 past_units:
   - name: "Physics — Energy & Motion"
     term: "Term 1"
   - name: "Chemistry — Atomic Structure"
     term: "Term 2"
+
+powerpoints:
+  - name: "Ecosystems Introduction"
+    url: "#"
+  - name: "Food Webs & Trophic Levels"
+    url: "#"
+
+worksheets:
+  - name: "Trophic Cascade Formative"
+    url: "#"
+
+games:
+  - name: "Ecology Vocabulary (Quizlet)"
+    url: "#"
+
+videos:
+  - name: "Energy in Ecosystems"
+    url: "#"
+  - name: "Trophic Cascades — How Wolves Change Rivers"
+    url: "#"
 ---

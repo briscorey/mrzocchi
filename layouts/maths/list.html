@@ -2,134 +2,121 @@
 {{ $grade := .Params.grade }}
 {{ $gradeColor := "var(--teal)" }}
 {{ if eq $grade "7" }}{{ $gradeColor = "var(--red)" }}{{ end }}
-{{ if eq $grade "8" }}{{ $gradeColor = "var(--navy)" }}{{ end }}
 
-<div class="dashboard" style="{{ printf "--grade-color: %s;" $gradeColor | safeCSS }}">
+<div class="dash-page" style="{{ printf "--grade-color: %s;" $gradeColor | safeCSS }}">
 
-  {{/* ── Breadcrumb + Title ── */}}
-  <div class="dash-header">
-    <div class="breadcrumb">
-      <a href="/">Home</a> › {{ .Title }}
-    </div>
-    <div class="dash-title-row">
-      <div>
-        <h1 class="dash-title">📐 {{ .Title }}</h1>
-        <p class="dash-subtitle">{{ .Params.subtitle | default "Welcome to your Mathematics dashboard." }}</p>
-      </div>
-      <span class="dash-grade-badge">G{{ $grade }}</span>
-    </div>
+  <div class="dash-topbar">
+    <a href="/" class="dash-topbar-home">← Home</a>
+    <h1 class="dash-topbar-title">📐 {{ .Title }}</h1>
   </div>
 
-  {{/* ── Current Unit ── */}}
-  <section class="dash-section">
-    <h2 class="dash-section-title">
-      <span class="dash-section-icon">📍</span>
-      Current Unit
-    </h2>
-    <div class="unit-card">
-      <div class="unit-card-accent"></div>
-      <div class="unit-card-body">
-        <div class="unit-meta">
-          {{ with .Params.unit_tag }}<span class="unit-tag">{{ . }}</span>{{ end }}
-          {{ with .Params.unit_dates }}<span class="unit-dates">{{ . }}</span>{{ end }}
-        </div>
-        <h3 class="unit-name">{{ .Params.unit_name | default "Unit information coming soon" }}</h3>
-        <p class="unit-description">{{ .Params.unit_description | default "" }}</p>
-        {{ with .Params.key_concept }}
-        <div class="unit-concept">
-          <strong>Key Concept:</strong> {{ . }}
-        </div>
-        {{ end }}
-        {{ with .Params.related_concepts }}
-        <div class="unit-concept">
-          <strong>Related Concepts:</strong> {{ . }}
-        </div>
-        {{ end }}
-        {{ with .Params.global_context }}
-        <div class="unit-concept">
-          <strong>Global Context:</strong> {{ . }}
-        </div>
-        {{ end }}
-        {{ with .Params.statement_of_inquiry }}
-        <div class="unit-soi">
-          <em>"{{ . }}"</em>
-        </div>
-        {{ end }}
-      </div>
-    </div>
-  </section>
+  <div class="dash-layout">
 
-  {{/* ── Toolkit (Maths-specific) ── */}}
-  {{ with .Params.toolkit }}
-  <section class="dash-section">
-    <h2 class="dash-section-title">
-      <span class="dash-section-icon">🧰</span>
-      Maths Toolkit
-    </h2>
-    <div class="toolkit-grid">
-      {{ range . }}
-      <a href="{{ .url }}" class="toolkit-item" target="_blank">
-        <span class="toolkit-icon">{{ .icon | default "🔗" }}</span>
-        <span class="toolkit-name">{{ .name }}</span>
-      </a>
-      {{ end }}
-    </div>
-  </section>
-  {{ end }}
+    <nav class="dash-sidebar">
+      <button class="sidebar-item active" data-section="unit-outline" onclick="showSection(this, 'unit-outline')">
+        <span class="sidebar-icon">📋</span><span>Unit Outline</span>
+      </button>
+      <button class="sidebar-item" data-section="powerpoints" onclick="showSection(this, 'powerpoints')">
+        <span class="sidebar-icon">📊</span><span>Powerpoints</span>
+      </button>
+      <button class="sidebar-item" data-section="worksheets" onclick="showSection(this, 'worksheets')">
+        <span class="sidebar-icon">📝</span><span>Worksheets</span>
+      </button>
+      <button class="sidebar-item" data-section="games" onclick="showSection(this, 'games')">
+        <span class="sidebar-icon">🎮</span><span>Games</span>
+      </button>
+      <button class="sidebar-item" data-section="videos" onclick="showSection(this, 'videos')">
+        <span class="sidebar-icon">🎬</span><span>Videos</span>
+      </button>
+      <button class="sidebar-item" data-section="toolkit" onclick="showSection(this, 'toolkit')">
+        <span class="sidebar-icon">🧰</span><span>Maths Toolkit</span>
+      </button>
+    </nav>
 
-  {{/* ── Resources ── */}}
-  <section class="dash-section">
-    <h2 class="dash-section-title">
-      <span class="dash-section-icon">📂</span>
-      Resources
-    </h2>
-    {{ if .Params.resources }}
-    <div class="resource-grid">
-      {{ range .Params.resources }}
-      <a href="{{ .url }}" class="resource-card" target="{{ if .external }}_blank{{ else }}_self{{ end }}">
-        <span class="resource-icon">
-          {{ if eq .type "slides" }}📊
-          {{ else if eq .type "worksheet" }}📝
-          {{ else if eq .type "video" }}🎬
-          {{ else if eq .type "game" }}🎮
-          {{ else if eq .type "practice" }}✏️
-          {{ else if eq .type "reading" }}📖
-          {{ else }}📎
+    <div class="dash-main">
+
+      <div class="dash-content-section active" id="unit-outline">
+        <h2 class="content-heading">Unit Outline</h2>
+        <div class="unit-card">
+          <div class="unit-card-accent"></div>
+          <div class="unit-card-body">
+            <div class="unit-meta">
+              {{ with .Params.unit_tag }}<span class="unit-tag">{{ . }}</span>{{ end }}
+              {{ with .Params.unit_dates }}<span class="unit-dates">{{ . }}</span>{{ end }}
+            </div>
+            <h3 class="unit-name">{{ .Params.unit_name | default "Unit information coming soon" }}</h3>
+            <p class="unit-description">{{ .Params.unit_description | default "" }}</p>
+            {{ with .Params.key_concept }}<div class="unit-detail"><strong>Key Concept:</strong> {{ . }}</div>{{ end }}
+            {{ with .Params.related_concepts }}<div class="unit-detail"><strong>Related Concepts:</strong> {{ . }}</div>{{ end }}
+            {{ with .Params.global_context }}<div class="unit-detail"><strong>Global Context:</strong> {{ . }}</div>{{ end }}
+            {{ with .Params.statement_of_inquiry }}<div class="unit-soi"><em>"{{ . }}"</em></div>{{ end }}
+          </div>
+        </div>
+        {{ with .Params.past_units }}
+        <h3 class="content-subheading">Past Units</h3>
+        <div class="past-units">
+          {{ range . }}
+          <div class="past-unit"><span class="past-unit-name">{{ .name }}</span><span class="past-unit-term">{{ .term }}</span></div>
           {{ end }}
-        </span>
-        <div class="resource-info">
-          <span class="resource-name">{{ .name }}</span>
-          <span class="resource-type">{{ .type | humanize }}</span>
         </div>
-        {{ if .external }}<span class="resource-external">↗</span>{{ end }}
-      </a>
-      {{ end }}
-    </div>
-    {{ else }}
-    <div class="empty-state">
-      <span class="empty-icon">📭</span>
-      <p>Resources will appear here as they are added throughout the unit.</p>
-    </div>
-    {{ end }}
-  </section>
-
-  {{/* ── Past Units ── */}}
-  {{ with .Params.past_units }}
-  <section class="dash-section">
-    <h2 class="dash-section-title">
-      <span class="dash-section-icon">📚</span>
-      Past Units
-    </h2>
-    <div class="past-units">
-      {{ range . }}
-      <div class="past-unit">
-        <span class="past-unit-name">{{ .name }}</span>
-        <span class="past-unit-term">{{ .term }}</span>
+        {{ end }}
       </div>
-      {{ end }}
-    </div>
-  </section>
-  {{ end }}
 
+      <div class="dash-content-section" id="powerpoints">
+        <h2 class="content-heading">Powerpoints</h2>
+        {{ if .Params.powerpoints }}
+        <div class="resource-list">{{ range .Params.powerpoints }}
+          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">📊</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+        {{ end }}</div>
+        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Powerpoints will appear here as they are added.</p></div>{{ end }}
+      </div>
+
+      <div class="dash-content-section" id="worksheets">
+        <h2 class="content-heading">Worksheets</h2>
+        {{ if .Params.worksheets }}
+        <div class="resource-list">{{ range .Params.worksheets }}
+          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">📝</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+        {{ end }}</div>
+        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Worksheets will appear here as they are added.</p></div>{{ end }}
+      </div>
+
+      <div class="dash-content-section" id="games">
+        <h2 class="content-heading">Games</h2>
+        {{ if .Params.games }}
+        <div class="resource-list">{{ range .Params.games }}
+          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">🎮</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+        {{ end }}</div>
+        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Games will appear here as they are added.</p></div>{{ end }}
+      </div>
+
+      <div class="dash-content-section" id="videos">
+        <h2 class="content-heading">Videos</h2>
+        {{ if .Params.videos }}
+        <div class="resource-list">{{ range .Params.videos }}
+          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">🎬</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+        {{ end }}</div>
+        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Videos will appear here as they are added.</p></div>{{ end }}
+      </div>
+
+      <div class="dash-content-section" id="toolkit">
+        <h2 class="content-heading">Maths Toolkit</h2>
+        {{ if .Params.toolkit }}
+        <div class="resource-list">{{ range .Params.toolkit }}
+          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">{{ .icon | default "🔗" }}</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+        {{ end }}</div>
+        {{ else }}<div class="empty-state"><span class="empty-icon">🧰</span><p>Toolkit links will appear here.</p></div>{{ end }}
+      </div>
+
+    </div>
+  </div>
 </div>
+
+<script>
+function showSection(btn, sectionId) {
+  document.querySelectorAll('.sidebar-item').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.dash-content-section').forEach(function(s) { s.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById(sectionId).classList.add('active');
+}
+</script>
 {{ end }}

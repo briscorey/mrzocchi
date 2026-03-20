@@ -427,81 +427,142 @@ body {
 }
 
 /* ============================================
-   STUDENT DASHBOARD STYLES
+   SIDEBAR DASHBOARD STYLES
    ============================================ */
 
-.dashboard {
-  max-width: 840px;
-  margin: 0 auto;
-  padding: var(--space-lg) var(--space-lg) var(--space-2xl);
-}
-
-/* ── Header ── */
-
-.dash-header {
-  margin-bottom: var(--space-xl);
-}
-
-.dash-title-row {
+.dash-page {
+  min-height: 100vh;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-md);
+  flex-direction: column;
 }
 
-.dash-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  font-weight: 600;
-  color: var(--navy);
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-xs);
-}
+/* ── Top Bar ── */
 
-.dash-subtitle {
-  color: var(--gray-400);
-  font-size: 1rem;
-}
-
-.dash-grade-badge {
-  flex-shrink: 0;
-  display: inline-flex;
+.dash-topbar {
+  background: var(--navy);
+  border-bottom: 3px solid var(--grade-color);
+  padding: var(--space-sm) var(--space-lg);
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: var(--grade-color);
+  justify-content: space-between;
+}
+
+.dash-topbar-home {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.dash-topbar-home:hover {
+  color: var(--white);
+}
+
+.dash-topbar-title {
   color: var(--white);
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight: 600;
+  font-size: 1.15rem;
   letter-spacing: -0.02em;
 }
 
-/* ── Sections ── */
+/* ── Layout: Sidebar + Content ── */
 
-.dash-section {
-  margin-bottom: var(--space-xl);
+.dash-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  flex-grow: 1;
 }
 
-.dash-section-title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--gray-800);
-  margin-bottom: var(--space-md);
+/* ── Sidebar ── */
+
+.dash-sidebar {
+  background: var(--white);
+  border-right: 1px solid var(--gray-200);
+  padding: var(--space-md) var(--space-sm);
+  position: sticky;
+  top: 0;
+  height: fit-content;
+  max-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-item {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  letter-spacing: -0.01em;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: none;
+  background: none;
+  color: var(--gray-600);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  width: 100%;
 }
 
-.dash-section-icon {
+.sidebar-item:hover {
+  background: var(--gray-100);
+  color: var(--gray-800);
+}
+
+.sidebar-item.active {
+  background: color-mix(in srgb, var(--grade-color) 10%, transparent);
+  color: var(--grade-color);
+  font-weight: 600;
+}
+
+.sidebar-icon {
   font-size: 1.1rem;
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
 }
 
-/* ── Current Unit Card ── */
+/* ── Main Content ── */
+
+.dash-main {
+  padding: var(--space-lg) var(--space-xl);
+  max-width: 780px;
+}
+
+.dash-content-section {
+  display: none;
+}
+
+.dash-content-section.active {
+  display: block;
+}
+
+.content-heading {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.content-subheading {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Unit Card ── */
 
 .unit-card {
   background: var(--white);
@@ -551,7 +612,7 @@ body {
 
 .unit-name {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: var(--navy);
   margin-bottom: var(--space-xs);
@@ -560,18 +621,18 @@ body {
 
 .unit-description {
   color: var(--gray-600);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.65;
   margin-bottom: var(--space-sm);
 }
 
-.unit-concept {
-  font-size: 0.88rem;
+.unit-detail {
+  font-size: 0.86rem;
   color: var(--gray-600);
   margin-bottom: 4px;
 }
 
-.unit-concept strong {
+.unit-detail strong {
   color: var(--gray-800);
 }
 
@@ -580,112 +641,61 @@ body {
   padding: var(--space-sm) var(--space-md);
   background: var(--gray-100);
   border-radius: 10px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--gray-600);
   line-height: 1.6;
   border-left: 3px solid var(--grade-color);
 }
 
-/* ── Resource Grid ── */
+/* ── Resource List ── */
 
-.resource-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: var(--space-sm);
+.resource-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.resource-card {
+.resource-row {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
+  padding: 12px 16px;
   background: var(--white);
   border: 1.5px solid var(--gray-200);
   border-radius: 12px;
   text-decoration: none;
   color: var(--gray-800);
+  font-weight: 500;
+  font-size: 0.92rem;
   transition: all 0.2s ease;
 }
 
-.resource-card:hover {
+.resource-row:hover {
   border-color: var(--grade-color);
-  box-shadow: 0 4px 16px rgba(27, 42, 74, 0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 3px 12px rgba(27, 42, 74, 0.08);
+  transform: translateY(-1px);
 }
 
-.resource-icon {
-  font-size: 1.4rem;
+.resource-row-icon {
+  font-size: 1.2rem;
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--gray-100);
-  border-radius: 10px;
+  border-radius: 9px;
 }
 
-.resource-info {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+.resource-row-name {
+  flex-grow: 1;
 }
 
-.resource-name {
-  font-weight: 500;
-  font-size: 0.92rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.resource-type {
-  font-size: 0.78rem;
-  color: var(--gray-400);
-  text-transform: capitalize;
-}
-
-.resource-external {
-  margin-left: auto;
+.resource-row-arrow {
   color: var(--gray-400);
   font-size: 0.85rem;
   flex-shrink: 0;
-}
-
-/* ── Maths Toolkit ── */
-
-.toolkit-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-}
-
-.toolkit-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: var(--white);
-  border: 1.5px solid var(--gray-200);
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--gray-800);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.toolkit-item:hover {
-  border-color: var(--grade-color);
-  background: color-mix(in srgb, var(--grade-color) 6%, var(--white));
-}
-
-.toolkit-icon {
-  font-size: 1.1rem;
-}
-
-.toolkit-name {
-  font-size: 0.88rem;
 }
 
 /* ── Past Units ── */
@@ -741,20 +751,32 @@ body {
 /* ── Dashboard Responsive ── */
 
 @media (max-width: 768px) {
-  .dashboard {
-    padding: var(--space-md) var(--space-md) var(--space-xl);
-  }
-
-  .resource-grid {
+  .dash-layout {
     grid-template-columns: 1fr;
   }
 
-  .dash-title-row {
-    flex-direction: column-reverse;
-    gap: var(--space-sm);
+  .dash-sidebar {
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-sm);
+    max-height: none;
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .dash-grade-badge {
-    align-self: flex-start;
+  .sidebar-item {
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .dash-main {
+    padding: var(--space-md);
+  }
+
+  .dash-topbar {
+    padding: var(--space-sm) var(--space-md);
   }
 }

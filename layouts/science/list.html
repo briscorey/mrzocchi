@@ -1,0 +1,112 @@
+{{ define "main" }}
+{{ $grade := .Params.grade }}
+{{ $gradeColor := "var(--teal)" }}
+{{ if eq $grade "7" }}{{ $gradeColor = "var(--red)" }}{{ end }}
+{{ if eq $grade "8" }}{{ $gradeColor = "var(--navy)" }}{{ end }}
+
+<div class="dashboard" style="{{ printf "--grade-color: %s;" $gradeColor | safeCSS }}">
+
+  {{/* ── Breadcrumb + Title ── */}}
+  <div class="dash-header">
+    <div class="breadcrumb">
+      <a href="/">Home</a> › {{ .Title }}
+    </div>
+    <div class="dash-title-row">
+      <div>
+        <h1 class="dash-title">🔬 {{ .Title }}</h1>
+        <p class="dash-subtitle">{{ .Params.subtitle | default "Welcome to your Science dashboard." }}</p>
+      </div>
+      <span class="dash-grade-badge">G{{ $grade }}</span>
+    </div>
+  </div>
+
+  {{/* ── Current Unit ── */}}
+  <section class="dash-section">
+    <h2 class="dash-section-title">
+      <span class="dash-section-icon">📍</span>
+      Current Unit
+    </h2>
+    <div class="unit-card">
+      <div class="unit-card-accent"></div>
+      <div class="unit-card-body">
+        <div class="unit-meta">
+          {{ with .Params.unit_tag }}<span class="unit-tag">{{ . }}</span>{{ end }}
+          {{ with .Params.unit_dates }}<span class="unit-dates">{{ . }}</span>{{ end }}
+        </div>
+        <h3 class="unit-name">{{ .Params.unit_name | default "Unit information coming soon" }}</h3>
+        <p class="unit-description">{{ .Params.unit_description | default "" }}</p>
+        {{ with .Params.key_concept }}
+        <div class="unit-concept">
+          <strong>Key Concept:</strong> {{ . }}
+        </div>
+        {{ end }}
+        {{ with .Params.global_context }}
+        <div class="unit-concept">
+          <strong>Global Context:</strong> {{ . }}
+        </div>
+        {{ end }}
+        {{ with .Params.statement_of_inquiry }}
+        <div class="unit-soi">
+          <em>"{{ . }}"</em>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  {{/* ── Resources ── */}}
+  <section class="dash-section">
+    <h2 class="dash-section-title">
+      <span class="dash-section-icon">📂</span>
+      Resources
+    </h2>
+    {{ if .Params.resources }}
+    <div class="resource-grid">
+      {{ range .Params.resources }}
+      <a href="{{ .url }}" class="resource-card" target="{{ if .external }}_blank{{ else }}_self{{ end }}">
+        <span class="resource-icon">
+          {{ if eq .type "slides" }}📊
+          {{ else if eq .type "worksheet" }}📝
+          {{ else if eq .type "video" }}🎬
+          {{ else if eq .type "game" }}🎮
+          {{ else if eq .type "reading" }}📖
+          {{ else if eq .type "lab" }}🧪
+          {{ else }}📎
+          {{ end }}
+        </span>
+        <div class="resource-info">
+          <span class="resource-name">{{ .name }}</span>
+          <span class="resource-type">{{ .type | humanize }}</span>
+        </div>
+        {{ if .external }}<span class="resource-external">↗</span>{{ end }}
+      </a>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="empty-state">
+      <span class="empty-icon">📭</span>
+      <p>Resources will appear here as they are added throughout the unit.</p>
+    </div>
+    {{ end }}
+  </section>
+
+  {{/* ── Past Units ── */}}
+  {{ with .Params.past_units }}
+  <section class="dash-section">
+    <h2 class="dash-section-title">
+      <span class="dash-section-icon">📚</span>
+      Past Units
+    </h2>
+    <div class="past-units">
+      {{ range . }}
+      <div class="past-unit">
+        <span class="past-unit-name">{{ .name }}</span>
+        <span class="past-unit-term">{{ .term }}</span>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+</div>
+{{ end }}

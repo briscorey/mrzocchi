@@ -425,3 +425,336 @@ body {
     transform: translateY(0);
   }
 }
+
+/* ============================================
+   STUDENT DASHBOARD STYLES
+   ============================================ */
+
+.dashboard {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-lg) var(--space-2xl);
+}
+
+/* ── Header ── */
+
+.dash-header {
+  margin-bottom: var(--space-xl);
+}
+
+.dash-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.dash-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-xs);
+}
+
+.dash-subtitle {
+  color: var(--gray-400);
+  font-size: 1rem;
+}
+
+.dash-grade-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--grade-color);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+/* ── Sections ── */
+
+.dash-section {
+  margin-bottom: var(--space-xl);
+}
+
+.dash-section-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  letter-spacing: -0.01em;
+}
+
+.dash-section-icon {
+  font-size: 1.1rem;
+}
+
+/* ── Current Unit Card ── */
+
+.unit-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  box-shadow:
+    0 1px 3px rgba(27, 42, 74, 0.05),
+    0 6px 24px rgba(27, 42, 74, 0.07);
+}
+
+.unit-card-accent {
+  width: 5px;
+  flex-shrink: 0;
+  background: var(--grade-color);
+}
+
+.unit-card-body {
+  padding: var(--space-lg);
+  flex-grow: 1;
+}
+
+.unit-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.unit-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--grade-color) 12%, transparent);
+  color: var(--grade-color);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.unit-dates {
+  font-size: 0.82rem;
+  color: var(--gray-400);
+}
+
+.unit-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: var(--space-xs);
+  letter-spacing: -0.02em;
+}
+
+.unit-description {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: var(--space-sm);
+}
+
+.unit-concept {
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  margin-bottom: 4px;
+}
+
+.unit-concept strong {
+  color: var(--gray-800);
+}
+
+.unit-soi {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--gray-100);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  border-left: 3px solid var(--grade-color);
+}
+
+/* ── Resource Grid ── */
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-sm);
+}
+
+.resource-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--gray-800);
+  transition: all 0.2s ease;
+}
+
+.resource-card:hover {
+  border-color: var(--grade-color);
+  box-shadow: 0 4px 16px rgba(27, 42, 74, 0.08);
+  transform: translateY(-2px);
+}
+
+.resource-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  border-radius: 10px;
+}
+
+.resource-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.resource-name {
+  font-weight: 500;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resource-type {
+  font-size: 0.78rem;
+  color: var(--gray-400);
+  text-transform: capitalize;
+}
+
+.resource-external {
+  margin-left: auto;
+  color: var(--gray-400);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ── Maths Toolkit ── */
+
+.toolkit-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.toolkit-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--gray-800);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.toolkit-item:hover {
+  border-color: var(--grade-color);
+  background: color-mix(in srgb, var(--grade-color) 6%, var(--white));
+}
+
+.toolkit-icon {
+  font-size: 1.1rem;
+}
+
+.toolkit-name {
+  font-size: 0.88rem;
+}
+
+/* ── Past Units ── */
+
+.past-units {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.past-unit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--white);
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+}
+
+.past-unit-name {
+  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--gray-800);
+}
+
+.past-unit-term {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+
+/* ── Empty State ── */
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 2px dashed var(--gray-200);
+}
+
+.empty-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.empty-state p {
+  color: var(--gray-400);
+  font-size: 0.92rem;
+}
+
+/* ── Dashboard Responsive ── */
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: var(--space-md) var(--space-md) var(--space-xl);
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-title-row {
+    flex-direction: column-reverse;
+    gap: var(--space-sm);
+  }
+
+  .dash-grade-badge {
+    align-self: flex-start;
+  }
+}

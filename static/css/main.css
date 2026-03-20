@@ -224,12 +224,16 @@ body {
 .home-card-8 .home-subject-btn:hover { background: var(--navy-light); color: var(--white); border-top-color: var(--navy-light); }
 
 @media (max-width: 768px) {
+  .home-fullpage {
+    padding: var(--space-md);
+  }
   .home-grid {
     grid-template-columns: 1fr;
-    max-width: 400px;
+    gap: var(--space-md);
   }
-  .home-card { min-height: 220px; }
+  .home-card { min-height: 180px; }
   .home-card-number { font-size: 4rem; }
+  .home-card-label { font-size: 0.9rem; }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -440,7 +444,7 @@ body {
 }
 
 .sidebar-item.active {
-  background: color-mix(in srgb, var(--grade-color) 10%, transparent);
+  background: rgba(42, 157, 143, 0.1);
   color: var(--grade-color);
   font-weight: 600;
 }
@@ -522,7 +526,7 @@ body {
   display: inline-block;
   padding: 3px 10px;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--grade-color) 12%, transparent);
+  background: rgba(42, 157, 143, 0.12);
   color: var(--grade-color);
   font-size: 0.78rem;
   font-weight: 600;

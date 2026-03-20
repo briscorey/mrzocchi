@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="page-content">
+  <div class="breadcrumb">
+    <a href="/">Home</a> ›
+    {{ with .Parent }}<a href="{{ .RelPermalink }}">{{ .Title }}</a> › {{ end }}
+    {{ .Title }}
+  </div>
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{ range .Pages }}
+  <div style="margin-bottom: 1rem;">
+    <a href="{{ .RelPermalink }}" style="color: var(--teal); font-weight: 500;">{{ .Title }}</a>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

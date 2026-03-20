@@ -1,0 +1,7 @@
+baseURL = "https://mrzocchi.com/"
+languageCode = "en"
+title = "Mr Zocchi | Maths & Science"
+
+[params]
+  description = "Mr Zocchi's MYP Mathematics and Science classes at Nanjing International School"
+  author = "Corey Zocchi"

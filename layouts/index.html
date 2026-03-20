@@ -1,58 +1,41 @@
 {{ define "main" }}
-<section class="hero">
-  <img src="/images/logo.png" alt="Mr Zocchi Learning" class="hero-logo">
-  <h2>Welcome to Mr Zocchi's Classroom</h2>
-  <p>Find your grade below to get started with Maths and Science resources, activities, and class information.</p>
-</section>
+<div class="home-fullpage">
 
-<section class="grade-grid">
+  <div class="home-grid">
 
-  <div class="grade-card grade-6 fade-up">
-    <div class="grade-card-header">
-      <div class="grade-number">6</div>
-      <div class="grade-label">Grade Six</div>
+    <div class="home-card home-card-6 fade-up">
+      <div class="home-card-inner">
+        <div class="home-card-number">6</div>
+        <div class="home-card-label">Grade Six</div>
+      </div>
+      <div class="home-card-subjects">
+        <a href="/grade-6/maths/" class="home-subject-btn">📐 Maths</a>
+        <a href="/grade-6/science/" class="home-subject-btn">🔬 Science</a>
+      </div>
     </div>
-    <div class="subject-links">
-      <a href="/grade-6/maths/" class="subject-link">
-        <span class="icon">📐</span>
-        Mathematics
-      </a>
-      <a href="/grade-6/science/" class="subject-link">
-        <span class="icon">🔬</span>
-        Science
-      </a>
+
+    <div class="home-card home-card-7 fade-up">
+      <div class="home-card-inner">
+        <div class="home-card-number">7</div>
+        <div class="home-card-label">Grade Seven</div>
+      </div>
+      <div class="home-card-subjects">
+        <a href="/grade-7/maths/" class="home-subject-btn">📐 Maths</a>
+        <a href="/grade-7/science/" class="home-subject-btn">🔬 Science</a>
+      </div>
     </div>
+
+    <div class="home-card home-card-8 fade-up">
+      <div class="home-card-inner">
+        <div class="home-card-number">8</div>
+        <div class="home-card-label">Grade Eight</div>
+      </div>
+      <div class="home-card-subjects">
+        <a href="/grade-8/science/" class="home-subject-btn">🔬 Science</a>
+      </div>
+    </div>
+
   </div>
 
-  <div class="grade-card grade-7 fade-up">
-    <div class="grade-card-header">
-      <div class="grade-number">7</div>
-      <div class="grade-label">Grade Seven</div>
-    </div>
-    <div class="subject-links">
-      <a href="/grade-7/maths/" class="subject-link">
-        <span class="icon">📐</span>
-        Mathematics
-      </a>
-      <a href="/grade-7/science/" class="subject-link">
-        <span class="icon">🔬</span>
-        Science
-      </a>
-    </div>
-  </div>
-
-  <div class="grade-card grade-8 fade-up">
-    <div class="grade-card-header">
-      <div class="grade-number">8</div>
-      <div class="grade-label">Grade Eight</div>
-    </div>
-    <div class="subject-links">
-      <a href="/grade-8/science/" class="subject-link">
-        <span class="icon">🔬</span>
-        Science
-      </a>
-    </div>
-  </div>
-
-</section>
+</div>
 {{ end }}

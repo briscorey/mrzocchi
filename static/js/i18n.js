@@ -26,6 +26,8 @@
     "sidebar.quiz": { zh: "自测", ko: "자기 테스트" },
     "sidebar.toolkit": { zh: "数学工具", ko: "수학 도구" },
     "sidebar.labs": { zh: "实验", ko: "실험" },
+    "sidebar.criteria": { zh: "评估标准", ko: "평가 기준" },
+    "heading.criteria": { zh: "评估标准", ko: "평가 기준" },
 
     /* ── Dashboard Section Headings ── */
     "heading.outline": { zh: "单元概要", ko: "단원 개요" },

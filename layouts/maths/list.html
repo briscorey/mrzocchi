@@ -26,6 +26,11 @@
       <button class="sidebar-item active" onclick="showSection(this, 'unit-outline')">
         <span class="sidebar-icon">📋</span><span data-i18n="sidebar.outline">Unit Outline</span>
       </button>
+      {{ if .Params.criteria }}
+      <button class="sidebar-item" onclick="showSection(this, 'criteria')">
+        <span class="sidebar-icon">📊</span><span data-i18n="sidebar.criteria">Criteria</span>
+      </button>
+      {{ end }}
       <button class="sidebar-item" onclick="showSection(this, 'powerpoints')">
         <span class="sidebar-icon">📊</span><span data-i18n="sidebar.ppts">Powerpoints</span>
       </button>
@@ -86,6 +91,8 @@
         </div>
         {{ end }}
       </div>
+
+      {{ partial "criteria.html" . }}
 
       <div class="dash-content-section" id="powerpoints">
         <h2 class="content-heading" data-i18n="heading.ppts">Powerpoints</h2>

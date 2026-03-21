@@ -50,7 +50,11 @@ worksheets:
     url: "/feedback/"
 
 games:
-  - name: "Earth Science Review Game"
+  - name: "🌍 Earth Science Review"
+    url: "/games/review/g6-earth-science.html"
+    embed: true
+    questions: 15
+  - name: "Earth Science Review (LearnLattice)"
     url: "https://learnlattice.org/games/revision/earth-science-g6/"
 
 videos:

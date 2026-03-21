@@ -48,6 +48,12 @@ worksheets:
   - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
     url: "/feedback/"
 
+games:
+  - name: "🌿 Ecology Review"
+    url: "/games/review/g8-ecology.html"
+    embed: true
+    questions: 15
+
 videos:
   - name: "🎬 How Do Ecosystems Work? — Energy Flow (TED-Ed)"
     url: "https://ed.ted.com/lessons/a-guide-to-the-energy-of-the-earth-joshua-m-sneideman"

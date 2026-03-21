@@ -45,6 +45,12 @@ worksheets:
   - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
     url: "/feedback/"
 
+games:
+  - name: "🔤 Algebra Review"
+    url: "/games/review/g7-algebra.html"
+    embed: true
+    questions: 14
+
 videos:
   - name: "🎬 Why Algebra Matters (TED-Ed)"
     url: "https://www.youtube.com/watch?v=YX_OxBfsvbk"

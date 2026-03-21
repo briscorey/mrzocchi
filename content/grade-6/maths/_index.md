@@ -49,6 +49,12 @@ worksheets:
   - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
     url: "/feedback/"
 
+games:
+  - name: "📐 Geometry Review"
+    url: "/games/review/g6-geometry.html"
+    embed: true
+    questions: 14
+
 videos:
   - name: "🎬 How to Find the Area of a Circle (TED-Ed)"
     url: "https://www.youtube.com/watch?v=YokKp3pwVFc"

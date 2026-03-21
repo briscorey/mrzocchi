@@ -106,11 +106,29 @@
       </div>
 
       <div class="dash-content-section" id="games">
-        <h2 class="content-heading">Games</h2>
+        <h2 class="content-heading">Review Games</h2>
         {{ if .Params.games }}
-        <div class="resource-list">{{ range .Params.games }}
+        <div class="games-list">
+          {{ range .Params.games }}
+          {{ if .embed }}
+          <div class="game-embed-card">
+            <div class="game-embed-header">
+              <div>
+                <h3 class="game-embed-title">{{ .name }}</h3>
+                <span class="game-embed-meta">{{ .questions }} questions · Multiple choice · Shuffled each time</span>
+              </div>
+              <div class="game-embed-actions">
+                <button class="game-embed-btn game-embed-play" onclick="toggleGame(this, '{{ .url }}')"><span>▶</span> Play Here</button>
+                <a href="{{ .url }}" target="_blank" class="game-embed-btn game-embed-new-tab">↗ New Tab</a>
+              </div>
+            </div>
+            <div class="game-embed-frame" style="display:none;"><div class="game-embed-placeholder"></div></div>
+          </div>
+          {{ else }}
           <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">🎮</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
-        {{ end }}</div>
+          {{ end }}
+          {{ end }}
+        </div>
         {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Games will appear here as they are added.</p></div>{{ end }}
       </div>
 
@@ -169,6 +187,21 @@ function showSection(btn, id) {
   document.querySelectorAll('.dash-content-section').forEach(function(s) { s.classList.remove('active'); });
   btn.classList.add('active');
   document.getElementById(id).classList.add('active');
+}
+function toggleGame(btn, url) {
+  var card = btn.closest('.game-embed-card');
+  var frame = card.querySelector('.game-embed-frame');
+  if (frame.style.display === 'none') {
+    frame.style.display = 'block';
+    frame.querySelector('.game-embed-placeholder').innerHTML = '<iframe src="' + url + '" class="game-iframe" allowfullscreen></iframe>';
+    btn.innerHTML = '<span>⏹</span> Close Game';
+    btn.classList.add('game-embed-active');
+  } else {
+    frame.style.display = 'none';
+    frame.querySelector('.game-embed-placeholder').innerHTML = '';
+    btn.innerHTML = '<span>▶</span> Play Here';
+    btn.classList.remove('game-embed-active');
+  }
 }
 </script>
 {{ end }}

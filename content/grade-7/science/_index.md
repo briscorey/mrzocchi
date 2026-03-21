@@ -45,7 +45,11 @@ worksheets:
     url: "/feedback/"
 
 games:
-  - name: "Forces & Motion Review Game"
+  - name: "💪 Forces & Motion Review"
+    url: "/games/review/g7-forces.html"
+    embed: true
+    questions: 15
+  - name: "Forces & Motion Review (LearnLattice)"
     url: "https://learnlattice.org/games/revision/forces-g7/"
 
 videos:

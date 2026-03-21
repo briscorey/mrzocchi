@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🔤 Grade 7 Algebra Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grade: #C8372D;
+  --navy: #1B2A4A;
+  --cream: #FAF8F5;
+  --white: #FFFFFF;
+  --gray-100: #F3F1EE;
+  --gray-200: #E5E2DC;
+  --gray-400: #9B9690;
+  --gray-600: #6B6660;
+  --gray-800: #3D3A36;
+  --gold: #E9C46A;
+  --green: #10B981;
+  --red: #EF4444;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--gray-800); min-height:100vh; padding:20px; }
+
+.game-wrap { max-width:680px; margin:0 auto; }
+
+/* Header */
+.game-header { text-align:center; margin-bottom:20px; }
+.game-title { font-family:'Fraunces',serif; font-size:1.4rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.game-subtitle { font-size:0.82rem; color:var(--gray-400); }
+
+/* Progress */
+.progress-wrap { margin-bottom:20px; }
+.progress-bar { height:8px; background:var(--gray-200); border-radius:4px; overflow:hidden; margin-bottom:6px; }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--grade), var(--gold)); border-radius:4px; transition:width 0.5s cubic-bezier(0.22,1,0.36,1); width:0%; }
+.progress-text { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--gray-400); }
+.score-display { font-weight:700; }
+.score-display .correct { color:var(--green); }
+.score-display .wrong { color:var(--red); }
+
+/* Question card */
+.q-card {
+  background:var(--white); border-radius:18px; padding:28px;
+  border:1.5px solid var(--gray-200); box-shadow:0 1px 4px rgba(27,42,74,0.04);
+  margin-bottom:16px; animation:fadeIn 0.35s ease;
+}
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.q-num { font-family:'Fraunces',serif; font-size:0.72rem; font-weight:700; color:var(--grade); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; }
+.q-text { font-family:'Fraunces',serif; font-size:1.12rem; font-weight:600; color:var(--navy); line-height:1.5; margin-bottom:20px; }
+
+/* Options */
+.options { display:flex; flex-direction:column; gap:10px; }
+.opt-btn {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 18px; border-radius:14px;
+  border:1.5px solid var(--gray-200); background:var(--white);
+  font-family:'DM Sans',sans-serif; font-size:0.92rem;
+  color:var(--gray-800); cursor:pointer; transition:all 0.2s;
+  text-align:left; width:100%;
+}
+.opt-btn:hover:not(.locked) { border-color:var(--grade); background:rgba(42,157,143,0.04); transform:translateX(4px); }
+.opt-letter {
+  width:30px; height:30px; border-radius:10px;
+  background:var(--gray-100); display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:0.82rem; color:var(--gray-600); flex-shrink:0;
+  transition:all 0.2s;
+}
+.opt-btn:hover:not(.locked) .opt-letter { background:var(--grade); color:white; }
+.opt-btn.correct { border-color:var(--green); background:#ECFDF5; }
+.opt-btn.correct .opt-letter { background:var(--green); color:white; }
+.opt-btn.wrong { border-color:var(--red); background:#FEF2F2; }
+.opt-btn.wrong .opt-letter { background:var(--red); color:white; }
+.opt-btn.dimmed { opacity:0.4; }
+
+/* Feedback */
+.feedback {
+  margin-top:16px; padding:14px 18px; border-radius:12px;
+  font-size:0.88rem; line-height:1.6;
+  animation:fadeIn 0.3s ease;
+}
+.feedback.correct { background:#ECFDF5; border-left:4px solid var(--green); color:#065F46; }
+.feedback.wrong { background:#FEF2F2; border-left:4px solid var(--red); color:#991B1B; }
+.feedback strong { display:block; margin-bottom:2px; }
+
+/* Next button */
+.next-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:16px; padding:12px 28px; border-radius:12px;
+  background:var(--navy); color:var(--gold); border:none;
+  font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:600;
+  cursor:pointer; transition:all 0.25s;
+  box-shadow:0 2px 8px rgba(27,42,74,0.15);
+}
+.next-btn:hover { background:#243660; transform:translateY(-2px); box-shadow:0 4px 16px rgba(27,42,74,0.25); }
+
+/* Summary */
+.summary {
+  background:var(--white); border-radius:20px; padding:36px;
+  border:2px solid var(--grade); text-align:center;
+  box-shadow:0 4px 20px rgba(27,42,74,0.08);
+  animation:fadeIn 0.5s ease;
+}
+.summary-emoji { font-size:3.5rem; margin-bottom:12px; }
+.summary h2 { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.summary .score-big { font-family:'Fraunces',serif; font-size:2.5rem; font-weight:700; color:var(--grade); margin-bottom:8px; }
+.summary p { color:var(--gray-600); font-size:0.94rem; line-height:1.7; margin-bottom:16px; }
+.retry-btn {
+  padding:14px 32px; border-radius:12px;
+  background:var(--navy); color:var(--gold); border:none;
+  font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+}
+.retry-btn:hover { background:#243660; }
+
+@media (max-width:600px) {
+  body { padding:12px; }
+  .q-card { padding:20px; }
+  .q-text { font-size:1rem; }
+  .opt-btn { padding:12px 14px; font-size:0.88rem; }
+  .summary { padding:24px; }
+}
+</style>
+</head>
+<body>
+<div class="game-wrap">
+  <div class="game-header">
+    <div class="game-title">🔤 Grade 7 Algebra Review</div>
+    <div class="game-subtitle">Test your knowledge — pick the best answer</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
+    <div class="progress-text">
+      <span id="pText">Question 1 of 14</span>
+      <span class="score-display"><span class="correct" id="sCorrect">0</span> ✓ &nbsp; <span class="wrong" id="sWrong">0</span> ✗</span>
+    </div>
+  </div>
+  <div id="gameArea"></div>
+</div>
+<script>
+var Q = [{"question": "In the expression 7x + 4, what is the coefficient?", "options": ["x", "4", "7", "7x"], "answer": "7", "explain": "The coefficient is the number in front of the variable. In 7x, the coefficient is 7."}, {"question": "What is a constant?", "options": ["A letter representing a number", "A number that changes", "A number with no variable attached", "The answer to an equation"], "answer": "A number with no variable attached", "explain": "In 3x + 5, the constant is 5 \u2014 it has no variable and doesn't change."}, {"question": "Simplify: 5x + 3 + 2x - 1", "options": ["7x + 2", "7x + 4", "10x", "3x + 2"], "answer": "7x + 2", "explain": "Collect like terms: 5x + 2x = 7x and 3 - 1 = 2. Answer: 7x + 2."}, {"question": "Why can't you simplify 4x + 3 to 7x?", "options": ["You can \u2014 it equals 7x", "4x and 3 are not like terms", "x has to be bigger than 3", "You need to subtract instead"], "answer": "4x and 3 are not like terms", "explain": "4x has a variable, 3 doesn't. You can only combine terms with the same variable (like terms)."}, {"question": "Solve: 3x + 5 = 20", "options": ["x = 5", "x = 7", "x = 3", "x = 8"], "answer": "x = 5", "explain": "Step 1: 3x = 15 (subtract 5). Step 2: x = 5 (divide by 3). Check: 3(5)+5 = 20 \u2713"}, {"question": "Solve: 2x - 4 = 10", "options": ["x = 3", "x = 7", "x = 5", "x = 14"], "answer": "x = 7", "explain": "Step 1: 2x = 14 (add 4). Step 2: x = 7 (divide by 2). Check: 2(7)-4 = 10 \u2713"}, {"question": "What is the inverse operation of multiplication?", "options": ["Addition", "Subtraction", "Division", "Squaring"], "answer": "Division", "explain": "Inverse means opposite. Multiply \u2194 Divide. Add \u2194 Subtract. Use these to isolate the variable."}, {"question": "Outputs: 4, 7, 10, 13... What is the common difference?", "options": ["2", "3", "4", "7"], "answer": "3", "explain": "7-4=3, 10-7=3, 13-10=3. The common difference is 3 (output increases by 3 each time)."}, {"question": "For the pattern 4, 7, 10, 13... the rule is:", "options": ["3n + 1", "3n + 4", "4n + 3", "n + 3"], "answer": "3n + 1", "explain": "Common difference = 3 (so it's 3n + something). When n=1: 3(1)+?=4, so ?=1. Rule: 3n + 1."}, {"question": "If a = 3 and b = 5, find 2a + b.", "options": ["10", "11", "16", "8"], "answer": "11", "explain": "Substitute: 2(3) + 5 = 6 + 5 = 11."}, {"question": "If x = 4, find x\u00b2 + 3.", "options": ["11", "19", "7", "15"], "answer": "19", "explain": "x\u00b2 + 3 = 4\u00b2 + 3 = 16 + 3 = 19. Remember: square first (BIDMAS), then add."}, {"question": "What does BIDMAS tell us?", "options": ["How to spell maths words", "The order of operations", "How to draw graphs", "How to measure angles"], "answer": "The order of operations", "explain": "Brackets, Indices, Division/Multiplication, Addition/Subtraction \u2014 always follow this order."}, {"question": "Calculate: 3 + 4 \u00d7 2", "options": ["14", "11", "10", "7"], "answer": "11", "explain": "BIDMAS: multiplication before addition. 4 \u00d7 2 = 8, then 3 + 8 = 11 (not 14!)."}, {"question": "The balance method means:", "options": ["Keep the equation balanced on one side", "Whatever you do to one side, do to the other", "Guess and check", "Only use addition"], "answer": "Whatever you do to one side, do to the other", "explain": "To keep the equation true, any operation applied to one side MUST be done to the other side too."}];
+var idx=0, score=0, wrong=0, total=Q.length;
+
+function shuffle(a) { for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+Q = shuffle(Q);
+
+function render() {
+  if(idx >= total) { showSummary(); return; }
+  var q = Q[idx];
+  var opts = shuffle([...q.options]);
+  var letters = ['A','B','C','D'];
+  var h = '<div class="q-card"><div class="q-num">Question '+(idx+1)+' of '+total+'</div>';
+  h += '<div class="q-text">'+q.question+'</div><div class="options">';
+  opts.forEach(function(o,i) {
+    h += '<button class="opt-btn" data-val="'+o.replace(/"/g,'&quot;')+'" onclick="pick(this)">';
+    h += '<span class="opt-letter">'+letters[i]+'</span><span>'+o+'</span></button>';
+  });
+  h += '</div><div id="fb"></div></div>';
+  document.getElementById('gameArea').innerHTML = h;
+  document.getElementById('pFill').style.width = Math.round((idx/total)*100)+'%';
+  document.getElementById('pText').textContent = 'Question '+(idx+1)+' of '+total;
+}
+
+function pick(btn) {
+  if(btn.classList.contains('locked')) return;
+  var btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(function(b){ b.classList.add('locked'); });
+  
+  var val = btn.dataset.val;
+  var q = Q[idx];
+  var isCorrect = (val === q.answer);
+  
+  btns.forEach(function(b) {
+    if(b.dataset.val === q.answer) b.classList.add('correct');
+    else if(b === btn && !isCorrect) b.classList.add('wrong');
+    else b.classList.add('dimmed');
+  });
+  
+  if(isCorrect) { score++; document.getElementById('sCorrect').textContent = score; }
+  else { wrong++; document.getElementById('sWrong').textContent = wrong; }
+  
+  var fb = document.getElementById('fb');
+  fb.innerHTML = '<div class="feedback '+(isCorrect?'correct':'wrong')+'">' +
+    '<strong>'+(isCorrect?'✅ Correct!':'❌ Not quite')+'</strong>' +
+    q.explain + '</div>' +
+    '<button class="next-btn" onclick="next()">'+(idx<total-1?'Next Question →':'See Results →')+'</button>';
+}
+
+function next() { idx++; render(); }
+
+function showSummary() {
+  var pct = Math.round((score/total)*100);
+  var emoji = pct>=90?'🌟':pct>=70?'🎉':pct>=50?'💪':'📚';
+  var msg = pct>=90?'Outstanding! You really know this material.':
+            pct>=70?'Great work! Review the ones you missed.':
+            pct>=50?'Good start — keep practising the tricky ones.':
+            'Time to revise! Use the glossary and worksheets, then try again.';
+  document.getElementById('pFill').style.width = '100%';
+  document.getElementById('pText').textContent = 'Complete!';
+  document.getElementById('gameArea').innerHTML =
+    '<div class="summary"><div class="summary-emoji">'+emoji+'</div>' +
+    '<h2>Quiz Complete!</h2>' +
+    '<div class="score-big">'+score+' / '+total+'</div>' +
+    '<p>'+pct+'% correct. '+msg+'</p>' +
+    '<button class="retry-btn" onclick="retry()">↻ Play Again</button></div>';
+}
+
+function retry() { idx=0; score=0; wrong=0; Q=shuffle(Q);
+  document.getElementById('sCorrect').textContent='0';
+  document.getElementById('sWrong').textContent='0';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

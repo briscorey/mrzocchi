@@ -16,6 +16,18 @@ past_units:
   - name: "Atoms & The Periodic Table"
     term: "Term 1"
 
+powerpoints:
+  - name: "Types of Forces"
+    url: "/ppts/G7_Sci_Types_of_Forces.pptx"
+  - name: "Balanced & Unbalanced Forces"
+    url: "/ppts/G7_Sci_Balanced_Unbalanced.pptx"
+  - name: "Friction & Air Resistance"
+    url: "/ppts/G7_Sci_Friction_Air_Resistance.pptx"
+  - name: "Newton's Laws of Motion"
+    url: "/ppts/G7_Sci_Newtons_Laws.pptx"
+  - name: "📚 Full Revision (all topics)"
+    url: "/ppts/G7_Sci_Full_Revision.pptx"
+
 worksheets:
   - name: "📖 Revision Booklet (Study Guide)"
     url: "/worksheets/G7_Forces_Revision_Booklet.pdf"

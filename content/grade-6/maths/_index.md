@@ -17,6 +17,20 @@ past_units:
   - name: "Number — Fractions & Decimals"
     term: "Term 1"
 
+powerpoints:
+  - name: "Perimeter"
+    url: "/ppts/G6_Math_Perimeter.pptx"
+  - name: "Area"
+    url: "/ppts/G6_Math_Area.pptx"
+  - name: "Surface Area"
+    url: "/ppts/G6_Math_Surface_Area.pptx"
+  - name: "Volume"
+    url: "/ppts/G6_Math_Volume.pptx"
+  - name: "Capacity"
+    url: "/ppts/G6_Math_Capacity.pptx"
+  - name: "📚 Full Revision (all topics)"
+    url: "/ppts/G6_Math_Full_Revision.pptx"
+
 worksheets:
   - name: "📖 Revision Booklet (Study Guide)"
     url: "/worksheets/G6_Maths_Revision_Booklet.pdf"

@@ -17,6 +17,18 @@ past_units:
   - name: "Number — Integers & Order of Operations"
     term: "Term 1"
 
+powerpoints:
+  - name: "Algebraic Expressions"
+    url: "/ppts/G7_Math_Expressions.pptx"
+  - name: "Solving Equations"
+    url: "/ppts/G7_Math_Solving_Equations.pptx"
+  - name: "Function Machines & Patterns"
+    url: "/ppts/G7_Math_Function_Machines.pptx"
+  - name: "Substitution"
+    url: "/ppts/G7_Math_Substitution.pptx"
+  - name: "📚 Full Revision (all topics)"
+    url: "/ppts/G7_Math_Full_Revision.pptx"
+
 worksheets:
   - name: "📖 Revision Booklet (Study Guide)"
     url: "/worksheets/G7_Maths_Revision_Booklet.pdf"

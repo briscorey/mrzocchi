@@ -16,6 +16,20 @@ past_units:
   - name: "Chemistry — Reactions & Equations"
     term: "Term 1"
 
+powerpoints:
+  - name: "What Is an Ecosystem?"
+    url: "/ppts/G8_Sci_Ecosystems.pptx"
+  - name: "Food Chains & Food Webs"
+    url: "/ppts/G8_Sci_Food_Chains_Webs.pptx"
+  - name: "Energy Transfer"
+    url: "/ppts/G8_Sci_Energy_Transfer.pptx"
+  - name: "Interdependence & Symbiosis"
+    url: "/ppts/G8_Sci_Interdependence.pptx"
+  - name: "Human Impact"
+    url: "/ppts/G8_Sci_Human_Impact.pptx"
+  - name: "📚 Full Revision (all topics)"
+    url: "/ppts/G8_Sci_Full_Revision.pptx"
+
 worksheets:
   - name: "📖 Revision Booklet (Study Guide)"
     url: "/worksheets/G8_Ecology_Revision_Booklet.pdf"

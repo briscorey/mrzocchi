@@ -27,6 +27,16 @@ worksheets:
   - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
     url: "/feedback/"
 
+videos:
+  - name: "🎬 How to Figure Out Area (TED-Ed)"
+    url: "https://ed.ted.com/lessons/how-do-you-figure-out-the-area-of-a-circle"
+  - name: "🎬 What is Surface Area? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/the-mathematics-of-sidewalk-illusions-fumiko-futamura"
+  - name: "🎬 How One Equation Changed the World — Pi (TED-Ed)"
+    url: "https://ed.ted.com/lessons/the-infinite-life-of-pi-reynaldo-lopes"
+  - name: "🎬 A Guide to the Energy of the Earth (TED-Ed)"
+    url: "https://ed.ted.com/lessons/a-guide-to-the-energy-of-the-earth-joshua-m-sneideman"
+
 toolkit:
   - name: "Desmos Calculator"
     url: "https://www.desmos.com/scientific"

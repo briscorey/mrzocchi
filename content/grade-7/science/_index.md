@@ -31,8 +31,16 @@ games:
     url: "https://learnlattice.org/games/revision/forces-g7/"
 
 videos:
-  - name: "Newton's Laws Explained"
-    url: "#"
+  - name: "🎬 Newton's Three Laws of Motion (TED-Ed)"
+    url: "https://ed.ted.com/lessons/newton-s-3-laws-with-a-bicycle-joshua-manley"
+  - name: "🎬 The Mighty Force of Surface Tension (TED-Ed)"
+    url: "https://ed.ted.com/lessons/the-mighty-force-of-surface-tension-dan-watson"
+  - name: "🎬 What Is Gravity? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/the-fundamentals-of-gravity-arvin-ash"
+  - name: "🎬 The Physics of Drag — Air Resistance (TED-Ed)"
+    url: "https://ed.ted.com/lessons/what-is-drag-luka-seamus-wright"
+  - name: "🎬 What Would Happen If You Fell Into a Black Hole? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/what-would-happen-if-you-fell-into-a-black-hole-leo-rodriguez-and-shanshan-rodriguez"
 
 labs:
   - name: "Friction Investigation"

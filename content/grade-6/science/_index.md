@@ -37,6 +37,14 @@ games:
     url: "https://learnlattice.org/games/revision/earth-science-g6/"
 
 videos:
-  - name: "Plate Tectonics Explained"
-    url: "#"
+  - name: "🎬 The Pangaea Pop-up — Continental Drift (TED-Ed)"
+    url: "https://ed.ted.com/lessons/the-pangaea-pop-up-michael-molina"
+  - name: "🎬 What Makes Volcanoes Erupt? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/what-makes-volcanoes-erupt-steven-anderson"
+  - name: "🎬 Why Are Earthquakes So Hard to Predict? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/why-are-earthquakes-so-hard-to-predict-jean-baptiste-p-koehl"
+  - name: "🎬 What's Happening to Earth's Core? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/what-s-happening-to-earth-s-core-shannon-odell"
+  - name: "🎬 How Do Tectonic Plates Move? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/how-do-tectonic-plates-move-jean-baptiste-p-koehl"
 ---

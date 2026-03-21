@@ -48,6 +48,11 @@
         <span class="sidebar-icon">🔬</span><span>Explore</span>
       </button>
       {{ end }}
+      {{ if .Params.quiz }}
+      <button class="sidebar-item" onclick="showSection(this, 'self-quiz')">
+        <span class="sidebar-icon">🧠</span><span>Self-Quiz</span>
+      </button>
+      {{ end }}
       <button class="sidebar-item" onclick="showSection(this, 'toolkit')">
         <span class="sidebar-icon">🧰</span><span>Maths Toolkit</span>
       </button>
@@ -151,6 +156,8 @@
       {{ end }}
 
       {{ partial "explore.html" . }}
+
+      {{ partial "quiz.html" . }}
 
     </div>
   </div>

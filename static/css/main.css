@@ -2228,27 +2228,49 @@ a.par-contact-value:hover { text-decoration: underline; }
 }
 
 /* ================================================
-   LANGUAGE TOGGLE
+   LANGUAGE TOGGLE — Premium Flag Style
    ================================================ */
 .lang-toggle {
-  display: flex; gap: 2px;
+  display: flex; gap: 3px;
   background: rgba(255,255,255,0.06);
-  border-radius: 10px; padding: 3px;
-  margin-left: 12px; flex-shrink: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 4px;
+  margin-left: 14px; flex-shrink: 0;
 }
 .lang-btn {
-  padding: 5px 10px; border: none;
-  border-radius: 8px; background: transparent;
-  color: rgba(255,255,255,0.4);
-  font-family: var(--font-body); font-size: 0.72rem;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border: none;
+  border-radius: 10px; background: transparent;
+  color: rgba(255,255,255,0.35);
+  font-family: var(--font-body); font-size: 0.75rem;
   font-weight: 600; cursor: pointer;
-  transition: all 0.2s; white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  white-space: nowrap; position: relative;
+  letter-spacing: 0.02em;
 }
-.lang-btn:hover { color: rgba(255,255,255,0.7); }
+.lang-flag {
+  font-size: 1.05rem; line-height: 1;
+  filter: grayscale(0.6) opacity(0.6);
+  transition: filter 0.3s;
+}
+.lang-label { transition: color 0.3s; }
+.lang-btn:hover {
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.06);
+}
+.lang-btn:hover .lang-flag { filter: grayscale(0.2) opacity(0.85); }
 .lang-btn-active {
   background: rgba(255,255,255,0.12);
   color: white;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.08);
 }
+.lang-btn-active .lang-flag {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.1);
+}
+.lang-btn-active .lang-label { color: var(--gold); }
 
 /* Glossary Chinese subtitle */
 .glossary-zh {
@@ -2261,6 +2283,8 @@ a.par-contact-value:hover { text-decoration: underline; }
 }
 
 @media (max-width: 640px) {
-  .lang-toggle { margin-left: 6px; padding: 2px; }
-  .lang-btn { padding: 4px 7px; font-size: 0.65rem; }
+  .lang-toggle { margin-left: 6px; padding: 3px; border-radius: 11px; }
+  .lang-btn { padding: 5px 8px; gap: 4px; }
+  .lang-flag { font-size: 0.95rem; }
+  .lang-label { font-size: 0.65rem; }
 }

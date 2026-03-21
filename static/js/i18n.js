@@ -171,9 +171,9 @@
     var toggle = document.createElement('div');
     toggle.className = 'lang-toggle';
     toggle.innerHTML =
-      '<button class="lang-btn" data-lang="en" onclick="window.__setLang(\'en\')">EN</button>' +
-      '<button class="lang-btn" data-lang="zh" onclick="window.__setLang(\'zh\')">中文</button>' +
-      '<button class="lang-btn" data-lang="ko" onclick="window.__setLang(\'ko\')">한국어</button>';
+      '<button class="lang-btn" data-lang="en" onclick="window.__setLang(\'en\')"><span class="lang-flag">🇬🇧</span><span class="lang-label">EN</span></button>' +
+      '<button class="lang-btn" data-lang="zh" onclick="window.__setLang(\'zh\')"><span class="lang-flag">🇨🇳</span><span class="lang-label">中文</span></button>' +
+      '<button class="lang-btn" data-lang="ko" onclick="window.__setLang(\'ko\')"><span class="lang-flag">🇰🇷</span><span class="lang-label">한국어</span></button>';
 
     // Insert before nav or at end
     var nav = header.querySelector('.header-nav');

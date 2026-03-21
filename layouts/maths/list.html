@@ -98,7 +98,7 @@
         <h2 class="content-heading" data-i18n="heading.ppts">Powerpoints</h2>
         {{ if .Params.powerpoints }}
         <div class="resource-list">{{ range .Params.powerpoints }}
-          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">📊</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <a href="{{ .url }}" class="resource-row rr-ppt" target="_blank"><span class="resource-row-icon">📊</span><span class="resource-row-name"><span class="resource-row-type">Powerpoint</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
         {{ end }}</div>
         {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Powerpoints will appear here as they are added.</p></div>{{ end }}
       </div>
@@ -107,7 +107,7 @@
         <h2 class="content-heading" data-i18n="heading.worksheets">Worksheets</h2>
         {{ if .Params.worksheets }}
         <div class="resource-list">{{ range .Params.worksheets }}
-          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">📝</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <a href="{{ .url }}" class="resource-row rr-ws" target="_blank"><span class="resource-row-icon">📝</span><span class="resource-row-name"><span class="resource-row-type">Worksheet</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
         {{ end }}</div>
         {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Worksheets will appear here as they are added.</p></div>{{ end }}
       </div>
@@ -132,7 +132,7 @@
             <div class="game-embed-frame" style="display:none;"><div class="game-embed-placeholder"></div></div>
           </div>
           {{ else }}
-          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">🎮</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <a href="{{ .url }}" class="resource-row rr-game" target="_blank"><span class="resource-row-icon">🎮</span><span class="resource-row-name"><span class="resource-row-type">Game</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
           {{ end }}
           {{ end }}
         </div>
@@ -143,7 +143,7 @@
         <h2 class="content-heading" data-i18n="heading.videos">Videos</h2>
         {{ if .Params.videos }}
         <div class="resource-list">{{ range .Params.videos }}
-          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">🎬</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <a href="{{ .url }}" class="resource-row rr-video" target="_blank"><span class="resource-row-icon">🎬</span><span class="resource-row-name"><span class="resource-row-type">Video</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
         {{ end }}</div>
         {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Videos will appear here as they are added.</p></div>{{ end }}
       </div>
@@ -152,7 +152,7 @@
         <h2 class="content-heading" data-i18n="heading.toolkit">Maths Toolkit</h2>
         {{ if .Params.toolkit }}
         <div class="resource-list">{{ range .Params.toolkit }}
-          <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">{{ .icon | default "🔗" }}</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <a href="{{ .url }}" class="resource-row rr-tool" target="_blank"><span class="resource-row-icon">{{ .icon | default "🔗" }}</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
         {{ end }}</div>
         {{ else }}<div class="empty-state"><span class="empty-icon">🧰</span><p>Toolkit links will appear here.</p></div>{{ end }}
       </div>

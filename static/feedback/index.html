@@ -29,13 +29,22 @@
     body { font-family: var(--font-body); background: var(--cream); color: var(--gray-800); min-height: 100vh; }
 
     /* Header */
-    .header { background: var(--navy); padding: 14px 24px; display: flex; align-items: center; gap: 14px; }
-    .header img { width: 40px; height: 40px; border-radius: 10px; }
-    .header h1 { font-family: var(--font-display); color: white; font-size: 1.2rem; font-weight: 600; }
+    .header { background: var(--navy); padding: 10px 20px; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 30px rgba(17,29,53,0.3); }
+    .header a.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
+    .header img { width: 40px; height: 40px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.1); }
+    .header h1 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
     .header h1 span { color: var(--gold); }
     .header-sub { color: rgba(255,255,255,0.5); font-size: 0.78rem; }
-    .header-back { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.82rem; margin-left: auto; padding: 5px 12px; border-radius: 6px; transition: all 0.2s; }
-    .header-back:hover { color: white; background: rgba(255,255,255,0.08); }
+    .header-nav { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+    .header-nav a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.25s; }
+    .header-nav a:hover { color: white; background: rgba(255,255,255,0.08); }
+    @media (max-width: 640px) {
+      .header { padding: 8px 12px; }
+      .header img { width: 34px; height: 34px; }
+      .header h1 { font-size: 1.1rem; }
+      .header-sub { display: none; }
+      .header-nav a { font-size: 0.73rem; padding: 5px 9px; }
+    }
 
     /* Hero */
     .hero { background: var(--navy); padding: 0 24px 32px; position: relative; overflow: hidden; }
@@ -117,12 +126,17 @@
 <body>
 
 <div class="header">
-  <img src="/images/logo.svg" alt="Mr Zocchi">
-  <div>
-    <h1>Mr <span>Zocchi</span></h1>
-    <div class="header-sub">MYP Mathematics & Science · NIS</div>
-  </div>
-  <a href="/" class="header-back">← Home</a>
+  <a href="/" class="brand">
+    <img src="/images/logo.svg" alt="Mr Zocchi">
+    <div>
+      <h1>Mr <span>Zocchi</span></h1>
+      <div class="header-sub">MYP Mathematics &amp; Science · NIS</div>
+    </div>
+  </a>
+  <nav class="header-nav">
+    <a href="/parents/">For Parents</a>
+    <a href="/about/">About</a>
+  </nav>
 </div>
 
 <div class="hero">

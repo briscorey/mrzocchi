@@ -1380,3 +1380,143 @@ a.par-contact-value:hover { text-decoration: underline; }
   .abt-build-card { padding: 22px; }
   .abt-contact-pill { font-size: 0.85rem; padding: 12px 18px; }
 }
+
+/* ================================================
+   GLOSSARY — Per-Unit Vocabulary
+   ================================================ */
+.glossary-intro {
+  color: var(--gray-600);
+  font-size: 0.94rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 600px;
+}
+
+/* Topic groups */
+.glossary-topic-group {
+  margin-bottom: 32px;
+}
+.glossary-topic-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.glossary-topic-title::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  background: var(--grade-color, var(--teal));
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Card grid */
+.glossary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Individual card */
+.glossary-card {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--gray-200);
+  padding: 18px 20px;
+  box-shadow: 0 1px 4px rgba(27,42,74,0.04);
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+  overflow: hidden;
+}
+.glossary-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--grade-color, var(--teal));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.glossary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(27,42,74,0.08);
+  border-color: rgba(42,157,143,0.2);
+}
+.glossary-card:hover::after {
+  opacity: 1;
+}
+
+/* Card header with emoji + term */
+.glossary-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.glossary-emoji {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  transition: transform 0.3s, background 0.3s;
+}
+.glossary-card:hover .glossary-emoji {
+  transform: scale(1.1) rotate(-5deg);
+  background: linear-gradient(135deg, rgba(42,157,143,0.1), rgba(42,157,143,0.04));
+  border-color: rgba(42,157,143,0.15);
+}
+.glossary-term {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--navy);
+  line-height: 1.25;
+}
+
+/* Definition */
+.glossary-def {
+  font-size: 0.86rem;
+  color: var(--gray-600);
+  line-height: 1.65;
+  margin: 0;
+  padding-left: 50px;
+}
+
+/* Staggered entrance */
+.glossary-grid .glossary-card { opacity: 0; animation: glossaryIn 0.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+.glossary-grid .glossary-card:nth-child(1) { animation-delay: 0.03s; }
+.glossary-grid .glossary-card:nth-child(2) { animation-delay: 0.06s; }
+.glossary-grid .glossary-card:nth-child(3) { animation-delay: 0.09s; }
+.glossary-grid .glossary-card:nth-child(4) { animation-delay: 0.12s; }
+.glossary-grid .glossary-card:nth-child(5) { animation-delay: 0.15s; }
+.glossary-grid .glossary-card:nth-child(6) { animation-delay: 0.18s; }
+.glossary-grid .glossary-card:nth-child(7) { animation-delay: 0.21s; }
+.glossary-grid .glossary-card:nth-child(8) { animation-delay: 0.24s; }
+@keyframes glossaryIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .glossary-grid { grid-template-columns: 1fr; }
+  .glossary-card { padding: 14px 16px; }
+  .glossary-emoji { width: 34px; height: 34px; font-size: 1.25rem; border-radius: 10px; }
+  .glossary-def { padding-left: 44px; font-size: 0.84rem; }
+  .glossary-term { font-size: 0.92rem; }
+  .glossary-topic-title { font-size: 1rem; }
+  .glossary-grid .glossary-card { animation-delay: 0s !important; opacity: 1; }
+}

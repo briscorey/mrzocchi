@@ -38,6 +38,11 @@
       <button class="sidebar-item" onclick="showSection(this, 'videos')">
         <span class="sidebar-icon">🎬</span><span>Videos</span>
       </button>
+      {{ if .Params.glossary }}
+      <button class="sidebar-item" onclick="showSection(this, 'glossary')">
+        <span class="sidebar-icon">📖</span><span>Glossary</span>
+      </button>
+      {{ end }}
       <button class="sidebar-item" onclick="showSection(this, 'toolkit')">
         <span class="sidebar-icon">🧰</span><span>Maths Toolkit</span>
       </button>
@@ -116,6 +121,29 @@
         {{ end }}</div>
         {{ else }}<div class="empty-state"><span class="empty-icon">🧰</span><p>Toolkit links will appear here.</p></div>{{ end }}
       </div>
+
+      {{ if .Params.glossary }}
+      <div class="dash-content-section" id="glossary">
+        <h2 class="content-heading">Key Vocabulary</h2>
+        <p class="glossary-intro">Essential terms for this unit. Use these to build your mathematical vocabulary.</p>
+        {{ range .Params.glossary }}
+        <div class="glossary-topic-group">
+          <h3 class="glossary-topic-title">{{ .topic }}</h3>
+          <div class="glossary-grid">
+            {{ range .terms }}
+            <div class="glossary-card">
+              <div class="glossary-card-header">
+                <span class="glossary-emoji">{{ .emoji }}</span>
+                <span class="glossary-term">{{ .term }}</span>
+              </div>
+              <p class="glossary-def">{{ .definition }}</p>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
 
     </div>
   </div>

@@ -18,9 +18,18 @@ past_units:
 
 powerpoints:
   - name: "Earth's Layers"
-    url: "#"
-  - name: "Plate Tectonics"
-    url: "#"
+    url: "/ppts/G6_Sci_Earths_Layers.pptx"
+  - name: "Convection Currents"
+    url: "/ppts/G6_Sci_Convection_Currents.pptx"
+  - name: "Plate Boundaries"
+    url: "/ppts/G6_Sci_Plate_Boundaries.pptx"
+  - name: "Continental Drift"
+    url: "/ppts/G6_Sci_Continental_Drift.pptx"
+  - name: "Earthquakes & Volcanoes"
+    url: "/ppts/G6_Sci_Earthquakes_Volcanoes.pptx"
+  - name: "📚 Full Revision (all topics)"
+    url: "/ppts/G6_Sci_Full_Revision.pptx"
+
 
 worksheets:
   - name: "📖 Revision Booklet (Study Guide)"

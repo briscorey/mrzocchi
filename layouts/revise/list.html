@@ -1,0 +1,307 @@
+{{ define "main" }}
+<div class="revise-page">
+
+  {{/* ── Hero ── */}}
+  <section class="rev-hero">
+    <div class="rev-hero-bg"></div>
+    <div class="rev-hero-content">
+      <a href="/" class="par-back">← Back to Home</a>
+      <div class="par-hero-badge">🧠 Study Smarter, Not Harder</div>
+      <h1 class="rev-hero-title">How to <span>Revise</span></h1>
+      <p class="rev-hero-sub">Most students revise wrong. They re-read notes, highlight textbooks, and cram the night before. Research shows these methods barely work. This guide shows you what actually works — and how to use this site to do it.</p>
+    </div>
+  </section>
+
+  {{/* ── Quick Nav ── */}}
+  <nav class="par-quicknav">
+    <div class="par-quicknav-inner">
+      <a href="#myth" class="par-qn-item">❌ What Doesn't Work</a>
+      <a href="#science" class="par-qn-item">🔬 The Science</a>
+      <a href="#strategies" class="par-qn-item">🎯 5 Strategies</a>
+      <a href="#plan" class="par-qn-item">📅 Build a Plan</a>
+      <a href="#site" class="par-qn-item">🛠️ Use This Site</a>
+    </div>
+  </nav>
+
+  <div class="rev-body">
+
+    {{/* ── What Doesn't Work ── */}}
+    <section id="myth" class="par-section">
+      <div class="par-section-icon">❌</div>
+      <h2>What Doesn't Work</h2>
+      <p>Before we talk about what works, let's be honest about what doesn't. If you do any of these, you're wasting your time:</p>
+
+      <div class="rev-myth-grid">
+        <div class="rev-myth">
+          <div class="rev-myth-x">✗</div>
+          <div>
+            <strong>Re-reading your notes</strong>
+            <p>It feels productive, but your brain is recognising — not remembering. You trick yourself into thinking you know it.</p>
+          </div>
+        </div>
+        <div class="rev-myth">
+          <div class="rev-myth-x">✗</div>
+          <div>
+            <strong>Highlighting or underlining</strong>
+            <p>Making text colourful doesn't put it in your memory. It's basically decorating your notes.</p>
+          </div>
+        </div>
+        <div class="rev-myth">
+          <div class="rev-myth-x">✗</div>
+          <div>
+            <strong>Copying out notes again</strong>
+            <p>Writing things out a second time is passive — your brain is on autopilot. It doesn't force you to think.</p>
+          </div>
+        </div>
+        <div class="rev-myth">
+          <div class="rev-myth-x">✗</div>
+          <div>
+            <strong>Cramming the night before</strong>
+            <p>You might remember enough to pass tomorrow, but it disappears within days. Your brain needs time to process.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="par-info-box par-info-warn">
+        <div class="par-info-icon">💡</div>
+        <div>
+          <strong>The trap:</strong> All of these methods feel like they're working while you do them. That feeling of familiarity is not the same as actually knowing something. Real learning feels harder — and that's the point.
+        </div>
+      </div>
+    </section>
+
+    {{/* ── The Science ── */}}
+    <section id="science" class="par-section">
+      <div class="par-section-icon">🔬</div>
+      <h2>The Science of Memory</h2>
+      <p>Your brain forgets things on a predictable curve. Psychologist Hermann Ebbinghaus discovered this in the 1880s — and it still holds true today:</p>
+
+      <div class="rev-curve-card">
+        <h3>The Forgetting Curve</h3>
+        <div class="rev-curve-visual">
+          <div class="rev-curve-bar" style="--h: 100%; --c: var(--teal);">
+            <span class="rev-curve-label">100%</span>
+            <span class="rev-curve-time">Just learned</span>
+          </div>
+          <div class="rev-curve-bar" style="--h: 58%; --c: #40B4A6;">
+            <span class="rev-curve-label">58%</span>
+            <span class="rev-curve-time">20 min</span>
+          </div>
+          <div class="rev-curve-bar" style="--h: 44%; --c: var(--gold);">
+            <span class="rev-curve-label">44%</span>
+            <span class="rev-curve-time">1 hour</span>
+          </div>
+          <div class="rev-curve-bar" style="--h: 36%; --c: #E8564D;">
+            <span class="rev-curve-label">36%</span>
+            <span class="rev-curve-time">1 day</span>
+          </div>
+          <div class="rev-curve-bar" style="--h: 25%; --c: var(--red);">
+            <span class="rev-curve-label">25%</span>
+            <span class="rev-curve-time">6 days</span>
+          </div>
+          <div class="rev-curve-bar" style="--h: 21%; --c: #A02E26;">
+            <span class="rev-curve-label">21%</span>
+            <span class="rev-curve-time">1 month</span>
+          </div>
+        </div>
+        <p class="rev-curve-caption">Without revision, you forget <strong>nearly 80%</strong> of what you learned within a month. But every time you actively recall information, the curve flattens — you forget less, slower.</p>
+      </div>
+
+      <div class="rev-two-principles">
+        <div class="rev-principle">
+          <div class="rev-principle-num">1</div>
+          <h3>Active Recall</h3>
+          <p>The more effort your brain puts into <em>retrieving</em> information, the stronger the memory becomes. Testing yourself is not just checking what you know — it's the revision itself.</p>
+        </div>
+        <div class="rev-principle">
+          <div class="rev-principle-num">2</div>
+          <h3>Spaced Practice</h3>
+          <p>Spreading revision across multiple days is far more effective than one long session. Short sessions with gaps between them force your brain to work harder to retrieve — and that effort is what builds memory.</p>
+        </div>
+      </div>
+    </section>
+
+    {{/* ── 5 Strategies ── */}}
+    <section id="strategies" class="par-section">
+      <div class="par-section-icon">🎯</div>
+      <h2>5 Strategies That Actually Work</h2>
+      <p>These are ranked from most powerful to most accessible. Try to use strategies 1 and 2 every time you revise.</p>
+
+      <div class="rev-strat-list">
+        <div class="rev-strat rev-strat-gold">
+          <div class="rev-strat-badge">⭐ Most Powerful</div>
+          <div class="rev-strat-header">
+            <div class="rev-strat-num">1</div>
+            <h3>Test Yourself <span>(Active Recall)</span></h3>
+          </div>
+          <p>Close your notes. Try to answer a question from memory. Check. Repeat. This is the single most effective revision technique — proven by hundreds of studies.</p>
+          <div class="rev-strat-how">
+            <strong>How to do it on this site:</strong>
+            <ul>
+              <li>Use the <strong>🧠 Self-Quiz</strong> tab on any subject page</li>
+              <li>Play the <strong>🎮 Review Games</strong> — questions are shuffled each time</li>
+              <li>Write answers on paper before clicking "Show Answer"</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="rev-strat rev-strat-gold">
+          <div class="rev-strat-badge">⭐ Essential</div>
+          <div class="rev-strat-header">
+            <div class="rev-strat-num">2</div>
+            <h3>Space It Out <span>(Spaced Practice)</span></h3>
+          </div>
+          <p>Don't revise everything in one night. Spread it across several days. Even 10 minutes a day is better than 2 hours the night before.</p>
+          <div class="rev-strat-how">
+            <strong>A simple schedule:</strong>
+            <ul>
+              <li><strong>Day 1:</strong> Learn the topic (PowerPoint + notes)</li>
+              <li><strong>Day 2:</strong> Test yourself (Self-Quiz, no notes)</li>
+              <li><strong>Day 4:</strong> Test again — focus on what you forgot</li>
+              <li><strong>Day 7:</strong> Final test — anything you still miss gets extra attention</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="rev-strat">
+          <div class="rev-strat-header">
+            <div class="rev-strat-num">3</div>
+            <h3>Explain It <span>(The Feynman Technique)</span></h3>
+          </div>
+          <p>Try explaining a concept out loud as if you're teaching a younger student. If you get stuck, you've found your gap. Go back, fill it, and try again.</p>
+          <div class="rev-strat-how">
+            <strong>How to do it:</strong>
+            <ul>
+              <li>Pick a term from the <strong>📖 Glossary</strong></li>
+              <li>Explain it in your own words — no reading allowed</li>
+              <li>If you can't explain it simply, you don't know it well enough yet</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="rev-strat">
+          <div class="rev-strat-header">
+            <div class="rev-strat-num">4</div>
+            <h3>Mix It Up <span>(Interleaving)</span></h3>
+          </div>
+          <p>Don't practise one topic for an hour. Mix different topics in the same session. It feels harder, but it forces your brain to distinguish between concepts — which is exactly what exams require.</p>
+          <div class="rev-strat-how">
+            <strong>Example session (30 min):</strong>
+            <ul>
+              <li>10 min: Self-Quiz on plate boundaries</li>
+              <li>10 min: Worksheet on convection currents</li>
+              <li>10 min: Review Game (shuffled — all topics)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="rev-strat">
+          <div class="rev-strat-header">
+            <div class="rev-strat-num">5</div>
+            <h3>Use Visuals <span>(Dual Coding)</span></h3>
+          </div>
+          <p>Combine words with pictures. Draw diagrams, make mind maps, label images. Your brain stores visual and verbal information in different places — using both creates stronger memories.</p>
+          <div class="rev-strat-how">
+            <strong>How to do it:</strong>
+            <ul>
+              <li>Draw the concept from memory (e.g. draw Earth's layers, label a food web)</li>
+              <li>Use the <strong>🧪 Explore</strong> tab to interact with simulations</li>
+              <li>Watch a <strong>🎬 Video</strong> then sketch what you learned</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{/* ── Build a Plan ── */}}
+    <section id="plan" class="par-section">
+      <div class="par-section-icon">📅</div>
+      <h2>Build a Revision Plan</h2>
+      <p>Here's a simple 5-day revision plan you can copy. Adjust the topics for your subject.</p>
+
+      <div class="rev-plan-grid">
+        <div class="rev-plan-day">
+          <div class="rev-plan-day-num">Day 1</div>
+          <div class="rev-plan-day-label">Review</div>
+          <p>Read through PowerPoint. Write key terms from memory. Check against Glossary.</p>
+          <span class="rev-plan-time">⏱ 20 min</span>
+        </div>
+        <div class="rev-plan-day">
+          <div class="rev-plan-day-num">Day 2</div>
+          <div class="rev-plan-day-label">Test</div>
+          <p>Complete the Self-Quiz. Note which questions you rated "Didn't know." Those are your focus.</p>
+          <span class="rev-plan-time">⏱ 15 min</span>
+        </div>
+        <div class="rev-plan-day">
+          <div class="rev-plan-day-num">Day 3</div>
+          <div class="rev-plan-day-label">Practice</div>
+          <p>Complete a Topic Worksheet (fillable PDF). Upload it to the AI Feedback tool to check.</p>
+          <span class="rev-plan-time">⏱ 25 min</span>
+        </div>
+        <div class="rev-plan-day">
+          <div class="rev-plan-day-num">Day 4</div>
+          <div class="rev-plan-day-label">Retrieve</div>
+          <p>Self-Quiz again — focus on yesterday's weak spots. Play the Review Game once.</p>
+          <span class="rev-plan-time">⏱ 15 min</span>
+        </div>
+        <div class="rev-plan-day">
+          <div class="rev-plan-day-num">Day 5</div>
+          <div class="rev-plan-day-label">Explain</div>
+          <p>Teach someone what you've learned — a friend, a parent, or even your pet. If you can explain it simply, you know it.</p>
+          <span class="rev-plan-time">⏱ 15 min</span>
+        </div>
+      </div>
+
+      <div class="par-info-box">
+        <div class="par-info-icon">⏱️</div>
+        <div>
+          <strong>Total time: about 90 minutes across 5 days.</strong> That's less than most students spend cramming in one panicked evening — and it works dramatically better.
+        </div>
+      </div>
+    </section>
+
+    {{/* ── Use This Site ── */}}
+    <section id="site" class="par-section par-section-last">
+      <div class="par-section-icon">🛠️</div>
+      <h2>Use This Site to Revise</h2>
+      <p>Every resource on this site maps to a revision strategy. Here's how to use them:</p>
+
+      <div class="rev-map-grid">
+        <div class="rev-map-card">
+          <div class="rev-map-strat">Active Recall</div>
+          <div class="rev-map-arrow">→</div>
+          <div class="rev-map-resources">🧠 Self-Quiz &nbsp; 🎮 Review Games &nbsp; 🤖 AI Feedback</div>
+        </div>
+        <div class="rev-map-card">
+          <div class="rev-map-strat">Spaced Practice</div>
+          <div class="rev-map-arrow">→</div>
+          <div class="rev-map-resources">Do Self-Quiz on Day 2, Day 4, and Day 7</div>
+        </div>
+        <div class="rev-map-card">
+          <div class="rev-map-strat">Feynman Technique</div>
+          <div class="rev-map-arrow">→</div>
+          <div class="rev-map-resources">📖 Glossary &nbsp;(explain terms without looking)</div>
+        </div>
+        <div class="rev-map-card">
+          <div class="rev-map-strat">Interleaving</div>
+          <div class="rev-map-arrow">→</div>
+          <div class="rev-map-resources">🎮 Review Games shuffle topics automatically</div>
+        </div>
+        <div class="rev-map-card">
+          <div class="rev-map-strat">Dual Coding</div>
+          <div class="rev-map-arrow">→</div>
+          <div class="rev-map-resources">🧪 Explore tools &nbsp; 🎬 Videos &nbsp; 📊 PowerPoints</div>
+        </div>
+      </div>
+
+      <div class="par-info-box">
+        <div class="par-info-icon">🚀</div>
+        <div>
+          <strong>Start now.</strong> Go to your subject page, click <strong>Self-Quiz</strong>, and see what you actually know. The discomfort of forgetting is where real learning begins.
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+{{ end }}

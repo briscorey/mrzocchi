@@ -1969,3 +1969,260 @@ a.par-contact-value:hover { text-decoration: underline; }
   .game-embed-placeholder { min-height: 400px; }
   .game-iframe { height: 400px; }
 }
+
+/* ================================================
+   HOW TO REVISE — Strategy Guide
+   ================================================ */
+.revise-page { min-height: 100vh; display: flex; flex-direction: column; }
+
+.rev-hero {
+  position: relative; padding: 52px 40px 44px;
+  overflow: hidden; min-height: 300px;
+  display: flex; align-items: flex-end;
+}
+.rev-hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(145deg, var(--navy-dark) 0%, var(--navy) 50%, #1E3A5F 100%);
+  z-index: 0;
+}
+.rev-hero-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle 600px at 70% 30%, rgba(233,196,106,0.1) 0%, transparent 70%),
+    radial-gradient(circle 400px at 30% 80%, rgba(42,157,143,0.08) 0%, transparent 60%);
+}
+.rev-hero-bg::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, var(--gold), var(--teal), var(--gold));
+}
+.rev-hero-content { position: relative; z-index: 2; max-width: 720px; }
+.rev-hero-title {
+  font-family: var(--font-display);
+  font-size: 2.6rem; font-weight: 700;
+  color: white; line-height: 1.15;
+  letter-spacing: -0.03em; margin-bottom: 14px;
+}
+.rev-hero-title span { color: var(--gold); }
+.rev-hero-sub {
+  font-size: 1rem; color: rgba(255,255,255,0.5);
+  line-height: 1.75; max-width: 600px;
+}
+.rev-body { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
+
+/* ── Myths ── */
+.rev-myth-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.rev-myth {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px 22px; background: var(--white);
+  border-radius: 16px; border: 1px solid var(--gray-200);
+  box-shadow: 0 1px 4px rgba(27,42,74,0.04);
+  transition: transform 0.2s;
+}
+.rev-myth:hover { transform: translateX(4px); }
+.rev-myth-x {
+  flex-shrink: 0; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: #FEE2E2; color: #DC2626;
+  font-weight: 800; font-size: 1rem;
+  border-radius: 10px;
+}
+.rev-myth strong { color: var(--navy); font-size: 0.94rem; display: block; margin-bottom: 2px; }
+.rev-myth p { color: var(--gray-600); font-size: 0.86rem; line-height: 1.6; margin: 0; }
+
+/* ── Forgetting Curve ── */
+.rev-curve-card {
+  background: var(--white); border-radius: 20px;
+  padding: 32px; border: 1px solid var(--gray-200);
+  box-shadow: 0 2px 12px rgba(27,42,74,0.06);
+  margin-bottom: 28px;
+}
+.rev-curve-card h3 {
+  font-family: var(--font-display); font-size: 1.15rem;
+  font-weight: 700; color: var(--navy); margin-bottom: 20px;
+}
+.rev-curve-visual {
+  display: flex; align-items: flex-end; gap: 10px;
+  height: 200px; padding-bottom: 28px;
+  border-bottom: 2px solid var(--gray-200);
+  margin-bottom: 16px; position: relative;
+}
+.rev-curve-bar {
+  flex: 1; height: var(--h);
+  background: var(--c); border-radius: 8px 8px 0 0;
+  position: relative; display: flex;
+  flex-direction: column; align-items: center;
+  justify-content: flex-start; padding-top: 8px;
+  transition: transform 0.3s;
+  min-width: 0;
+}
+.rev-curve-bar:hover { transform: scaleY(1.03); }
+.rev-curve-label {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 0.82rem; color: white;
+}
+.rev-curve-time {
+  position: absolute; bottom: -24px;
+  font-size: 0.68rem; font-weight: 600;
+  color: var(--gray-400); white-space: nowrap;
+  text-align: center; width: 100%;
+}
+.rev-curve-caption {
+  font-size: 0.9rem; color: var(--gray-600);
+  line-height: 1.7; margin: 0;
+}
+.rev-curve-caption strong { color: var(--navy); }
+
+/* ── Two Principles ── */
+.rev-two-principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.rev-principle {
+  background: var(--white); border-radius: 18px;
+  padding: 24px; border: 1px solid var(--gray-200);
+  box-shadow: 0 1px 4px rgba(27,42,74,0.04);
+}
+.rev-principle-num {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--navy); color: var(--gold);
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1rem; border-radius: 10px;
+  margin-bottom: 12px;
+}
+.rev-principle h3 {
+  font-family: var(--font-display); font-size: 1.1rem;
+  font-weight: 700; color: var(--navy); margin-bottom: 8px;
+}
+.rev-principle p {
+  font-size: 0.88rem; color: var(--gray-600);
+  line-height: 1.7; margin: 0;
+}
+.rev-principle em { color: var(--navy); font-weight: 500; }
+
+/* ── Strategies ── */
+.rev-strat-list { display: flex; flex-direction: column; gap: 16px; }
+.rev-strat {
+  background: var(--white); border-radius: 18px;
+  padding: 24px 28px; border: 1px solid var(--gray-200);
+  box-shadow: 0 1px 4px rgba(27,42,74,0.04);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.rev-strat:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(27,42,74,0.06); }
+.rev-strat-gold { border-color: rgba(233,196,106,0.3); }
+.rev-strat-gold::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 4px; background: linear-gradient(90deg, var(--gold), var(--teal));
+}
+.rev-strat-badge {
+  display: inline-block; padding: 4px 12px;
+  background: rgba(233,196,106,0.12); border: 1px solid rgba(233,196,106,0.2);
+  border-radius: 8px; color: #B8860B;
+  font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+.rev-strat-header { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.rev-strat-num {
+  flex-shrink: 0; width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--navy); color: var(--gold);
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1rem; border-radius: 12px;
+}
+.rev-strat h3 {
+  font-family: var(--font-display); font-size: 1.1rem;
+  font-weight: 700; color: var(--navy); margin: 0;
+}
+.rev-strat h3 span { font-weight: 400; color: var(--gray-400); font-size: 0.88rem; }
+.rev-strat > p {
+  font-size: 0.9rem; color: var(--gray-600);
+  line-height: 1.7; margin-bottom: 14px;
+}
+.rev-strat-how {
+  background: linear-gradient(135deg, var(--gray-50), rgba(42,157,143,0.03));
+  border-radius: 12px; padding: 16px 20px;
+  border-left: 4px solid var(--teal);
+}
+.rev-strat-how strong { display: block; font-size: 0.85rem; color: var(--navy); margin-bottom: 6px; }
+.rev-strat-how ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.rev-strat-how li {
+  font-size: 0.85rem; color: var(--gray-600);
+  line-height: 1.6; padding-left: 18px;
+  position: relative;
+}
+.rev-strat-how li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--teal); font-weight: 600;
+}
+
+/* ── 5-Day Plan ── */
+.rev-plan-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 12px; margin-bottom: 24px;
+}
+.rev-plan-day {
+  background: var(--white); border-radius: 16px;
+  padding: 20px 16px; border: 1px solid var(--gray-200);
+  text-align: center; box-shadow: 0 1px 4px rgba(27,42,74,0.04);
+  transition: transform 0.2s;
+}
+.rev-plan-day:hover { transform: translateY(-3px); }
+.rev-plan-day-num {
+  font-family: var(--font-display); font-size: 0.72rem;
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--teal);
+  margin-bottom: 4px;
+}
+.rev-plan-day-label {
+  font-family: var(--font-display); font-size: 1.1rem;
+  font-weight: 700; color: var(--navy); margin-bottom: 10px;
+}
+.rev-plan-day p {
+  font-size: 0.78rem; color: var(--gray-600);
+  line-height: 1.55; margin: 0 0 10px 0; text-align: left;
+}
+.rev-plan-time {
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--gray-400);
+}
+
+/* ── Strategy Map ── */
+.rev-map-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.rev-map-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 22px; background: var(--white);
+  border-radius: 14px; border: 1px solid var(--gray-200);
+  box-shadow: 0 1px 4px rgba(27,42,74,0.04);
+}
+.rev-map-strat {
+  flex-shrink: 0; min-width: 140px;
+  font-family: var(--font-display); font-size: 0.92rem;
+  font-weight: 700; color: var(--navy);
+}
+.rev-map-arrow { color: var(--teal); font-weight: 700; flex-shrink: 0; }
+.rev-map-resources {
+  font-size: 0.86rem; color: var(--gray-600); line-height: 1.5;
+}
+
+/* ── Revise Responsive ── */
+@media (max-width: 768px) {
+  .rev-hero { padding: 24px 16px 28px; min-height: auto; }
+  .rev-hero-title { font-size: 1.7rem; }
+  .rev-hero-sub { font-size: 0.9rem; }
+  .rev-body { padding: 0 14px 40px; }
+  .rev-two-principles { grid-template-columns: 1fr; }
+  .rev-plan-grid { grid-template-columns: 1fr 1fr; }
+  .rev-curve-visual { height: 140px; gap: 6px; }
+  .rev-curve-label { font-size: 0.68rem; }
+  .rev-curve-time { font-size: 0.6rem; }
+  .rev-myth { flex-direction: column; gap: 10px; }
+  .rev-strat { padding: 20px; }
+  .rev-map-card { flex-direction: column; gap: 4px; text-align: center; }
+  .rev-map-strat { min-width: auto; }
+}
+@media (max-width: 480px) {
+  .rev-plan-grid { grid-template-columns: 1fr; }
+}

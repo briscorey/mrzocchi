@@ -45,6 +45,6 @@ videos:
     url: "https://ed.ted.com/lessons/why-are-earthquakes-so-hard-to-predict-jean-baptiste-p-koehl"
   - name: "🎬 What's Happening to Earth's Core? (TED-Ed)"
     url: "https://ed.ted.com/lessons/what-s-happening-to-earth-s-core-shannon-odell"
-  - name: "🎬 How Do Tectonic Plates Move? (TED-Ed)"
-    url: "https://ed.ted.com/lessons/how-do-tectonic-plates-move-jean-baptiste-p-koehl"
+  - name: "🎬 Plate Tectonics Explained (TED-Ed / MinuteEarth)"
+    url: "https://www.youtube.com/watch?v=kwfNGatxUJI"
 ---

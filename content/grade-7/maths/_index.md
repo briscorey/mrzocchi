@@ -29,11 +29,11 @@ worksheets:
 
 videos:
   - name: "🎬 Why Algebra Matters (TED-Ed)"
-    url: "https://ed.ted.com/lessons/why-is-x-the-unknown-terry-moore"
+    url: "https://www.youtube.com/watch?v=YX_OxBfsvbk"
   - name: "🎬 The Power of Simple Equations (TED-Ed)"
     url: "https://ed.ted.com/lessons/the-unexpected-math-behind-van-gogh-s-starry-night-natalya-st-clair"
   - name: "🎬 How to Think Like a Coder — Patterns (TED-Ed)"
-    url: "https://ed.ted.com/lessons/how-to-think-like-a-coder-decomposition"
+    url: "https://www.youtube.com/watch?v=0KJfGLk9R4E"
   - name: "🎬 A Brief History of Numerical Systems (TED-Ed)"
     url: "https://ed.ted.com/lessons/a-brief-history-of-numerical-systems-alessandra-king"
 

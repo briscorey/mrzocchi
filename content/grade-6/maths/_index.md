@@ -28,8 +28,8 @@ worksheets:
     url: "/feedback/"
 
 videos:
-  - name: "🎬 How to Figure Out Area (TED-Ed)"
-    url: "https://ed.ted.com/lessons/how-do-you-figure-out-the-area-of-a-circle"
+  - name: "🎬 How to Find the Area of a Circle (TED-Ed)"
+    url: "https://www.youtube.com/watch?v=YokKp3pwVFc"
   - name: "🎬 What is Surface Area? (TED-Ed)"
     url: "https://ed.ted.com/lessons/the-mathematics-of-sidewalk-illusions-fumiko-futamura"
   - name: "🎬 How One Equation Changed the World — Pi (TED-Ed)"

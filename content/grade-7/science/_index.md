@@ -32,15 +32,15 @@ games:
 
 videos:
   - name: "🎬 Newton's Three Laws of Motion (TED-Ed)"
-    url: "https://ed.ted.com/lessons/newton-s-3-laws-with-a-bicycle-joshua-manley"
+    url: "https://ed.ted.com/lessons/joshua-manley-newton-s-3-laws-with-a-bicycle"
   - name: "🎬 The Mighty Force of Surface Tension (TED-Ed)"
-    url: "https://ed.ted.com/lessons/the-mighty-force-of-surface-tension-dan-watson"
-  - name: "🎬 What Is Gravity? (TED-Ed)"
-    url: "https://ed.ted.com/lessons/the-fundamentals-of-gravity-arvin-ash"
-  - name: "🎬 The Physics of Drag — Air Resistance (TED-Ed)"
-    url: "https://ed.ted.com/lessons/what-is-drag-luka-seamus-wright"
-  - name: "🎬 What Would Happen If You Fell Into a Black Hole? (TED-Ed)"
-    url: "https://ed.ted.com/lessons/what-would-happen-if-you-fell-into-a-black-hole-leo-rodriguez-and-shanshan-rodriguez"
+    url: "https://www.youtube.com/watch?v=hMOV3C9FVu0"
+  - name: "🎬 How Far Would You Go to Escape Gravity? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/how-far-would-you-have-to-go-to-escape-gravity-rene-laufer"
+  - name: "🎬 What Is Drag? (TED-Ed)"
+    url: "https://www.youtube.com/watch?v=XpBMW9D1RYU"
+  - name: "🎬 Could Earth Be Swallowed by a Black Hole? (TED-Ed)"
+    url: "https://ed.ted.com/lessons/could-the-earth-be-swallowed-by-a-black-hole-fabio-pacucci"
 
 labs:
   - name: "Friction Investigation"

@@ -30,11 +30,11 @@ videos:
   - name: "🎬 How Do Ecosystems Work? — Energy Flow (TED-Ed)"
     url: "https://ed.ted.com/lessons/a-guide-to-the-energy-of-the-earth-joshua-m-sneideman"
   - name: "🎬 How Wolves Change Rivers — Trophic Cascades (TED-Ed)"
-    url: "https://ed.ted.com/best_of_web/k3MkSGiP"
+    url: "https://www.youtube.com/watch?v=ysa5OBhXz-Q"
   - name: "🎬 Why Is Biodiversity So Important? (TED-Ed)"
     url: "https://ed.ted.com/lessons/why-is-biodiversity-so-important-kim-preshoff"
   - name: "🎬 The Surprising Places We Waste Energy (TED-Ed)"
-    url: "https://ed.ted.com/lessons/the-surprising-places-we-waste-energy-joshua-m-sneideman"
+    url: "https://www.youtube.com/watch?v=b9wP_e8wnqE"
   - name: "🎬 What Happens If You Cut Down All of a City's Trees? (TED-Ed)"
     url: "https://ed.ted.com/lessons/what-happens-if-you-cut-down-all-of-a-city-s-trees-stefan-al"
 ---

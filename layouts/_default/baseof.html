@@ -40,6 +40,9 @@
   {{/* ── Styles ── */}}
   <link rel="stylesheet" href="/css/main.css">
 
+  {{/* ── Theme (load early to prevent flash) ── */}}
+  <script src="/js/theme.js"></script>
+
   {{/* ── JSON-LD Structured Data ── */}}
   {{ if .IsHome }}
   <script type="application/ld+json">

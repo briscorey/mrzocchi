@@ -1,13 +1,11 @@
 {{ define "main" }}
 {{ $grade := .Params.grade }}
 {{ $gradeColor := "var(--teal)" }}
-{{ $gradeEmoji := "🔬" }}
 {{ if eq $grade "7" }}{{ $gradeColor = "var(--red)" }}{{ end }}
 {{ if eq $grade "8" }}{{ $gradeColor = "var(--navy)" }}{{ end }}
 
 <div class="dash-page dash-page-g{{ $grade }}" style="{{ printf "--grade-color: %s;" $gradeColor | safeCSS }}">
 
-  {{/* ── Hero Banner ── */}}
   <div class="dash-hero">
     <div class="dash-hero-bg"></div>
     <div class="dash-hero-content">
@@ -24,180 +22,245 @@
 
   {{ partial "term-strip.html" . }}
 
-  <div class="dash-layout">
+  {{/* ── PER-TERM CONTENT BLOCKS ── */}}
+  {{ range .Params.terms }}
+  <div class="term-content" data-term-content="{{ .num }}" style="{{ if not .active }}display:none;{{ end }}">
+    <div class="dash-layout">
+      <nav class="dash-sidebar">
+        <div class="sidebar-label" data-i18n="sidebar.nav">Navigation</div>
+        <button class="sidebar-item active" onclick="showSection(this, 'unit-outline-t{{ .num }}')">
+          <span class="sidebar-icon">📋</span><span data-i18n="sidebar.outline">Unit Outline</span>
+        </button>
+        <button class="sidebar-item" onclick="showSection(this, 'criteria-t{{ .num }}')">
+          <span class="sidebar-icon">📊</span><span data-i18n="sidebar.criteria">Criteria</span>
+        </button>
+        {{ if .powerpoints }}
+        <button class="sidebar-item" onclick="showSection(this, 'powerpoints-t{{ .num }}')">
+          <span class="sidebar-icon">📊</span><span data-i18n="sidebar.ppts">Powerpoints</span>
+        </button>
+        {{ end }}
+        {{ if .worksheets }}
+        <button class="sidebar-item" onclick="showSection(this, 'worksheets-t{{ .num }}')">
+          <span class="sidebar-icon">📝</span><span data-i18n="sidebar.worksheets">Worksheets</span>
+        </button>
+        {{ end }}
+        {{ if .games }}
+        <button class="sidebar-item" onclick="showSection(this, 'games-t{{ .num }}')">
+          <span class="sidebar-icon">🎮</span><span data-i18n="sidebar.games">Games</span>
+        </button>
+        {{ end }}
+        {{ if .videos }}
+        <button class="sidebar-item" onclick="showSection(this, 'videos-t{{ .num }}')">
+          <span class="sidebar-icon">🎬</span><span data-i18n="sidebar.videos">Videos</span>
+        </button>
+        {{ end }}
+        {{ if .glossary }}
+        <button class="sidebar-item" onclick="showSection(this, 'glossary-t{{ .num }}')">
+          <span class="sidebar-icon">📖</span><span data-i18n="sidebar.glossary">Glossary</span>
+        </button>
+        {{ end }}
+        {{ if .tools }}
+        <button class="sidebar-item" onclick="showSection(this, 'explore-t{{ .num }}')">
+          <span class="sidebar-icon">🧪</span><span data-i18n="sidebar.explore">Explore</span>
+        </button>
+        {{ end }}
+        {{ if .quiz }}
+        <button class="sidebar-item" onclick="showSection(this, 'quiz-t{{ .num }}')">
+          <span class="sidebar-icon">🧠</span><span data-i18n="sidebar.quiz">Self-Quiz</span>
+        </button>
+        {{ end }}
+        {{ if .labs }}
+        <button class="sidebar-item" onclick="showSection(this, 'labs-t{{ .num }}')">
+          <span class="sidebar-icon">🧪</span><span data-i18n="sidebar.labs">Labs</span>
+        </button>
+        {{ end }}
+      </nav>
 
-    <nav class="dash-sidebar">
-      <div class="sidebar-label" data-i18n="sidebar.nav">Navigation</div>
-      <button class="sidebar-item active" onclick="showSection(this, 'unit-outline')">
-        <span class="sidebar-icon">📋</span><span data-i18n="sidebar.outline">Unit Outline</span>
-      </button>
-      {{ if .Params.criteria }}
-      <button class="sidebar-item" onclick="showSection(this, 'criteria')">
-        <span class="sidebar-icon">📊</span><span data-i18n="sidebar.criteria">Criteria</span>
-      </button>
-      {{ end }}
-      <button class="sidebar-item" onclick="showSection(this, 'powerpoints')">
-        <span class="sidebar-icon">📊</span><span data-i18n="sidebar.ppts">Powerpoints</span>
-      </button>
-      <button class="sidebar-item" onclick="showSection(this, 'worksheets')">
-        <span class="sidebar-icon">📝</span><span data-i18n="sidebar.worksheets">Worksheets</span>
-      </button>
-      <button class="sidebar-item" onclick="showSection(this, 'games')">
-        <span class="sidebar-icon">🎮</span><span data-i18n="sidebar.games">Games</span>
-      </button>
-      <button class="sidebar-item" onclick="showSection(this, 'videos')">
-        <span class="sidebar-icon">🎬</span><span data-i18n="sidebar.videos">Videos</span>
-      </button>
-      {{ if .Params.glossary }}
-      <button class="sidebar-item" onclick="showSection(this, 'glossary')">
-        <span class="sidebar-icon">📖</span><span data-i18n="sidebar.glossary">Glossary</span>
-      </button>
-      {{ end }}
-      {{ if .Params.interactive_tools }}
-      <button class="sidebar-item" onclick="showSection(this, 'explore')">
-        <span class="sidebar-icon">🧪</span><span data-i18n="sidebar.explore">Explore</span>
-      </button>
-      {{ end }}
-      {{ if .Params.quiz }}
-      <button class="sidebar-item" onclick="showSection(this, 'self-quiz')">
-        <span class="sidebar-icon">🧠</span><span data-i18n="sidebar.quiz">Self-Quiz</span>
-      </button>
-      {{ end }}
-      {{ if .Params.labs }}
-      <button class="sidebar-item" onclick="showSection(this, 'labs')">
-        <span class="sidebar-icon">🧪</span><span data-i18n="sidebar.labs">Labs</span>
-      </button>
-      {{ end }}
-    </nav>
+      <div class="dash-main">
 
-    <div class="dash-main">
-
-      <div class="dash-content-section active" id="unit-outline">
-        <h2 class="content-heading" data-i18n="heading.outline">Unit Outline</h2>
-        <div class="unit-card">
-          <div class="unit-card-accent"></div>
-          <div class="unit-card-body">
-            <div class="unit-meta">
-              {{ with .Params.unit_tag }}<span class="unit-tag">{{ . }}</span>{{ end }}
-              {{ with .Params.unit_dates }}<span class="unit-dates">{{ . }}</span>{{ end }}
+        {{/* Unit Outline */}}
+        <div class="dash-content-section active" id="unit-outline-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.outline">Unit Outline</h2>
+          <div class="unit-card">
+            <div class="unit-card-accent"></div>
+            <div class="unit-card-body">
+              <div class="unit-meta">
+                {{ with .unit_tag }}<span class="unit-tag">{{ . }}</span>{{ end }}
+                {{ with .unit_dates }}<span class="unit-dates">{{ . }}</span>{{ end }}
+              </div>
+              <h3 class="unit-name">{{ .unit_name | default "Unit information coming soon" }}</h3>
+              <p class="unit-description">{{ .unit_description | default "" }}</p>
+              {{ with .key_concept }}<div class="unit-detail"><strong>Key Concept:</strong> {{ . }}</div>{{ end }}
+              {{ with .related_concepts }}<div class="unit-detail"><strong>Related Concepts:</strong> {{ . }}</div>{{ end }}
+              {{ with .global_context }}<div class="unit-detail"><strong>Global Context:</strong> {{ . }}</div>{{ end }}
+              {{ with .soi }}<div class="unit-soi"><em>"{{ . }}"</em></div>{{ end }}
             </div>
-            <h3 class="unit-name">{{ .Params.unit_name | default "Unit information coming soon" }}</h3>
-            <p class="unit-description">{{ .Params.unit_description | default "" }}</p>
-            {{ with .Params.key_concept }}<div class="unit-detail"><strong>Key Concept:</strong> {{ . }}</div>{{ end }}
-            {{ with .Params.global_context }}<div class="unit-detail"><strong>Global Context:</strong> {{ . }}</div>{{ end }}
-            {{ with .Params.statement_of_inquiry }}<div class="unit-soi"><em>"{{ . }}"</em></div>{{ end }}
           </div>
         </div>
-        {{ with .Params.past_units }}
-        <h3 class="content-subheading">Past Units</h3>
-        <div class="past-units">
-          {{ range . }}
-          <div class="past-unit"><span class="past-unit-name">{{ .name }}</span><span class="past-unit-term">{{ .term }}</span></div>
+
+        {{/* Criteria (shared — rendered from page-level) */}}
+        {{ $page := $ }}
+        <div class="dash-content-section" id="criteria-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.criteria">Assessment Criteria</h2>
+          {{ range $page.Params.criteria }}
+          <div class="criteria-card">
+            <div class="criteria-header">
+              <span class="criteria-letter">{{ .letter }}</span>
+              <div><h3 class="criteria-name">{{ .name }}</h3><p class="criteria-desc">{{ .description }}</p></div>
+            </div>
+            <div class="criteria-levels">
+              {{ range .levels }}
+              <div class="criteria-level"><span class="criteria-range">{{ .range }}</span><p>{{ .descriptor }}</p></div>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        </div>
+
+        {{/* Powerpoints */}}
+        {{ if .powerpoints }}
+        <div class="dash-content-section" id="powerpoints-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.ppts">Powerpoints</h2>
+          <div class="resource-list">{{ range .powerpoints }}
+            <a href="{{ .url }}" class="resource-row rr-ppt" target="_blank"><span class="resource-row-icon">📊</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          {{ end }}</div>
+        </div>
+        {{ end }}
+
+        {{/* Worksheets */}}
+        {{ if .worksheets }}
+        <div class="dash-content-section" id="worksheets-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.worksheets">Worksheets</h2>
+          <div class="resource-list">{{ range .worksheets }}
+            <a href="{{ .url }}" class="resource-row rr-ws" target="_blank"><span class="resource-row-icon">📝</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          {{ end }}</div>
+        </div>
+        {{ end }}
+
+        {{/* Games */}}
+        {{ if .games }}
+        <div class="dash-content-section" id="games-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.games">Review Games</h2>
+          <div class="games-list">
+            {{ range .games }}
+            {{ if .embed }}
+            <div class="game-embed-card">
+              <div class="game-embed-header">
+                <div>
+                  <h3 class="game-embed-title">{{ .name }}</h3>
+                  <span class="game-embed-meta">{{ .questions }} questions · Multiple choice · Shuffled each time</span>
+                </div>
+                <div class="game-embed-actions">
+                  <button class="game-embed-btn game-embed-play" onclick="toggleGame(this, '{{ .url }}')"><span>▶</span> Play Here</button>
+                  <a href="{{ .url }}" target="_blank" class="game-embed-btn game-embed-new-tab">↗ New Tab</a>
+                </div>
+              </div>
+              <div class="game-embed-frame" style="display:none;"><div class="game-embed-placeholder"></div></div>
+            </div>
+            {{ else }}
+            <a href="{{ .url }}" class="resource-row rr-game" target="_blank"><span class="resource-row-icon">🎮</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+            {{ end }}
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Videos */}}
+        {{ if .videos }}
+        <div class="dash-content-section" id="videos-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.videos">Videos</h2>
+          <div class="resource-list">{{ range .videos }}
+            <a href="{{ .url }}" class="resource-row rr-video" target="_blank"><span class="resource-row-icon">🎬</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          {{ end }}</div>
+        </div>
+        {{ end }}
+
+        {{/* Labs */}}
+        {{ if .labs }}
+        <div class="dash-content-section" id="labs-t{{ .num }}">
+          <h2 class="content-heading">Labs</h2>
+          <div class="resource-list">{{ range .labs }}
+            <a href="{{ .url }}" class="resource-row rr-lab" target="_blank"><span class="resource-row-icon">🧪</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          {{ end }}</div>
+        </div>
+        {{ end }}
+
+        {{/* Glossary */}}
+        {{ if .glossary }}
+        <div class="dash-content-section" id="glossary-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.glossary">Key Vocabulary</h2>
+          <p class="glossary-intro">Essential terms for this unit. Use these to build your scientific vocabulary.</p>
+          {{ range .glossary }}
+          <div class="glossary-topic-group">
+            <h3 class="glossary-topic-title">{{ .topic }}</h3>
+            <div class="glossary-grid">
+              {{ range .terms }}
+              <div class="glossary-card">
+                <div class="glossary-card-header">
+                  <span class="glossary-emoji">{{ .emoji }}</span>
+                  <span class="glossary-term">{{ .term }}</span>
+                </div>
+                <p class="glossary-def">{{ .definition }}</p>
+              </div>
+              {{ end }}
+            </div>
+          </div>
           {{ end }}
         </div>
         {{ end }}
-      </div>
 
-      {{ partial "criteria.html" . }}
-
-      <div class="dash-content-section" id="powerpoints">
-        <h2 class="content-heading" data-i18n="heading.ppts">Powerpoints</h2>
-        {{ if .Params.powerpoints }}
-        <div class="resource-list">{{ range .Params.powerpoints }}
-          <a href="{{ .url }}" class="resource-row rr-ppt" target="_blank"><span class="resource-row-icon">📊</span><span class="resource-row-name"><span class="resource-row-type">Powerpoint</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
-        {{ end }}</div>
-        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Powerpoints will appear here as they are added.</p></div>{{ end }}
-      </div>
-
-      <div class="dash-content-section" id="worksheets">
-        <h2 class="content-heading" data-i18n="heading.worksheets">Worksheets</h2>
-        {{ if .Params.worksheets }}
-        <div class="resource-list">{{ range .Params.worksheets }}
-          <a href="{{ .url }}" class="resource-row rr-ws" target="_blank"><span class="resource-row-icon">📝</span><span class="resource-row-name"><span class="resource-row-type">Worksheet</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
-        {{ end }}</div>
-        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Worksheets will appear here as they are added.</p></div>{{ end }}
-      </div>
-
-      <div class="dash-content-section" id="games">
-        <h2 class="content-heading" data-i18n="heading.games">Review Games</h2>
-        {{ if .Params.games }}
-        <div class="games-list">
-          {{ range .Params.games }}
-          {{ if .embed }}
-          <div class="game-embed-card">
-            <div class="game-embed-header">
-              <div>
-                <h3 class="game-embed-title">{{ .name }}</h3>
-                <span class="game-embed-meta">{{ .questions }} questions · Multiple choice · Shuffled each time</span>
+        {{/* Explore — Interactive Tools */}}
+        {{ if .tools }}
+        <div class="dash-content-section" id="explore-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.explore">Explore</h2>
+          <p class="explore-intro">Interactive simulations and tools. Use these to deepen your understanding.</p>
+          <div class="explore-grid">
+            {{ range .tools }}
+            <div class="explore-card">
+              <div class="explore-card-head">
+                <span class="explore-emoji">{{ .emoji }}</span>
+                <div><h4 class="explore-name">{{ .name }}</h4><span class="explore-source">{{ .source }}</span></div>
               </div>
-              <div class="game-embed-actions">
-                <button class="game-embed-btn game-embed-play" onclick="toggleGame(this, '{{ .url }}')"><span>▶</span> Play Here</button>
-                <a href="{{ .url }}" target="_blank" class="game-embed-btn game-embed-new-tab">↗ New Tab</a>
-              </div>
-            </div>
-            <div class="game-embed-frame" style="display:none;"><div class="game-embed-placeholder"></div></div>
-          </div>
-          {{ else }}
-          <a href="{{ .url }}" class="resource-row rr-game" target="_blank"><span class="resource-row-icon">🎮</span><span class="resource-row-name"><span class="resource-row-type">Game</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
-          {{ end }}
-          {{ end }}
-        </div>
-        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Games will appear here as they are added.</p></div>{{ end }}
-      </div>
-
-      <div class="dash-content-section" id="videos">
-        <h2 class="content-heading" data-i18n="heading.videos">Videos</h2>
-        {{ if .Params.videos }}
-        <div class="resource-list">{{ range .Params.videos }}
-          <a href="{{ .url }}" class="resource-row rr-video" target="_blank"><span class="resource-row-icon">🎬</span><span class="resource-row-name"><span class="resource-row-type">Video</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
-        {{ end }}</div>
-        {{ else }}<div class="empty-state"><span class="empty-icon">📭</span><p>Videos will appear here as they are added.</p></div>{{ end }}
-      </div>
-
-      {{ if .Params.labs }}
-      <div class="dash-content-section" id="labs">
-        <h2 class="content-heading">Labs</h2>
-        <div class="resource-list">{{ range .Params.labs }}
-          <a href="{{ .url }}" class="resource-row rr-lab" target="_blank"><span class="resource-row-icon">🧪</span><span class="resource-row-name"><span class="resource-row-type">Lab</span>{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
-        {{ end }}</div>
-      </div>
-      {{ end }}
-
-      {{ if .Params.glossary }}
-      <div class="dash-content-section" id="glossary">
-        <h2 class="content-heading" data-i18n="heading.glossary">Key Vocabulary</h2>
-        <p class="glossary-intro">Essential terms for this unit. Use these to build your scientific vocabulary.</p>
-        {{ range .Params.glossary }}
-        <div class="glossary-topic-group">
-          <h3 class="glossary-topic-title">{{ .topic }}</h3>
-          <div class="glossary-grid">
-            {{ range .terms }}
-            <div class="glossary-card">
-              <div class="glossary-card-header">
-                <span class="glossary-emoji">{{ .emoji }}</span>
-                <span class="glossary-term">{{ .term }}</span>
-              </div>
-              <p class="glossary-def">{{ .definition }}</p>
+              <p class="explore-task">{{ .task }}</p>
+              {{ if .embed_url }}
+              <button class="explore-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">▶ Launch Simulation</button>
+              <div class="explore-embed" style="display:none;"><iframe src="{{ .embed_url }}" class="explore-iframe" allowfullscreen></iframe></div>
+              {{ else if .link_url }}
+              <a href="{{ .link_url }}" target="_blank" class="explore-btn">↗ Open Tool</a>
+              {{ end }}
             </div>
             {{ end }}
           </div>
         </div>
         {{ end }}
+
+        {{/* Self-Quiz */}}
+        {{ if .quiz }}
+        <div class="dash-content-section" id="quiz-t{{ .num }}">
+          <h2 class="content-heading" data-i18n="heading.quiz">Self-Quiz</h2>
+          <p class="quiz-intro" data-i18n="quiz.intro">Test yourself! Click a question to reveal the answer.</p>
+          <div class="quiz-grid">
+            {{ range $i, $item := .quiz }}
+            <div class="quiz-card" onclick="this.classList.toggle('quiz-revealed')">
+              <div class="quiz-q"><span class="quiz-num">{{ add $i 1 }}</span><p>{{ $item.q }}</p></div>
+              <div class="quiz-a"><p>{{ $item.a }}</p></div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
       </div>
-      {{ end }}
-
-      {{ partial "explore.html" . }}
-
-      {{ partial "quiz.html" . }}
-
     </div>
   </div>
+  {{ end }}
 </div>
 
 <script>
 function showSection(btn, id) {
-  document.querySelectorAll('.sidebar-item').forEach(function(b) { b.classList.remove('active'); });
-  document.querySelectorAll('.dash-content-section').forEach(function(s) { s.classList.remove('active'); });
+  var layout = btn.closest('.dash-layout');
+  layout.querySelectorAll('.sidebar-item').forEach(function(b) { b.classList.remove('active'); });
+  layout.querySelectorAll('.dash-content-section').forEach(function(s) { s.classList.remove('active'); });
   btn.classList.add('active');
   document.getElementById(id).classList.add('active');
 }

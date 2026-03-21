@@ -2,20 +2,13 @@
 <div class="term-strip">
   <div class="term-strip-inner">
     {{ range .Params.terms }}
-    <button class="term-pill{{ with .active }} term-pill-active{{ end }}" data-term="{{ .num }}" onclick="switchTerm(this)">
+    <button class="term-pill{{ if .active }} term-pill-active{{ end }}" data-term="{{ .num }}" onclick="switchTerm(this)">
       <span class="term-pill-emoji">{{ .emoji }}</span>
       <span class="term-pill-label">T{{ .num }}</span>
       <span class="term-pill-name">{{ .name }}</span>
     </button>
     {{ end }}
   </div>
-</div>
-
-<div class="term-coming-soon" id="termComingSoon" style="display:none;">
-  <div class="term-coming-icon">📦</div>
-  <h3>Coming soon</h3>
-  <p>Resources for this unit will appear here when we begin this topic.</p>
-  <button class="term-back-btn" onclick="switchToActive()">← Back to current unit</button>
 </div>
 
 <script>
@@ -28,13 +21,15 @@
   });
   window.switchTerm = function(el) {
     var termNum = el.getAttribute('data-term');
-    document.querySelectorAll('.term-pill').forEach(function(p) { p.classList.remove('term-pill-active'); });
+    document.querySelectorAll('.term-pill').forEach(function(p) {
+      p.classList.remove('term-pill-active');
+    });
     el.classList.add('term-pill-active');
-    var layout = document.querySelector('.dash-layout');
-    var coming = document.getElementById('termComingSoon');
-    if (!layout || !coming) return;
-    if (termNum === activeTerm) { layout.style.display = ''; coming.style.display = 'none'; }
-    else { layout.style.display = 'none'; coming.style.display = 'block'; }
+    document.querySelectorAll('.term-content').forEach(function(block) {
+      block.style.display = 'none';
+    });
+    var target = document.querySelector('[data-term-content="' + termNum + '"]');
+    if (target) { target.style.display = ''; }
   };
   window.switchToActive = function() {
     document.querySelectorAll('.term-pill').forEach(function(p) {

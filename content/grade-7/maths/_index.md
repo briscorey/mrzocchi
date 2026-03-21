@@ -14,37 +14,21 @@ global_context: "Identities and Relationships"
 statement_of_inquiry: "Logic helps us generalise relationships and solve problems using algebraic representations."
 
 past_units:
-  - name: "Number — Integers & Rational Numbers"
+  - name: "Number — Integers & Order of Operations"
     term: "Term 1"
-  - name: "Geometry — Angles & Transformations"
-    term: "Term 2"
-
-powerpoints:
-  - name: "Algebraic Expressions"
-    url: "#"
-  - name: "Solving Equations"
-    url: "#"
 
 worksheets:
-  - name: "Function Machines Worksheet"
-    url: "#"
-  - name: "Pattern Investigation"
-    url: "#"
-
-games: []
-
-videos:
-  - name: "Introduction to Algebra"
-    url: "#"
+  - name: "📖 Revision Booklet (Study Guide)"
+    url: "/worksheets/G7_Maths_Revision_Booklet.pdf"
+  - name: "📝 Revision Worksheet (Printable)"
+    url: "/worksheets/G7_Maths_Revision_Worksheet.pdf"
+  - name: "💻 Revision Worksheet (Fillable — type your answers)"
+    url: "/worksheets/G7_Maths_Worksheet_FILLABLE.pdf"
+  - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
+    url: "/feedback/"
 
 toolkit:
   - name: "Desmos Calculator"
-    url: "https://www.desmos.com/calculator"
-    icon: "📈"
-  - name: "GeoGebra"
-    url: "https://www.geogebra.org/calculator"
-    icon: "📏"
-  - name: "Mathigon"
-    url: "https://mathigon.org/"
-    icon: "🔮"
+    url: "https://www.desmos.com/scientific"
+    icon: "🔢"
 ---

@@ -2,45 +2,39 @@
 title: "Grade 7 Science"
 type: "science"
 grade: "7"
-subtitle: "Think like a scientist — question, test, and explain."
+subtitle: "Investigate forces, energy, and how the physical world works."
 
 unit_name: "Forces & Motion"
 unit_tag: "Physical Science"
 unit_dates: "March – April 2026"
-unit_description: "We are investigating how forces affect the motion of objects, including balanced and unbalanced forces, friction, and Newton's Laws."
+unit_description: "We are exploring how forces affect the motion of objects, including friction, gravity, and Newton's Laws."
 key_concept: "Relationships"
 global_context: "Scientific and Technical Innovation"
-statement_of_inquiry: "The relationship between forces determines how and why objects move."
+statement_of_inquiry: "The relationships between forces determine how objects move and interact."
 
 past_units:
-  - name: "Cells & Living Things"
+  - name: "Atoms & The Periodic Table"
     term: "Term 1"
-  - name: "Chemical Reactions"
-    term: "Term 2"
-
-powerpoints:
-  - name: "Introduction to Forces"
-    url: "#"
-  - name: "Balanced & Unbalanced Forces"
-    url: "#"
-  - name: "Friction"
-    url: "#"
 
 worksheets:
-  - name: "Force Diagrams Worksheet"
-    url: "#"
-  - name: "Newton's Laws Practice"
-    url: "#"
+  - name: "📖 Revision Booklet (Study Guide)"
+    url: "/worksheets/G7_Forces_Revision_Booklet.pdf"
+  - name: "📝 Revision Worksheet (Printable)"
+    url: "/worksheets/G7_Forces_Revision_Worksheet.pdf"
+  - name: "💻 Revision Worksheet (Fillable — type your answers)"
+    url: "/worksheets/G7_Forces_Worksheet_FILLABLE.pdf"
+  - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
+    url: "/feedback/"
 
 games:
   - name: "Forces & Motion Review Game"
-    url: "https://learnlattice.org/games/revision/forces-motion-g7/"
+    url: "https://learnlattice.org/games/revision/forces-g7/"
 
 videos:
-  - name: "Forces Explained"
+  - name: "Newton's Laws Explained"
     url: "#"
 
 labs:
-  - name: "Friction Lab Instructions"
+  - name: "Friction Investigation"
     url: "#"
 ---

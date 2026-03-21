@@ -13,28 +13,20 @@ global_context: "Globalisation and Sustainability"
 statement_of_inquiry: "The balance of a system depends on the interdependence of its parts."
 
 past_units:
-  - name: "Physics — Energy & Motion"
+  - name: "Chemistry — Reactions & Equations"
     term: "Term 1"
-  - name: "Chemistry — Atomic Structure"
-    term: "Term 2"
-
-powerpoints:
-  - name: "Ecosystems Introduction"
-    url: "#"
-  - name: "Food Webs & Trophic Levels"
-    url: "#"
 
 worksheets:
-  - name: "Trophic Cascade Formative"
-    url: "#"
-
-games:
-  - name: "Ecology Vocabulary (Quizlet)"
-    url: "#"
+  - name: "📖 Revision Booklet (Study Guide)"
+    url: "/worksheets/G8_Ecology_Revision_Booklet.pdf"
+  - name: "📝 Revision Worksheet (Printable)"
+    url: "/worksheets/G8_Ecology_Revision_Worksheet.pdf"
+  - name: "💻 Revision Worksheet (Fillable — type your answers)"
+    url: "/worksheets/G8_Ecology_Worksheet_FILLABLE.pdf"
+  - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
+    url: "/feedback/"
 
 videos:
-  - name: "Energy in Ecosystems"
-    url: "#"
-  - name: "Trophic Cascades — How Wolves Change Rivers"
+  - name: "Ecosystems Explained"
     url: "#"
 ---

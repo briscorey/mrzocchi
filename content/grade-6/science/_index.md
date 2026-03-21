@@ -21,16 +21,16 @@ powerpoints:
     url: "#"
   - name: "Plate Tectonics"
     url: "#"
-  - name: "Ring of Fire"
-    url: "#"
 
 worksheets:
-  - name: "Earth's Layers Labelling"
-    url: "#"
-  - name: "Ring of Fire Worksheet"
-    url: "#"
-  - name: "Criterion A Summative"
-    url: "#"
+  - name: "📖 Revision Booklet (Study Guide)"
+    url: "/worksheets/G6_Earth_Science_Revision_Booklet.pdf"
+  - name: "📝 Revision Worksheet (Printable)"
+    url: "/worksheets/G6_Earth_Science_Revision_Worksheet.pdf"
+  - name: "💻 Revision Worksheet (Fillable — type your answers)"
+    url: "/worksheets/G6_Earth_Science_Worksheet_FILLABLE.pdf"
+  - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
+    url: "/feedback/"
 
 games:
   - name: "Earth Science Review Game"
@@ -38,7 +38,5 @@ games:
 
 videos:
   - name: "Plate Tectonics Explained"
-    url: "#"
-  - name: "Inside the Earth — Layers"
     url: "#"
 ---

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Feedback | Mr Zocchi</title>
+  <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <style>
+    :root {
+      --navy: #1B2A4A;
+      --teal: #2A9D8F;
+      --teal-light: #E8F5F3;
+      --gold: #E9C46A;
+      --red: #C8372D;
+      --cream: #FAF8F5;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-600: #4B5563;
+      --gray-800: #1F2937;
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--gray-800); min-height: 100vh; }
+
+    /* Header */
+    .header { background: var(--navy); padding: 14px 24px; display: flex; align-items: center; gap: 14px; }
+    .header img { width: 40px; height: 40px; border-radius: 10px; }
+    .header h1 { font-family: var(--font-display); color: white; font-size: 1.2rem; font-weight: 600; }
+    .header h1 span { color: var(--gold); }
+    .header-sub { color: rgba(255,255,255,0.5); font-size: 0.78rem; }
+    .header-back { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.82rem; margin-left: auto; padding: 5px 12px; border-radius: 6px; transition: all 0.2s; }
+    .header-back:hover { color: white; background: rgba(255,255,255,0.08); }
+
+    /* Hero */
+    .hero { background: var(--navy); padding: 0 24px 32px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(42,157,143,0.12) 0%, transparent 50%); }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--teal); box-shadow: 0 0 20px var(--teal); }
+    .hero-inner { position: relative; max-width: 700px; margin: 0 auto; text-align: center; padding-top: 20px; }
+    .hero h2 { font-family: var(--font-display); color: white; font-size: 1.8rem; font-weight: 600; margin-bottom: 8px; }
+    .hero p { color: rgba(255,255,255,0.55); font-size: 0.95rem; line-height: 1.6; }
+
+    /* Main */
+    .main { max-width: 700px; margin: -20px auto 40px; padding: 0 20px; position: relative; z-index: 1; }
+
+    /* Upload card */
+    .upload-card { background: white; border-radius: 20px; padding: 32px; box-shadow: 0 4px 24px rgba(27,42,74,0.08); margin-bottom: 24px; }
+    .upload-zone { border: 2px dashed var(--gray-200); border-radius: 16px; padding: 40px 24px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; }
+    .upload-zone:hover, .upload-zone.dragover { border-color: var(--teal); background: var(--teal-light); }
+    .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .upload-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .upload-zone h3 { font-family: var(--font-display); font-size: 1.1rem; color: var(--navy); margin-bottom: 6px; }
+    .upload-zone p { color: var(--gray-400); font-size: 0.85rem; }
+    .file-info { display: none; align-items: center; gap: 12px; padding: 14px 18px; background: var(--teal-light); border-radius: 12px; margin-top: 16px; }
+    .file-info.show { display: flex; }
+    .file-info .icon { font-size: 1.3rem; }
+    .file-info .name { flex: 1; font-weight: 500; font-size: 0.9rem; color: var(--navy); }
+    .file-info .remove { background: none; border: none; color: var(--gray-400); cursor: pointer; font-size: 1.2rem; padding: 4px; }
+
+    /* Submit button */
+    .submit-btn { display: block; width: 100%; padding: 16px; background: var(--teal); color: white; border: none; border-radius: 14px; font-family: var(--font-body); font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 20px; transition: all 0.3s; letter-spacing: 0.01em; }
+    .submit-btn:hover { background: #248F82; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,157,143,0.3); }
+    .submit-btn:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* Loading */
+    .loading { display: none; text-align: center; padding: 40px; }
+    .loading.show { display: block; }
+    .spinner { width: 40px; height: 40px; border: 3px solid var(--gray-200); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading p { color: var(--gray-600); font-size: 0.9rem; }
+    .loading .loading-sub { color: var(--gray-400); font-size: 0.8rem; margin-top: 4px; }
+
+    /* Results */
+    .results { display: none; }
+    .results.show { display: block; }
+
+    .overall-card { background: white; border-radius: 20px; padding: 28px; box-shadow: 0 4px 24px rgba(27,42,74,0.08); margin-bottom: 20px; text-align: center; }
+    .overall-score { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .overall-label { color: var(--gray-400); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; font-weight: 600; }
+    .overall-comment { color: var(--gray-600); font-size: 0.95rem; margin-top: 14px; line-height: 1.6; padding: 14px 20px; background: var(--teal-light); border-radius: 12px; }
+
+    .question-card { background: white; border-radius: 16px; padding: 20px 24px; box-shadow: 0 2px 12px rgba(27,42,74,0.05); margin-bottom: 12px; border-left: 5px solid var(--gray-200); transition: border-color 0.3s; }
+    .question-card.correct { border-left-color: var(--teal); }
+    .question-card.partial { border-left-color: var(--gold); }
+    .question-card.incorrect { border-left-color: var(--red); }
+    .question-card.blank { border-left-color: var(--gray-400); }
+    .q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .q-num { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+    .q-badge { padding: 3px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .q-badge.correct { background: var(--teal-light); color: var(--teal); }
+    .q-badge.partial { background: #FEF3C7; color: #B45309; }
+    .q-badge.incorrect { background: #FEE2E2; color: var(--red); }
+    .q-badge.blank { background: var(--gray-100); color: var(--gray-400); }
+    .q-score { margin-left: auto; font-weight: 600; font-size: 0.85rem; color: var(--gray-600); }
+    .q-answer { font-size: 0.85rem; color: var(--gray-400); margin-bottom: 8px; font-style: italic; }
+    .q-feedback { font-size: 0.9rem; color: var(--gray-600); line-height: 1.6; }
+
+    .retry-btn { display: block; width: 100%; padding: 14px; background: var(--navy); color: white; border: none; border-radius: 14px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 20px; transition: all 0.2s; }
+    .retry-btn:hover { opacity: 0.9; }
+
+    /* Steps */
+    .steps { display: flex; gap: 16px; margin-bottom: 24px; }
+    .step { flex: 1; text-align: center; padding: 16px 12px; background: var(--gray-50); border-radius: 12px; }
+    .step-num { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; background: var(--teal); color: white; border-radius: 50%; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; }
+    .step-text { font-size: 0.78rem; color: var(--gray-600); line-height: 1.4; }
+
+    /* Error */
+    .error { display: none; background: #FEE2E2; border: 1px solid #FECACA; border-radius: 12px; padding: 16px 20px; color: var(--red); font-size: 0.9rem; margin-top: 16px; }
+    .error.show { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <img src="/images/logo.svg" alt="Mr Zocchi">
+  <div>
+    <h1>Mr <span>Zocchi</span></h1>
+    <div class="header-sub">MYP Mathematics & Science · NIS</div>
+  </div>
+  <a href="/" class="header-back">← Home</a>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <h2>📝 Get Instant Feedback</h2>
+    <p>Upload your completed revision worksheet and receive feedback on every answer.</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Upload Section -->
+  <div class="upload-card" id="uploadSection">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Complete the fillable PDF worksheet</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Save the file on your device</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Upload it here for feedback</div>
+      </div>
+    </div>
+
+    <div class="upload-zone" id="dropZone">
+      <input type="file" accept=".pdf" id="fileInput">
+      <div class="upload-icon">📄</div>
+      <h3>Drop your completed worksheet here</h3>
+      <p>or click to browse — PDF files only</p>
+    </div>
+
+    <div class="file-info" id="fileInfo">
+      <span class="icon">📄</span>
+      <span class="name" id="fileName"></span>
+      <button class="remove" id="removeFile" title="Remove">&times;</button>
+    </div>
+
+    <div class="error" id="errorMsg"></div>
+
+    <button class="submit-btn" id="submitBtn" disabled>Get Feedback</button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loadingSection">
+    <div class="spinner"></div>
+    <p>Marking your worksheet...</p>
+    <p class="loading-sub">This usually takes 10–15 seconds</p>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="resultsSection">
+    <div class="overall-card">
+      <div class="overall-score" id="overallScore"></div>
+      <div class="overall-label">Overall Score</div>
+      <div class="overall-comment" id="overallComment"></div>
+    </div>
+    <div id="questionResults"></div>
+    <button class="retry-btn" id="retryBtn">↻ Upload Another Worksheet</button>
+  </div>
+
+</div>
+
+<script>
+const WORKER_URL = "https://mrzocchi-feedback.YOURSUBDOMAIN.workers.dev";
+
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const fileInfo = document.getElementById("fileInfo");
+const fileName = document.getElementById("fileName");
+const removeFile = document.getElementById("removeFile");
+const submitBtn = document.getElementById("submitBtn");
+const uploadSection = document.getElementById("uploadSection");
+const loadingSection = document.getElementById("loadingSection");
+const resultsSection = document.getElementById("resultsSection");
+const errorMsg = document.getElementById("errorMsg");
+const retryBtn = document.getElementById("retryBtn");
+
+let selectedFile = null;
+
+// Drag and drop
+dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("dragover"); });
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+dropZone.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dropZone.classList.remove("dragover");
+  if (e.dataTransfer.files[0]?.type === "application/pdf") handleFile(e.dataTransfer.files[0]);
+});
+
+fileInput.addEventListener("change", () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+
+function handleFile(file) {
+  selectedFile = file;
+  fileName.textContent = file.name;
+  fileInfo.classList.add("show");
+  submitBtn.disabled = false;
+  errorMsg.classList.remove("show");
+}
+
+removeFile.addEventListener("click", () => {
+  selectedFile = null;
+  fileInfo.classList.remove("show");
+  submitBtn.disabled = true;
+  fileInput.value = "";
+});
+
+retryBtn.addEventListener("click", () => {
+  resultsSection.classList.remove("show");
+  uploadSection.style.display = "block";
+  selectedFile = null;
+  fileInfo.classList.remove("show");
+  submitBtn.disabled = true;
+  fileInput.value = "";
+});
+
+submitBtn.addEventListener("click", async () => {
+  if (!selectedFile) return;
+  
+  errorMsg.classList.remove("show");
+  uploadSection.style.display = "none";
+  loadingSection.classList.add("show");
+
+  try {
+    // 1. Extract form fields from the PDF
+    const arrayBuffer = await selectedFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+    const form = pdfDoc.getForm();
+    const fields = form.getFields();
+
+    // Detect worksheet type from the PDF title or filename
+    const worksheetName = detectWorksheet(selectedFile.name, pdfDoc);
+
+    // Extract all field values
+    const answers = [];
+    let qNum = 0;
+    for (const field of fields) {
+      const name = field.getName();
+      let value = "";
+      try {
+        if (field.constructor.name === "PDFTextField") {
+          value = field.getText() || "";
+        }
+      } catch { }
+      
+      if (value.trim()) {
+        qNum++;
+        answers.push({ question: name, answer: value.trim() });
+      }
+    }
+
+    if (answers.length === 0) {
+      throw new Error("No answers found. Make sure you typed in the blue fields and saved the PDF before uploading.");
+    }
+
+    // 2. Send to the worker
+    const response = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ worksheet: worksheetName, answers }),
+    });
+
+    if (!response.ok) throw new Error("Feedback service unavailable. Try again later.");
+
+    const feedback = await response.json();
+
+    if (feedback.error) throw new Error(feedback.error);
+    if (feedback.raw) throw new Error("Could not parse feedback. Try again.");
+
+    // 3. Display results
+    displayResults(feedback, answers);
+
+  } catch (err) {
+    loadingSection.classList.remove("show");
+    uploadSection.style.display = "block";
+    errorMsg.textContent = err.message || "Something went wrong. Please try again.";
+    errorMsg.classList.add("show");
+  }
+});
+
+function detectWorksheet(filename, pdfDoc) {
+  const fn = filename.toLowerCase();
+  if (fn.includes("earth") || fn.includes("g6") && fn.includes("sci")) return "Grade 6 Earth Science — Earth's Dynamic Interior";
+  if (fn.includes("maths") && fn.includes("g6")) return "Grade 6 Mathematics — Perimeter, Area, Volume & Capacity";
+  if (fn.includes("algebra") || fn.includes("g7") && fn.includes("math")) return "Grade 7 Mathematics — Algebra: Equations & Expressions";
+  if (fn.includes("forces") || fn.includes("g7") && fn.includes("sci")) return "Grade 7 Science — Forces & Motion";
+  if (fn.includes("ecol") || fn.includes("g8")) return "Grade 8 Science — Ecology: Ecosystems & Interdependence";
+  
+  // Fallback: try PDF title
+  const title = pdfDoc.getTitle() || "";
+  if (title) return title;
+  return filename.replace(/_/g, " ").replace(".pdf", "");
+}
+
+function displayResults(feedback, answers) {
+  loadingSection.classList.remove("show");
+
+  // Overall
+  document.getElementById("overallScore").textContent = feedback.overall_score || "—";
+  document.getElementById("overallComment").textContent = feedback.overall_comment || "Good effort!";
+
+  // Per-question
+  const container = document.getElementById("questionResults");
+  container.innerHTML = "";
+
+  const questions = feedback.questions || [];
+  questions.forEach((q, i) => {
+    const status = q.status || "blank";
+    const studentAnswer = answers[i]?.answer || "(no answer)";
+
+    const card = document.createElement("div");
+    card.className = `question-card ${status}`;
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-num">Q${q.question || i + 1}</span>
+        <span class="q-badge ${status}">${statusLabel(status)}</span>
+        <span class="q-score">${q.score || ""}</span>
+      </div>
+      <div class="q-answer">Your answer: ${escapeHtml(studentAnswer.substring(0, 120))}${studentAnswer.length > 120 ? "..." : ""}</div>
+      <div class="q-feedback">${escapeHtml(q.feedback || "")}</div>
+    `;
+    container.appendChild(card);
+  });
+
+  resultsSection.classList.add("show");
+}
+
+function statusLabel(s) {
+  return { correct: "✓ Correct", partial: "◐ Partial", incorrect: "✗ Incorrect", blank: "— Blank" }[s] || s;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+</script>
+</body>
+</html>

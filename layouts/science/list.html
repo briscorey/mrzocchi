@@ -46,6 +46,11 @@
         <span class="sidebar-icon">📖</span><span>Glossary</span>
       </button>
       {{ end }}
+      {{ if .Params.interactive_tools }}
+      <button class="sidebar-item" onclick="showSection(this, 'explore')">
+        <span class="sidebar-icon">🧪</span><span>Explore</span>
+      </button>
+      {{ end }}
       {{ if .Params.labs }}
       <button class="sidebar-item" onclick="showSection(this, 'labs')">
         <span class="sidebar-icon">🧪</span><span>Labs</span>
@@ -148,6 +153,8 @@
         {{ end }}
       </div>
       {{ end }}
+
+      {{ partial "explore.html" . }}
 
     </div>
   </div>

@@ -1,0 +1,61 @@
+{{ if .Params.interactive_tools }}
+<div class="dash-content-section" id="explore">
+  <h2 class="content-heading">Explore & Interact</h2>
+  <p class="explore-intro">Hands-on simulations and interactive tools for this unit. Click <strong>Launch</strong> to open in a new tab, or <strong>Expand</strong> to use right here.</p>
+  <div class="explore-grid">
+    {{ range .Params.interactive_tools }}
+    <div class="explore-card">
+      <div class="explore-card-top">
+        <span class="explore-emoji">{{ .emoji }}</span>
+        <div class="explore-meta">
+          <h3 class="explore-name">{{ .name }}</h3>
+          <span class="explore-source">{{ .source }}</span>
+        </div>
+      </div>
+      <p class="explore-task">{{ .task }}</p>
+      <div class="explore-actions">
+        {{ if .embed_url }}
+        <button class="explore-btn explore-btn-embed" onclick="toggleEmbed(this, '{{ .embed_url }}')">
+          <span class="explore-btn-icon">▶</span> Expand Here
+        </button>
+        <a href="{{ .embed_url }}" target="_blank" class="explore-btn explore-btn-launch">↗ Full Screen</a>
+        {{ else if .link_url }}
+        <a href="{{ .link_url }}" target="_blank" class="explore-btn explore-btn-launch">↗ Launch</a>
+        {{ end }}
+      </div>
+      {{ if .embed_url }}
+      <div class="explore-embed-container" style="display:none;">
+        <div class="explore-embed-placeholder">
+          <div class="explore-embed-loading">Loading simulation...</div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<script>
+function toggleEmbed(btn, url) {
+  var card = btn.closest('.explore-card');
+  var container = card.querySelector('.explore-embed-container');
+  if (!container) return;
+  
+  if (container.style.display === 'none') {
+    container.style.display = 'block';
+    var placeholder = container.querySelector('.explore-embed-placeholder');
+    if (placeholder) {
+      placeholder.innerHTML = '<iframe src="' + url + '" class="explore-iframe" allowfullscreen></iframe>';
+    }
+    btn.querySelector('.explore-btn-icon').textContent = '⏹';
+    btn.querySelector('.explore-btn-icon').nextSibling.textContent = ' Collapse';
+  } else {
+    container.style.display = 'none';
+    var placeholder = container.querySelector('.explore-embed-placeholder');
+    if (placeholder) placeholder.innerHTML = '<div class="explore-embed-loading">Loading simulation...</div>';
+    btn.querySelector('.explore-btn-icon').textContent = '▶';
+    btn.querySelector('.explore-btn-icon').nextSibling.textContent = ' Expand Here';
+  }
+}
+</script>
+{{ end }}

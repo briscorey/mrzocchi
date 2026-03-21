@@ -1,5 +1,6 @@
 ---
 title: "Grade 7 Mathematics"
+description: "Grade 7 MYP Mathematics — Algebra unit covering expressions, equations, function machines, and substitution with worksheets, games, and interactive tools."
 type: "maths"
 grade: "7"
 subtitle: "Develop your algebraic thinking and reasoning skills."

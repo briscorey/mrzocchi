@@ -1,5 +1,6 @@
 ---
 title: "Grade 7 Science"
+description: "Grade 7 MYP Science — Forces and Motion unit with PowerPoints, worksheets, PhET simulations, revision games, vocabulary glossary, and self-quiz."
 type: "science"
 grade: "7"
 subtitle: "Investigate forces, energy, and how the physical world works."

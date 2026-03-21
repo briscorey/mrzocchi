@@ -3,10 +3,87 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}Mr Zocchi | Maths &amp; Science{{ else }}{{ .Title }} | Mr Zocchi{{ end }}</title>
+
+  {{/* ── Title ── */}}
+  <title>{{ if .IsHome }}Mr Zocchi | MYP Maths &amp; Science — NIS{{ else }}{{ .Title }} | Mr Zocchi{{ end }}</title>
+
+  {{/* ── Meta Description ── */}}
   <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-  <link rel="stylesheet" href="/css/main.css">
+
+  {{/* ── Canonical URL ── */}}
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  {{/* ── Author ── */}}
+  <meta name="author" content="{{ .Site.Params.author }}">
+
+  {{/* ── Open Graph ── */}}
+  <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+  <meta property="og:title" content="{{ if .IsHome }}Mr Zocchi | MYP Maths &amp; Science{{ else }}{{ .Title }} | Mr Zocchi{{ end }}">
+  <meta property="og:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="Mr Zocchi">
+  <meta property="og:image" content="{{ .Site.BaseURL }}images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+
+  {{/* ── Twitter Card ── */}}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ if .IsHome }}Mr Zocchi | MYP Maths &amp; Science{{ else }}{{ .Title }} | Mr Zocchi{{ end }}">
+  <meta name="twitter:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="twitter:image" content="{{ .Site.BaseURL }}images/og-image.png">
+
+  {{/* ── Favicons ── */}}
   <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/images/logo.svg">
+
+  {{/* ── Styles ── */}}
+  <link rel="stylesheet" href="/css/main.css">
+
+  {{/* ── JSON-LD Structured Data ── */}}
+  {{ if .IsHome }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Mr Zocchi — MYP Mathematics & Science",
+    "description": "{{ .Site.Params.description }}",
+    "url": "{{ .Site.BaseURL }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ .Site.Params.author }}",
+      "jobTitle": "MYP Mathematics and Science Teacher",
+      "worksFor": {
+        "@type": "EducationalOrganization",
+        "name": "Nanjing International School"
+      }
+    }
+  }
+  </script>
+  {{ else }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{ .Title }}",
+    "description": "{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}",
+    "url": "{{ .Permalink }}",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Mr Zocchi",
+      "url": "{{ .Site.BaseURL }}"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "{{ .Site.Params.author }}"
+    }{{ if .Params.grade }},
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student"
+    }{{ end }}
+  }
+  </script>
+  {{ end }}
 </head>
 <body>
   {{ partial "header.html" . }}

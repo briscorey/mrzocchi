@@ -1,5 +1,6 @@
 ---
 title: "Grade 6 Mathematics"
+description: "Grade 6 MYP Mathematics — Geometry unit covering perimeter, area, surface area, volume, and capacity with PowerPoints, worksheets, games, and interactive tools."
 type: "maths"
 grade: "6"
 subtitle: "Build your mathematical reasoning and problem-solving skills."

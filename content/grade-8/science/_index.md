@@ -1,5 +1,6 @@
 ---
 title: "Grade 8 Science"
+description: "Grade 8 MYP Science — Ecology unit covering ecosystems, food chains, interdependence, and human impact with worksheets, games, and interactive tools."
 type: "science"
 grade: "8"
 subtitle: "Deepen your understanding of how systems interact."

@@ -1,5 +1,6 @@
 ---
 title: "Grade 6 Science"
+description: "Grade 6 MYP Science — Earth Science unit resources including PowerPoints, fillable worksheets, revision games, vocabulary glossary, interactive simulations, and self-quiz."
 type: "science"
 grade: "6"
 subtitle: "Explore, investigate, and discover how the world works."

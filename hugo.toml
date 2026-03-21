@@ -3,5 +3,15 @@ languageCode = "en"
 title = "Mr Zocchi | Maths & Science"
 
 [params]
-  description = "Mr Zocchi's MYP Mathematics and Science classes at Nanjing International School"
+  description = "Mr Zocchi's MYP Mathematics and Science class website — PowerPoints, worksheets, revision games, vocabulary glossary, interactive simulations, and self-quiz for Grade 6, 7, and 8 at Nanjing International School."
   author = "Corey Zocchi"
+  ogImage = "images/og-image.png"
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

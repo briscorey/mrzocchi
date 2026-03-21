@@ -1,0 +1,252 @@
+{{ define "main" }}
+<div class="parents-page">
+
+  {{/* ── Hero ── */}}
+  <section class="par-hero">
+    <div class="par-hero-bg"></div>
+    <div class="par-hero-content">
+      <a href="/" class="par-back">← Back to Home</a>
+      <div class="par-hero-badge">👋 Welcome, Parents & Guardians</div>
+      <h1 class="par-hero-title">Understanding Your Child's <br><span>Maths & Science</span> Classes</h1>
+      <p class="par-hero-sub">Everything you need to know about how assessment works in the IB Middle Years Programme, how to support your child at home, and how to get in touch.</p>
+    </div>
+  </section>
+
+  {{/* ── Quick Nav ── */}}
+  <nav class="par-quicknav">
+    <div class="par-quicknav-inner">
+      <a href="#assessment" class="par-qn-item">📊 How Assessment Works</a>
+      <a href="#grades" class="par-qn-item">📈 Understanding Grades</a>
+      <a href="#support" class="par-qn-item">🏠 Supporting at Home</a>
+      <a href="#resources" class="par-qn-item">📚 Resources on This Site</a>
+      <a href="#contact" class="par-qn-item">✉️ Contact Mr Zocchi</a>
+    </div>
+  </nav>
+
+  <div class="par-body">
+
+    {{/* ── Section 1: How Assessment Works ── */}}
+    <section id="assessment" class="par-section">
+      <div class="par-section-icon">📊</div>
+      <h2>How Assessment Works in MYP</h2>
+      <p>The IB Middle Years Programme (MYP) uses <strong>criterion-referenced assessment</strong>. This means your child is assessed against a fixed set of criteria — not compared to other students. Every student can achieve the highest level if they demonstrate the required skills.</p>
+
+      <div class="par-card-grid">
+        <div class="par-card par-card-accent-teal">
+          <h3>Mathematics Criteria</h3>
+          <div class="par-criteria-list">
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter">A</span>
+              <div><strong>Knowing and Understanding</strong><br>Can you recall and apply mathematical knowledge?</div>
+            </div>
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter">B</span>
+              <div><strong>Investigating Patterns</strong><br>Can you explore, find patterns, and describe rules?</div>
+            </div>
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter">C</span>
+              <div><strong>Communicating</strong><br>Can you show your working clearly using correct notation?</div>
+            </div>
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter">D</span>
+              <div><strong>Applying Maths in Real Life</strong><br>Can you use maths to solve real-world problems?</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="par-card par-card-accent-red">
+          <h3>Science Criteria</h3>
+          <div class="par-criteria-list">
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter par-criteria-letter-red">A</span>
+              <div><strong>Knowing and Understanding</strong><br>Can you explain scientific concepts and use vocabulary?</div>
+            </div>
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter par-criteria-letter-red">B</span>
+              <div><strong>Inquiring and Designing</strong><br>Can you design a fair experiment with a hypothesis?</div>
+            </div>
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter par-criteria-letter-red">C</span>
+              <div><strong>Processing and Evaluating</strong><br>Can you collect data, create graphs, and evaluate results?</div>
+            </div>
+            <div class="par-criteria-item">
+              <span class="par-criteria-letter par-criteria-letter-red">D</span>
+              <div><strong>Reflecting on Science</strong><br>Can you explain how science connects to the real world?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="par-info-box">
+        <div class="par-info-icon">💡</div>
+        <div>
+          <strong>Key point for parents:</strong> Your child will not receive a single overall grade for "Maths" or "Science." Instead, they receive a separate score (1–8) for each of the four criteria. This gives a much more detailed picture of their strengths and areas for growth.
+        </div>
+      </div>
+    </section>
+
+    {{/* ── Section 2: Understanding Grades ── */}}
+    <section id="grades" class="par-section">
+      <div class="par-section-icon">📈</div>
+      <h2>Understanding the 1–8 Scale</h2>
+      <p>Each criterion is scored from <strong>1 (lowest) to 8 (highest)</strong>. Here's what each band means in practice:</p>
+
+      <div class="par-grade-scale">
+        <div class="par-grade-band par-band-low">
+          <div class="par-band-nums">1–2</div>
+          <div class="par-band-label">Limited</div>
+          <div class="par-band-desc">The student shows minimal understanding. Needs significant support and more practice with the basics.</div>
+        </div>
+        <div class="par-grade-band par-band-developing">
+          <div class="par-band-nums">3–4</div>
+          <div class="par-band-label">Developing</div>
+          <div class="par-band-desc">The student understands some concepts but struggles with complex tasks. On the right track — more practice needed.</div>
+        </div>
+        <div class="par-grade-band par-band-good">
+          <div class="par-band-nums">5–6</div>
+          <div class="par-band-label">Proficient</div>
+          <div class="par-band-desc">A solid, confident performance. The student understands and applies concepts well in most situations.</div>
+        </div>
+        <div class="par-grade-band par-band-excellent">
+          <div class="par-band-nums">7–8</div>
+          <div class="par-band-label">Excellent</div>
+          <div class="par-band-desc">Outstanding work. The student demonstrates deep understanding, applies knowledge creatively, and communicates with precision.</div>
+        </div>
+      </div>
+
+      <div class="par-info-box">
+        <div class="par-info-icon">🎯</div>
+        <div>
+          <strong>What should my child aim for?</strong> A score of <strong>5–6 is a strong, successful performance</strong>. A 7–8 represents truly exceptional work. Scores of 3–4 are common while learning new content — they indicate growth is happening. Focus on progress over time, not a single score.
+        </div>
+      </div>
+
+      <div class="par-info-box par-info-warn">
+        <div class="par-info-icon">⚠️</div>
+        <div>
+          <strong>MYP grades are not percentages.</strong> A score of 6/8 does not mean 75%. The MYP scale measures the quality of understanding and skills demonstrated, not the number of correct answers. A student scoring 6 is showing strong, proficient work.
+        </div>
+      </div>
+    </section>
+
+    {{/* ── Section 3: Supporting at Home ── */}}
+    <section id="support" class="par-section">
+      <div class="par-section-icon">🏠</div>
+      <h2>How You Can Support at Home</h2>
+      <p>You don't need to be a maths or science expert. The most powerful things you can do are simple:</p>
+
+      <div class="par-tips-grid">
+        <div class="par-tip">
+          <div class="par-tip-num">1</div>
+          <div>
+            <strong>Ask "What are you learning?" — not "What grade did you get?"</strong>
+            <p>This shifts the focus from performance to understanding. Ask your child to explain a concept to you — teaching someone else is the best way to learn.</p>
+          </div>
+        </div>
+        <div class="par-tip">
+          <div class="par-tip-num">2</div>
+          <div>
+            <strong>Encourage short, regular revision over last-minute cramming</strong>
+            <p>10 minutes a day is more effective than 2 hours the night before. Use the worksheets and revision booklets on this site.</p>
+          </div>
+        </div>
+        <div class="par-tip">
+          <div class="par-tip-num">3</div>
+          <div>
+            <strong>Celebrate effort and improvement, not just results</strong>
+            <p>Moving from a 3 to a 5 is a bigger achievement than staying at 7. Recognise the work that goes into growth.</p>
+          </div>
+        </div>
+        <div class="par-tip">
+          <div class="par-tip-num">4</div>
+          <div>
+            <strong>Make it okay to be confused</strong>
+            <p>Learning happens in the struggle. If your child says "I don't get it," that's normal — it means they're thinking. Encourage them to try, ask questions, and use the resources here.</p>
+          </div>
+        </div>
+        <div class="par-tip">
+          <div class="par-tip-num">5</div>
+          <div>
+            <strong>For English as Additional Language (EAL) learners</strong>
+            <p>It's okay to discuss concepts in your home language first. Understanding the idea is more important than the English words. The vocabulary will follow with practice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{/* ── Section 4: Resources ── */}}
+    <section id="resources" class="par-section">
+      <div class="par-section-icon">📚</div>
+      <h2>What's Available on This Site</h2>
+      <p>Your child can access all of these resources by clicking their grade on the <a href="/">homepage</a>:</p>
+
+      <div class="par-resource-grid">
+        <div class="par-res-card">
+          <span class="par-res-emoji">📊</span>
+          <strong>PowerPoints</strong>
+          <p>Topic-by-topic lesson slides covering every concept in the current unit.</p>
+        </div>
+        <div class="par-res-card">
+          <span class="par-res-emoji">📝</span>
+          <strong>Topic Worksheets</strong>
+          <p>Fillable PDF worksheets for each topic — students type answers directly on screen.</p>
+        </div>
+        <div class="par-res-card">
+          <span class="par-res-emoji">📖</span>
+          <strong>Revision Booklets</strong>
+          <p>Study guides with key terms, worked examples, and information boxes.</p>
+        </div>
+        <div class="par-res-card">
+          <span class="par-res-emoji">🎬</span>
+          <strong>TED-Ed Videos</strong>
+          <p>Curated educational videos with built-in quiz questions.</p>
+        </div>
+        <div class="par-res-card">
+          <span class="par-res-emoji">🎮</span>
+          <strong>Review Games</strong>
+          <p>Interactive quiz games to test knowledge in a fun, low-pressure way.</p>
+        </div>
+        <div class="par-res-card">
+          <span class="par-res-emoji">🤖</span>
+          <strong>AI Instant Feedback</strong>
+          <p>Students upload a completed worksheet and receive automatic feedback on every answer.</p>
+        </div>
+      </div>
+    </section>
+
+    {{/* ── Section 5: Contact ── */}}
+    <section id="contact" class="par-section par-section-last">
+      <div class="par-section-icon">✉️</div>
+      <h2>Contact Mr Zocchi</h2>
+      <p>I welcome communication from parents. Please don't hesitate to reach out:</p>
+
+      <div class="par-contact-card">
+        <div class="par-contact-row">
+          <span class="par-contact-label">Email</span>
+          <a href="mailto:czocchi@nischina.com" class="par-contact-value">czocchi@nischina.com</a>
+        </div>
+        <div class="par-contact-row">
+          <span class="par-contact-label">Best for</span>
+          <span class="par-contact-value">Questions about progress, assessment, concerns, or scheduling a meeting</span>
+        </div>
+        <div class="par-contact-row">
+          <span class="par-contact-label">Response time</span>
+          <span class="par-contact-value">Within 48 hours during the school week</span>
+        </div>
+        <div class="par-contact-row">
+          <span class="par-contact-label">ManageBac</span>
+          <span class="par-contact-value">Unit outlines, assessment dates, and grades are posted on ManageBac — please check there first for day-to-day updates</span>
+        </div>
+      </div>
+
+      <div class="par-info-box">
+        <div class="par-info-icon">🤝</div>
+        <div>
+          <strong>Three-way conferences</strong> are scheduled each semester through the school. These are the best opportunity for an in-depth conversation about your child's progress. If you have urgent concerns before then, please email me directly.
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+{{ end }}

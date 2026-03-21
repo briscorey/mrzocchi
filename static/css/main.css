@@ -2226,3 +2226,41 @@ a.par-contact-value:hover { text-decoration: underline; }
 @media (max-width: 480px) {
   .rev-plan-grid { grid-template-columns: 1fr; }
 }
+
+/* ================================================
+   LANGUAGE TOGGLE
+   ================================================ */
+.lang-toggle {
+  display: flex; gap: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px; padding: 3px;
+  margin-left: 12px; flex-shrink: 0;
+}
+.lang-btn {
+  padding: 5px 10px; border: none;
+  border-radius: 8px; background: transparent;
+  color: rgba(255,255,255,0.4);
+  font-family: var(--font-body); font-size: 0.72rem;
+  font-weight: 600; cursor: pointer;
+  transition: all 0.2s; white-space: nowrap;
+}
+.lang-btn:hover { color: rgba(255,255,255,0.7); }
+.lang-btn-active {
+  background: rgba(255,255,255,0.12);
+  color: white;
+}
+
+/* Glossary Chinese subtitle */
+.glossary-zh {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--teal);
+  font-weight: 500;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .lang-toggle { margin-left: 6px; padding: 2px; }
+  .lang-btn { padding: 4px 7px; font-size: 0.65rem; }
+}

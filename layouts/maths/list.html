@@ -8,7 +8,7 @@
   <div class="dash-hero">
     <div class="dash-hero-bg"></div>
     <div class="dash-hero-content">
-      <a href="/" class="dash-hero-back">← Back to Home</a>
+      <a href="/" class="dash-hero-back" data-i18n="unit.back">← Back to Home</a>
       <div class="dash-hero-info">
         <span class="dash-hero-icon">📐</span>
         <div>
@@ -22,46 +22,46 @@
   <div class="dash-layout">
 
     <nav class="dash-sidebar">
-      <div class="sidebar-label">Navigation</div>
+      <div class="sidebar-label" data-i18n="sidebar.nav">Navigation</div>
       <button class="sidebar-item active" onclick="showSection(this, 'unit-outline')">
-        <span class="sidebar-icon">📋</span><span>Unit Outline</span>
+        <span class="sidebar-icon">📋</span><span data-i18n="sidebar.outline">Unit Outline</span>
       </button>
       <button class="sidebar-item" onclick="showSection(this, 'powerpoints')">
-        <span class="sidebar-icon">📊</span><span>Powerpoints</span>
+        <span class="sidebar-icon">📊</span><span data-i18n="sidebar.ppts">Powerpoints</span>
       </button>
       <button class="sidebar-item" onclick="showSection(this, 'worksheets')">
-        <span class="sidebar-icon">📝</span><span>Worksheets</span>
+        <span class="sidebar-icon">📝</span><span data-i18n="sidebar.worksheets">Worksheets</span>
       </button>
       <button class="sidebar-item" onclick="showSection(this, 'games')">
-        <span class="sidebar-icon">🎮</span><span>Games</span>
+        <span class="sidebar-icon">🎮</span><span data-i18n="sidebar.games">Games</span>
       </button>
       <button class="sidebar-item" onclick="showSection(this, 'videos')">
-        <span class="sidebar-icon">🎬</span><span>Videos</span>
+        <span class="sidebar-icon">🎬</span><span data-i18n="sidebar.videos">Videos</span>
       </button>
       {{ if .Params.glossary }}
       <button class="sidebar-item" onclick="showSection(this, 'glossary')">
-        <span class="sidebar-icon">📖</span><span>Glossary</span>
+        <span class="sidebar-icon">📖</span><span data-i18n="sidebar.glossary">Glossary</span>
       </button>
       {{ end }}
       {{ if .Params.interactive_tools }}
       <button class="sidebar-item" onclick="showSection(this, 'explore')">
-        <span class="sidebar-icon">🔬</span><span>Explore</span>
+        <span class="sidebar-icon">🔬</span><span data-i18n="sidebar.explore">Explore</span>
       </button>
       {{ end }}
       {{ if .Params.quiz }}
       <button class="sidebar-item" onclick="showSection(this, 'self-quiz')">
-        <span class="sidebar-icon">🧠</span><span>Self-Quiz</span>
+        <span class="sidebar-icon">🧠</span><span data-i18n="sidebar.quiz">Self-Quiz</span>
       </button>
       {{ end }}
       <button class="sidebar-item" onclick="showSection(this, 'toolkit')">
-        <span class="sidebar-icon">🧰</span><span>Maths Toolkit</span>
+        <span class="sidebar-icon">🧰</span><span data-i18n="sidebar.toolkit">Maths Toolkit</span>
       </button>
     </nav>
 
     <div class="dash-main">
 
       <div class="dash-content-section active" id="unit-outline">
-        <h2 class="content-heading">Unit Outline</h2>
+        <h2 class="content-heading" data-i18n="heading.outline">Unit Outline</h2>
         <div class="unit-card">
           <div class="unit-card-accent"></div>
           <div class="unit-card-body">
@@ -88,7 +88,7 @@
       </div>
 
       <div class="dash-content-section" id="powerpoints">
-        <h2 class="content-heading">Powerpoints</h2>
+        <h2 class="content-heading" data-i18n="heading.ppts">Powerpoints</h2>
         {{ if .Params.powerpoints }}
         <div class="resource-list">{{ range .Params.powerpoints }}
           <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">📊</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
@@ -97,7 +97,7 @@
       </div>
 
       <div class="dash-content-section" id="worksheets">
-        <h2 class="content-heading">Worksheets</h2>
+        <h2 class="content-heading" data-i18n="heading.worksheets">Worksheets</h2>
         {{ if .Params.worksheets }}
         <div class="resource-list">{{ range .Params.worksheets }}
           <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">📝</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
@@ -106,7 +106,7 @@
       </div>
 
       <div class="dash-content-section" id="games">
-        <h2 class="content-heading">Review Games</h2>
+        <h2 class="content-heading" data-i18n="heading.games">Review Games</h2>
         {{ if .Params.games }}
         <div class="games-list">
           {{ range .Params.games }}
@@ -133,7 +133,7 @@
       </div>
 
       <div class="dash-content-section" id="videos">
-        <h2 class="content-heading">Videos</h2>
+        <h2 class="content-heading" data-i18n="heading.videos">Videos</h2>
         {{ if .Params.videos }}
         <div class="resource-list">{{ range .Params.videos }}
           <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">🎬</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
@@ -142,7 +142,7 @@
       </div>
 
       <div class="dash-content-section" id="toolkit">
-        <h2 class="content-heading">Maths Toolkit</h2>
+        <h2 class="content-heading" data-i18n="heading.toolkit">Maths Toolkit</h2>
         {{ if .Params.toolkit }}
         <div class="resource-list">{{ range .Params.toolkit }}
           <a href="{{ .url }}" class="resource-row" target="_blank"><span class="resource-row-icon">{{ .icon | default "🔗" }}</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
@@ -152,7 +152,7 @@
 
       {{ if .Params.glossary }}
       <div class="dash-content-section" id="glossary">
-        <h2 class="content-heading">Key Vocabulary</h2>
+        <h2 class="content-heading" data-i18n="heading.glossary">Key Vocabulary</h2>
         <p class="glossary-intro">Essential terms for this unit. Use these to build your mathematical vocabulary.</p>
         {{ range .Params.glossary }}
         <div class="glossary-topic-group">

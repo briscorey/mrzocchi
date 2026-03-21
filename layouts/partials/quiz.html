@@ -1,6 +1,6 @@
 {{ if .Params.quiz }}
 <div class="dash-content-section" id="self-quiz">
-  <h2 class="content-heading">Self-Quiz</h2>
+  <h2 class="content-heading" data-i18n="heading.quiz">Self-Quiz</h2>
   <p class="quiz-intro">Test yourself! Read the question, think of your answer, then click <strong>Show Answer</strong> to check. Rate your confidence honestly — it helps you know what to revise.</p>
 
   {{/* Progress bar */}}
@@ -20,8 +20,8 @@
 
   {{/* Controls */}}
   <div class="quiz-controls">
-    <button class="quiz-ctrl-btn" onclick="quizShuffle()" title="Shuffle order">🔀 Shuffle</button>
-    <button class="quiz-ctrl-btn" onclick="quizReset()" title="Reset progress">↻ Reset</button>
+    <button class="quiz-ctrl-btn" onclick="quizShuffle()" title="Shuffle order" data-i18n="quiz.shuffle">🔀 Shuffle</button>
+    <button class="quiz-ctrl-btn" onclick="quizReset()" title="Reset progress" data-i18n="quiz.reset">↻ Reset</button>
   </div>
 
   {{/* Cards */}}
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <button class="quiz-reveal-btn" onclick="quizReveal(this)">Show Answer</button>
+      <button class="quiz-reveal-btn" onclick="quizReveal(this)" data-i18n="quiz.show">Show Answer</button>
     </div>
     {{ end }}
   </div>

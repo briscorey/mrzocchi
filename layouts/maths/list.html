@@ -5,30 +5,40 @@
 
 <div class="dash-page" style="{{ printf "--grade-color: %s;" $gradeColor | safeCSS }}">
 
-  <div class="dash-topbar">
-    <a href="/" class="dash-topbar-home">← Home</a>
-    <h1 class="dash-topbar-title">📐 {{ .Title }}</h1>
+  <div class="dash-hero">
+    <div class="dash-hero-bg"></div>
+    <div class="dash-hero-content">
+      <a href="/" class="dash-hero-back">← Back to Home</a>
+      <div class="dash-hero-info">
+        <span class="dash-hero-icon">📐</span>
+        <div>
+          <h1 class="dash-hero-title">{{ .Title }}</h1>
+          <p class="dash-hero-sub">{{ .Params.subtitle | default "Your Mathematics dashboard" }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="dash-layout">
 
     <nav class="dash-sidebar">
-      <button class="sidebar-item active" data-section="unit-outline" onclick="showSection(this, 'unit-outline')">
+      <div class="sidebar-label">Navigation</div>
+      <button class="sidebar-item active" onclick="showSection(this, 'unit-outline')">
         <span class="sidebar-icon">📋</span><span>Unit Outline</span>
       </button>
-      <button class="sidebar-item" data-section="powerpoints" onclick="showSection(this, 'powerpoints')">
+      <button class="sidebar-item" onclick="showSection(this, 'powerpoints')">
         <span class="sidebar-icon">📊</span><span>Powerpoints</span>
       </button>
-      <button class="sidebar-item" data-section="worksheets" onclick="showSection(this, 'worksheets')">
+      <button class="sidebar-item" onclick="showSection(this, 'worksheets')">
         <span class="sidebar-icon">📝</span><span>Worksheets</span>
       </button>
-      <button class="sidebar-item" data-section="games" onclick="showSection(this, 'games')">
+      <button class="sidebar-item" onclick="showSection(this, 'games')">
         <span class="sidebar-icon">🎮</span><span>Games</span>
       </button>
-      <button class="sidebar-item" data-section="videos" onclick="showSection(this, 'videos')">
+      <button class="sidebar-item" onclick="showSection(this, 'videos')">
         <span class="sidebar-icon">🎬</span><span>Videos</span>
       </button>
-      <button class="sidebar-item" data-section="toolkit" onclick="showSection(this, 'toolkit')">
+      <button class="sidebar-item" onclick="showSection(this, 'toolkit')">
         <span class="sidebar-icon">🧰</span><span>Maths Toolkit</span>
       </button>
     </nav>
@@ -112,11 +122,11 @@
 </div>
 
 <script>
-function showSection(btn, sectionId) {
+function showSection(btn, id) {
   document.querySelectorAll('.sidebar-item').forEach(function(b) { b.classList.remove('active'); });
   document.querySelectorAll('.dash-content-section').forEach(function(s) { s.classList.remove('active'); });
   btn.classList.add('active');
-  document.getElementById(sectionId).classList.add('active');
+  document.getElementById(id).classList.add('active');
 }
 </script>
 {{ end }}

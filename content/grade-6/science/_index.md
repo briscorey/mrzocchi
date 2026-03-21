@@ -32,11 +32,19 @@ powerpoints:
 
 
 worksheets:
-  - name: "📖 Revision Booklet (Study Guide)"
+  - name: "📖 Revision Booklet"
     url: "/worksheets/G6_Earth_Science_Revision_Booklet.pdf"
-  - name: "📝 Revision Worksheet (Printable)"
-    url: "/worksheets/G6_Earth_Science_Revision_Worksheet.pdf"
-  - name: "💻 Revision Worksheet (Fillable — type your answers)"
+  - name: "📝 Earth's Layers"
+    url: "/worksheets/G6_Sci_Earths_Layers_WS.pdf"
+  - name: "📝 Convection Currents"
+    url: "/worksheets/G6_Sci_Convection_WS.pdf"
+  - name: "📝 Plate Boundaries"
+    url: "/worksheets/G6_Sci_Plate_Boundaries_WS.pdf"
+  - name: "📝 Continental Drift"
+    url: "/worksheets/G6_Sci_Continental_Drift_WS.pdf"
+  - name: "📝 Earthquakes & Volcanoes"
+    url: "/worksheets/G6_Sci_Earthquakes_Volcanoes_WS.pdf"
+  - name: "💻 Full Revision Worksheet (Fillable)"
     url: "/worksheets/G6_Earth_Science_Worksheet_FILLABLE.pdf"
   - name: "🤖 Upload Completed Worksheet → Get Instant Feedback"
     url: "/feedback/"

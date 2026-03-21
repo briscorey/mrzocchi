@@ -69,74 +69,6 @@ videos:
 
 glossary:
   - topic: "Ecosystems"
-    terms:
-      - term: "Ecosystem"
-        emoji: "🌿"
-        definition: "A community of living organisms interacting with each other AND their non-living environment."
-      - term: "Biotic Factor"
-        emoji: "🐛"
-        definition: "A living component of an ecosystem. Examples: plants, animals, fungi, bacteria."
-      - term: "Abiotic Factor"
-        emoji: "💧"
-        definition: "A non-living component of an ecosystem. Examples: water, sunlight, temperature, soil."
-      - term: "Habitat"
-        emoji: "🏠"
-        definition: "The place where an organism lives. Examples: forest, ocean, desert."
-      - term: "Niche"
-        emoji: "🎭"
-        definition: "The specific role an organism plays in its ecosystem — what it eats, where it lives, how it behaves."
-  - topic: "Food Chains & Energy"
-    terms:
-      - term: "Producer"
-        emoji: "🌱"
-        definition: "An organism that makes its own food using sunlight (photosynthesis). Always at the bottom of a food chain."
-      - term: "Consumer"
-        emoji: "🐁"
-        definition: "An organism that eats other organisms for energy. Primary consumers eat producers, secondary consumers eat primary consumers."
-      - term: "Decomposer"
-        emoji: "🍄"
-        definition: "An organism that breaks down dead material and returns nutrients to the soil. Examples: fungi, bacteria."
-      - term: "Trophic Level"
-        emoji: "📊"
-        definition: "A feeding level in a food chain. Level 1 = producers, Level 2 = primary consumers, Level 3 = secondary consumers."
-      - term: "Food Chain"
-        emoji: "🔗"
-        definition: "A single pathway showing how energy flows from one organism to the next. Arrows point in the direction of energy flow."
-      - term: "Food Web"
-        emoji: "🕸️"
-        definition: "All the interconnected food chains in an ecosystem. More realistic than a single food chain."
-      - term: "10% Rule"
-        emoji: "📉"
-        definition: "Only about 10% of energy passes from one trophic level to the next. The other 90% is lost as heat through respiration."
-  - topic: "Interdependence"
-    terms:
-      - term: "Interdependence"
-        emoji: "🤝"
-        definition: "When organisms in an ecosystem depend on each other for survival. Removing one species affects many others."
-      - term: "Mutualism"
-        emoji: "🐝"
-        definition: "A relationship where BOTH organisms benefit. Example: bees get nectar, flowers get pollinated."
-      - term: "Commensalism"
-        emoji: "🐚"
-        definition: "A relationship where one organism benefits and the other is NOT affected. Example: barnacles on a whale."
-      - term: "Parasitism"
-        emoji: "🦟"
-        definition: "A relationship where one organism benefits at the OTHER'S expense. Example: tapeworm in a host."
-  - topic: "Human Impact"
-    terms:
-      - term: "Trophic Cascade"
-        emoji: "🐺"
-        definition: "A chain reaction through a food web when a species is added or removed. Example: wolves in Yellowstone."
-      - term: "Biodiversity"
-        emoji: "🌈"
-        definition: "The variety of different species in an ecosystem. Higher biodiversity = healthier, more stable ecosystem."
-      - term: "Invasive Species"
-        emoji: "⚠️"
-        definition: "A non-native organism that outcompetes local species and damages the ecosystem."
-      - term: "Deforestation"
-        emoji: "🪓"
-        definition: "Cutting down large areas of forest. Destroys habitats, reduces biodiversity, increases CO₂."
-
 interactive_tools:
   - name: "Natural Selection"
     emoji: "🐰"
@@ -238,4 +170,22 @@ criteria:
         descriptor: "Explains the connection between science and a real-world issue with supporting evidence."
       - range: "7–8"
         descriptor: "Analyses real-world implications of science with depth, evaluating different perspectives."
+terms:
+  - name: "Cells & Reproduction"
+    emoji: "🧬"
+    num: 1
+  - name: "Physics — Energy"
+    emoji: "⚡"
+    num: 2
+  - name: "Ecology"
+    emoji: "🌿"
+    num: 3
+    active: true
+  - name: "Chemistry — Reactions"
+    emoji: "⚗️"
+    num: 4
+  - name: "Space & Earth"
+    emoji: "🪐"
+    num: 5
+
 ---

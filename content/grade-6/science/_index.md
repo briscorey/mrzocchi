@@ -5,6 +5,7 @@ type: "science"
 grade: "6"
 subtitle: "Explore, investigate, and discover how the world works."
 
+
 unit_name: "Earth Science — Structure of the Earth"
 unit_tag: "Earth & Space Science"
 unit_dates: "March – April 2026"
@@ -72,79 +73,6 @@ videos:
 
 glossary:
   - topic: "Earth's Layers"
-    terms:
-      - term: "Crust"
-        emoji: "🌍"
-        definition: "The thin, solid outer layer of the Earth. We live on it. There are two types: oceanic and continental."
-      - term: "Mantle"
-        emoji: "🔥"
-        definition: "The thickest layer of the Earth (~2,900 km). Made of hot, solid rock that flows very slowly."
-      - term: "Outer Core"
-        emoji: "💧"
-        definition: "A liquid layer made of iron and nickel. Its movement creates Earth's magnetic field."
-      - term: "Inner Core"
-        emoji: "⚡"
-        definition: "The hottest layer (~5,000°C). It is solid because of extreme pressure from the layers above."
-      - term: "Oceanic Crust"
-        emoji: "🌊"
-        definition: "Thin (5–10 km) and dense crust found under the oceans. Made of basalt."
-      - term: "Continental Crust"
-        emoji: "🏔️"
-        definition: "Thick (30–70 km) and less dense crust that makes up the continents. Made of granite."
-  - topic: "Convection & Plate Movement"
-    terms:
-      - term: "Convection Current"
-        emoji: "🔄"
-        definition: "A circular flow of material caused by heating. Hot material rises, cools, then sinks. This cycle repeats."
-      - term: "Density"
-        emoji: "⚖️"
-        definition: "How much matter is packed into a space. Hot rock is less dense (lighter) and rises. Cool rock is more dense (heavier) and sinks."
-      - term: "Tectonic Plate"
-        emoji: "🧩"
-        definition: "A large slab of Earth's crust and upper mantle that moves slowly over the surface."
-      - term: "Radioactive Decay"
-        emoji: "☢️"
-        definition: "The main source of heat inside the Earth. Atoms break down and release energy."
-  - topic: "Plate Boundaries"
-    terms:
-      - term: "Divergent Boundary"
-        emoji: "↔️"
-        definition: "Where two plates move apart. Magma rises to fill the gap, creating new crust."
-      - term: "Convergent Boundary"
-        emoji: "💥"
-        definition: "Where two plates push together. Can cause subduction, mountains, or trenches."
-      - term: "Transform Boundary"
-        emoji: "↕️"
-        definition: "Where two plates slide past each other sideways. Causes earthquakes but no volcanoes."
-      - term: "Subduction"
-        emoji: "⬇️"
-        definition: "When a denser oceanic plate sinks beneath another plate at a convergent boundary."
-      - term: "Sea-Floor Spreading"
-        emoji: "🌋"
-        definition: "New oceanic crust forming as magma rises at a divergent boundary and pushes plates apart."
-  - topic: "Continental Drift"
-    terms:
-      - term: "Pangaea"
-        emoji: "🗺️"
-        definition: "The supercontinent that existed ~300 million years ago when all land was joined together. Means 'all lands' in Greek."
-      - term: "Continental Drift"
-        emoji: "🚢"
-        definition: "Alfred Wegener's theory that the continents slowly moved apart over millions of years."
-      - term: "Fossil Evidence"
-        emoji: "🦴"
-        definition: "The same fossils found on continents now separated by oceans — evidence they were once connected."
-  - topic: "Surface Features"
-    terms:
-      - term: "Ring of Fire"
-        emoji: "🔥"
-        definition: "A horseshoe-shaped zone around the Pacific Ocean with ~75% of the world's volcanoes and ~90% of earthquakes."
-      - term: "Earthquake"
-        emoji: "💢"
-        definition: "A sudden shaking of the ground caused by the release of energy at a plate boundary."
-      - term: "Volcano"
-        emoji: "🌋"
-        definition: "An opening in Earth's surface where magma, ash, and gases escape from below."
-
 interactive_tools:
   - name: "Density Experiment"
     emoji: "⚖️"
@@ -248,4 +176,22 @@ criteria:
         descriptor: "Explains the connection between science and a real-world issue with supporting evidence."
       - range: "7–8"
         descriptor: "Analyses real-world implications of science with depth, evaluating different perspectives."
+terms:
+  - name: "Scientific Skills"
+    emoji: "🔬"
+    num: 1
+  - name: "Chemistry"
+    emoji: "⚗️"
+    num: 2
+  - name: "Earth Science"
+    emoji: "🌍"
+    num: 3
+    active: true
+  - name: "Ecology"
+    emoji: "🌿"
+    num: 4
+  - name: "Space Science"
+    emoji: "🚀"
+    num: 5
+
 ---

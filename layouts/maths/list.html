@@ -3,7 +3,7 @@
 {{ $gradeColor := "var(--teal)" }}
 {{ if eq $grade "7" }}{{ $gradeColor = "var(--red)" }}{{ end }}
 
-<div class="dash-page" style="{{ printf "--grade-color: %s;" $gradeColor | safeCSS }}">
+<div class="dash-page dash-page-g{{ $grade }}" style="{{ printf "--grade-color: %s;" $gradeColor | safeCSS }}">
 
   <div class="dash-hero">
     <div class="dash-hero-bg"></div>
@@ -18,6 +18,8 @@
       </div>
     </div>
   </div>
+
+  {{ partial "term-strip.html" . }}
 
   <div class="dash-layout">
 

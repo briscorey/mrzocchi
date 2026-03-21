@@ -3307,3 +3307,308 @@ img, svg { transition: filter 0.3s ease; }
 [data-theme="dark"] ::selection {
   background: rgba(42,157,143,0.3);
 }
+
+/* ================================================
+   TERM SWITCHER — Pill Strip
+   ================================================ */
+.term-strip-wrap {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 10px 24px;
+  position: relative;
+  z-index: 10;
+  transition: background-color 0.35s, border-color 0.35s;
+}
+.term-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2px 0;
+}
+.term-strip::-webkit-scrollbar { display: none; }
+
+.term-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-600);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.term-pill:hover {
+  border-color: var(--gray-300);
+  background: var(--gray-50);
+  color: var(--gray-800);
+  transform: translateY(-1px);
+}
+.term-pill-active {
+  background: var(--grade-color, var(--teal));
+  border-color: var(--grade-color, var(--teal));
+  color: var(--always-white);
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(42,157,143,0.25);
+}
+.term-pill-active:hover {
+  background: var(--grade-color, var(--teal));
+  border-color: var(--grade-color, var(--teal));
+  color: var(--always-white);
+  transform: none;
+}
+.term-pill-emoji { font-size: 0.95rem; }
+.term-pill-label { letter-spacing: 0.01em; }
+
+/* Grade-specific active pill colours */
+[style*="--grade-color:#2A9D8F"] .term-pill-active,
+.dash-page-g6 .term-pill-active { background: var(--teal); border-color: var(--teal); box-shadow: 0 2px 10px rgba(42,157,143,0.25); }
+.dash-page-g7 .term-pill-active { background: var(--red); border-color: var(--red); box-shadow: 0 2px 10px rgba(200,55,45,0.25); }
+.dash-page-g8 .term-pill-active { background: var(--navy); border-color: var(--navy); box-shadow: 0 2px 10px rgba(27,42,74,0.3); }
+
+/* ── Term locked / coming soon ── */
+.term-locked-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 60px 24px;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(42,157,143,0.04), transparent 60%),
+    var(--cream);
+  animation: sectionReveal 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.term-locked-card {
+  text-align: center;
+  max-width: 380px;
+  padding: 48px 40px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+.term-locked-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.term-locked-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 8px;
+}
+.term-locked-text {
+  font-size: 0.88rem;
+  color: var(--gray-400);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.term-locked-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-800);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.term-locked-btn:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+  transform: translateX(-3px);
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .term-strip-wrap { background: var(--gray-50); border-bottom-color: var(--gray-200); }
+[data-theme="dark"] .term-pill { background: var(--gray-100); border-color: var(--gray-200); color: var(--gray-600); }
+[data-theme="dark"] .term-pill:hover { background: var(--gray-200); color: var(--gray-800); border-color: var(--gray-300); }
+[data-theme="dark"] .term-locked-msg { background: radial-gradient(ellipse at 50% 40%, rgba(42,157,143,0.05), transparent 60%), var(--cream); }
+[data-theme="dark"] .term-locked-card { background: var(--white); border-color: var(--gray-200); }
+[data-theme="dark"] .term-locked-btn { background: var(--gray-100); border-color: var(--gray-200); }
+[data-theme="dark"] .term-locked-btn:hover { background: var(--gray-200); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .term-strip-wrap { padding: 8px 12px; }
+  .term-pill { padding: 7px 14px; font-size: 0.76rem; }
+  .term-pill-emoji { font-size: 0.85rem; }
+  .term-locked-msg { min-height: 300px; padding: 40px 16px; }
+  .term-locked-card { padding: 36px 24px; }
+}
+
+/* ================================================
+   TERM PILL STRIP
+   ================================================ */
+.term-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 10px 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.term-strip::-webkit-scrollbar { display: none; }
+.term-strip-inner {
+  display: flex;
+  gap: 6px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.term-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-600);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.term-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  background: linear-gradient(135deg, rgba(42,157,143,0.06), rgba(233,196,106,0.04));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.term-pill:hover {
+  border-color: var(--gray-300);
+  color: var(--gray-800);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(27,42,74,0.06);
+}
+.term-pill:hover::before { opacity: 1; }
+.term-pill-emoji {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.term-pill-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-400);
+  flex-shrink: 0;
+}
+.term-pill-name {
+  position: relative;
+  z-index: 1;
+}
+
+/* Active pill */
+.term-pill-active {
+  background: var(--grade-color, var(--teal));
+  border-color: var(--grade-color, var(--teal));
+  color: var(--always-white);
+  box-shadow: 0 2px 12px rgba(42,157,143,0.2);
+}
+.term-pill-active .term-pill-label {
+  color: rgba(255,255,255,0.6);
+}
+.term-pill-active:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(42,157,143,0.3);
+  color: var(--always-white);
+  border-color: var(--grade-color, var(--teal));
+}
+.term-pill-active::before { display: none; }
+
+/* Dark mode */
+[data-theme="dark"] .term-strip {
+  background: var(--gray-50);
+  border-bottom-color: var(--gray-200);
+}
+[data-theme="dark"] .term-pill {
+  background: var(--gray-100);
+  border-color: var(--gray-200);
+  color: var(--gray-400);
+}
+[data-theme="dark"] .term-pill:hover {
+  border-color: var(--gray-300);
+  color: var(--gray-800);
+}
+[data-theme="dark"] .term-pill-active {
+  background: var(--grade-color, var(--teal));
+  border-color: var(--grade-color, var(--teal));
+  color: var(--always-white);
+}
+
+/* Coming soon state */
+.term-coming-soon {
+  text-align: center;
+  padding: 80px 24px;
+  animation: sectionReveal 0.4s ease;
+}
+.term-coming-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+.term-coming-soon h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 8px;
+}
+.term-coming-soon p {
+  color: var(--gray-400);
+  font-size: 0.94rem;
+  margin-bottom: 20px;
+}
+.term-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-600);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.term-back-btn:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: rgba(42,157,143,0.04);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .term-strip { padding: 8px 12px; }
+  .term-pill { padding: 7px 14px; font-size: 0.78rem; gap: 6px; }
+  .term-pill-emoji { font-size: 0.9rem; }
+  .term-pill-label { font-size: 0.62rem; }
+}

@@ -71,68 +71,6 @@ labs:
 
 glossary:
   - topic: "Types of Forces"
-    terms:
-      - term: "Force"
-        emoji: "💪"
-        definition: "A push or pull that can change an object's speed, direction, or shape. Measured in Newtons (N)."
-      - term: "Newton (N)"
-        emoji: "📊"
-        definition: "The unit used to measure force. Named after Sir Isaac Newton."
-      - term: "Contact Force"
-        emoji: "🤝"
-        definition: "A force that requires physical touching. Examples: friction, tension, air resistance."
-      - term: "Non-Contact Force"
-        emoji: "🧲"
-        definition: "A force that acts at a distance without touching. Examples: gravity, magnetism."
-      - term: "Weight"
-        emoji: "⚖️"
-        definition: "The force of gravity pulling on an object. W = mass × g. Measured in Newtons. Changes depending on location."
-      - term: "Mass"
-        emoji: "🪨"
-        definition: "The amount of matter in an object. Measured in kilograms (kg). Does NOT change with location."
-  - topic: "Balanced & Unbalanced"
-    terms:
-      - term: "Balanced Forces"
-        emoji: "⚖️"
-        definition: "When forces on an object are equal and opposite. The net force is 0 N. No change in motion."
-      - term: "Unbalanced Forces"
-        emoji: "↗️"
-        definition: "When forces are NOT equal. The object accelerates — speeds up, slows down, or changes direction."
-      - term: "Resultant Force"
-        emoji: "➡️"
-        definition: "The overall force after combining all forces. Same direction = add. Opposite = subtract."
-  - topic: "Friction & Resistance"
-    terms:
-      - term: "Friction"
-        emoji: "🔥"
-        definition: "A force that opposes motion between two surfaces. Converts kinetic energy to heat."
-      - term: "Air Resistance"
-        emoji: "💨"
-        definition: "Friction from air pushing against a moving object. Increases with speed and surface area."
-      - term: "Terminal Velocity"
-        emoji: "🪂"
-        definition: "When air resistance equals weight and forces are balanced. The object falls at a constant speed."
-      - term: "Streamlined"
-        emoji: "✈️"
-        definition: "A smooth, narrow shape designed to reduce air resistance. Examples: planes, fish, racing cars."
-  - topic: "Newton's Laws"
-    terms:
-      - term: "Newton's First Law"
-        emoji: "1️⃣"
-        definition: "An object stays still or moves at constant speed unless an unbalanced force acts on it. Also called the Law of Inertia."
-      - term: "Newton's Second Law"
-        emoji: "2️⃣"
-        definition: "Force = mass × acceleration (F = ma). More force = more acceleration. More mass = less acceleration."
-      - term: "Newton's Third Law"
-        emoji: "3️⃣"
-        definition: "Every action has an equal and opposite reaction. The forces act on DIFFERENT objects."
-      - term: "Inertia"
-        emoji: "🛑"
-        definition: "The resistance of an object to any change in its motion. Heavier objects have more inertia."
-      - term: "Acceleration"
-        emoji: "🚀"
-        definition: "How quickly an object's speed changes. Measured in m/s². Caused by an unbalanced force."
-
 interactive_tools:
   - name: "Forces and Motion: Basics"
     emoji: "🏋️"
@@ -237,4 +175,22 @@ criteria:
         descriptor: "Explains the connection between science and a real-world issue with supporting evidence."
       - range: "7–8"
         descriptor: "Analyses real-world implications of science with depth, evaluating different perspectives."
+terms:
+  - name: "Atoms & Periodic Table"
+    emoji: "⚛️"
+    num: 1
+  - name: "Chemical Reactions"
+    emoji: "🧪"
+    num: 2
+  - name: "Forces & Motion"
+    emoji: "💪"
+    num: 3
+    active: true
+  - name: "Waves & Sound"
+    emoji: "🌊"
+    num: 4
+  - name: "Electricity"
+    emoji: "⚡"
+    num: 5
+
 ---

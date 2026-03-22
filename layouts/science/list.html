@@ -99,7 +99,7 @@
 
           {{ if .journey }}
           <div class="journey-section">
-            <h4 class="journey-title">Your Learning Journey</h4>
+            <h4 class="journey-title" data-i18n="journey.title">Your Learning Journey</h4>
             <div class="journey-track">
               {{ range $i, $step := .journey }}
               <div class="journey-step journey-{{ $step.status }}">
@@ -265,13 +265,13 @@
 
           <!-- Mode switcher -->
           <div class="quiz-modes">
-            <button class="quiz-mode-btn quiz-mode-active" onclick="quizSetMode(this, 'browse', {{ .num }})">📖 Browse All</button>
-            <button class="quiz-mode-btn" onclick="quizSetMode(this, 'test', {{ .num }})">🧠 Test Me</button>
+            <button class="quiz-mode-btn quiz-mode-active" onclick="quizSetMode(this, 'browse', {{ .num }})"data-i18n="quiz.mode_browse">📖 Browse All</button>
+            <button class="quiz-mode-btn" onclick="quizSetMode(this, 'test', {{ .num }})"data-i18n="quiz.mode_test">🧠 Test Me</button>
           </div>
 
           <!-- BROWSE MODE (click-to-reveal) -->
           <div class="quiz-browse" data-quiz-browse="{{ .num }}">
-            <p class="quiz-intro">Click a question to reveal the answer.</p>
+            <p class="quiz-intro"data-i18n="quiz.browse_intro">Click a question to reveal the answer.</p>
             <div class="quiz-grid">
               {{ range $i, $item := .quiz }}
               <div class="quiz-card" onclick="this.classList.toggle('quiz-revealed')">
@@ -291,14 +291,14 @@
               </div>
               <div class="quiz-test-card">
                 <div class="quiz-test-q"></div>
-                <button class="quiz-test-reveal-btn" onclick="quizRevealAnswer({{ .num }})">Show Answer</button>
+                <button class="quiz-test-reveal-btn" onclick="quizRevealAnswer({{ .num }})"data-i18n="quiz.show_answer">Show Answer</button>
                 <div class="quiz-test-answer" style="display:none;"></div>
                 <div class="quiz-test-rate" style="display:none;">
-                  <span class="quiz-test-rate-label">How did you do?</span>
+                  <span class="quiz-test-rate-label"data-i18n="quiz.how_did">How did you do?</span>
                   <div class="quiz-test-rate-btns">
-                    <button class="quiz-rate-got" onclick="quizRate({{ .num }}, 'got')">✅ Got it</button>
-                    <button class="quiz-rate-close" onclick="quizRate({{ .num }}, 'close')">🟡 Almost</button>
-                    <button class="quiz-rate-miss" onclick="quizRate({{ .num }}, 'miss')">❌ Missed it</button>
+                    <button class="quiz-rate-got" onclick="quizRate({{ .num }}, 'got')"data-i18n="quiz.got">✅ Got it</button>
+                    <button class="quiz-rate-close" onclick="quizRate({{ .num }}, 'close')"data-i18n="quiz.almost">🟡 Almost</button>
+                    <button class="quiz-rate-miss" onclick="quizRate({{ .num }}, 'miss')"data-i18n="quiz.missed">❌ Missed it</button>
                   </div>
                 </div>
               </div>
@@ -308,8 +308,8 @@
               <h3 class="quiz-results-title"></h3>
               <p class="quiz-results-detail"></p>
               <div class="quiz-results-bars"></div>
-              <button class="quiz-test-restart" onclick="quizStartTest({{ .num }})">Try Again</button>
-              <button class="quiz-test-to-browse" onclick="quizSetMode(document.querySelector('[data-quiz-browse=\'{{ .num }}\']').closest('.dash-content-section').querySelector('.quiz-mode-btn'), 'browse', {{ .num }})">Browse Questions</button>
+              <button class="quiz-test-restart" onclick="quizStartTest({{ .num }})"data-i18n="quiz.try_again">Try Again</button>
+              <button class="quiz-test-to-browse" onclick="quizSetMode(document.querySelector('[data-quiz-browse=\'{{ .num }}\']').closest('.dash-content-section').querySelector('.quiz-mode-btn'), 'browse', {{ .num }})"data-i18n="quiz.browse_qs">Browse Questions</button>
             </div>
           </div>
 

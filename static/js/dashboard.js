@@ -110,10 +110,15 @@ function quizShowResults(termNum) {
   results.style.display = '';
   var pct = Math.round((r.got / total) * 100);
   var emoji = pct >= 80 ? '🌟' : pct >= 60 ? '💪' : pct >= 40 ? '📚' : '🔄';
-  var title = pct >= 80 ? 'Excellent!' : pct >= 60 ? 'Good effort!' : pct >= 40 ? 'Keep practising!' : 'Time to review!';
+  var tier = pct >= 80 ? 80 : pct >= 60 ? 60 : pct >= 40 ? 40 : 0;
+  var titles = { 80: 'Excellent!', 60: 'Good effort!', 40: 'Keep practising!', 0: 'Time to review!' };
+  var titleKeys = { 80: 'quiz.excellent', 60: 'quiz.good', 40: 'quiz.keep', 0: 'quiz.review' };
   results.querySelector('.quiz-results-emoji').textContent = emoji;
-  results.querySelector('.quiz-results-title').textContent = title;
-  results.querySelector('.quiz-results-detail').textContent = r.got + ' correct, ' + r.close + ' almost, ' + r.miss + ' to review out of ' + total + ' questions.';
+  var titleEl = results.querySelector('.quiz-results-title');
+  titleEl.textContent = titles[tier];
+  titleEl.setAttribute('data-i18n', titleKeys[tier]);
+  titleEl.dataset.en = titles[tier];
+  results.querySelector('.quiz-results-detail').textContent = r.got + ' correct, ' + r.close + ' almost, ' + r.miss + ' to review — ' + total + ' questions.';
   var bars = results.querySelector('.quiz-results-bars');
   bars.innerHTML =
     '<div class="quiz-result-row"><span class="quiz-result-label">✅ Got it</span><div class="quiz-result-track"><div class="quiz-result-fill quiz-fill-got" style="width:' + ((r.got/total)*100) + '%"></div></div><span class="quiz-result-num">' + r.got + '</span></div>' +

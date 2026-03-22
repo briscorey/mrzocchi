@@ -1,8 +1,7 @@
 // Pages Function: /api/explain
 // Uses Claude Haiku for cost-efficient student explanations
-// Rate-limited: 5 requests per student per day via CF KV (or in-memory fallback)
 
-export async function onRequest(context) {
+export async function onRequestPost(context) {
   const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -10,73 +9,52 @@ export async function onRequest(context) {
     "Content-Type": "application/json",
   };
 
-  if (context.request.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
-
-  if (context.request.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405, headers: corsHeaders,
-    });
-  }
-
   try {
-    const { concept, grade, subject } = await context.request.json();
+    const body = await context.request.json();
+    const { concept, grade, subject } = body;
 
-    if (!concept || concept.trim().length < 2) {
+    if (!concept || typeof concept !== "string" || concept.trim().length < 2) {
       return new Response(JSON.stringify({ error: "Please type what you'd like explained." }), {
         status: 400, headers: corsHeaders,
       });
     }
 
-    if (concept.trim().length > 200) {
-      return new Response(JSON.stringify({ error: "Keep your question under 200 characters." }), {
+    if (concept.trim().length > 300) {
+      return new Response(JSON.stringify({ error: "Please keep your question under 300 characters." }), {
         status: 400, headers: corsHeaders,
       });
     }
 
-    // Rate limiting via client IP
-    const clientIP = context.request.headers.get("CF-Connecting-IP") || "unknown";
-    const today = new Date().toISOString().split("T")[0];
-    const rateKey = `explain:${clientIP}:${today}`;
-
-    // Try KV rate limiting if available, otherwise skip
-    let requestCount = 0;
-    const DAILY_LIMIT = 8;
-
-    if (context.env.RATE_LIMIT) {
-      const stored = await context.env.RATE_LIMIT.get(rateKey);
-      requestCount = stored ? parseInt(stored, 10) : 0;
-
-      if (requestCount >= DAILY_LIMIT) {
-        return new Response(JSON.stringify({
-          error: "You've used all your explanations for today. Come back tomorrow, or check the glossary and quiz tabs for help now.",
-          remaining: 0,
-        }), { status: 429, headers: corsHeaders });
-      }
-    }
-
     const apiKey = context.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
-      return new Response(JSON.stringify({ error: "Service not configured." }), {
+      return new Response(JSON.stringify({ error: "Explain service not configured." }), {
         status: 500, headers: corsHeaders,
       });
     }
 
-    const gradeNum = grade || "6";
-    const subjectName = subject || "science";
+    const gradeNum = parseInt(grade) || 6;
+    const subjectName = subject === "maths" ? "Mathematics" : "Science";
 
-    const systemPrompt = `You are Mr Zocchi's teaching assistant on a school website for Nanjing International School (NIS). You help MYP Grade ${gradeNum} ${subjectName} students understand concepts they're stuck on.
+    const systemPrompt = `You are a warm, patient MYP ${subjectName} teacher at an international school in China. Your students are Grade ${gradeNum} (age ${gradeNum + 5}-${gradeNum + 6}). Many are EAL (English as Additional Language) learners whose first language is Chinese.
+
+YOUR RESPONSE FORMAT — follow this exactly:
+
+1. Start with a one-line summary in simple English (1 sentence max)
+2. Then give the Chinese translation of that summary line, prefixed with 🇨🇳
+3. Then explain the concept in 3-5 short paragraphs using:
+   - Simple vocabulary (avoid jargon unless you define it)
+   - Short sentences (max 15 words each)
+   - A real-world analogy the student can picture
+   - Bold the key terms using **term**
+4. End with "🔑 Key words" — list 3-5 important English terms with their Chinese translations
 
 RULES:
-- Explain at a Grade ${gradeNum} level (age 11-14). Use simple English — many students speak Chinese or Korean at home.
-- Start with a one-sentence answer, then explain WHY with an analogy or example.
-- If the concept involves a formula or key term, show it clearly.
-- Always end with a Chinese translation section: "🇨🇳 中文解释：" followed by a clear Chinese explanation (2-3 sentences, simplified Chinese).
-- Keep the total response under 250 words.
-- If the question is not about ${subjectName} or mathematics/science in general, politely redirect: "That's a great question, but I can only help with maths and science topics. Try asking about something from your current unit!"
-- Do NOT do homework for students. If they paste a specific question, explain the METHOD, not the answer.
-- Use analogies students in Nanjing would understand (e.g. the Yangtze River, Nanjing Metro, local food).`;
+- Never exceed 250 words total
+- Use analogies from everyday life (cooking, sports, school, weather)
+- If the concept involves a formula, show it clearly and explain each part
+- If the question is off-topic (not science or maths), politely redirect: "Great question! But I'm best at explaining science and maths. Try asking me about those!"
+- Never mention you are an AI — you are "Mr Zocchi's study helper"
+- Be encouraging: "Great question!" or "Lots of students find this tricky"`;
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -86,44 +64,40 @@ RULES:
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 600,
+        model: "claude-haiku-4-5-20241022",
+        max_tokens: 1000,
         system: systemPrompt,
-        messages: [
-          { role: "user", content: concept.trim() },
-        ],
+        messages: [{ role: "user", content: `Explain this to me: ${concept.trim()}` }],
       }),
     });
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("Anthropic API error:", response.status, errText);
-      return new Response(JSON.stringify({ error: "Sorry, the explanation service is temporarily unavailable." }), {
-        status: 502, headers: corsHeaders,
+    const data = await response.json();
+
+    if (data.error) {
+      console.error("Anthropic error:", data.error);
+      return new Response(JSON.stringify({ error: "The explain service is temporarily busy. Try again in a moment." }), {
+        status: 500, headers: corsHeaders,
       });
     }
 
-    const data = await response.json();
-    const explanation = data.content
-      .filter((c) => c.type === "text")
-      .map((c) => c.text)
-      .join("\n");
+    const text = data.content?.[0]?.text || "Sorry, I couldn't generate an explanation. Please try again.";
 
-    // Increment rate limit
-    const newCount = requestCount + 1;
-    if (context.env.RATE_LIMIT) {
-      await context.env.RATE_LIMIT.put(rateKey, String(newCount), { expirationTtl: 86400 });
-    }
-
-    return new Response(JSON.stringify({
-      explanation,
-      remaining: DAILY_LIMIT - newCount,
-    }), { status: 200, headers: corsHeaders });
+    return new Response(JSON.stringify({ explanation: text }), { headers: corsHeaders });
 
   } catch (err) {
-    console.error("Explain function error:", err);
-    return new Response(JSON.stringify({ error: "Something went wrong. Try again." }), {
+    console.error("Function error:", err);
+    return new Response(JSON.stringify({ error: "Something went wrong. Please try again." }), {
       status: 500, headers: corsHeaders,
     });
   }
+}
+
+export async function onRequestOptions() {
+  return new Response(null, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
 }

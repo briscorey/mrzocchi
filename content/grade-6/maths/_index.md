@@ -100,7 +100,7 @@ terms:
     url: /games/review/g6-number-sense.html
     embed: true
     questions: 15
-  - name: 🔴🟡 Connect 4 — Number Sense
+  - name: Join Dots — Number Sense
     url: /games/connect4/g6-number-sense-c4.html
     embed: true
     questions: 15
@@ -284,7 +284,7 @@ terms:
     url: /games/review/g6-fractions.html
     embed: true
     questions: 15
-  - name: 🔴🟡 Connect 4 — Fractions & Decimals
+  - name: Join Dots — Fractions & Decimals
     url: /games/connect4/g6-fractions-and-decimals-c4.html
     embed: true
     questions: 15
@@ -473,7 +473,7 @@ terms:
     url: /games/review/g6-geometry.html
     embed: true
     questions: 14
-  - name: 🔴🟡 Connect 4 — Geometry
+  - name: Join Dots — Geometry
     url: /games/connect4/g6-geometry-c4.html
     embed: true
     questions: 14
@@ -656,7 +656,7 @@ terms:
     url: /games/review/g6-algebra.html
     embed: true
     questions: 14
-  - name: 🔴🟡 Connect 4 — Algebra
+  - name: Join Dots — Algebra
     url: /games/connect4/g6-algebra-c4.html
     embed: true
     questions: 14
@@ -842,7 +842,7 @@ terms:
     url: /games/review/g6-probability-stats.html
     embed: true
     questions: 14
-  - name: 🔴🟡 Connect 4 — Probability & Statistics
+  - name: Join Dots — Probability & Statistics
     url: /games/connect4/g6-probability-and-statistics-c4.html
     embed: true
     questions: 14

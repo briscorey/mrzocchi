@@ -2,108 +2,163 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Connect 4 — G7 Number Systems</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Join Dots — G7 Number Systems</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--red:#ef4444;--yellow:#facc15;--teal:#2dd4bf;--text:#e2e4ee;--muted:#9ca3af;--blue:#3b82f6}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center}
-h1{font-size:1.3rem;font-weight:700;text-align:center;padding:16px 12px 8px;letter-spacing:-0.02em}
-h1 span{color:var(--teal)}
-.modes{display:flex;gap:6px;padding:8px 12px;flex-wrap:wrap;justify-content:center}
-.mode-btn{padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
-.mode-btn:hover{border-color:var(--teal);color:var(--text)}
-.mode-btn.active{border-color:var(--teal);color:var(--teal);background:rgba(45,212,191,.08)}
-.board-wrap{position:relative;padding:8px}
-.board{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:var(--blue);border-radius:12px;padding:8px;max-width:420px;width:100%}
-.cell{width:100%;aspect-ratio:1;border-radius:50%;background:var(--bg);cursor:pointer;transition:all .15s;border:2px solid transparent}
-.cell:hover{background:#1e2130}
-.cell.p1{background:var(--red);border-color:rgba(239,68,68,.4);box-shadow:0 0 12px rgba(239,68,68,.3)}
-.cell.p2{background:var(--yellow);border-color:rgba(250,204,21,.4);box-shadow:0 0 12px rgba(250,204,21,.3)}
-.cell.win{animation:pulse .6s ease infinite alternate}
-@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.1)}}
-.col-hover{display:flex;justify-content:center;gap:4px;padding:0 8px;max-width:420px;width:100%}
-.col-ind{flex:1;height:6px;border-radius:3px;background:transparent;transition:background .2s}
-.status{text-align:center;padding:8px 16px;font-size:.88rem;font-weight:600;min-height:36px;display:flex;align-items:center;justify-content:center;gap:8px}
-.status .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
-.dot-red{background:var(--red)}.dot-yellow{background:var(--yellow)}
-.q-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
-.q-overlay.show{display:flex}
-.q-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:480px;width:100%;animation:slideUp .3s ease}
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.q-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:10px}
-.q-text{font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:18px}
-.q-opts{display:flex;flex-direction:column;gap:8px}
-.q-opt{padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-family:inherit;font-size:.88rem;cursor:pointer;text-align:left;transition:all .2s}
-.q-opt:hover{border-color:var(--teal);background:rgba(45,212,191,.05)}
-.q-opt.correct{border-color:#10b981;background:rgba(16,185,129,.1);color:#10b981}
-.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.08);color:var(--red)}
-.q-explain{margin-top:12px;padding:12px;border-radius:8px;background:rgba(45,212,191,.06);border-left:3px solid var(--teal);font-size:.82rem;color:var(--muted);line-height:1.5;display:none}
-.q-next{margin-top:14px;padding:10px 24px;border-radius:10px;border:none;background:var(--teal);color:var(--bg);font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;display:none;transition:transform .2s}
-.q-next:hover{transform:scale(1.03)}
-.scores{display:flex;gap:24px;justify-content:center;padding:4px 16px;font-size:.8rem}
+body{background:#0f172a;color:#e2e8f0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* Difficulty screen */
+.diff-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.diff-screen h1{font-size:2.4rem;font-weight:800;margin-bottom:4px;letter-spacing:-0.04em}
+.diff-screen h1 span{background:linear-gradient(135deg,#2dd4bf,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.diff-sub{color:#64748b;margin-bottom:32px;font-size:0.95rem}
+.diff-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#64748b;margin-bottom:14px}
+.diff-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px}
+.diff-btn{padding:16px 24px;border-radius:14px;border:2px solid #1e293b;background:#1e293b;color:#e2e8f0;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;text-align:left;display:flex;align-items:center;gap:12px}
+.diff-btn:hover{border-color:#2dd4bf;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.diff-btn small{color:#64748b;font-weight:400;font-size:0.8rem;display:block;margin-top:2px}
+.diff-icon{font-size:1.4rem;width:40px;text-align:center;flex-shrink:0}
+
+/* Game layout */
+.game{display:none;padding:16px}
+.game.show{display:block}
+.game-layout{display:grid;grid-template-columns:1fr 360px;gap:20px;max-width:1100px;margin:0 auto}
+.game-header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 0 8px}
+.game-title{font-size:1.1rem;font-weight:700}
+.game-title span{color:#2dd4bf}
+.back-btn{padding:6px 14px;border-radius:8px;border:1px solid #334155;background:transparent;color:#94a3b8;font-family:inherit;font-size:0.78rem;cursor:pointer;transition:all .2s}
+.back-btn:hover{border-color:#2dd4bf;color:#e2e8f0}
+
+/* Board area */
+.board-col{display:flex;flex-direction:column;align-items:center;gap:10px}
+.status{font-size:0.95rem;font-weight:600;height:32px;display:flex;align-items:center;gap:8px}
+.dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.board-container{position:relative;width:100%;max-width:490px}
+.col-btns{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
+.col-btn{height:32px;border-radius:8px;border:none;background:transparent;cursor:pointer;font-size:1.1rem;color:transparent;transition:all .15s}
+.col-btn:hover{background:rgba(239,68,68,0.1);color:#ef4444}
+.col-btn.yt:hover{background:rgba(250,204,21,0.1);color:#eab308}
+.board{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:linear-gradient(160deg,#1d4ed8,#2563eb,#1e40af);border-radius:16px;padding:10px}
+.cell{aspect-ratio:1;border-radius:50%;background:#0f172a;border:3px solid rgba(0,0,0,0.35);transition:background .15s}
+.cell:hover{background:#1e293b}
+.cell.r{background:#ef4444;border-color:#b91c1c;box-shadow:inset 0 -4px 8px rgba(0,0,0,0.25),0 0 20px rgba(239,68,68,0.35)}
+.cell.y{background:#facc15;border-color:#ca8a04;box-shadow:inset 0 -4px 8px rgba(0,0,0,0.15),0 0 20px rgba(250,204,21,0.35)}
+.cell.w{animation:wp .5s ease infinite alternate}
+@keyframes wp{to{transform:scale(1.1);filter:brightness(1.4)}}
+.cell.drop{animation:fd .35s cubic-bezier(.22,1.3,.36,1)}
+@keyframes fd{0%{transform:translateY(-500%);opacity:0}70%{transform:translateY(8%)}100%{transform:translateY(0);opacity:1}}
+.scores{display:flex;gap:20px;font-size:0.82rem}
 .scores span{display:flex;align-items:center;gap:6px}
-.controls{display:flex;gap:8px;padding:10px;flex-wrap:wrap;justify-content:center}
-.ctrl-btn{padding:8px 18px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
-.ctrl-btn:hover{border-color:var(--teal);color:var(--text)}
-@media(max-width:480px){.board{max-width:340px;gap:3px;padding:6px}.q-card{padding:18px}h1{font-size:1.1rem}}
+
+/* Right panel */
+.panel{display:flex;flex-direction:column;gap:14px}
+.score-bar{display:flex;justify-content:space-around;padding:14px;background:#1e293b;border-radius:14px;border:1px solid #334155}
+.sc-item{text-align:center}
+.sc-item strong{font-size:1.5rem;display:block}
+.sc-item small{font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:0.06em}
+.sc-item.rc strong{color:#ef4444}.sc-item.yc strong{color:#facc15}
+
+/* Question card */
+.q-box{background:#1e293b;border-radius:14px;border:1px solid #334155;padding:20px;flex:1;display:flex;flex-direction:column}
+.q-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;width:fit-content}
+.q-badge.rb{background:rgba(239,68,68,0.12);color:#ef4444}
+.q-badge.yb{background:rgba(250,204,21,0.12);color:#eab308}
+.q-text{font-size:0.98rem;font-weight:600;line-height:1.6;margin-bottom:16px}
+.q-opts{display:flex;flex-direction:column;gap:7px}
+.q-opt{padding:11px 14px;border-radius:10px;border:1.5px solid #334155;background:transparent;color:#e2e8f0;font-family:inherit;font-size:0.85rem;cursor:pointer;text-align:left;transition:all .2s;line-height:1.4}
+.q-opt:hover{border-color:#2dd4bf;background:rgba(45,212,191,0.04)}
+.q-opt.ok{border-color:#10b981;background:rgba(16,185,129,0.1);color:#10b981;pointer-events:none}
+.q-opt.no{border-color:#ef4444;background:rgba(239,68,68,0.06);color:#ef4444;pointer-events:none}
+.q-opt.dis{pointer-events:none;opacity:0.5}
+.q-opt.ok.dis,.q-opt.no.dis{opacity:1}
+.q-why{margin-top:10px;padding:10px 12px;border-radius:8px;background:rgba(45,212,191,0.06);border-left:3px solid #2dd4bf;font-size:0.8rem;color:#94a3b8;line-height:1.5;display:none}
+.q-go{margin-top:12px;padding:10px;border-radius:10px;border:none;background:#2dd4bf;color:#0f172a;font-family:inherit;font-size:0.88rem;font-weight:700;cursor:pointer;display:none;width:100%;transition:background .2s}
+.q-go:hover{background:#5eead4}
+.q-wait{padding:20px;text-align:center;color:#64748b;font-size:0.9rem}
+.q-wait em{color:#94a3b8;font-style:normal}
+
+/* Win banner */
+.win-card{background:#1e293b;border-radius:14px;border:1px solid #334155;padding:28px;text-align:center;display:none}
+.win-card.show{display:block}
+.win-em{font-size:3rem;margin-bottom:6px}
+.win-t{font-size:1.5rem;font-weight:700;margin-bottom:4px}
+.win-s{color:#64748b;font-size:0.88rem;margin-bottom:16px}
+.win-btn{padding:10px 28px;border-radius:10px;border:1.5px solid #334155;background:#1e293b;color:#e2e8f0;font-family:inherit;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all .2s}
+.win-btn:hover{border-color:#2dd4bf;color:#2dd4bf}
+
+/* Responsive — stack on narrow */
+@media(max-width:800px){
+  .game-layout{grid-template-columns:1fr;max-width:500px}
+  .board-container{max-width:100%}
+  .panel{order:-1}
+  .score-bar{padding:10px}
+}
 </style>
 </head>
 <body>
-<h1>Connect 4 \u2014 <span>G7 Number Systems</span></h1>
-<div class="modes" id="modes">
-<button class="mode-btn active" onclick="setMode('easy')">\ud83d\udfe2 Easy</button>
-<button class="mode-btn" onclick="setMode('medium')">\ud83d\udfe1 Medium</button>
-<button class="mode-btn" onclick="setMode('hard')">\ud83d\udd34 Hard</button>
-<button class="mode-btn" onclick="setMode('1v1')">\ud83d\udc65 1v1</button>
+
+<div class="diff-screen" id="diffScreen">
+  <h1>Join Dots &mdash; <span>G7 Number Systems</span></h1>
+  <p class="diff-sub">Connect 4 meets quiz &mdash; answer to play!</p>
+  <div class="diff-label">Choose difficulty</div>
+  <div class="diff-btns">
+    <button class="diff-btn" onclick="go('easy')"><span class="diff-icon">&#x1F7E2;</span><div><strong>Easy</strong><small>AI sometimes makes mistakes</small></div></button>
+    <button class="diff-btn" onclick="go('medium')"><span class="diff-icon">&#x1F7E1;</span><div><strong>Medium</strong><small>Plays well, blocks your wins</small></div></button>
+    <button class="diff-btn" onclick="go('hard')"><span class="diff-icon">&#x1F534;</span><div><strong>Hard</strong><small>Strategic and ruthless</small></div></button>
+    <button class="diff-btn" onclick="go('1v1')"><span class="diff-icon">&#x1F465;</span><div><strong>1 v 1</strong><small>Play against a friend</small></div></button>
+  </div>
 </div>
-<div class="status" id="status"><span class="dot dot-red"></span> Your turn \u2014 answer to play!</div>
-<div class="scores" id="scores"><span><span class="dot dot-red"></span> You: <b id="s1">0</b></span><span><span class="dot dot-yellow"></span> AI: <b id="s2">0</b></span></div>
-<div class="col-hover" id="colhover"></div>
-<div class="board-wrap"><div class="board" id="board"></div></div>
-<div class="controls">
-<button class="ctrl-btn" onclick="resetGame()">\u21bb New Game</button>
-<button class="ctrl-btn" onclick="resetScores()">\ud83d\uddd1 Reset Scores</button>
+
+<div class="game" id="game">
+  <div class="game-layout">
+    <div class="game-header">
+      <div class="game-title">Join Dots &mdash; <span>G7 Number Systems</span></div>
+      <button class="back-btn" onclick="location.reload()">&#x2190; Change mode</button>
+    </div>
+    <div class="board-col">
+      <div class="status" id="st"><div class="dot" id="stDot" style="background:#ef4444"></div><span id="stTxt">Your turn &mdash; click a column!</span></div>
+      <div class="board-container">
+        <div class="col-btns" id="cols"></div>
+        <div class="board" id="bd"></div>
+      </div>
+      <div class="scores"><span><div class="dot" style="background:#ef4444"></div><span id="lb1">You</span>: <b id="v1">0</b></span><span><div class="dot" style="background:#facc15"></div><span id="lb2">AI</span>: <b id="v2">0</b></span></div>
+    </div>
+    <div class="panel">
+      <div class="score-bar"><div class="sc-item rc"><strong id="sv1">0</strong><small id="sl1">You</small></div><div class="sc-item"><strong id="svd">0</strong><small>Draws</small></div><div class="sc-item yc"><strong id="sv2">0</strong><small id="sl2">AI</small></div></div>
+      <div class="q-box" id="qBox"><div class="q-wait" id="qWait"><em>Click a column</em> to start playing!<br>Answer correctly to drop your piece.</div></div>
+      <div class="win-card" id="winCard"><div class="win-em" id="winEm"></div><div class="win-t" id="winT"></div><div class="win-s" id="winS"></div><button class="win-btn" onclick="newG()">Play Again</button></div>
+    </div>
+  </div>
 </div>
-<div class="q-overlay" id="qoverlay">
-<div class="q-card">
-<div class="q-label" id="qlabel">Question</div>
-<div class="q-text" id="qtext"></div>
-<div class="q-opts" id="qopts"></div>
-<div class="q-explain" id="qexplain"></div>
-<button class="q-next" id="qnext" onclick="closeQuestion()">Continue \u2192</button>
-</div>
-</div>
+
 <script>
 var Q = [{"question": "Calculate: −5 × −3", "options": ["−15", "15", "−8", "8"], "answer": "15", "explain": "Negative × negative = positive. So −5 × −3 = 15."}, {"question": "Calculate: −12 ÷ 4", "options": ["3", "−3", "−8", "48"], "answer": "−3", "explain": "Negative ÷ positive = negative. −12 ÷ 4 = −3."}, {"question": "What is 5³?", "options": ["15", "125", "25", "243"], "answer": "125", "explain": "5³ = 5 × 5 × 5 = 125."}, {"question": "What is √144?", "options": ["11", "12", "13", "14"], "answer": "12", "explain": "12 × 12 = 144, so √144 = 12."}, {"question": "What is ∛27?", "options": ["3", "9", "27", "81"], "answer": "3", "explain": "3 × 3 × 3 = 27, so ∛27 = 3."}, {"question": "Express 60 as a product of prime factors.", "options": ["2² × 3 × 5", "2 × 3 × 10", "4 × 15", "2 × 30"], "answer": "2² × 3 × 5", "explain": "60 = 2 × 30 = 2 × 2 × 15 = 2 × 2 × 3 × 5 = 2² × 3 × 5."}, {"question": "Find the HCF of 24 and 36 using prime factorisation.", "options": ["6", "12", "4", "8"], "answer": "12", "explain": "24 = 2³×3. 36 = 2²×3². HCF = 2²×3 = 12 (take lowest powers)."}, {"question": "Find the LCM of 8 and 12.", "options": ["24", "48", "96", "4"], "answer": "24", "explain": "8 = 2³. 12 = 2²×3. LCM = 2³×3 = 24 (take highest powers)."}, {"question": "Write 45,000 in standard form.", "options": ["4.5 × 10³", "4.5 × 10⁴", "45 × 10³", "0.45 × 10⁵"], "answer": "4.5 × 10⁴", "explain": "Move decimal 4 places left: 45000 = 4.5 × 10⁴."}, {"question": "Write 3.7 × 10⁻² as an ordinary number.", "options": ["370", "0.37", "0.037", "37"], "answer": "0.037", "explain": "10⁻² means move decimal 2 places left: 3.7 → 0.037."}, {"question": "Calculate: 2⁴ × 2³", "options": ["2⁷", "2¹²", "4⁷", "2¹"], "answer": "2⁷", "explain": "Same base: add indices. 2⁴ × 2³ = 2⁴⁺³ = 2⁷ = 128."}, {"question": "Calculate: 5⁶ ÷ 5²", "options": ["5⁴", "5³", "5⁸", "1⁴"], "answer": "5⁴", "explain": "Same base: subtract indices. 5⁶ ÷ 5² = 5⁶⁻² = 5⁴ = 625."}, {"question": "What is any number raised to the power 0?", "options": ["0", "1", "The number itself", "Undefined"], "answer": "1", "explain": "Any non-zero number to the power 0 equals 1. e.g. 7⁰ = 1."}, {"question": "Common mistake: '2³ = 6.' Explain the error.", "options": ["It's correct", "Should multiply not add: 2×2×2 = 8", "Should be 2+3 = 5", "Should be 3² = 9"], "answer": "Should multiply not add: 2×2×2 = 8", "explain": "2³ means 2 multiplied by itself 3 times (2×2×2=8), NOT 2×3=6."}, {"question": "Is −7 greater or less than −3?", "options": ["Greater", "Less", "Equal", "Can't compare"], "answer": "Less", "explain": "On a number line, −7 is further left than −3, so −7 < −3."}];
-function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-var ROWS=6,COLS=7,board,currentPlayer,gameOver,mode,qIdx,scores,pendingCol,aiThinking;
-function init(){board=Array.from({length:ROWS},function(){return Array(COLS).fill(0)});currentPlayer=1;gameOver=false;qIdx=0;aiThinking=false;pendingCol=-1;shuffle(Q);renderBoard();updateStatus()}
-function setMode(m){mode=m;document.querySelectorAll('.mode-btn').forEach(function(b){b.classList.toggle('active',b.textContent.toLowerCase().indexOf(m==='1v1'?'1v1':m)>=0)});var l=m==='1v1'?['Red','Yellow']:['You','AI'];document.getElementById('scores').innerHTML='<span><span class="dot dot-red"></span> '+l[0]+': <b id="s1">'+scores[0]+'</b></span><span><span class="dot dot-yellow"></span> '+l[1]+': <b id="s2">'+scores[1]+'</b></span>';resetGame()}
-function renderBoard(){var h='';for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){var cls=board[r][c]===1?'p1':board[r][c]===2?'p2':'';h+='<div class="cell '+cls+'" data-col="'+c+'" onclick="cellClick('+c+')"></div>'}document.getElementById('board').innerHTML=h;var ih='';for(var c=0;c<COLS;c++)ih+='<div class="col-ind" id="ci'+c+'"></div>';document.getElementById('colhover').innerHTML=ih}
-function updateStatus(){var s=document.getElementById('status');if(gameOver)return;if(mode==='1v1'){var col=currentPlayer===1?'dot-red':'dot-yellow';var name=currentPlayer===1?'Red':'Yellow';s.innerHTML='<span class="dot '+col+'"></span> '+name+"'s turn"}else{if(currentPlayer===1)s.innerHTML='<span class="dot dot-red"></span> Your turn';else s.innerHTML='<span class="dot dot-yellow"></span> AI thinking...'}}
-function getNextQ(){if(qIdx>=Q.length){shuffle(Q);qIdx=0}return Q[qIdx++]}
-function cellClick(col){if(gameOver||aiThinking)return;if(mode!=='1v1'&&currentPlayer===2)return;if(board[0][col]!==0)return;pendingCol=col;showQuestion()}
-function showQuestion(){var q=getNextQ();var ov=document.getElementById('qoverlay');document.getElementById('qlabel').textContent=(mode==='1v1'?(currentPlayer===1?'Red':'Yellow'):'Your')+' Question';document.getElementById('qtext').textContent=q.question;var opts=shuffle([].concat(q.options));var h='';opts.forEach(function(o){h+='<button class="q-opt" onclick="checkAnswer(this)">'+o+'</button>'});document.getElementById('qopts').innerHTML=h;document.getElementById('qexplain').style.display='none';document.getElementById('qexplain').textContent=q.explain||'';document.getElementById('qnext').style.display='none';ov.classList.add('show');ov.dataset.correct=q.answer}
-function checkAnswer(btn){var ov=document.getElementById('qoverlay');var correct=ov.dataset.correct;var chosen=btn.textContent;document.querySelectorAll('.q-opt').forEach(function(b){b.disabled=true;b.style.pointerEvents='none';if(b.textContent===correct)b.classList.add('correct')});if(chosen!==correct)btn.classList.add('wrong');var ex=document.getElementById('qexplain');if(ex.textContent)ex.style.display='block';document.getElementById('qnext').style.display='block';ov.dataset.result=chosen===correct?'correct':'wrong'}
-function closeQuestion(){var ov=document.getElementById('qoverlay');ov.classList.remove('show');var ok=ov.dataset.result==='correct';if(ok){dropPiece(pendingCol,currentPlayer);if(!gameOver){currentPlayer=currentPlayer===1?2:1;updateStatus();if(mode!=='1v1'&&currentPlayer===2){aiThinking=true;setTimeout(aiMove,600)}}}else{var s=document.getElementById('status');s.innerHTML='<span class="dot '+(currentPlayer===1?'dot-red':'dot-yellow')+'"></span> Wrong! Turn lost.';currentPlayer=currentPlayer===1?2:1;setTimeout(function(){updateStatus();if(mode!=='1v1'&&currentPlayer===2){aiThinking=true;setTimeout(aiMove,600)}},1200)}}
-function dropPiece(col,player){for(var r=ROWS-1;r>=0;r--){if(board[r][col]===0){board[r][col]=player;break}}renderBoard();if(checkWin(player)){gameOver=true;scores[player-1]++;document.getElementById('s'+player).textContent=scores[player-1];highlightWin(player);var s=document.getElementById('status');if(mode==='1v1')s.innerHTML='\ud83c\udf89 '+(player===1?'Red':'Yellow')+' wins!';else s.innerHTML=player===1?'\ud83c\udf89 You win!':'\ud83d\ude14 AI wins!'}else if(board[0].every(function(c){return c!==0})){gameOver=true;document.getElementById('status').innerHTML="\ud83e\udd1d It's a draw!"}}
-function aiMove(){var col=aiPickCol();dropPiece(col,2);aiThinking=false;if(!gameOver){currentPlayer=1;updateStatus()}}
-function aiPickCol(){var v=[];for(var c=0;c<COLS;c++)if(board[0][c]===0)v.push(c);for(var i=0;i<v.length;i++)if(wouldWin(v[i],2))return v[i];for(var i=0;i<v.length;i++)if(wouldWin(v[i],1))return v[i];if(mode==='easy')return v[Math.floor(Math.random()*v.length)];if(mode==='medium'){var p=[3,2,4,1,5,0,6];for(var i=0;i<p.length;i++)if(v.indexOf(p[i])>=0)return p[i];return v[0]}var best=-Infinity,bc=v[0];for(var i=0;i<v.length;i++){var b=cloneBoard();simDrop(b,v[i],2);var sc=minimax(b,4,false,-Infinity,Infinity);if(sc>best){best=sc;bc=v[i]}}return bc}
-function wouldWin(col,p){var b=cloneBoard();simDrop(b,col,p);return checkWinBoard(b,p)}
-function cloneBoard(){return board.map(function(r){return r.slice()})}
-function simDrop(b,col,p){for(var r=ROWS-1;r>=0;r--)if(b[r][col]===0){b[r][col]=p;return r}return -1}
-function minimax(b,d,isMax,a,bt){if(checkWinBoard(b,2))return 100+d;if(checkWinBoard(b,1))return -100-d;if(d===0)return scoreBoard(b);var v=[];for(var c=0;c<COLS;c++)if(b[0][c]===0)v.push(c);if(!v.length)return 0;if(isMax){var best=-Infinity;for(var i=0;i<v.length;i++){var nb=b.map(function(r){return r.slice()});simDrop(nb,v[i],2);var s=minimax(nb,d-1,false,a,bt);best=Math.max(best,s);a=Math.max(a,s);if(bt<=a)break}return best}else{var best=Infinity;for(var i=0;i<v.length;i++){var nb=b.map(function(r){return r.slice()});simDrop(nb,v[i],1);var s=minimax(nb,d-1,true,a,bt);best=Math.min(best,s);bt=Math.min(bt,s);if(bt<=a)break}return best}}
-function scoreBoard(b){var s=0;for(var r=0;r<ROWS;r++){if(b[r][3]===2)s+=3;if(b[r][3]===1)s-=3}return s}
-function checkWin(p){return checkWinBoard(board,p)}
-function checkWinBoard(b,p){for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){if(c+3<COLS&&b[r][c]===p&&b[r][c+1]===p&&b[r][c+2]===p&&b[r][c+3]===p)return true;if(r+3<ROWS&&b[r][c]===p&&b[r+1][c]===p&&b[r+2][c]===p&&b[r+3][c]===p)return true;if(r+3<ROWS&&c+3<COLS&&b[r][c]===p&&b[r+1][c+1]===p&&b[r+2][c+2]===p&&b[r+3][c+3]===p)return true;if(r+3<ROWS&&c-3>=0&&b[r][c]===p&&b[r+1][c-1]===p&&b[r+2][c-2]===p&&b[r+3][c-3]===p)return true}return false}
-function highlightWin(p){for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){if(c+3<COLS&&board[r][c]===p&&board[r][c+1]===p&&board[r][c+2]===p&&board[r][c+3]===p){mk(r,c);mk(r,c+1);mk(r,c+2);mk(r,c+3)}if(r+3<ROWS&&board[r][c]===p&&board[r+1][c]===p&&board[r+2][c]===p&&board[r+3][c]===p){mk(r,c);mk(r+1,c);mk(r+2,c);mk(r+3,c)}if(r+3<ROWS&&c+3<COLS&&board[r][c]===p&&board[r+1][c+1]===p&&board[r+2][c+2]===p&&board[r+3][c+3]===p){mk(r,c);mk(r+1,c+1);mk(r+2,c+2);mk(r+3,c+3)}if(r+3<ROWS&&c-3>=0&&board[r][c]===p&&board[r+1][c-1]===p&&board[r+2][c-2]===p&&board[r+3][c-3]===p){mk(r,c);mk(r+1,c-1);mk(r+2,c-2);mk(r+3,c-3)}}}
-function mk(r,c){document.querySelectorAll('.cell')[r*COLS+c].classList.add('win')}
-function resetGame(){init()}
-function resetScores(){scores=[0,0];document.getElementById('s1').textContent='0';document.getElementById('s2').textContent='0'}
-document.getElementById('board').addEventListener('mouseover',function(e){var col=e.target.dataset.col;document.querySelectorAll('.col-ind').forEach(function(ci,i){ci.style.background=i==col?(currentPlayer===1?'var(--red)':'var(--yellow)'):'transparent'})});
-document.getElementById('board').addEventListener('mouseleave',function(){document.querySelectorAll('.col-ind').forEach(function(ci){ci.style.background='transparent'})});
-scores=[0,0];mode='easy';init();
+var R=6,C=7,g,cur,ov,mode,qi,sc,pc,aiB;
+function sh(a){for(var i=a.length-1;i>0;i--){var j=0|Math.random()*(i+1);var t=a[i];a[i]=a[j];a[j]=t}return a}
+function go(m){mode=m;document.getElementById('diffScreen').style.display='none';var gm=document.getElementById('game');gm.classList.add('show');var is1=m==='1v1';document.getElementById('lb1').textContent=document.getElementById('sl1').textContent=is1?'Red':'You';document.getElementById('lb2').textContent=document.getElementById('sl2').textContent=is1?'Yellow':'AI';sc=[0,0,0];newG()}
+function newG(){g=[];for(var r=0;r<R;r++){g[r]=[];for(var c=0;c<C;c++)g[r][c]=0}cur=1;ov=false;aiB=false;qi=0;sh(Q);ren();upSt();document.getElementById('winCard').classList.remove('show');document.getElementById('qBox').innerHTML='<div class="q-wait" id="qWait"><em>Click a column</em> to start playing!<br>Answer correctly to drop your piece.</div>'}
+function ren(){var h='';for(var r=0;r<R;r++)for(var c=0;c<C;c++){var v=g[r][c];h+='<div class="cell'+(v===1?' r':v===2?' y':'')+'" data-c="'+c+'"></div>'}document.getElementById('bd').innerHTML=h;var a='';for(var c=0;c<C;c++)a+='<div class="col-btn'+(cur===2?' yt':'')+'" onclick="pl('+c+')">\u2193</div>';document.getElementById('cols').innerHTML=a}
+function upSt(){if(ov)return;var d=document.getElementById('stDot'),t=document.getElementById('stTxt');d.style.background=cur===1?'#ef4444':'#facc15';if(mode==='1v1'){t.textContent=(cur===1?'Red':'Yellow')+"'s turn"}else{t.textContent=cur===1?'Your turn \u2014 click a column!':'AI thinking...'}}
+function upSc(){document.getElementById('sv1').textContent=document.getElementById('v1').textContent=sc[0];document.getElementById('sv2').textContent=document.getElementById('v2').textContent=sc[1];document.getElementById('svd').textContent=sc[2]}
+function pl(c){if(ov||aiB||g[0][c])return;if(mode!=='1v1'&&cur===2)return;pc=c;showQ()}
+function nxQ(){if(qi>=Q.length){sh(Q);qi=0}return Q[qi++]}
+function showQ(){var q=nxQ();var bx=document.getElementById('qBox');var bc=cur===1?'rb':'yb';var lab=mode==='1v1'?(cur===1?'Red':'Yellow')+"'s Question":'Your Question';var opts=sh(q.options.slice());var h='<div class="q-badge '+bc+'">'+lab+'</div><div class="q-text">'+q.question+'</div><div class="q-opts">';for(var i=0;i<opts.length;i++)h+='<button class="q-opt" onclick="ans(this)" data-v="'+opts[i].replace(/"/g,'&quot;')+'">'+opts[i]+'</button>';h+='</div><div class="q-why" id="qWhy">'+(q.explain||'')+'</div><button class="q-go" id="qGo" onclick="doMove()">Continue</button>';bx.innerHTML=h;bx._cor=q.answer;bx._ok=null}
+function ans(btn){var bx=document.getElementById('qBox');var cor=bx._cor;var pic=btn.dataset.v;bx.querySelectorAll('.q-opt').forEach(function(b){b.classList.add('dis');if(b.dataset.v===cor)b.classList.add('ok')});if(pic!==cor)btn.classList.add('no');var w=document.getElementById('qWhy');if(w.textContent)w.style.display='block';document.getElementById('qGo').style.display='block';bx._ok=pic===cor}
+function doMove(){var bx=document.getElementById('qBox');var ok=bx._ok;if(ok){drop(pc,cur);if(!ov){cur=cur===1?2:1;ren();upSt();if(mode!=='1v1'&&cur===2){aiB=true;bx.innerHTML='<div class="q-wait">AI is thinking...</div>';setTimeout(aiTurn,500)}else{bx.innerHTML='<div class="q-wait"><em>Click a column</em> to play!</div>'}}}else{document.getElementById('stTxt').textContent='Wrong! Turn lost.';cur=cur===1?2:1;setTimeout(function(){ren();upSt();if(mode!=='1v1'&&cur===2){aiB=true;bx.innerHTML='<div class="q-wait">AI is thinking...</div>';setTimeout(aiTurn,500)}else{bx.innerHTML='<div class="q-wait"><em>Click a column</em> to play!</div>'}},900)}}
+function drop(c,p){var row=-1;for(var i=R-1;i>=0;i--)if(!g[i][c]){g[i][c]=p;row=i;break}ren();if(row>=0){var cells=document.querySelectorAll('.cell');cells[row*C+c].classList.add('drop')}if(hw(g,p)){ov=true;sc[p-1]++;upSc();hlW(p);setTimeout(function(){showWin(p)},600)}else if(g[0].every(function(v){return v})){ov=true;sc[2]++;upSc();setTimeout(showDraw,400)}}
+function aiTurn(){var c=aiPk();drop(c,2);aiB=false;if(!ov){cur=1;ren();upSt();document.getElementById('qBox').innerHTML='<div class="q-wait"><em>Click a column</em> to play!</div>'}}
+function aiPk(){var v=vc();for(var i=0;i<v.length;i++)if(ww(v[i],2))return v[i];for(var i=0;i<v.length;i++)if(ww(v[i],1))return v[i];if(mode==='easy')return v[0|Math.random()*v.length];if(mode==='medium'){var p=[3,2,4,1,5,0,6];for(var i=0;i<p.length;i++)if(v.indexOf(p[i])>=0)return p[i];return v[0]}var best=-1e9,bc=v[0];for(var i=0;i<v.length;i++){var ng=cg();sd(ng,v[i],2);var s=mm(ng,4,false,-1e9,1e9);if(s>best){best=s;bc=v[i]}}return bc}
+function vc(){var v=[];for(var c=0;c<C;c++)if(!g[0][c])v.push(c);return v}
+function ww(c,p){var ng=cg();sd(ng,c,p);return hw(ng,p)}
+function cg(){return g.map(function(r){return r.slice()})}
+function sd(b,c,p){for(var i=R-1;i>=0;i--)if(!b[i][c]){b[i][c]=p;return}}
+function mm(b,d,mx,a,bt){if(hw(b,2))return 100+d;if(hw(b,1))return-100-d;if(!d)return ev(b);var v=[];for(var c=0;c<C;c++)if(!b[0][c])v.push(c);if(!v.length)return 0;if(mx){var best=-1e9;for(var i=0;i<v.length;i++){var n=b.map(function(r){return r.slice()});sd(n,v[i],2);best=Math.max(best,mm(n,d-1,false,a,bt));a=Math.max(a,best);if(bt<=a)break}return best}else{var best=1e9;for(var i=0;i<v.length;i++){var n=b.map(function(r){return r.slice()});sd(n,v[i],1);best=Math.min(best,mm(n,d-1,true,a,bt));bt=Math.min(bt,best);if(bt<=a)break}return best}}
+function ev(b){var s=0;for(var r=0;r<R;r++){if(b[r][3]===2)s+=3;if(b[r][3]===1)s-=3}return s}
+function hw(b,p){for(var r=0;r<R;r++)for(var c=0;c<C;c++){if(c+3<C&&b[r][c]===p&&b[r][c+1]===p&&b[r][c+2]===p&&b[r][c+3]===p)return true;if(r+3<R&&b[r][c]===p&&b[r+1][c]===p&&b[r+2][c]===p&&b[r+3][c]===p)return true;if(r+3<R&&c+3<C&&b[r][c]===p&&b[r+1][c+1]===p&&b[r+2][c+2]===p&&b[r+3][c+3]===p)return true;if(r+3<R&&c-3>=0&&b[r][c]===p&&b[r+1][c-1]===p&&b[r+2][c-2]===p&&b[r+3][c-3]===p)return true}return false}
+function hlW(p){var cells=document.querySelectorAll('.cell');for(var r=0;r<R;r++)for(var c=0;c<C;c++){var ds=[[0,1],[1,0],[1,1],[1,-1]];for(var d=0;d<ds.length;d++){var dr=ds[d][0],dc=ds[d][1];if(r+3*dr>=0&&r+3*dr<R&&c+3*dc>=0&&c+3*dc<C){var ok=true;for(var k=0;k<4;k++)if(g[r+k*dr][c+k*dc]!==p){ok=false;break}if(ok)for(var k=0;k<4;k++)cells[(r+k*dr)*C+(c+k*dc)].classList.add('w')}}}}
+function showWin(p){var wc=document.getElementById('winCard');wc.classList.add('show');if(mode==='1v1'){document.getElementById('winEm').textContent=p===1?'\uD83D\uDD34':'\uD83D\uDFE1';document.getElementById('winT').textContent=(p===1?'Red':'Yellow')+' Wins!'}else{document.getElementById('winEm').textContent=p===1?'\uD83C\uDF89':'\uD83E\uDD16';document.getElementById('winT').textContent=p===1?'You Win!':'AI Wins!'}document.getElementById('winS').textContent=sc[0]+' \u2013 '+sc[1]+' ('+sc[2]+' draws)'}
+function showDraw(){var wc=document.getElementById('winCard');wc.classList.add('show');document.getElementById('winEm').textContent='\uD83E\uDD1D';document.getElementById('winT').textContent="It's a Draw!";document.getElementById('winS').textContent=sc[0]+' \u2013 '+sc[1]+' ('+sc[2]+' draws)'}
 </script>
 </body>
 </html>

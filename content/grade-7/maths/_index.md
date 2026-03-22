@@ -100,7 +100,7 @@ terms:
     url: /games/review/g7-ratio.html
     embed: true
     questions: 14
-  - name: 🔴🟡 Connect 4 — Ratios & Proportions
+  - name: Join Dots — Ratios & Proportions
     url: /games/connect4/g7-ratios-and-proportions-c4.html
     embed: true
     questions: 14
@@ -272,7 +272,7 @@ terms:
     url: /games/review/g7-number-systems.html
     embed: true
     questions: 15
-  - name: 🔴🟡 Connect 4 — Number Systems
+  - name: Join Dots — Number Systems
     url: /games/connect4/g7-number-systems-c4.html
     embed: true
     questions: 15
@@ -459,7 +459,7 @@ terms:
     url: /games/review/g7-geometry.html
     embed: true
     questions: 14
-  - name: 🔴🟡 Connect 4 — Geometry
+  - name: Join Dots — Geometry
     url: /games/connect4/g7-geometry-c4.html
     embed: true
     questions: 14
@@ -645,7 +645,7 @@ terms:
     url: /games/review/g7-algebra.html
     embed: true
     questions: 14
-  - name: 🔴🟡 Connect 4 — Algebra
+  - name: Join Dots — Algebra
     url: /games/connect4/g7-algebra-c4.html
     embed: true
     questions: 14
@@ -827,7 +827,7 @@ terms:
     url: /games/review/g7-prob-stats.html
     embed: true
     questions: 14
-  - name: 🔴🟡 Connect 4 — Probability & Statistics
+  - name: Join Dots — Probability & Statistics
     url: /games/connect4/g7-probability-and-statistics-c4.html
     embed: true
     questions: 14

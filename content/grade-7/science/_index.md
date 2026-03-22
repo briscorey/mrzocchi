@@ -100,7 +100,7 @@ terms:
     url: /games/review/g7-forensic.html
     embed: true
     questions: 10
-  - name: 🔴🟡 Connect 4 — Forensic Science
+  - name: Join Dots — Forensic Science
     url: /games/connect4/g7-forensic-science-c4.html
     embed: true
     questions: 10
@@ -234,7 +234,7 @@ terms:
     url: /games/review/g7-cells.html
     embed: true
     questions: 12
-  - name: 🔴🟡 Connect 4 — Biology — Cells
+  - name: Join Dots — Biology — Cells
     url: /games/connect4/g7-biology-cells-c4.html
     embed: true
     questions: 12
@@ -392,7 +392,7 @@ terms:
     questions: 12
   - name: 💪 Forces & Motion (LearnLattice)
     url: https://learnlattice.com/games/review/g7-forces.html
-  - name: 🔴🟡 Connect 4 — Physics
+  - name: Join Dots — Physics
     url: /games/connect4/g7-physics-c4.html
     embed: true
     questions: 12
@@ -565,7 +565,7 @@ terms:
     url: /games/review/g7-separation.html
     embed: true
     questions: 11
-  - name: 🔴🟡 Connect 4 — Chemistry — Separation
+  - name: Join Dots — Chemistry — Separation
     url: /games/connect4/g7-chemistry-separation-c4.html
     embed: true
     questions: 11
@@ -705,7 +705,7 @@ terms:
     url: /games/review/g7-space.html
     embed: true
     questions: 10
-  - name: 🔴🟡 Connect 4 — Space Science
+  - name: Join Dots — Space Science
     url: /games/connect4/g7-space-science-c4.html
     embed: true
     questions: 10

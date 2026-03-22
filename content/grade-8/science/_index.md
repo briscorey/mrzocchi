@@ -100,7 +100,7 @@ terms:
     url: /games/review/g8-chemistry.html
     embed: true
     questions: 12
-  - name: 🔴🟡 Connect 4 — Chemistry
+  - name: Join Dots — Chemistry
     url: /games/connect4/g8-chemistry-c4.html
     embed: true
     questions: 12
@@ -280,7 +280,7 @@ terms:
     url: /games/review/g8-energy.html
     embed: true
     questions: 11
-  - name: 🔴🟡 Connect 4 — Physics — Energy
+  - name: Join Dots — Physics — Energy
     url: /games/connect4/g8-physics-energy-c4.html
     embed: true
     questions: 11
@@ -462,10 +462,10 @@ terms:
     questions: 11
   - name: 🌿 Ecology Review (LearnLattice)
     url: /games/review/g8-ecology.html
-  - name: 🔴🟡 Connect 4 — Ecology
+  - name: Join Dots — Ecology
     url: /games/connect4/g8-ecology-c4.html
     embed: true
-    questions: 15
+    questions: 11
   videos:
   - name: 🎬 What If All the Insects Disappeared? (Kurzgesagt)
     url: https://www.youtube.com/watch?v=W3bPCGZbx6s

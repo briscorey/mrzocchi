@@ -100,7 +100,7 @@ terms:
     url: /games/review/g6-sci-skills.html
     embed: true
     questions: 15
-  - name: 🔴🟡 Connect 4 — Scientific Skills
+  - name: Join Dots — Scientific Skills
     url: /games/connect4/g6-scientific-skills-c4.html
     embed: true
     questions: 15
@@ -280,7 +280,7 @@ terms:
     url: /games/review/g6-chemistry.html
     embed: true
     questions: 15
-  - name: 🔴🟡 Connect 4 — Chemistry
+  - name: Join Dots — Chemistry
     url: /games/connect4/g6-chemistry-c4.html
     embed: true
     questions: 15
@@ -475,7 +475,7 @@ terms:
     questions: 15
   - name: Earth Science Review (LearnLattice)
     url: https://learnlattice.org/games/revision/earth-science-g6/
-  - name: 🔴🟡 Connect 4 — Earth Science
+  - name: Join Dots — Earth Science
     url: /games/connect4/g6-earth-science-c4.html
     embed: true
     questions: 15
@@ -667,7 +667,7 @@ terms:
     url: /games/review/g6-ecology.html
     embed: true
     questions: 15
-  - name: 🔴🟡 Connect 4 — Ecology
+  - name: Join Dots — Ecology
     url: /games/connect4/g6-ecology-c4.html
     embed: true
     questions: 15
@@ -856,7 +856,7 @@ terms:
     url: /games/review/g6-space.html
     embed: true
     questions: 15
-  - name: 🔴🟡 Connect 4 — Space Science
+  - name: Join Dots — Space Science
     url: /games/connect4/g6-space-science-c4.html
     embed: true
     questions: 15

@@ -1,84 +1,65 @@
-/* ── mrzocchi i18n — EN / 中文 / 한국어 ── */
+/* ── mrzocchi i18n — EN / 中文 / 한국어 / 日本語 / DE / IT ── */
 (function() {
-  var translations = {
-    /* ── Header & Global Nav ── */
-    "nav.parents": { zh: "家长信息", ko: "학부모 안내" },
-    "nav.explain": { zh: "💡 解释", ko: "💡 설명" },
-    "nav.revise": { zh: "复习方法", ko: "복습 방법" },
-    "nav.about": { zh: "关于老师", ko: "소개" },
-    "nav.subtitle": { zh: "MYP 数学与科学 · 南京国际学校", ko: "MYP 수학 & 과학 · NIS" },
-
-    /* ── Homepage ── */
-    "home.grade6": { zh: "六年级", ko: "6학년" },
-    "home.grade7": { zh: "七年级", ko: "7학년" },
-    "home.grade8": { zh: "八年级", ko: "8학년" },
-    "home.maths": { zh: "📐 数学", ko: "📐 수학" },
-    "home.science": { zh: "🔬 科学", ko: "🔬 과학" },
-
-    /* ── Dashboard Sidebar ── */
-    "sidebar.nav": { zh: "导航", ko: "탐색" },
-    "sidebar.outline": { zh: "单元概要", ko: "단원 개요" },
-    "sidebar.criteria": { zh: "评估标准", ko: "평가 기준" },
-    "sidebar.ppts": { zh: "课件", ko: "프레젠테이션" },
-    "sidebar.worksheets": { zh: "练习册", ko: "워크시트" },
-    "sidebar.games": { zh: "游戏", ko: "게임" },
-    "sidebar.videos": { zh: "视频", ko: "영상" },
-    "sidebar.glossary": { zh: "词汇表", ko: "용어집" },
-    "sidebar.explore": { zh: "探索工具", ko: "탐구 도구" },
-    "sidebar.quiz": { zh: "自测", ko: "자기 테스트" },
-    "sidebar.toolkit": { zh: "数学工具", ko: "수학 도구" },
-    "sidebar.labs": { zh: "实验", ko: "실험" },
-
-    /* ── Dashboard Section Headings ── */
-    "heading.outline": { zh: "单元概要", ko: "단원 개요" },
-    "heading.criteria": { zh: "评估标准", ko: "평가 기준" },
-    "heading.ppts": { zh: "课件", ko: "프레젠테이션" },
-    "heading.worksheets": { zh: "练习册", ko: "워크시트" },
-    "heading.games": { zh: "复习游戏", ko: "복습 게임" },
-    "heading.videos": { zh: "视频", ko: "영상" },
-    "heading.glossary": { zh: "核心词汇", ko: "핵심 용어" },
-    "heading.explore": { zh: "探索与互动", ko: "탐구 & 체험" },
-    "heading.quiz": { zh: "自我测试", ko: "자기 테스트" },
-    "heading.toolkit": { zh: "数学工具箱", ko: "수학 도구" },
-
-    /* ── Unit Outline ── */
-    "unit.back": { zh: "← 返回首页", ko: "← 홈으로" },
-    "journey.title": { zh: "🗺️ 你的学习旅程", ko: "🗺️ 학습 여정" },
-
-    /* ── Quiz UI ── */
-    "quiz.browse_intro": { zh: "点击问题，查看答案。", ko: "질문을 클릭하면 답이 보입니다." },
-    "quiz.mode_browse": { zh: "📖 浏览全部", ko: "📖 전체 보기" },
-    "quiz.mode_test": { zh: "🧠 测试一下", ko: "🧠 테스트" },
-    "quiz.show_answer": { zh: "显示答案", ko: "정답 보기" },
-    "quiz.how_did": { zh: "你做得怎样？", ko: "어떻게 했나요?" },
-    "quiz.got": { zh: "✅ 掌握了", ko: "✅ 맞았어요" },
-    "quiz.almost": { zh: "🟡 差不多", ko: "🟡 거의 맞았어요" },
-    "quiz.missed": { zh: "❌ 不会", ko: "❌ 몰랐어요" },
-    "quiz.try_again": { zh: "再试一次", ko: "다시 하기" },
-    "quiz.browse_qs": { zh: "浏览题目", ko: "문제 보기" },
-    "quiz.excellent": { zh: "太棒了！", ko: "훌륭해요!" },
-    "quiz.good": { zh: "不错！", ko: "잘했어요!" },
-    "quiz.keep": { zh: "继续努力！", ko: "계속 연습하세요!" },
-    "quiz.review": { zh: "需要复习！", ko: "복습이 필요해요!" },
-
-    /* ── Explore UI ── */
-    "explore.intro": { zh: "本单元的互动模拟和工具。", ko: "이 단원의 실습 시뮬레이션과 도구입니다." },
-    "explore.launch": { zh: "▶ 启动模拟", ko: "▶ 시뮬레이션 열기" },
-    "explore.open": { zh: "↗ 打开链接", ko: "↗ 링크 열기" },
-
-    /* ── Game UI ── */
-    "game.play": { zh: "▶ 在此游玩", ko: "▶ 여기서 플레이" },
-    "game.newtab": { zh: "↗ 新标签", ko: "↗ 새 탭" },
-
-    /* ── Glossary ── */
-    "glossary.intro.sci": { zh: "本单元的核心词汇。用这些来积累科学词汇。", ko: "이 단원의 핵심 용어입니다." },
-    "glossary.intro.math": { zh: "本单元的核心词汇。用这些来积累数学词汇。", ko: "이 단원의 핵심 용어입니다." },
-
-    /* ── Footer ── */
-    "footer.grades": { zh: "年级", ko: "학년" },
-    "footer.resources": { zh: "资源", ko: "자료" },
-    "footer.info": { zh: "信息", ko: "정보" },
-    "footer.built": { zh: "为学生而建", ko: "학생을 위해" },
+  var T = {
+    "nav.parents":    { zh: "家长信息", ko: "학부모 안내", ja: "保護者向け", de: "Für Eltern", it: "Per i genitori" },
+    "nav.explain":    { zh: "💡 解释", ko: "💡 설명", ja: "💡 説明", de: "💡 Erklärung", it: "💡 Spiega" },
+    "nav.revise":     { zh: "复习方法", ko: "복습 방법", ja: "復習方法", de: "Lerntipps", it: "Come ripassare" },
+    "nav.about":      { zh: "关于老师", ko: "소개", ja: "先生について", de: "Über mich", it: "Chi sono" },
+    "nav.subtitle":   { zh: "MYP 数学与科学 · 南京国际学校", ko: "MYP 수학 & 과학 · NIS", ja: "MYP 数学・理科 · NIS", de: "MYP Mathematik & Naturwissenschaften · NIS", it: "MYP Matematica & Scienze · NIS" },
+    "home.grade6":    { zh: "六年级", ko: "6학년", ja: "6年生", de: "Klasse 6", it: "Classe 6" },
+    "home.grade7":    { zh: "七年级", ko: "7학년", ja: "7年生", de: "Klasse 7", it: "Classe 7" },
+    "home.grade8":    { zh: "八年级", ko: "8학년", ja: "8年生", de: "Klasse 8", it: "Classe 8" },
+    "home.maths":     { zh: "📐 数学", ko: "📐 수학", ja: "📐 数学", de: "📐 Mathe", it: "📐 Mate" },
+    "home.science":   { zh: "🔬 科学", ko: "🔬 과학", ja: "🔬 理科", de: "🔬 NaWi", it: "🔬 Scienze" },
+    "sidebar.nav":        { zh: "导航", ko: "탐색", ja: "ナビ", de: "Navigation", it: "Navigazione" },
+    "sidebar.outline":    { zh: "单元概要", ko: "단원 개요", ja: "単元の概要", de: "Überblick", it: "Panoramica" },
+    "sidebar.criteria":   { zh: "评估标准", ko: "평가 기준", ja: "評価基準", de: "Bewertung", it: "Criteri" },
+    "sidebar.ppts":       { zh: "课件", ko: "프레젠테이션", ja: "スライド", de: "Folien", it: "Diapositive" },
+    "sidebar.worksheets": { zh: "练习册", ko: "워크시트", ja: "ワークシート", de: "Arbeitsblätter", it: "Schede" },
+    "sidebar.games":      { zh: "游戏", ko: "게임", ja: "ゲーム", de: "Spiele", it: "Giochi" },
+    "sidebar.videos":     { zh: "视频", ko: "영상", ja: "動画", de: "Videos", it: "Video" },
+    "sidebar.glossary":   { zh: "词汇表", ko: "용어집", ja: "用語集", de: "Glossar", it: "Glossario" },
+    "sidebar.explore":    { zh: "探索工具", ko: "탐구 도구", ja: "探究ツール", de: "Erkunden", it: "Esplora" },
+    "sidebar.quiz":       { zh: "自测", ko: "자기 테스트", ja: "セルフテスト", de: "Selbsttest", it: "Quiz" },
+    "sidebar.toolkit":    { zh: "数学工具", ko: "수학 도구", ja: "数学ツール", de: "Werkzeuge", it: "Strumenti" },
+    "sidebar.labs":       { zh: "实验", ko: "실험", ja: "実験", de: "Experimente", it: "Esperimenti" },
+    "heading.outline":    { zh: "单元概要", ko: "단원 개요", ja: "単元の概要", de: "Überblick", it: "Panoramica" },
+    "heading.criteria":   { zh: "评估标准", ko: "평가 기준", ja: "評価基準", de: "Bewertungskriterien", it: "Criteri di valutazione" },
+    "heading.ppts":       { zh: "课件", ko: "프레젠테이션", ja: "スライド", de: "Präsentationen", it: "Presentazioni" },
+    "heading.worksheets": { zh: "练习册", ko: "워크시트", ja: "ワークシート", de: "Arbeitsblätter", it: "Schede di lavoro" },
+    "heading.games":      { zh: "复习游戏", ko: "복습 게임", ja: "復習ゲーム", de: "Lernspiele", it: "Giochi di ripasso" },
+    "heading.videos":     { zh: "视频", ko: "영상", ja: "動画", de: "Videos", it: "Video" },
+    "heading.glossary":   { zh: "核心词汇", ko: "핵심 용어", ja: "重要用語", de: "Schlüsselbegriffe", it: "Vocabolario chiave" },
+    "heading.explore":    { zh: "探索与互动", ko: "탐구 & 체험", ja: "探究＆体験", de: "Erkunden & Ausprobieren", it: "Esplora & Interagisci" },
+    "heading.quiz":       { zh: "自我测试", ko: "자기 테스트", ja: "セルフテスト", de: "Selbsttest", it: "Autovalutazione" },
+    "heading.toolkit":    { zh: "数学工具箱", ko: "수학 도구", ja: "数学ツールキット", de: "Mathe-Werkzeuge", it: "Strumenti matematici" },
+    "unit.back":       { zh: "← 返回首页", ko: "← 홈으로", ja: "← ホームへ", de: "← Startseite", it: "← Home" },
+    "journey.title":   { zh: "🗺️ 你的学习旅程", ko: "🗺️ 학습 여정", ja: "🗺️ 学習の旅", de: "🗺️ Dein Lernweg", it: "🗺️ Il tuo percorso" },
+    "quiz.browse_intro": { zh: "点击问题，查看答案。", ko: "질문을 클릭하면 답이 보입니다.", ja: "質問をクリックして答えを確認しよう。", de: "Klicke auf eine Frage, um die Antwort zu sehen.", it: "Clicca su una domanda per vedere la risposta." },
+    "quiz.mode_browse":  { zh: "📖 浏览全部", ko: "📖 전체 보기", ja: "📖 一覧", de: "📖 Alle ansehen", it: "📖 Sfoglia tutto" },
+    "quiz.mode_test":    { zh: "🧠 测试一下", ko: "🧠 테스트", ja: "🧠 テストする", de: "🧠 Teste dich", it: "🧠 Mettiti alla prova" },
+    "quiz.show_answer":  { zh: "显示答案", ko: "정답 보기", ja: "答えを見る", de: "Antwort zeigen", it: "Mostra risposta" },
+    "quiz.how_did":      { zh: "你做得怎样？", ko: "어떻게 했나요?", ja: "どうだった？", de: "Wie hast du abgeschnitten?", it: "Com'è andata?" },
+    "quiz.got":          { zh: "✅ 掌握了", ko: "✅ 맞았어요", ja: "✅ できた", de: "✅ Gewusst", it: "✅ Sapevo" },
+    "quiz.almost":       { zh: "🟡 差不多", ko: "🟡 거의 맞았어요", ja: "🟡 おしい", de: "🟡 Fast", it: "🟡 Quasi" },
+    "quiz.missed":       { zh: "❌ 不会", ko: "❌ 몰랐어요", ja: "❌ わからない", de: "❌ Nicht gewusst", it: "❌ Non sapevo" },
+    "quiz.try_again":    { zh: "再试一次", ko: "다시 하기", ja: "もう一度", de: "Nochmal", it: "Riprova" },
+    "quiz.browse_qs":    { zh: "浏览题目", ko: "문제 보기", ja: "問題を見る", de: "Fragen ansehen", it: "Vedi domande" },
+    "quiz.excellent":    { zh: "太棒了！", ko: "훌륭해요!", ja: "すばらしい！", de: "Ausgezeichnet!", it: "Eccellente!" },
+    "quiz.good":         { zh: "不错！", ko: "잘했어요!", ja: "よくできた！", de: "Gut gemacht!", it: "Buon lavoro!" },
+    "quiz.keep":         { zh: "继续努力！", ko: "계속 연습하세요!", ja: "がんばろう！", de: "Weiter üben!", it: "Continua a esercitarti!" },
+    "quiz.review":       { zh: "需要复习！", ko: "복습이 필요해요!", ja: "復習しよう！", de: "Wiederholung nötig!", it: "Da ripassare!" },
+    "explore.intro":  { zh: "本单元的互动模拟和工具。", ko: "이 단원의 실습 시뮬레이션과 도구입니다.", ja: "この単元のシミュレーションとツール。", de: "Simulationen und Werkzeuge für diese Einheit.", it: "Simulazioni e strumenti per questa unità." },
+    "explore.launch": { zh: "▶ 启动模拟", ko: "▶ 시뮬레이션 열기", ja: "▶ シミュレーション開始", de: "▶ Simulation starten", it: "▶ Avvia simulazione" },
+    "explore.open":   { zh: "↗ 打开链接", ko: "↗ 링크 열기", ja: "↗ リンクを開く", de: "↗ Link öffnen", it: "↗ Apri link" },
+    "game.play":   { zh: "▶ 在此游玩", ko: "▶ 여기서 플레이", ja: "▶ ここでプレイ", de: "▶ Hier spielen", it: "▶ Gioca qui" },
+    "game.newtab": { zh: "↗ 新标签", ko: "↗ 새 탭", ja: "↗ 新しいタブ", de: "↗ Neuer Tab", it: "↗ Nuova scheda" },
+    "glossary.intro.sci":  { zh: "本单元的核心词汇。用这些来积累科学词汇。", ko: "이 단원의 핵심 용어입니다.", ja: "この単元の重要な用語です。", de: "Wichtige Begriffe für diese Einheit.", it: "Termini chiave per questa unità." },
+    "glossary.intro.math": { zh: "本单元的核心词汇。用这些来积累数学词汇。", ko: "이 단원의 핵심 용어입니다.", ja: "この単元の重要な用語です。", de: "Wichtige Begriffe für diese Einheit.", it: "Termini chiave per questa unità." },
+    "footer.grades":    { zh: "年级", ko: "학년", ja: "学年", de: "Klassen", it: "Classi" },
+    "footer.resources": { zh: "资源", ko: "자료", ja: "リソース", de: "Ressourcen", it: "Risorse" },
+    "footer.info":      { zh: "信息", ko: "정보", ja: "情報", de: "Info", it: "Info" },
+    "footer.built":     { zh: "为学生而建", ko: "학생을 위해", ja: "生徒のために", de: "Für Schüler gemacht", it: "Fatto per gli studenti" },
   };
 
   var currentLang = localStorage.getItem('mrzocchi-lang') || 'en';
@@ -86,14 +67,12 @@
   function applyLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('mrzocchi-lang', lang);
-
     document.querySelectorAll('.lang-btn').forEach(function(b) {
       b.classList.toggle('lang-btn-active', b.dataset.lang === lang);
     });
-
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       var key = el.dataset.i18n;
-      var t = translations[key];
+      var t = T[key];
       if (lang === 'en') {
         if (el.dataset.en) el.textContent = el.dataset.en;
       } else if (t && t[lang]) {
@@ -101,35 +80,33 @@
         el.textContent = t[lang];
       }
     });
-
-    // Glossary Chinese always visible as bilingual aid
-    document.querySelectorAll('.glossary-zh').forEach(function(el) {
-      el.style.display = '';
-    });
+    document.querySelectorAll('.glossary-zh').forEach(function(el) { el.style.display = ''; });
   }
 
   function init() {
     var header = document.querySelector('.site-header');
     if (!header) return;
-
     var toggle = document.createElement('div');
     toggle.className = 'lang-toggle';
-    toggle.innerHTML =
-      '<button class="lang-btn" data-lang="en" onclick="window.__setLang(\'en\')"><span class="lang-flag">🇬🇧</span><span class="lang-label">EN</span></button>' +
-      '<button class="lang-btn" data-lang="zh" onclick="window.__setLang(\'zh\')"><span class="lang-flag">🇨🇳</span><span class="lang-label">中文</span></button>' +
-      '<button class="lang-btn" data-lang="ko" onclick="window.__setLang(\'ko\')"><span class="lang-flag">🇰🇷</span><span class="lang-label">한국어</span></button>';
-
+    var langs = [
+      { code: 'en', flag: '🇬🇧', label: 'EN' },
+      { code: 'zh', flag: '🇨🇳', label: '中文' },
+      { code: 'ko', flag: '🇰🇷', label: '한국어' },
+      { code: 'ja', flag: '🇯🇵', label: '日本語' },
+      { code: 'de', flag: '🇩🇪', label: 'DE' },
+      { code: 'it', flag: '🇮🇹', label: 'IT' },
+    ];
+    toggle.innerHTML = langs.map(function(l) {
+      return '<button class="lang-btn" data-lang="' + l.code + '" onclick="window.__setLang(\'' + l.code + '\')">' +
+        '<span class="lang-flag">' + l.flag + '</span><span class="lang-label">' + l.label + '</span></button>';
+    }).join('');
     var nav = header.querySelector('.header-nav');
     if (nav) header.insertBefore(toggle, nav);
     else header.appendChild(toggle);
-
     window.__setLang = applyLanguage;
     applyLanguage(currentLang);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();

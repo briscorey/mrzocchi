@@ -12,8 +12,10 @@ function showSection(btn, id) {
     el.style.animation = '';
     el.classList.add('active');
   }
-  var main = container.querySelector('.dash-main');
-  if (main) main.scrollTop = 0;
+  // Auto-scroll sidebar to show active item on mobile
+  if (window.innerWidth <= 768) {
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
 }
 
 function toggleGame(btn, url) {

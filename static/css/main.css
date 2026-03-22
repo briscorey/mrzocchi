@@ -92,12 +92,31 @@ body { font-family: var(--font-body); background: var(--cream); color: var(--gra
 
 /* Header mobile: hide subtitle, compact nav */
 @media (max-width: 640px) {
-  .site-header { padding: 8px 12px; gap: 0; }
+  .site-header { padding: 8px 10px; gap: 6px; flex-wrap: wrap; }
   .header-subtitle { display: none; }
-  .header-logo { width: 36px; height: 36px; border-radius: 8px; }
-  .site-header h1 { font-size: 1.15rem; }
-  .header-nav { gap: 5px; }
-  .header-nav-link { font-size: 0.75rem; padding: 6px 10px; border-radius: 8px; }
+  .header-logo { width: 32px; height: 32px; border-radius: 8px; }
+  .site-header h1 { font-size: 1.05rem; }
+  .header-brand { flex: 0 0 auto; }
+  .header-nav { margin-left: auto; gap: 4px; order: 1; }
+  .header-nav-link { font-size: 0.72rem; padding: 5px 8px; border-radius: 8px; }
+  .header-nav-link-parents { display: none; }
+  .theme-toggle { order: 2; margin-left: 4px; }
+  .lang-toggle {
+    display: flex;
+    order: 10;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: 2px 0 0;
+    padding: 3px 6px;
+    border-radius: 10px;
+    gap: 1px;
+    margin-left: 0;
+  }
+  .lang-btn { padding: 5px 8px; gap: 0; flex: 0 0 auto; }
+  .lang-flag { font-size: 1rem; }
+  .lang-label { display: none; }
 }
 
 /* ── HOMEPAGE ── */
@@ -2979,12 +2998,6 @@ a.par-contact-value:hover { text-decoration: underline; }
 .lang-btn-active .lang-label { color: var(--gold); }
 
 /* Glossary Chinese subtitle */
-@media (max-width: 640px) {
-  .lang-toggle { margin-left: 6px; padding: 3px; border-radius: 11px; }
-  .lang-btn { padding: 5px 6px; gap: 2px; }
-  .lang-flag { font-size: 0.95rem; }
-  .lang-label { display: none; }
-}
 
    DARK MODE OVERRIDES
    ================================================ */

@@ -38,8 +38,10 @@
     btn.innerHTML = '<span class="theme-icon"></span>';
     btn.addEventListener('click', toggle);
 
-    // Insert after the nav (rightmost position)
-    header.appendChild(btn);
+    // Insert inside nav (stays on first row on mobile)
+    var nav = header.querySelector('.header-nav');
+    if (nav) nav.appendChild(btn);
+    else header.appendChild(btn);
 
     // Set correct icon
     var theme = document.documentElement.getAttribute('data-theme') || 'light';

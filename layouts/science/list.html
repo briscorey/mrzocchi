@@ -107,8 +107,8 @@
                   <div class="journey-dot">
                     {{ if eq $step.status "done" }}<svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ end }}
                     {{ if eq $step.status "current" }}<span class="journey-pulse"></span>{{ end }}
+                    {{ if eq $step.status "upcoming" }}<span class="journey-step-num">{{ add $i 1 }}</span>{{ end }}
                   </div>
-                  <div class="journey-line"></div>
                 </div>
                 <div class="journey-label">
                   <span class="journey-topic">{{ $step.topic }}</span>

@@ -211,6 +211,25 @@ terms:
     a: You can't tell which variable caused the change. A fair test changes only ONE variable so you know what caused any difference.
   - q: What is the difference between accuracy and reliability?
     a: Accuracy = how close to the true value. Reliability = how consistent results are when repeated. You can be reliable but inaccurate.
+  journey:
+  - topic: Asking Questions
+    desc: Turn observations into testable questions
+    status: done
+  - topic: Variables
+    desc: Identify IV, DV, and controlled variables
+    status: done
+  - topic: Planning a Fair Test
+    desc: Design an experiment that tests one thing at a time
+    status: done
+  - topic: Collecting Data
+    desc: Record accurate results in tables and use correct units
+    status: current
+  - topic: Analysing & Concluding
+    desc: Spot patterns in data and explain what they mean
+    status: upcoming
+  - topic: Evaluating
+    desc: Judge reliability and suggest improvements
+    status: upcoming
 - name: Chemistry
   emoji: ⚗️
   num: 2
@@ -386,6 +405,22 @@ terms:
     a: Your body heat (37°C) is above chocolate's melting point (~34°C). Heat energy transfers to the chocolate, making particles vibrate faster until they break free of their fixed positions.
   - q: Explain why you can smell perfume from across a room.
     a: Diffusion — perfume particles spread out from high concentration to low concentration through the air. Gas particles move randomly in all directions.
+  journey:
+  - topic: Particle Model
+    desc: Describe how particles are arranged in solids, liquids, and gases
+    status: done
+  - topic: Changes of State
+    desc: Explain melting, boiling, evaporation, and condensation using particles
+    status: done
+  - topic: Mixtures
+    desc: Distinguish pure substances from mixtures
+    status: current
+  - topic: Separation Techniques
+    desc: Choose the right method to separate a mixture (filtration, distillation, chromatography)
+    status: upcoming
+  - topic: Applying the Model
+    desc: Use the particle model to explain real-world phenomena
+    status: upcoming
 - name: Earth Science
   emoji: 🌍
   num: 3
@@ -562,6 +597,22 @@ terms:
     a: The mantle is mostly SOLID rock, but it flows very slowly (like thick honey) due to extreme heat and pressure. It's semi-solid, not liquid.
   - q: Why are earthquakes and volcanoes found in the same places?
     a: Both happen at plate boundaries where plates interact. The same forces that cause plates to collide (volcanoes) also cause them to slip (earthquakes).
+  journey:
+  - topic: Earth's Layers
+    desc: Name and describe the crust, mantle, outer core, and inner core
+    status: done
+  - topic: Convection Currents
+    desc: Explain how heat drives movement in the mantle
+    status: done
+  - topic: Tectonic Plates
+    desc: Describe the three types of plate boundary and what happens at each
+    status: current
+  - topic: Earthquakes & Volcanoes
+    desc: Explain why earthquakes and volcanoes occur at plate boundaries
+    status: upcoming
+  - topic: Continental Drift
+    desc: Use evidence to support Wegener's theory of Pangaea
+    status: upcoming
 - name: Ecology
   emoji: 🌿
   num: 4
@@ -733,6 +784,22 @@ terms:
     a: Dead organisms would pile up. Nutrients would be locked in dead matter and never recycled back to the soil. Plants would eventually run out of nutrients and die.
   - q: Why do food webs give a more accurate picture than food chains?
     a: Most organisms eat multiple things and are eaten by multiple predators. A chain shows just one path; a web shows the real complexity of feeding relationships.
+  journey:
+  - topic: Ecosystems
+    desc: Identify biotic and abiotic factors in an ecosystem
+    status: done
+  - topic: Food Chains & Webs
+    desc: Build food chains and explain energy transfer between trophic levels
+    status: done
+  - topic: Adaptation
+    desc: Explain how organisms are adapted to survive in their habitat
+    status: current
+  - topic: Human Impact
+    desc: Evaluate how deforestation, pollution, and climate change affect ecosystems
+    status: upcoming
+  - topic: Conservation
+    desc: Propose solutions to protect biodiversity
+    status: upcoming
 - name: Space Science
   emoji: 🚀
   num: 5
@@ -909,4 +976,20 @@ terms:
     a: The Moon rotates on its axis in exactly the same time it takes to orbit Earth (~27 days). This is called tidal locking.
   - q: 'Common mistake: ''Seasons are caused by Earth being closer to the Sun.'' Why is this wrong?'
     a: Earth's distance from the Sun barely changes. Seasons are caused by the TILT of Earth's axis (23.5°), which changes the angle and duration of sunlight.
+  journey:
+  - topic: The Solar System
+    desc: Describe the planets, their order, and key features
+    status: done
+  - topic: Day, Night & Seasons
+    desc: Explain how Earth's rotation and tilt cause day/night and seasons
+    status: done
+  - topic: The Moon
+    desc: Describe Moon phases and explain eclipses
+    status: current
+  - topic: Stars & Galaxies
+    desc: Compare stars, understand light years, and locate our galaxy
+    status: upcoming
+  - topic: Space Exploration
+    desc: Evaluate the benefits and challenges of exploring space
+    status: upcoming
 ---

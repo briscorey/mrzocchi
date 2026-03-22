@@ -210,6 +210,22 @@ terms:
     a: Find the cost of 1 item first. e.g. 6 pens = $18 → 1 pen = $3 → 10 pens = $30.
   - q: Why must you multiply BOTH parts of a ratio by the same number to keep it equivalent?
     a: Multiplying both parts preserves the relationship. Changing only one side makes it a different comparison.
+  journey:
+  - topic: Simplifying Ratios
+    desc: Write ratios in their simplest form
+    status: done
+  - topic: Sharing in a Ratio
+    desc: Divide quantities into given ratios
+    status: done
+  - topic: Proportion Problems
+    desc: Solve problems using the unitary method
+    status: current
+  - topic: Direct Proportion
+    desc: Recognise and use y = kx relationships
+    status: upcoming
+  - topic: Scale Drawings
+    desc: Use map scales and scale factors in real-world contexts
+    status: upcoming
 - name: Number Systems
   emoji: 🔢
   num: 2
@@ -378,6 +394,22 @@ terms:
     a: You can't add under separate roots. √16 + √9 = 4 + 3 = 7 (not √25 = 5).
   - q: Why is standard form useful?
     a: It makes very large/small numbers readable and comparable. e.g. 0.000000003 m = 3 × 10⁻⁹ m is much clearer.
+  journey:
+  - topic: Integer Operations
+    desc: Multiply and divide with negative numbers confidently
+    status: done
+  - topic: Powers & Roots
+    desc: Calculate squares, cubes, and their roots
+    status: done
+  - topic: Index Laws
+    desc: Apply the laws for multiplying and dividing powers
+    status: current
+  - topic: Prime Factorisation
+    desc: Express any number as a product of primes using factor trees
+    status: upcoming
+  - topic: Standard Form
+    desc: Convert between ordinary numbers and standard form
+    status: upcoming
 - name: Geometry
   emoji: 📐
   num: 3
@@ -545,6 +577,22 @@ terms:
     a: Alternate angles are EQUAL (not supplementary). It's co-interior angles that add to 180°.
   - q: Explain the difference between reflection and rotation.
     a: Reflection flips across a line (creates a mirror image). Rotation turns around a point (orientation preserved).
+  journey:
+  - topic: Basic Angle Facts
+    desc: Use angles on a line, at a point, and vertically opposite
+    status: done
+  - topic: Parallel Line Angles
+    desc: Identify and calculate alternate, corresponding, and co-interior angles
+    status: done
+  - topic: Polygon Angles
+    desc: Find interior and exterior angles of any polygon
+    status: current
+  - topic: Transformations
+    desc: Perform and describe reflections, rotations, and translations
+    status: upcoming
+  - topic: Constructions
+    desc: Construct triangles and bisectors with compass and ruler
+    status: upcoming
 - name: Algebra
   emoji: 🔤
   num: 4
@@ -707,6 +755,22 @@ terms:
     a: Expression = no equals sign (e.g. 3x + 5). Equation = has equals sign (e.g. 3x + 5 = 20).
   - q: A line passes through (0, 4) and has gradient 2. Write its equation.
     a: y = 2x + 4 (gradient m=2, y-intercept c=4).
+  journey:
+  - topic: Expanding Brackets
+    desc: Multiply out single brackets and simplify
+    status: done
+  - topic: Factorising
+    desc: Take out common factors from expressions
+    status: done
+  - topic: Solving Equations
+    desc: Solve multi-step equations including unknowns on both sides
+    status: current
+  - topic: Sequences & nth Term
+    desc: Find the rule for a linear sequence and use it to predict any term
+    status: upcoming
+  - topic: Linear Graphs
+    desc: Plot y = mx + c and interpret gradient and intercept
+    status: upcoming
 - name: Probability & Statistics
   emoji: 📊
   num: 5
@@ -873,4 +937,20 @@ terms:
     a: Range = 25−2 = 23. Q1=5, Q3=20. IQR = 20−5 = 15.
   - q: Why is the IQR sometimes more useful than the range?
     a: The IQR ignores extreme values/outliers. It shows the spread of the middle 50% of data.
+  journey:
+  - topic: Frequency Tables
+    desc: Calculate averages from grouped and ungrouped frequency tables
+    status: done
+  - topic: Statistical Diagrams
+    desc: Draw and interpret pie charts, scatter graphs, and histograms
+    status: done
+  - topic: Probability Theory
+    desc: Calculate probabilities and use P(not A) = 1 − P(A)
+    status: current
+  - topic: Combined Events
+    desc: List outcomes using sample space diagrams and tree diagrams
+    status: upcoming
+  - topic: Correlation
+    desc: Describe relationships between variables using scatter graphs
+    status: upcoming
 ---

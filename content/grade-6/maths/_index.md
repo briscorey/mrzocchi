@@ -220,6 +220,22 @@ terms:
     a: Zero is the boundary between positive and negative numbers. It has no direction — it's not above or below zero, it IS zero.
   - q: Give a real-life example where negative numbers are useful.
     a: Temperature (−5°C), bank overdraft (−$50), below sea level (−200m), lifts going underground (floor −2).
+  journey:
+  - topic: Place Value
+    desc: Read, write, and compare numbers up to millions
+    status: done
+  - topic: Rounding & Estimation
+    desc: Round numbers and estimate calculations
+    status: done
+  - topic: BIDMAS
+    desc: Apply the correct order of operations
+    status: current
+  - topic: Negative Numbers
+    desc: Add, subtract, and compare integers on a number line
+    status: upcoming
+  - topic: Factors, Multiples & Primes
+    desc: Find HCF, LCM, and identify prime numbers
+    status: upcoming
 - name: Fractions & Decimals
   emoji: 🍕
   num: 2
@@ -386,6 +402,22 @@ terms:
     a: '''How many halves fit in 3?'' → 6. Dividing by 1/2 is the same as multiplying by 2. The smaller the fraction you divide by, the bigger the answer.'
   - q: A pizza has 8 slices. You eat 3/8. Your friend eats 25% of the pizza. Who ate more?
     a: 'You: 3/8 = 0.375 = 37.5%. Friend: 25%. You ate more.'
+  journey:
+  - topic: Understanding Fractions
+    desc: Identify, compare, and simplify fractions
+    status: done
+  - topic: Adding & Subtracting
+    desc: Add and subtract fractions with different denominators
+    status: done
+  - topic: Multiplying & Dividing
+    desc: Multiply and divide fractions using Keep-Change-Flip
+    status: current
+  - topic: Decimals
+    desc: Convert between fractions, decimals, and percentages
+    status: upcoming
+  - topic: Percentage Problems
+    desc: Find percentages of amounts and apply to real-world contexts
+    status: upcoming
 - name: Geometry
   emoji: 📐
   num: 3
@@ -550,6 +582,22 @@ terms:
     a: V = 25 × 10 × 2 = 500 m³. 1 m³ = 1000 L. So 500 × 1000 = 500,000 L.
   - q: Two shapes have the same area. Must they have the same perimeter? Explain.
     a: No. A 4×4 square (area 16, perimeter 16) and a 2×8 rectangle (area 16, perimeter 20) have the same area but different perimeters.
+  journey:
+  - topic: Perimeter
+    desc: Calculate the perimeter of 2D shapes including circles
+    status: done
+  - topic: Area
+    desc: Find the area of triangles, rectangles, and circles
+    status: done
+  - topic: Surface Area
+    desc: Calculate the surface area of prisms by unfolding nets
+    status: done
+  - topic: Volume
+    desc: Calculate the volume of prisms and cylinders
+    status: current
+  - topic: Capacity
+    desc: Convert between cm³, mL, and litres using the golden rule
+    status: upcoming
 - name: Algebra
   emoji: 🔤
   num: 4
@@ -716,6 +764,22 @@ terms:
     a: '''I think of a number, multiply it by 3, add 5, and get 20. What was my number?'' Answer: x = 5.'
   - q: Why do we use inverse operations to solve equations?
     a: We need to 'undo' what's been done to x. If x was multiplied by 3, we divide by 3. If 5 was added, we subtract 5. Always doing the same to both sides keeps the equation balanced.
+  journey:
+  - topic: Expressions
+    desc: Write and simplify algebraic expressions
+    status: done
+  - topic: Substitution
+    desc: Replace variables with numbers to evaluate expressions
+    status: done
+  - topic: One-Step Equations
+    desc: Solve equations using inverse operations
+    status: current
+  - topic: Two-Step Equations
+    desc: Solve equations that need two steps to isolate x
+    status: upcoming
+  - topic: Sequences
+    desc: Find patterns and write rules for number sequences
+    status: upcoming
 - name: Probability & Statistics
   emoji: 📊
   num: 5
@@ -888,4 +952,20 @@ terms:
     a: Not necessarily. With only 10 flips, variation is normal. With more flips (100, 1000), the experimental probability should get closer to 0.5 if the coin is fair.
   - q: Explain why P(event) + P(not event) = 1.
     a: Something either happens or it doesn't — those are the only two possibilities, and they cover everything. So their probabilities must add to 1 (certainty).
+  journey:
+  - topic: Collecting Data
+    desc: Design surveys and organise data in frequency tables
+    status: done
+  - topic: Averages
+    desc: Calculate mean, median, mode, and range
+    status: done
+  - topic: Charts & Graphs
+    desc: Choose and draw appropriate graphs for different data types
+    status: current
+  - topic: Introduction to Probability
+    desc: Calculate theoretical probability as a fraction
+    status: upcoming
+  - topic: Experimental Probability
+    desc: Compare experimental results to theoretical predictions
+    status: upcoming
 ---

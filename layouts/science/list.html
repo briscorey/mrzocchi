@@ -96,6 +96,29 @@
               {{ with .soi }}<div class="unit-soi"><em>"{{ . }}"</em></div>{{ end }}
             </div>
           </div>
+
+          {{ if .journey }}
+          <div class="journey-section">
+            <h4 class="journey-title">Your Learning Journey</h4>
+            <div class="journey-track">
+              {{ range $i, $step := .journey }}
+              <div class="journey-step journey-{{ $step.status }}">
+                <div class="journey-node">
+                  <div class="journey-dot">
+                    {{ if eq $step.status "done" }}<svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ end }}
+                    {{ if eq $step.status "current" }}<span class="journey-pulse"></span>{{ end }}
+                  </div>
+                  <div class="journey-line"></div>
+                </div>
+                <div class="journey-label">
+                  <span class="journey-topic">{{ $step.topic }}</span>
+                  <span class="journey-desc">{{ $step.desc }}</span>
+                </div>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
         </div>
 
         {{/* Criteria (shared — rendered from page-level) */}}

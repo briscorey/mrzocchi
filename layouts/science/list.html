@@ -199,7 +199,7 @@
               <div class="glossary-card">
                 <div class="glossary-card-header">
                   <span class="glossary-emoji">{{ .emoji }}</span>
-                  <span class="glossary-term">{{ .term }}</span>
+                  <span class="glossary-term">{{ .term }}{{ with .zh }} <span class="glossary-zh">{{ . }}</span>{{ end }}</span>
                 </div>
                 <p class="glossary-def">{{ .definition }}</p>
               </div>

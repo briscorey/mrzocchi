@@ -1795,6 +1795,17 @@ a.par-contact-value:hover { text-decoration: underline; }
   color: var(--navy);
   line-height: 1.25;
 }
+.glossary-zh {
+  display: inline;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1A7A6F;
+  font-style: normal;
+  margin-left: 4px;
+}
+.glossary-zh::before { content: "/ "; font-weight: 400; color: var(--gray-400); font-size: 0.82rem; }
+[data-theme="dark"] .glossary-zh { color: #5EEAD4; }
+[data-theme="dark"] .glossary-zh::before { color: var(--gray-400); }
 
 /* Definition */
 .glossary-def {
@@ -2549,15 +2560,6 @@ a.par-contact-value:hover { text-decoration: underline; }
 .lang-btn-active .lang-label { color: var(--gold); }
 
 /* Glossary Chinese subtitle */
-.glossary-zh {
-  display: block;
-  font-size: 0.82rem;
-  color: var(--teal);
-  font-weight: 500;
-  margin-top: 2px;
-  font-style: italic;
-}
-
 @media (max-width: 640px) {
   .lang-toggle { margin-left: 6px; padding: 3px; border-radius: 11px; }
   .lang-btn { padding: 5px 6px; gap: 2px; }

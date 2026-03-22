@@ -139,23 +139,11 @@
       }
     });
 
-    // Glossary term translations — show/hide Chinese subtitles
+    // Glossary term translations — always show Chinese as bilingual aid
     document.querySelectorAll('.glossary-card').forEach(function(card) {
-      var termEl = card.querySelector('.glossary-term');
-      if (!termEl) return;
-      var term = termEl.dataset.term || termEl.textContent.trim();
       var sub = card.querySelector('.glossary-zh');
-
-      if (lang !== 'en' && termTranslations[term]) {
-        if (!sub) {
-          sub = document.createElement('span');
-          sub.className = 'glossary-zh';
-          termEl.parentNode.appendChild(sub);
-        }
-        sub.textContent = termTranslations[term];
+      if (sub) {
         sub.style.display = '';
-      } else if (sub) {
-        sub.style.display = 'none';
       }
     });
 

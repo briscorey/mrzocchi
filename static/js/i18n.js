@@ -88,6 +88,10 @@
     if (!header) return;
     var toggle = document.createElement('div');
     toggle.className = 'lang-toggle';
+    toggle.style.display = 'flex';
+    toggle.style.flexDirection = 'row';
+    toggle.style.flexWrap = 'nowrap';
+    toggle.style.alignItems = 'center';
     var langs = [
       { code: 'en', flag: '🇬🇧', label: 'EN' },
       { code: 'zh', flag: '🇨🇳', label: '中文' },

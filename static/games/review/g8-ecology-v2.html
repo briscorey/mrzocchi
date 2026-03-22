@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🌿 Grade 8 Ecology Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grade: #2A9D8F;
+  --navy: #1B2A4A;
+  --cream: #FAF8F5;
+  --white: #FFFFFF;
+  --gray-100: #F3F1EE;
+  --gray-200: #E5E2DC;
+  --gray-400: #9B9690;
+  --gray-600: #6B6660;
+  --gray-800: #3D3A36;
+  --gold: #E9C46A;
+  --green: #10B981;
+  --red: #EF4444;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--gray-800); min-height:100vh; padding:20px; }
+
+.game-wrap { max-width:680px; margin:0 auto; }
+
+/* Header */
+.game-header { text-align:center; margin-bottom:20px; }
+.game-title { font-family:'Fraunces',serif; font-size:1.4rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.game-subtitle { font-size:0.82rem; color:var(--gray-400); }
+
+/* Progress */
+.progress-wrap { margin-bottom:20px; }
+.progress-bar { height:8px; background:var(--gray-200); border-radius:4px; overflow:hidden; margin-bottom:6px; }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--grade), var(--gold)); border-radius:4px; transition:width 0.5s cubic-bezier(0.22,1,0.36,1); width:0%; }
+.progress-text { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--gray-400); }
+.score-display { font-weight:700; }
+.score-display .correct { color:var(--green); }
+.score-display .wrong { color:var(--red); }
+
+/* Question card */
+.q-card {
+  background:var(--white); border-radius:18px; padding:28px;
+  border:1.5px solid var(--gray-200); box-shadow:0 1px 4px rgba(27,42,74,0.04);
+  margin-bottom:16px; animation:fadeIn 0.35s ease;
+}
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.q-num { font-family:'Fraunces',serif; font-size:0.72rem; font-weight:700; color:var(--grade); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; }
+.q-text { font-family:'Fraunces',serif; font-size:1.12rem; font-weight:600; color:var(--navy); line-height:1.5; margin-bottom:20px; }
+
+/* Options */
+.options { display:flex; flex-direction:column; gap:10px; }
+.opt-btn {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 18px; border-radius:14px;
+  border:1.5px solid var(--gray-200); background:var(--white);
+  font-family:'DM Sans',sans-serif; font-size:0.92rem;
+  color:var(--gray-800); cursor:pointer; transition:all 0.2s;
+  text-align:left; width:100%;
+}
+.opt-btn:hover:not(.locked) { border-color:var(--grade); background:rgba(42,157,143,0.04); transform:translateX(4px); }
+.opt-letter {
+  width:30px; height:30px; border-radius:10px;
+  background:var(--gray-100); display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:0.82rem; color:var(--gray-600); flex-shrink:0;
+  transition:all 0.2s;
+}
+.opt-btn:hover:not(.locked) .opt-letter { background:var(--grade); color:white; }
+.opt-btn.correct { border-color:var(--green); background:#ECFDF5; }
+.opt-btn.correct .opt-letter { background:var(--green); color:white; }
+.opt-btn.wrong { border-color:var(--red); background:#FEF2F2; }
+.opt-btn.wrong .opt-letter { background:var(--red); color:white; }
+.opt-btn.dimmed { opacity:0.4; }
+
+/* Feedback */
+.feedback {
+  margin-top:16px; padding:14px 18px; border-radius:12px;
+  font-size:0.88rem; line-height:1.6;
+  animation:fadeIn 0.3s ease;
+}
+.feedback.correct { background:#ECFDF5; border-left:4px solid var(--green); color:#065F46; }
+.feedback.wrong { background:#FEF2F2; border-left:4px solid var(--red); color:#991B1B; }
+.feedback strong { display:block; margin-bottom:2px; }
+
+/* Next button */
+.next-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:16px; padding:12px 28px; border-radius:12px;
+  background:var(--navy); color:var(--gold); border:none;
+  font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:600;
+  cursor:pointer; transition:all 0.25s;
+  box-shadow:0 2px 8px rgba(27,42,74,0.15);
+}
+.next-btn:hover { background:#243660; transform:translateY(-2px); box-shadow:0 4px 16px rgba(27,42,74,0.25); }
+
+/* Summary */
+.summary {
+  background:var(--white); border-radius:20px; padding:36px;
+  border:2px solid var(--grade); text-align:center;
+  box-shadow:0 4px 20px rgba(27,42,74,0.08);
+  animation:fadeIn 0.5s ease;
+}
+.summary-emoji { font-size:3.5rem; margin-bottom:12px; }
+.summary h2 { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.summary .score-big { font-family:'Fraunces',serif; font-size:2.5rem; font-weight:700; color:var(--grade); margin-bottom:8px; }
+.summary p { color:var(--gray-600); font-size:0.94rem; line-height:1.7; margin-bottom:16px; }
+.retry-btn {
+  padding:14px 32px; border-radius:12px;
+  background:var(--navy); color:var(--gold); border:none;
+  font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+}
+.retry-btn:hover { background:#243660; }
+
+@media (max-width:600px) {
+  body { padding:12px; }
+  .q-card { padding:20px; }
+  .q-text { font-size:1rem; }
+  .opt-btn { padding:12px 14px; font-size:0.88rem; }
+  .summary { padding:24px; }
+}
+</style>
+</head>
+<body>
+<div class="game-wrap">
+  <div class="game-header">
+    <div class="game-title">🌿 Grade 8 Ecology Review</div>
+    <div class="game-subtitle">Test your knowledge — pick the best answer</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
+    <div class="progress-text">
+      <span id="pText">Question 1 of 14</span>
+      <span class="score-display"><span class="correct" id="sCorrect">0</span> ✓ &nbsp; <span class="wrong" id="sWrong">0</span> ✗</span>
+    </div>
+  </div>
+  <div id="gameArea"></div>
+</div>
+<script>
+var Q = [{"question": "What is an ecosystem?", "options": ["Only the animals in an area", "All the living organisms and their physical environment interacting together", "A type of biome", "Only the plants"], "answer": "All the living organisms and their physical environment interacting together", "explain": "An ecosystem includes ALL organisms (biotic) AND the non-living factors (abiotic) like temperature and water."}, {"question": "What is the difference between a food chain and a food web?", "options": ["No difference", "A chain shows one pathway; a web shows all interconnected feeding relationships", "A web is simpler", "A chain is more accurate"], "answer": "A chain shows one pathway; a web shows all interconnected feeding relationships", "explain": "Food webs are more realistic because most organisms eat and are eaten by multiple species."}, {"question": "What is a trophic level?", "options": ["A type of climate", "A feeding level in a food chain", "A tropical forest", "A type of decomposer"], "answer": "A feeding level in a food chain", "explain": "Level 1: producers. Level 2: primary consumers. Level 3: secondary consumers. Level 4: tertiary consumers."}, {"question": "Why do food chains rarely have more than 4-5 links?", "options": ["There aren't enough organisms", "Energy is lost at each level (mostly as heat), so there isn't enough to support more levels", "Animals don't eat enough", "The chain would be too long to draw"], "answer": "Energy is lost at each level (mostly as heat), so there isn't enough to support more levels", "explain": "Only ~10% of energy passes to the next level. By level 5, there's very little energy left."}, {"question": "What happens to a food web if a key species is removed?", "options": ["Nothing changes", "Other populations increase or decrease depending on their feeding relationships", "All organisms die", "New species appear immediately"], "answer": "Other populations increase or decrease depending on their feeding relationships", "explain": "Removing a predator → prey population increases. Removing a prey → predator population decreases. Effects ripple through the web."}, {"question": "Name three human activities that damage ecosystems.", "options": ["Sleeping, eating, walking", "Deforestation, pollution, overfishing", "Recycling, planting trees, conservation", "Reading, writing, drawing"], "answer": "Deforestation, pollution, overfishing", "explain": "Also: urbanisation, burning fossil fuels, pesticide use, habitat destruction."}, {"question": "What is biodiversity and why is it important?", "options": ["The number of cells in an organism", "The variety of living organisms in an area — it makes ecosystems resilient", "A type of energy", "The size of an ecosystem"], "answer": "The variety of living organisms in an area — it makes ecosystems resilient", "explain": "High biodiversity = more stable ecosystem. If one species declines, others can fill its role."}, {"question": "What is a population?", "options": ["All organisms in an ecosystem", "All individuals of ONE species living in an area", "A type of habitat", "A food chain"], "answer": "All individuals of ONE species living in an area", "explain": "A population is species-specific. A community includes ALL populations of different species."}, {"question": "What factors can limit population growth?", "options": ["Nothing limits it", "Food, water, space, predation, disease, competition", "Only temperature", "Only predators"], "answer": "Food, water, space, predation, disease, competition", "explain": "These are limiting factors. When resources are scarce, the population stops growing or declines."}, {"question": "Common mistake: 'Decomposers are not important in ecosystems.' Why is this completely wrong?", "options": ["They're not important", "Decomposers recycle nutrients back into the soil, making them available for plants — without them, ecosystems collapse", "Only producers matter", "Decomposers are consumers"], "answer": "Decomposers recycle nutrients back into the soil, making them available for plants — without them, ecosystems collapse", "explain": "Without decomposers, dead matter piles up and nutrients get locked away. Plants can't grow, and the entire food web collapses."}, {"question": "What is conservation?", "options": ["Destroying habitats", "Protecting and managing ecosystems and biodiversity for the future", "Using more resources", "Ignoring environmental problems"], "answer": "Protecting and managing ecosystems and biodiversity for the future", "explain": "Methods include: nature reserves, breeding programmes, habitat restoration, sustainable fishing quotas."}];
+var idx=0, score=0, wrong=0, total=Q.length;
+
+function shuffle(a) { for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+Q = shuffle(Q);
+
+function render() {
+  if(idx >= total) { showSummary(); return; }
+  var q = Q[idx];
+  var opts = shuffle([...q.options]);
+  var letters = ['A','B','C','D'];
+  var h = '<div class="q-card"><div class="q-num">Question '+(idx+1)+' of '+total+'</div>';
+  h += '<div class="q-text">'+q.question+'</div><div class="options">';
+  opts.forEach(function(o,i) {
+    h += '<button class="opt-btn" data-val="'+o.replace(/"/g,'&quot;')+'" onclick="pick(this)">';
+    h += '<span class="opt-letter">'+letters[i]+'</span><span>'+o+'</span></button>';
+  });
+  h += '</div><div id="fb"></div></div>';
+  document.getElementById('gameArea').innerHTML = h;
+  document.getElementById('pFill').style.width = Math.round((idx/total)*100)+'%';
+  document.getElementById('pText').textContent = 'Question '+(idx+1)+' of '+total;
+}
+
+function pick(btn) {
+  if(btn.classList.contains('locked')) return;
+  var btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(function(b){ b.classList.add('locked'); });
+  
+  var val = btn.dataset.val;
+  var q = Q[idx];
+  var isCorrect = (val === q.answer);
+  
+  btns.forEach(function(b) {
+    if(b.dataset.val === q.answer) b.classList.add('correct');
+    else if(b === btn && !isCorrect) b.classList.add('wrong');
+    else b.classList.add('dimmed');
+  });
+  
+  if(isCorrect) { score++; document.getElementById('sCorrect').textContent = score; }
+  else { wrong++; document.getElementById('sWrong').textContent = wrong; }
+  
+  var fb = document.getElementById('fb');
+  fb.innerHTML = '<div class="feedback '+(isCorrect?'correct':'wrong')+'">' +
+    '<strong>'+(isCorrect?'✅ Correct!':'❌ Not quite')+'</strong>' +
+    q.explain + '</div>' +
+    '<button class="next-btn" onclick="next()">'+(idx<total-1?'Next Question →':'See Results →')+'</button>';
+}
+
+function next() { idx++; render(); }
+
+function showSummary() {
+  var pct = Math.round((score/total)*100);
+  var emoji = pct>=90?'🌟':pct>=70?'🎉':pct>=50?'💪':'📚';
+  var msg = pct>=90?'Outstanding! You really know this material.':
+            pct>=70?'Great work! Review the ones you missed.':
+            pct>=50?'Good start — keep practising the tricky ones.':
+            'Time to revise! Use the glossary and worksheets, then try again.';
+  document.getElementById('pFill').style.width = '100%';
+  document.getElementById('pText').textContent = 'Complete!';
+  document.getElementById('gameArea').innerHTML =
+    '<div class="summary"><div class="summary-emoji">'+emoji+'</div>' +
+    '<h2>Quiz Complete!</h2>' +
+    '<div class="score-big">'+score+' / '+total+'</div>' +
+    '<p>'+pct+'% correct. '+msg+'</p>' +
+    '<button class="retry-btn" onclick="retry()">↻ Play Again</button></div>';
+}
+
+function retry() { idx=0; score=0; wrong=0; Q=shuffle(Q);
+  document.getElementById('sCorrect').textContent='0';
+  document.getElementById('sWrong').textContent='0';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

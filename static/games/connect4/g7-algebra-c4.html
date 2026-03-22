@@ -35,13 +35,9 @@ body{background:#0f172a;color:#e2e8f0;font-family:system-ui,-apple-system,'Segoe
 .status{font-size:0.95rem;font-weight:600;height:32px;display:flex;align-items:center;gap:8px}
 .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
 .board-container{position:relative;width:100%;max-width:490px}
-.col-btns{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
-.col-btn{height:32px;border-radius:8px;border:none;background:transparent;cursor:pointer;font-size:1.1rem;color:transparent;transition:all .15s}
-.col-btn:hover{background:rgba(239,68,68,0.1);color:#ef4444}
-.col-btn.yt:hover{background:rgba(250,204,21,0.1);color:#eab308}
 .board{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:linear-gradient(160deg,#1d4ed8,#2563eb,#1e40af);border-radius:16px;padding:10px}
 .cell{aspect-ratio:1;border-radius:50%;background:#0f172a;border:3px solid rgba(0,0,0,0.35);transition:background .15s}
-.cell:hover{background:#1e293b}
+.cell:hover{background:#1e293b;border-color:rgba(255,255,255,0.15)}
 .cell.r{background:#ef4444;border-color:#b91c1c;box-shadow:inset 0 -4px 8px rgba(0,0,0,0.25),0 0 20px rgba(239,68,68,0.35)}
 .cell.y{background:#facc15;border-color:#ca8a04;box-shadow:inset 0 -4px 8px rgba(0,0,0,0.15),0 0 20px rgba(250,204,21,0.35)}
 .cell.w{animation:wp .5s ease infinite alternate}
@@ -119,7 +115,7 @@ body{background:#0f172a;color:#e2e8f0;font-family:system-ui,-apple-system,'Segoe
     <div class="board-col">
       <div class="status" id="st"><div class="dot" id="stDot" style="background:#ef4444"></div><span id="stTxt">Your turn &mdash; click a column!</span></div>
       <div class="board-container">
-        <div class="col-btns" id="cols"></div>
+        
         <div class="board" id="bd"></div>
       </div>
       <div class="scores"><span><div class="dot" style="background:#ef4444"></div><span id="lb1">You</span>: <b id="v1">0</b></span><span><div class="dot" style="background:#facc15"></div><span id="lb2">AI</span>: <b id="v2">0</b></span></div>
@@ -138,7 +134,7 @@ var R=6,C=7,g,cur,ov,mode,qi,sc,pc,aiB;
 function sh(a){for(var i=a.length-1;i>0;i--){var j=0|Math.random()*(i+1);var t=a[i];a[i]=a[j];a[j]=t}return a}
 function go(m){mode=m;document.getElementById('diffScreen').style.display='none';var gm=document.getElementById('game');gm.classList.add('show');var is1=m==='1v1';document.getElementById('lb1').textContent=document.getElementById('sl1').textContent=is1?'Red':'You';document.getElementById('lb2').textContent=document.getElementById('sl2').textContent=is1?'Yellow':'AI';sc=[0,0,0];newG()}
 function newG(){g=[];for(var r=0;r<R;r++){g[r]=[];for(var c=0;c<C;c++)g[r][c]=0}cur=1;ov=false;aiB=false;qi=0;sh(Q);ren();upSt();document.getElementById('winCard').classList.remove('show');document.getElementById('qBox').innerHTML='<div class="q-wait" id="qWait"><em>Click a column</em> to start playing!<br>Answer correctly to drop your piece.</div>'}
-function ren(){var h='';for(var r=0;r<R;r++)for(var c=0;c<C;c++){var v=g[r][c];h+='<div class="cell'+(v===1?' r':v===2?' y':'')+'" data-c="'+c+'"></div>'}document.getElementById('bd').innerHTML=h;var a='';for(var c=0;c<C;c++)a+='<div class="col-btn'+(cur===2?' yt':'')+'" onclick="pl('+c+')">\u2193</div>';document.getElementById('cols').innerHTML=a}
+function ren(){var h='';for(var r=0;r<R;r++)for(var c=0;c<C;c++){var v=g[r][c];h+='<div class="cell'+(v===1?' r':v===2?' y':'')+'" data-c="'+c+'" onclick="pl('+c+')"></div>'}document.getElementById('bd').innerHTML=h}
 function upSt(){if(ov)return;var d=document.getElementById('stDot'),t=document.getElementById('stTxt');d.style.background=cur===1?'#ef4444':'#facc15';if(mode==='1v1'){t.textContent=(cur===1?'Red':'Yellow')+"'s turn"}else{t.textContent=cur===1?'Your turn \u2014 click a column!':'AI thinking...'}}
 function upSc(){document.getElementById('sv1').textContent=document.getElementById('v1').textContent=sc[0];document.getElementById('sv2').textContent=document.getElementById('v2').textContent=sc[1];document.getElementById('svd').textContent=sc[2]}
 function pl(c){if(ov||aiB||g[0][c])return;if(mode!=='1v1'&&cur===2)return;pc=c;showQ()}

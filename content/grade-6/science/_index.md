@@ -113,65 +113,53 @@ terms:
   - topic: Lab Safety & Method
     terms:
     - term: Hypothesis
-      zh: "假设"
+      zh: 假设
       emoji: 💡
       definition: A testable prediction based on observations or prior knowledge.
-      zh: 假设
     - term: Variable
-      zh: "变量"
+      zh: 变量
       emoji: 🔄
       definition: A factor that can change in an experiment.
-      zh: 变量
     - term: Independent Variable (IV)
-      zh: "自变量"
+      zh: 自变量
       emoji: 👆
       definition: The variable the scientist deliberately changes.
-      zh: 自变量
     - term: Dependent Variable (DV)
-      zh: "因变量"
+      zh: 因变量
       emoji: 📏
       definition: The variable that is measured — it depends on the IV.
-      zh: 因变量
     - term: Controlled Variable (CV)
-      zh: "控制变量"
+      zh: 控制变量
       emoji: 🔒
       definition: Variables kept the same to make the test fair.
-      zh: 控制变量
     - term: Fair Test
-      zh: "公平测试"
+      zh: 公平测试
       emoji: ⚖️
       definition: An experiment where only one variable is changed at a time.
-      zh: 公平测试
     - term: Qualitative Data
-      zh: "定性数据"
+      zh: 定性数据
       emoji: 📝
       definition: Data described in words (e.g. colour, texture).
-      zh: 定性数据
     - term: Quantitative Data
-      zh: "定量数据"
+      zh: 定量数据
       emoji: 🔢
       definition: Data measured in numbers (e.g. 25°C, 30 cm).
-      zh: 定量数据
     - term: SI Units
-      zh: "国际单位制"
+      zh: 国际单位制
       emoji: 📐
       definition: International System of Units — the standard measurement system used in science.
-      zh: 国际单位制
     - term: Observation
-      zh: "观察"
+      zh: 观察
       emoji: 👁️
       definition: Something you notice using your senses or instruments — a fact.
-      zh: 观察
     - term: Inference
-      zh: "推断"
+      zh: 推断
       emoji: 🧠
       definition: A conclusion or explanation based on observations and evidence.
-      zh: 推断
     - term: Hazard Symbol
-      zh: "危险标志"
+      zh: 危险标志
       emoji: ⚠️
       definition: A warning sign on chemicals showing the type of danger (toxic, flammable, corrosive).
-      zh: 危险标志
   tools:
   - name: Build a Molecule
     emoji: ⚛️
@@ -280,84 +268,71 @@ terms:
     url: https://ed.ted.com/lessons/why-does-ice-float-in-water-george-zaidan-and-charles-morton
   - name: 🎬 Distillation Explained (FuseSchool)
     url: https://www.youtube.com/watch?v=WLLnbbtRGPc
+  - name: 🎬 What Is Something? (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=X9otDixAtFw
   glossary:
   - topic: Particles & States
     terms:
     - term: Particle
-      zh: "粒子"
+      zh: 粒子
       emoji: ⚛️
       definition: A tiny piece of matter — an atom or molecule.
-      zh: 粒子
     - term: Solid
-      zh: "固体"
+      zh: 固体
       emoji: 🧊
       definition: Particles close together in a fixed pattern; vibrate in place. Fixed shape and volume.
-      zh: 固体
     - term: Liquid
-      zh: "液体"
+      zh: 液体
       emoji: 💧
       definition: Particles close but able to slide over each other. Fixed volume but takes the shape of its container.
-      zh: 液体
     - term: Gas
-      zh: "气体"
+      zh: 气体
       emoji: 💨
       definition: Particles far apart, moving fast in all directions. No fixed shape or volume.
-      zh: 气体
     - term: Melting
-      zh: "熔化"
+      zh: 熔化
       emoji: 🔥
       definition: Solid → Liquid. Particles gain energy and break out of their fixed positions.
-      zh: 熔化
     - term: Evaporation
-      zh: "蒸发"
+      zh: 蒸发
       emoji: ☀️
       definition: Liquid → Gas. Particles at the surface gain enough energy to escape.
-      zh: 蒸发
     - term: Condensation
-      zh: "凝结"
+      zh: 凝结
       emoji: 🌫️
       definition: Gas → Liquid. Particles lose energy and come closer together.
-      zh: 凝结
     - term: Sublimation
-      zh: "升华"
+      zh: 升华
       emoji: ✨
       definition: Solid → Gas directly, skipping the liquid state (e.g. dry ice).
-      zh: 升华
     - term: Mixture
-      zh: "混合物"
+      zh: 混合物
       emoji: 🥗
       definition: Two or more substances combined but not chemically joined — they can be separated.
-      zh: 混合物
     - term: Solution
-      zh: "溶液"
+      zh: 溶液
       emoji: 🧪
       definition: A mixture where a solute dissolves completely in a solvent.
-      zh: 溶液
     - term: Solute
-      zh: "溶质"
+      zh: 溶质
       emoji: 🧂
       definition: The substance that dissolves (e.g. sugar in water).
-      zh: 溶质
     - term: Solvent
-      zh: "溶剂"
+      zh: 溶剂
       emoji: 💧
       definition: The liquid that dissolves the solute (e.g. water).
-      zh: 溶剂
     - term: Filtration
-      zh: "过滤"
+      zh: 过滤
       emoji: ☕
       definition: Separating an insoluble solid from a liquid using filter paper.
-      zh: 过滤
     - term: Distillation
-      zh: "蒸馏"
+      zh: 蒸馏
       emoji: 🔬
       definition: Separating liquids with different boiling points by heating and condensing.
-      zh: 蒸馏
     - term: Chromatography
-      zh: "色谱法"
+      zh: 色谱法
       emoji: 🌈
       definition: Separating mixtures of dyes or inks based on how far they travel on paper.
-      zh: 色谱法
   tools:
   - name: States of Matter
     emoji: 🧊
@@ -470,74 +445,65 @@ terms:
     url: https://ed.ted.com/lessons/what-s-happening-to-earth-s-core-shannon-odell
   - name: 🎬 Plate Tectonics Explained (MinuteEarth)
     url: https://www.youtube.com/watch?v=kwfNGatxUJI
+  - name: 🎬 What's Hiding at the Most Solitary Place on Earth? (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=PaErPyEnDvk
+  - name: 🎬 What If the World Turned to Gold? — Plate Tectonics (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=VB_GWz25B3Q
   glossary:
   - topic: Earth's Structure
     terms:
     - term: Crust
-      zh: "地壳"
+      zh: 地壳
       emoji: 🌍
       definition: 'The thin, rocky outer layer of Earth (5–70 km). There are two types: oceanic and continental.'
-      zh: 地壳
     - term: Mantle
-      zh: "地幔"
+      zh: 地幔
       emoji: 🔥
       definition: The thickest layer (~2,900 km). Made of hot, semi-solid rock that flows slowly.
-      zh: 地幔
     - term: Outer Core
-      zh: "外核"
+      zh: 外核
       emoji: 💧
       definition: A liquid layer of iron and nickel (~2,200 km). Creates Earth's magnetic field.
-      zh: 外核
     - term: Inner Core
-      zh: "内核"
+      zh: 内核
       emoji: ⚡
       definition: A solid ball of iron and nickel. Hottest layer (~5,500°C) but solid due to extreme pressure.
-      zh: 内核
     - term: Convection Current
-      zh: "对流"
+      zh: 对流
       emoji: ♨️
       definition: A circular flow of material caused by heating — hot material rises, cools, and sinks. Drives plate movement.
-      zh: 对流
     - term: Tectonic Plate
-      zh: "构造板块"
+      zh: 构造板块
       emoji: 🧩
       definition: A large slab of Earth's crust and upper mantle that moves slowly on the semi-liquid mantle below.
-      zh: 构造板块
     - term: Divergent Boundary
-      zh: "分离型板块边界"
+      zh: 分离型板块边界
       emoji: ↔️
       definition: Where two plates move apart. Magma rises to fill the gap, creating new crust.
-      zh: 分离型板块边界
     - term: Convergent Boundary
-      zh: "汇聚型板块边界"
+      zh: 汇聚型板块边界
       emoji: 💥
       definition: Where two plates push together. Can cause subduction, mountains, or deep-ocean trenches.
-      zh: 汇聚型板块边界
     - term: Transform Boundary
-      zh: "转换型板块边界"
+      zh: 转换型板块边界
       emoji: ↕️
       definition: Where two plates slide past each other. Causes earthquakes but no volcanoes.
-      zh: 转换型板块边界
     - term: Subduction
-      zh: "俯冲"
+      zh: 俯冲
       emoji: ⬇️
       definition: When a denser plate sinks beneath another at a convergent boundary.
-      zh: 俯冲
     - term: Pangaea
-      zh: "盘古大陆"
+      zh: 盘古大陆
       emoji: 🗺️
       definition: A supercontinent ~300 million years ago when all landmasses were joined together.
-      zh: 盘古大陆
     - term: Continental Drift
-      zh: "大陆漂移"
+      zh: 大陆漂移
       emoji: 🌊
       definition: Wegener's theory that continents slowly move across Earth's surface over millions of years.
-      zh: 大陆漂移
     - term: Ring of Fire
-      zh: "环太平洋火山带"
+      zh: 环太平洋火山带
       emoji: 🔴
       definition: A zone around the Pacific Ocean with ~75% of the world's volcanoes and ~90% of earthquakes.
-      zh: 环太平洋火山带
   tools:
   - name: Density Experiment
     emoji: ⚖️
@@ -653,79 +619,71 @@ terms:
     url: https://www.youtube.com/watch?v=ysa5OBhXz-Q
   - name: 🎬 Why Is Biodiversity So Important? (TED-Ed)
     url: https://ed.ted.com/lessons/why-is-biodiversity-so-important-kim-preshoff
+  - name: 🎬 Why Are You Alive? — Life, Energy & Biology (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=QImCld9YubE
+  - name: 🎬 The Largest Organism on Earth (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=GY_uMH8Xpy0
+  - name: 🎬 What If We Detonated All Nuclear Bombs? — Human Impact (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=JyECrGp-Sw8
   glossary:
   - topic: Ecosystems & Food Webs
     terms:
     - term: Ecosystem
-      zh: "生态系统"
+      zh: 生态系统
       emoji: 🌍
       definition: A community of living organisms interacting with their non-living environment.
-      zh: 生态系统
     - term: Biotic Factor
-      zh: "生物因素"
+      zh: 生物因素
       emoji: 🌱
       definition: A living component of an ecosystem (plants, animals, fungi, bacteria).
-      zh: 生物因素
     - term: Abiotic Factor
-      zh: "非生物因素"
+      zh: 非生物因素
       emoji: 🌡️
       definition: A non-living component (temperature, light, water, soil, wind).
-      zh: 非生物因素
     - term: Habitat
-      zh: "栖息地"
+      zh: 栖息地
       emoji: 🏠
       definition: The natural home or environment of an organism.
-      zh: 栖息地
     - term: Producer
-      zh: "生产者"
+      zh: 生产者
       emoji: 🌿
       definition: An organism that makes its own food through photosynthesis (e.g. plants, algae).
-      zh: 生产者
     - term: Consumer
-      zh: "消费者"
+      zh: 消费者
       emoji: 🐄
       definition: An organism that eats other organisms for energy.
-      zh: 消费者
     - term: Decomposer
-      zh: "分解者"
+      zh: 分解者
       emoji: 🍄
       definition: An organism that breaks down dead matter and recycles nutrients (e.g. fungi, bacteria).
-      zh: 分解者
     - term: Food Chain
-      zh: "食物链"
+      zh: 食物链
       emoji: 🔗
       definition: A linear sequence showing how energy flows from one organism to the next.
-      zh: 食物链
     - term: Food Web
-      zh: "食物网"
+      zh: 食物网
       emoji: 🕸️
       definition: Many interconnected food chains in an ecosystem.
-      zh: 食物网
     - term: Trophic Level
-      zh: "营养级"
+      zh: 营养级
       emoji: 📶
       definition: A feeding level in a food chain (producer → primary consumer → secondary consumer).
-      zh: 营养级
     - term: Adaptation
-      zh: "适应"
+      zh: 适应
       emoji: 🦎
       definition: A feature or behaviour that helps an organism survive in its environment.
-      zh: 适应
     - term: Biodiversity
-      zh: "生物多样性"
+      zh: 生物多样性
       emoji: 🌈
       definition: The variety of different species living in an area.
-      zh: 生物多样性
     - term: Endangered Species
-      zh: "濒危物种"
+      zh: 濒危物种
       emoji: 🐼
       definition: A species at risk of becoming extinct due to low population numbers.
-      zh: 濒危物种
     - term: Deforestation
-      zh: "森林砍伐"
+      zh: 森林砍伐
       emoji: 🪓
       definition: Cutting down large areas of forest, destroying habitats and reducing biodiversity.
-      zh: 森林砍伐
   tools:
   - name: Natural Selection
     emoji: 🐇
@@ -832,74 +790,67 @@ terms:
     url: https://ed.ted.com/lessons/questions-no-one-knows-the-answers-to-chris-anderson
   - name: 🎬 How Far Can We Go? Limits of Humanity (Kurzgesagt)
     url: https://www.youtube.com/watch?v=ZL4yYHdDSWs
+  - name: 🎬 The Solar System — Our Home in Space (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=KsF_hdjWJjo
+  - name: 🎬 The Egg — A Short Story About the Universe (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=h6fcK_fRYaI
+  - name: 🎬 What If You Fell Into Jupiter? (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=gI20w3pOxug
   glossary:
   - topic: The Solar System & Beyond
     terms:
     - term: Solar System
-      zh: "太阳系"
+      zh: 太阳系
       emoji: ☀️
       definition: The Sun and everything that orbits it — 8 planets, dwarf planets, moons, asteroids, comets.
-      zh: 太阳系
     - term: Star
-      zh: "恒星"
+      zh: 恒星
       emoji: ⭐
       definition: A ball of hot gas (hydrogen & helium) that produces energy through nuclear fusion.
-      zh: 恒星
     - term: Planet
-      zh: "行星"
+      zh: 行星
       emoji: 🪐
       definition: A large body that orbits a star, has enough gravity to be spherical, and has cleared its orbit.
-      zh: 行星
     - term: Orbit
-      zh: "轨道"
+      zh: 轨道
       emoji: 🔄
       definition: The curved path one object takes around another due to gravity.
-      zh: 轨道
     - term: Rotation
-      zh: "自转"
+      zh: 自转
       emoji: 🌀
       definition: An object spinning on its own axis. Earth rotates once every 24 hours → day and night.
-      zh: 自转
     - term: Revolution
-      zh: "公转"
+      zh: 公转
       emoji: 🔃
       definition: An object moving around another. Earth revolves around the Sun once every 365.25 days → one year.
-      zh: 公转
     - term: Axial Tilt
-      zh: "地轴倾斜"
+      zh: 地轴倾斜
       emoji: 📐
       definition: Earth is tilted at 23.5° — this tilt causes the seasons.
-      zh: 地轴倾斜
     - term: Solstice
-      zh: "至日"
+      zh: 至日/冬至/夏至
       emoji: ☀️
       definition: When one hemisphere is most tilted toward the Sun (summer) or away (winter). Longest/shortest day.
-      zh: 至日/冬至/夏至
     - term: Equinox
-      zh: "分日"
+      zh: 分日/春分/秋分
       emoji: ⚖️
       definition: When neither hemisphere tilts toward the Sun — day and night are roughly equal.
-      zh: 分日/春分/秋分
     - term: Lunar Eclipse
-      zh: "月食"
+      zh: 月食
       emoji: 🌑
       definition: When Earth passes between the Sun and Moon, casting a shadow on the Moon.
-      zh: 月食
     - term: Solar Eclipse
-      zh: "日食"
+      zh: 日食
       emoji: 🌒
       definition: When the Moon passes between the Sun and Earth, blocking sunlight.
-      zh: 日食
     - term: Satellite
-      zh: "卫星"
+      zh: 卫星
       emoji: 🛰️
       definition: An object orbiting a planet. Natural (the Moon) or artificial (GPS, weather).
-      zh: 卫星
     - term: Asteroid Belt
-      zh: "小行星带"
+      zh: 小行星带
       emoji: ☄️
       definition: A region between Mars and Jupiter containing millions of rocky objects.
-      zh: 小行星带
   tools:
   - name: Gravity & Orbits
     emoji: 🪐

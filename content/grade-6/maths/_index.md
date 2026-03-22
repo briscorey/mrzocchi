@@ -109,69 +109,59 @@ terms:
     url: https://ed.ted.com/lessons/how-do-you-know-if-you-re-a-math-person
   - name: 🎬 The Sieve of Eratosthenes (TED-Ed)
     url: https://ed.ted.com/lessons/the-sieve-of-eratosthenes
+  - name: 🎬 The Banach–Tarski Paradox — Infinity (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=s86-Z-CbaHA
   glossary:
   - topic: Place Value & Operations
     terms:
     - term: Place Value
-      zh: "位值"
+      zh: 位值
       emoji: 🔢
       definition: The value of a digit based on its position in a number. e.g. the 5 in 3,500 represents 500.
-      zh: 位值
     - term: Integer
-      zh: "整数"
+      zh: 整数
       emoji: 🔵
       definition: Any whole number — positive, negative, or zero. e.g. −3, 0, 7.
-      zh: 整数
     - term: BIDMAS
-      zh: "运算顺序"
+      zh: 运算顺序
       emoji: 📋
       definition: Brackets, Indices, Division, Multiplication, Addition, Subtraction — the order of operations.
-      zh: 运算顺序
     - term: Index / Power
-      zh: "指数/幂"
+      zh: 指数/幂
       emoji: 📈
       definition: A small number written above and to the right showing how many times to multiply. e.g. 2³ = 2×2×2 = 8.
-      zh: 指数/幂
     - term: Estimate
-      zh: "估算"
+      zh: 估算
       emoji: 🎯
       definition: An approximate answer found by rounding numbers before calculating.
-      zh: 估算
     - term: Factor
-      zh: "因数"
+      zh: 因数
       emoji: 🔗
       definition: A number that divides exactly into another number. e.g. factors of 12 are 1, 2, 3, 4, 6, 12.
-      zh: 因数
     - term: Multiple
-      zh: "倍数"
+      zh: 倍数
       emoji: ✖️
       definition: The result of multiplying a number by an integer. e.g. multiples of 3 are 3, 6, 9, 12...
-      zh: 倍数
     - term: Prime Number
-      zh: "质数"
+      zh: 质数
       emoji: ⭐
       definition: 'A number with exactly 2 factors: 1 and itself. e.g. 2, 3, 5, 7, 11, 13.'
-      zh: 质数
     - term: HCF
-      zh: "最大公因数"
+      zh: 最大公因数
       emoji: 🔝
       definition: Highest Common Factor — the largest number that divides exactly into two or more numbers.
-      zh: 最大公因数
     - term: LCM
-      zh: "最小公倍数"
+      zh: 最小公倍数
       emoji: 🔄
       definition: Lowest Common Multiple — the smallest number that is a multiple of two or more numbers.
-      zh: 最小公倍数
     - term: Negative Number
-      zh: "负数"
+      zh: 负数
       emoji: ➖
       definition: A number less than zero, written with a minus sign. e.g. −5, −12.
-      zh: 负数
     - term: Absolute Value
-      zh: "绝对值"
+      zh: 绝对值
       emoji: 📏
       definition: The distance a number is from zero on the number line, ignoring the sign. |−7| = 7.
-      zh: 绝对值
   tools:
   - name: Number Line Explorer
     emoji: 📏
@@ -289,67 +279,55 @@ terms:
   - topic: Fractions
     terms:
     - term: Fraction
-      zh: "分数"
+      zh: 分数
       emoji: 🍕
       definition: A number representing part of a whole, written as numerator/denominator. e.g. 3/4.
-      zh: 分数
     - term: Numerator
-      zh: "分子"
+      zh: 分子
       emoji: ⬆️
       definition: The top number in a fraction — how many parts you have.
-      zh: 分子
     - term: Denominator
-      zh: "分母"
+      zh: 分母
       emoji: ⬇️
       definition: The bottom number in a fraction — how many equal parts the whole is divided into.
-      zh: 分母
     - term: Equivalent Fractions
-      zh: "等值分数"
+      zh: 等值分数
       emoji: 🟰
       definition: Fractions that look different but have the same value. e.g. 1/2 = 2/4 = 3/6.
-      zh: 等值分数
     - term: Simplify
-      zh: "化简"
+      zh: 化简
       emoji: ✂️
       definition: Divide numerator and denominator by their HCF to make the fraction as simple as possible.
-      zh: 化简
     - term: Improper Fraction
-      zh: "假分数"
+      zh: 假分数
       emoji: 📈
       definition: A fraction where the numerator is larger than the denominator. e.g. 7/4.
-      zh: 假分数
     - term: Mixed Number
-      zh: "带分数"
+      zh: 带分数
       emoji: 🔀
       definition: A whole number and a fraction combined. e.g. 1¾.
-      zh: 带分数
     - term: LCD
-      zh: "最小公分母"
+      zh: 最小公分母
       emoji: 🔗
       definition: Lowest Common Denominator — the smallest denominator shared by two fractions. Needed for adding/subtracting.
-      zh: 最小公分母
     - term: Reciprocal
-      zh: "倒数"
+      zh: 倒数
       emoji: 🔄
       definition: A fraction flipped upside down. The reciprocal of 3/4 is 4/3. Used in division (Keep-Change-Flip).
-      zh: 倒数
   - topic: Decimals & Percentages
     terms:
     - term: Decimal
-      zh: "小数"
+      zh: 小数
       emoji: 🔹
       definition: A number using a decimal point to show values less than one. e.g. 0.75 = three quarters.
-      zh: 小数
     - term: Percentage
-      zh: "百分比"
+      zh: 百分比
       emoji: 💯
       definition: A number out of 100. 'Per cent' means 'out of 100'. e.g. 75% = 75/100 = 0.75.
-      zh: 百分比
     - term: Convert
-      zh: "转换"
+      zh: 转换
       emoji: 🔄
       definition: 'Change from one form to another: fraction ↔ decimal ↔ percentage.'
-      zh: 转换
   tools:
   - name: Fraction Wall
     emoji: 🧱
@@ -468,57 +446,47 @@ terms:
   - topic: Perimeter & Area
     terms:
     - term: Perimeter
-      zh: "周长"
+      zh: 周长
       emoji: 🔲
       definition: The total distance around the outside of a 2D shape. Measured in cm, m.
-      zh: 周长
     - term: Area
-      zh: "面积"
+      zh: 面积
       emoji: ⬛
       definition: The amount of space inside a 2D shape. Measured in squared units (cm², m²).
-      zh: 面积
     - term: Circumference
-      zh: "圆的周长"
+      zh: 圆的周长
       emoji: ⭕
       definition: The perimeter of a circle. C = 2πr or C = πd.
-      zh: 圆的周长
     - term: Pi (π)
-      zh: "圆周率"
+      zh: 圆周率
       emoji: 🥧
       definition: The ratio of a circle's circumference to its diameter. Approximately 3.14159.
-      zh: 圆周率
     - term: Perpendicular Height
-      zh: "垂直高度"
+      zh: 垂直高度
       emoji: 📐
       definition: The vertical distance at 90° from the base. Must use this (not the slant) in area formulas.
-      zh: 垂直高度
   - topic: 3D Shapes & Volume
     terms:
     - term: Surface Area
-      zh: "表面积"
+      zh: 表面积
       emoji: 📦
       definition: The total area of all faces of a 3D shape. Imagine unfolding it into a flat net.
-      zh: 表面积
     - term: Volume
-      zh: "体积"
+      zh: 体积
       emoji: 🧊
       definition: The amount of space inside a 3D shape. Measured in cubed units (cm³, m³).
-      zh: 体积
     - term: Capacity
-      zh: "容量"
+      zh: 容量
       emoji: 💧
       definition: How much liquid a container can hold. 1 cm³ = 1 mL (the golden rule).
-      zh: 容量
     - term: Prism
-      zh: "棱柱体"
+      zh: 棱柱体
       emoji: 🔷
       definition: A 3D shape with the same cross-section along its entire length. Volume = area of cross-section × length.
-      zh: 棱柱体
     - term: Net
-      zh: "展开图"
+      zh: 展开图
       emoji: 📋
       definition: A flat pattern that folds up to make a 3D shape. Used to calculate surface area.
-      zh: 展开图
   tools:
   - name: Area Builder
     emoji: ⬜
@@ -641,67 +609,55 @@ terms:
   - topic: Expressions & Equations
     terms:
     - term: Variable
-      zh: "变量"
+      zh: 变量
       emoji: ❓
       definition: A letter that represents an unknown number. e.g. x, n, y.
-      zh: 变量
     - term: Expression
-      zh: "代数式"
+      zh: 代数式
       emoji: 📝
       definition: A combination of numbers, variables, and operations. e.g. 3x + 5. No equals sign.
-      zh: 代数式
     - term: Equation
-      zh: "方程"
+      zh: 方程
       emoji: ⚖️
       definition: A mathematical statement with an equals sign. e.g. 2x + 3 = 11.
-      zh: 方程
     - term: Coefficient
-      zh: "系数"
+      zh: 系数
       emoji: 🔢
       definition: The number in front of a variable. In 5x, the coefficient is 5.
-      zh: 系数
     - term: Constant
-      zh: "常数"
+      zh: 常数
       emoji: 🔒
       definition: A number on its own (not multiplied by a variable). In 3x + 7, the constant is 7.
-      zh: 常数
     - term: Substitute
-      zh: "代入"
+      zh: 代入
       emoji: 🔄
       definition: Replace a variable with a number to evaluate an expression. If x=3, then 2x+1 = 7.
-      zh: 代入
     - term: Inverse Operation
-      zh: "逆运算"
+      zh: 逆运算
       emoji: ↩️
       definition: The opposite operation used to solve equations. + ↔ −, × ↔ ÷.
-      zh: 逆运算
     - term: Like Terms
-      zh: "同类项"
+      zh: 同类项
       emoji: 🤝
       definition: Terms with the same variable raised to the same power. 3x and 5x are like terms. 3x and 3y are not.
-      zh: 同类项
   - topic: Sequences
     terms:
     - term: Sequence
-      zh: "数列"
+      zh: 数列
       emoji: 📊
       definition: An ordered list of numbers that follow a pattern or rule.
-      zh: 数列
     - term: Term
-      zh: "项"
+      zh: 项
       emoji: 1️⃣
       definition: Each number in a sequence. The 1st term, 2nd term, etc.
-      zh: 项
     - term: Common Difference
-      zh: "公差"
+      zh: 公差
       emoji: ➕
       definition: The fixed amount added or subtracted each time in a linear sequence.
-      zh: 公差
     - term: nth Term
-      zh: "第n项"
+      zh: 第n项
       emoji: 🔮
       definition: A formula to find any term in a sequence without listing them all. e.g. T(n) = 3n + 1.
-      zh: 第n项
   tools:
   - name: Algebra Tiles
     emoji: 🟦
@@ -815,76 +771,65 @@ terms:
     url: https://ed.ted.com/lessons/would-you-opt-for-a-100-or-50-50-chance-of-10-000
   - name: 🎬 Averages Explained (Math Antics)
     url: https://www.youtube.com/watch?v=B1HEzNTGeZ4
+  - name: 🎬 The Egg — Probability of Being You (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=h6fcK_fRYaI
   glossary:
   - topic: Data & Averages
     terms:
     - term: Data
-      zh: "数据"
+      zh: 数据
       emoji: 📋
       definition: Information collected through observation, measurement, or survey.
-      zh: 数据
     - term: Qualitative Data
-      zh: "定性数据"
+      zh: 定性数据
       emoji: 🏷️
       definition: Non-numerical data describing qualities or categories. e.g. favourite colour, type of pet.
-      zh: 定性数据
     - term: Quantitative Data
-      zh: "定量数据"
+      zh: 定量数据
       emoji: 🔢
       definition: Numerical data that can be measured or counted. e.g. height, test score.
-      zh: 定量数据
     - term: Mean
-      zh: "平均数"
+      zh: 平均数
       emoji: ➗
       definition: Add all values and divide by the count. The 'average' most people think of.
-      zh: 平均数
     - term: Median
-      zh: "中位数"
+      zh: 中位数
       emoji: 🎯
       definition: The middle value when data is arranged in order. Not affected by outliers.
-      zh: 中位数
     - term: Mode
-      zh: "众数"
+      zh: 众数
       emoji: 🏆
       definition: The most frequently occurring value. A dataset can have no mode, one mode, or multiple modes.
-      zh: 众数
     - term: Range
-      zh: "范围/极差"
+      zh: 范围/极差
       emoji: ↔️
       definition: The difference between the highest and lowest values. Shows how spread out the data is.
-      zh: 范围/极差
     - term: Outlier
-      zh: "离群值"
+      zh: 离群值
       emoji: ⚠️
       definition: A value that is much higher or lower than the rest of the data. Affects the mean but not the median.
-      zh: 离群值
   - topic: Probability
     terms:
     - term: Probability
-      zh: "概率"
+      zh: 概率
       emoji: 🎲
       definition: How likely an event is to happen. Written as a fraction, decimal, or percentage between 0 and 1.
-      zh: 概率
     - term: Outcome
-      zh: "结果"
+      zh: 结果
       emoji: 🎯
       definition: A possible result of an experiment. e.g. rolling a 4 on a die.
-      zh: 结果
     - term: Sample Space
-      zh: "样本空间"
+      zh: 样本空间
       emoji: 📊
       definition: 'The set of all possible outcomes. For a coin: {Heads, Tails}.'
-      zh: 样本空间
     - term: Theoretical Probability
-      zh: "理论概率"
+      zh: 理论概率
       emoji: 📐
       definition: 'Probability calculated using logic: P = favourable outcomes ÷ total outcomes.'
-      zh: 理论概率
     - term: Experimental Probability
-      zh: "实验概率"
+      zh: 实验概率
       emoji: 🧪
       definition: 'Probability found by actually doing an experiment: P = successes ÷ total trials.'
-      zh: 实验概率
   tools:
   - name: Probability Simulator
     emoji: 🎲

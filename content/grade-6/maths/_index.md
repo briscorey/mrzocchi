@@ -105,12 +105,10 @@ terms:
     url: https://ed.ted.com/lessons/how-to-organize-sort-and-count-the-universe
   - name: 🎬 Why Do We Use BIDMAS? (Numberphile)
     url: https://www.youtube.com/watch?v=y9h1oqv21Vs
-  - name: 🎬 The Strange World of Negative Numbers (TED-Ed)
-    url: https://ed.ted.com/lessons/how-do-you-know-if-you-re-a-math-person
+  - name: 🎬 A Brief History of Negative Numbers (TED-Ed)
+    url: https://ed.ted.com/lessons/a-brief-history-of-numerical-systems-alessandra-king
   - name: 🎬 The Sieve of Eratosthenes (TED-Ed)
     url: https://ed.ted.com/lessons/the-sieve-of-eratosthenes
-  - name: 🎬 The Banach–Tarski Paradox — Infinity (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=s86-Z-CbaHA
   glossary:
   - topic: Place Value & Operations
     terms:
@@ -283,14 +281,16 @@ terms:
     embed: true
     questions: 15
   videos:
-  - name: 🎬 What Are Fractions Really? (TED-Ed)
-    url: https://ed.ted.com/lessons/a-brief-history-of-numerical-systems-alessandra-king
-  - name: 🎬 Why Do Fractions Confuse Us? (TED-Ed)
-    url: https://ed.ted.com/lessons/the-clumsiness-of-our-number-system
+  - name: 🎬 How to Order Fractions (TED-Ed)
+    url: https://ed.ted.com/lessons/how-to-order-fractions
   - name: 🎬 Percentages Explained (TED-Ed)
     url: https://ed.ted.com/lessons/how-to-think-about-percentages
   - name: 🎬 The Magic of Decimals (Numberphile)
     url: https://www.youtube.com/watch?v=XFDM1ip5HdU
+  - name: 🎬 Fractions Are About Comparing (TED-Ed)
+    url: https://ed.ted.com/lessons/a-different-way-to-visualize-rhythm-john-varney
+  - name: 🎬 Fractions, Decimals and Percentages (Math Antics)
+    url: https://www.youtube.com/watch?v=MrRe2AmN89I
   glossary:
   - topic: Fractions
     terms:
@@ -468,12 +468,12 @@ terms:
   videos:
   - name: 🎬 How to Find the Area of a Circle (TED-Ed)
     url: https://www.youtube.com/watch?v=YokKp3pwVFc
-  - name: 🎬 What is Surface Area? (TED-Ed)
-    url: https://ed.ted.com/lessons/the-mathematics-of-sidewalk-illusions-fumiko-futamura
   - name: 🎬 How One Equation Changed the World — Pi (TED-Ed)
     url: https://ed.ted.com/lessons/the-infinite-life-of-pi-reynaldo-lopes
-  - name: 🎬 A Guide to the Energy of the Earth (TED-Ed)
-    url: https://ed.ted.com/lessons/a-guide-to-the-energy-of-the-earth-joshua-m-sneideman
+  - name: 🎬 Area and Perimeter (Math Antics)
+    url: https://www.youtube.com/watch?v=AAY1bBaMLcI
+  - name: 🎬 Volume of Prisms (Math Antics)
+    url: https://www.youtube.com/watch?v=qJwecTgce6c
   glossary:
   - topic: Perimeter & Area
     terms:
@@ -645,14 +645,14 @@ terms:
     embed: true
     questions: 14
   videos:
-  - name: 🎬 Why Do We Use Letters in Maths? (TED-Ed)
-    url: https://ed.ted.com/lessons/why-aren-t-we-only-using-renewable-energy
-  - name: 🎬 The Beauty of Algebra (TED-Ed)
-    url: https://ed.ted.com/lessons/the-unexpected-math-behind-van-gogh-s-starry-night-natalya-st-clair
+  - name: 🎬 Why Do We Use Variables? (TED-Ed)
+    url: https://ed.ted.com/lessons/why-is-x-the-unknown-terry-moore
   - name: 🎬 Patterns in Nature — Fibonacci (TED-Ed)
     url: https://ed.ted.com/lessons/the-fibonacci-sequence-animated
   - name: 🎬 How to Solve an Equation (Math Antics)
     url: https://www.youtube.com/watch?v=l3XzepN03KQ
+  - name: 🎬 What Is Algebra? (Math Antics)
+    url: https://www.youtube.com/watch?v=NybHckSEQBI
   glossary:
   - topic: Expressions & Equations
     terms:
@@ -835,8 +835,6 @@ terms:
     url: https://ed.ted.com/lessons/would-you-opt-for-a-100-or-50-50-chance-of-10-000
   - name: 🎬 Averages Explained (Math Antics)
     url: https://www.youtube.com/watch?v=B1HEzNTGeZ4
-  - name: 🎬 The Egg — Probability of Being You (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=h6fcK_fRYaI
   glossary:
   - topic: Data & Averages
     terms:

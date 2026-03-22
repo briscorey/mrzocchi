@@ -277,18 +277,16 @@ terms:
     embed: true
     questions: 15
   videos:
-  - name: 🎬 What Is the Particle Model of Matter? (TED-Ed)
-    url: https://ed.ted.com/lessons/the-mighty-force-of-surface-tension-yossi-elran
   - name: 🎬 Solid, Liquid, Gas — What's the Difference? (Crash Course Kids)
     url: https://www.youtube.com/watch?v=btGYcizV0iI
-  - name: 🎬 What Triggers a Chemical Reaction? (TED-Ed)
-    url: https://ed.ted.com/lessons/what-triggers-a-chemical-reaction-kareem-jarrah
   - name: 🎬 Why Does Ice Float? (TED-Ed)
     url: https://ed.ted.com/lessons/why-does-ice-float-in-water-george-zaidan-and-charles-morton
   - name: 🎬 Distillation Explained (FuseSchool)
     url: https://www.youtube.com/watch?v=WLLnbbtRGPc
   - name: 🎬 What Is Something? (Kurzgesagt)
     url: https://www.youtube.com/watch?v=X9otDixAtFw
+  - name: 🎬 Solid, Liquid, Gas — Particle Model (TED-Ed)
+    url: https://ed.ted.com/lessons/solid-liquid-gas-and-beyond-exploring-states-of-matter
   glossary:
   - topic: Particles & States
     terms:
@@ -482,8 +480,6 @@ terms:
     url: https://www.youtube.com/watch?v=kwfNGatxUJI
   - name: 🎬 What's Hiding at the Most Solitary Place on Earth? (Kurzgesagt)
     url: https://www.youtube.com/watch?v=PaErPyEnDvk
-  - name: 🎬 What If the World Turned to Gold? — Plate Tectonics (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=VB_GWz25B3Q
   glossary:
   - topic: Earth's Structure
     terms:
@@ -674,8 +670,6 @@ terms:
     url: https://www.youtube.com/watch?v=QImCld9YubE
   - name: 🎬 The Largest Organism on Earth (Kurzgesagt)
     url: https://www.youtube.com/watch?v=GY_uMH8Xpy0
-  - name: 🎬 What If We Detonated All Nuclear Bombs? — Human Impact (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=JyECrGp-Sw8
   glossary:
   - topic: Ecosystems & Food Webs
     terms:
@@ -853,16 +847,14 @@ terms:
     url: https://ed.ted.com/lessons/why-does-the-moon-shine-cbt-nuggets
   - name: 🎬 How Do Seasons Work? (TED-Ed / MinutePhysics)
     url: https://www.youtube.com/watch?v=WgHmqv_-UbQ
-  - name: 🎬 Where Are All the Aliens? The Fermi Paradox (TED-Ed)
-    url: https://ed.ted.com/lessons/questions-no-one-knows-the-answers-to-chris-anderson
   - name: 🎬 How Far Can We Go? Limits of Humanity (Kurzgesagt)
     url: https://www.youtube.com/watch?v=ZL4yYHdDSWs
   - name: 🎬 The Solar System — Our Home in Space (Kurzgesagt)
     url: https://www.youtube.com/watch?v=KsF_hdjWJjo
-  - name: 🎬 The Egg — A Short Story About the Universe (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=h6fcK_fRYaI
   - name: 🎬 What If You Fell Into Jupiter? (Kurzgesagt)
     url: https://www.youtube.com/watch?v=gI20w3pOxug
+  - name: 🎬 The Fermi Paradox — Where Are the Aliens? (Kurzgesagt)
+    url: https://www.youtube.com/watch?v=sNhhvQGsMEc
   glossary:
   - topic: The Solar System & Beyond
     terms:

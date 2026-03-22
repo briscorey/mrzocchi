@@ -101,16 +101,12 @@ terms:
     embed: true
     questions: 14
   videos:
-  - name: 🎬 Why Do We Need Ratios? (TED-Ed)
-    url: https://ed.ted.com/lessons/how-the-world-s-tallest-skyscrapers-work
-  - name: 🎬 The Golden Ratio — Nature's Favourite Number (TED-Ed)
-    url: https://ed.ted.com/lessons/the-world-s-most-mysterious-number
   - name: 🎬 Proportional Reasoning (Math Antics)
     url: https://www.youtube.com/watch?v=USmit5zUGas
   - name: 🎬 Map Scales Explained (BBC Bitesize)
     url: https://www.bbc.co.uk/bitesize/topics/z2grd2p/articles/z3d86v4
-  - name: 🎬 The Absurd Scale of the Universe (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=Iy7NzjCmUf0
+  - name: 🎬 Scale Drawings (Math Antics)
+    url: https://www.youtube.com/watch?v=0HIElA_graI
   glossary:
   - topic: Ratio & Proportion
     terms:
@@ -273,16 +269,14 @@ terms:
     embed: true
     questions: 15
   videos:
-  - name: 🎬 How Big Are Powers of 10? (TED-Ed)
-    url: https://ed.ted.com/lessons/how-to-organize-sort-and-count-the-universe
   - name: 🎬 Prime Factorisation Explained (Math Antics)
     url: https://www.youtube.com/watch?v=ZKTkV9VRWWI
   - name: 🎬 Standard Form / Scientific Notation (Math Antics)
     url: https://www.youtube.com/watch?v=bXkewQ7WEdI
   - name: 🎬 The Sieve of Eratosthenes (TED-Ed)
     url: https://ed.ted.com/lessons/the-sieve-of-eratosthenes
-  - name: 🎬 How Large Is the Universe? — Powers of 10 (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=Iy7NzjCmUf0
+  - name: 🎬 Powers of 10 — from Atoms to the Universe (Eames)
+    url: https://www.youtube.com/watch?v=0fKBhvDjuy0
   glossary:
   - topic: Integers & Powers
     terms:
@@ -460,12 +454,12 @@ terms:
   videos:
   - name: 🎬 Angles in Parallel Lines (Math Antics)
     url: https://www.youtube.com/watch?v=_n3KssMXKQA
-  - name: 🎬 What Are Transformations? (TED-Ed)
-    url: https://ed.ted.com/lessons/the-mathematics-of-sidewalk-illusions-fumiko-futamura
   - name: 🎬 Tessellations — How Shapes Tile (TED-Ed)
     url: https://ed.ted.com/lessons/how-to-create-a-tessellation
   - name: 🎬 The Hidden Beauty of Symmetry (TED-Ed)
     url: https://ed.ted.com/lessons/the-hidden-beauty-of-symmetry
+  - name: 🎬 Transformations — Rotations and Reflections (Math Antics)
+    url: https://www.youtube.com/watch?v=Ml6sCmHWx_s
   glossary:
   - topic: Angles
     terms:
@@ -642,12 +636,12 @@ terms:
   videos:
   - name: 🎬 How Algebra Makes Life Easier (TED-Ed)
     url: https://www.youtube.com/watch?v=YX_OxBfsvbk
-  - name: 🎬 What Makes a Good Graph? (TED-Ed)
-    url: https://ed.ted.com/lessons/how-to-spot-a-misleading-graph-lea-gaslowitz
   - name: 🎬 The Fibonacci Sequence — Nature's Code (TED-Ed)
     url: https://ed.ted.com/lessons/the-fibonacci-sequence-animated
   - name: 🎬 Solving Equations (Math Antics)
     url: https://www.youtube.com/watch?v=l3XzepN03KQ
+  - name: 🎬 Plotting Linear Graphs (Math Antics)
+    url: https://www.youtube.com/watch?v=_Oq1hHCvrug
   glossary:
   - topic: Expressions & Equations
     terms:
@@ -826,8 +820,6 @@ terms:
     url: https://ed.ted.com/lessons/is-anything-truly-random
   - name: 🎬 Scatter Plots Explained (Math Antics)
     url: https://www.youtube.com/watch?v=qMlWCIh3qQM
-  - name: 🎬 The Fermi Paradox — Probability of Alien Life (Kurzgesagt)
-    url: https://www.youtube.com/watch?v=sNhhvQGsMEc
   glossary:
   - topic: Data & Averages
     terms:

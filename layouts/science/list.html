@@ -263,7 +263,13 @@ function showSection(btn, id) {
   layout.querySelectorAll('.sidebar-item').forEach(function(b) { b.classList.remove('active'); });
   layout.querySelectorAll('.dash-content-section').forEach(function(s) { s.classList.remove('active'); });
   btn.classList.add('active');
-  document.getElementById(id).classList.add('active');
+  var el = document.getElementById(id);
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = '';
+  el.classList.add('active');
+  var main = layout.querySelector('.dash-main');
+  if (main) main.scrollTop = 0;
 }
 function toggleGame(btn, url) {
   var card = btn.closest('.game-embed-card');

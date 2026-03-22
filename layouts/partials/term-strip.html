@@ -29,7 +29,12 @@
       block.style.display = 'none';
     });
     var target = document.querySelector('[data-term-content="' + termNum + '"]');
-    if (target) { target.style.display = ''; }
+    if (target) {
+      target.style.animation = 'none';
+      target.offsetHeight;
+      target.style.animation = '';
+      target.style.display = '';
+    }
   };
   window.switchToActive = function() {
     document.querySelectorAll('.term-pill').forEach(function(p) {

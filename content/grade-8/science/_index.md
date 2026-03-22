@@ -100,6 +100,10 @@ terms:
     url: /games/review/g8-chemistry.html
     embed: true
     questions: 12
+  - name: 🔴🟡 Connect 4 — Chemistry
+    url: /games/connect4/g8-chemistry-c4.html
+    embed: true
+    questions: 12
   videos:
   - name: 🎬 What Is Something? — Matter Explained (Kurzgesagt)
     url: https://www.youtube.com/watch?v=X9otDixAtFw
@@ -274,6 +278,10 @@ terms:
   games:
   - name: ⚡ Energy & Sustainability Review
     url: /games/review/g8-energy.html
+    embed: true
+    questions: 11
+  - name: 🔴🟡 Connect 4 — Physics — Energy
+    url: /games/connect4/g8-physics-energy-c4.html
     embed: true
     questions: 11
   videos:
@@ -454,6 +462,10 @@ terms:
     questions: 11
   - name: 🌿 Ecology Review (LearnLattice)
     url: /games/review/g8-ecology.html
+  - name: 🔴🟡 Connect 4 — Ecology
+    url: /games/connect4/g8-ecology-c4.html
+    embed: true
+    questions: 15
   videos:
   - name: 🎬 What If All the Insects Disappeared? (Kurzgesagt)
     url: https://www.youtube.com/watch?v=W3bPCGZbx6s

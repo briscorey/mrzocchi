@@ -100,6 +100,10 @@ terms:
     url: /games/review/g7-forensic.html
     embed: true
     questions: 10
+  - name: 🔴🟡 Connect 4 — Forensic Science
+    url: /games/connect4/g7-forensic-science-c4.html
+    embed: true
+    questions: 10
   videos:
   - name: 🎬 How Do Fingerprints Form? (TED-Ed)
     url: https://ed.ted.com/lessons/how-do-fingerprints-form-not-the-way-you-think
@@ -228,6 +232,10 @@ terms:
   games:
   - name: 🔬 Cells Review
     url: /games/review/g7-cells.html
+    embed: true
+    questions: 12
+  - name: 🔴🟡 Connect 4 — Biology — Cells
+    url: /games/connect4/g7-biology-cells-c4.html
     embed: true
     questions: 12
   videos:
@@ -384,6 +392,10 @@ terms:
     questions: 12
   - name: 💪 Forces & Motion (LearnLattice)
     url: https://learnlattice.com/games/review/g7-forces.html
+  - name: 🔴🟡 Connect 4 — Physics
+    url: /games/connect4/g7-physics-c4.html
+    embed: true
+    questions: 12
   videos:
   - name: 🎬 What Is a Force? (Crash Course Kids)
     url: https://www.youtube.com/watch?v=IZIVlbxTjSM
@@ -553,6 +565,10 @@ terms:
     url: /games/review/g7-separation.html
     embed: true
     questions: 11
+  - name: 🔴🟡 Connect 4 — Chemistry — Separation
+    url: /games/connect4/g7-chemistry-separation-c4.html
+    embed: true
+    questions: 11
   videos:
   - name: 🎬 Separation Techniques (FuseSchool)
     url: https://www.youtube.com/watch?v=gLnRJZrjVEk
@@ -687,6 +703,10 @@ terms:
   games:
   - name: 🚀 Space Science Review
     url: /games/review/g7-space.html
+    embed: true
+    questions: 10
+  - name: 🔴🟡 Connect 4 — Space Science
+    url: /games/connect4/g7-space-science-c4.html
     embed: true
     questions: 10
   videos:

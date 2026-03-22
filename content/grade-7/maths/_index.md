@@ -100,6 +100,10 @@ terms:
     url: /games/review/g7-ratio.html
     embed: true
     questions: 14
+  - name: 🔴🟡 Connect 4 — Ratios & Proportions
+    url: /games/connect4/g7-ratios-and-proportions-c4.html
+    embed: true
+    questions: 14
   videos:
   - name: 🎬 Proportional Reasoning (Math Antics)
     url: https://www.youtube.com/watch?v=USmit5zUGas
@@ -266,6 +270,10 @@ terms:
   games:
   - name: 🔢 Number Systems Review
     url: /games/review/g7-number-systems.html
+    embed: true
+    questions: 15
+  - name: 🔴🟡 Connect 4 — Number Systems
+    url: /games/connect4/g7-number-systems-c4.html
     embed: true
     questions: 15
   videos:
@@ -451,6 +459,10 @@ terms:
     url: /games/review/g7-geometry.html
     embed: true
     questions: 14
+  - name: 🔴🟡 Connect 4 — Geometry
+    url: /games/connect4/g7-geometry-c4.html
+    embed: true
+    questions: 14
   videos:
   - name: 🎬 Angles in Parallel Lines (Math Antics)
     url: https://www.youtube.com/watch?v=_n3KssMXKQA
@@ -633,6 +645,10 @@ terms:
     url: /games/review/g7-algebra.html
     embed: true
     questions: 14
+  - name: 🔴🟡 Connect 4 — Algebra
+    url: /games/connect4/g7-algebra-c4.html
+    embed: true
+    questions: 14
   videos:
   - name: 🎬 How Algebra Makes Life Easier (TED-Ed)
     url: https://www.youtube.com/watch?v=YX_OxBfsvbk
@@ -809,6 +825,10 @@ terms:
   games:
   - name: 📊 Probability & Statistics Review
     url: /games/review/g7-prob-stats.html
+    embed: true
+    questions: 14
+  - name: 🔴🟡 Connect 4 — Probability & Statistics
+    url: /games/connect4/g7-probability-and-statistics-c4.html
     embed: true
     questions: 14
   videos:

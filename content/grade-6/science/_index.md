@@ -100,6 +100,10 @@ terms:
     url: /games/review/g6-sci-skills.html
     embed: true
     questions: 15
+  - name: 🔴🟡 Connect 4 — Scientific Skills
+    url: /games/connect4/g6-scientific-skills-c4.html
+    embed: true
+    questions: 15
   videos:
   - name: 🎬 The Scientific Method (TED-Ed)
     url: https://ed.ted.com/lessons/the-scientific-method-is-crap-mitch-stokes
@@ -274,6 +278,10 @@ terms:
   games:
   - name: ⚗️ Chemistry Review
     url: /games/review/g6-chemistry.html
+    embed: true
+    questions: 15
+  - name: 🔴🟡 Connect 4 — Chemistry
+    url: /games/connect4/g6-chemistry-c4.html
     embed: true
     questions: 15
   videos:
@@ -467,6 +475,10 @@ terms:
     questions: 15
   - name: Earth Science Review (LearnLattice)
     url: https://learnlattice.org/games/revision/earth-science-g6/
+  - name: 🔴🟡 Connect 4 — Earth Science
+    url: /games/connect4/g6-earth-science-c4.html
+    embed: true
+    questions: 15
   videos:
   - name: 🎬 The Pangaea Pop-up — Continental Drift (TED-Ed)
     url: https://ed.ted.com/lessons/the-pangaea-pop-up-michael-molina
@@ -655,6 +667,10 @@ terms:
     url: /games/review/g6-ecology.html
     embed: true
     questions: 15
+  - name: 🔴🟡 Connect 4 — Ecology
+    url: /games/connect4/g6-ecology-c4.html
+    embed: true
+    questions: 15
   videos:
   - name: 🎬 What Is an Ecosystem? (Crash Course Kids)
     url: https://www.youtube.com/watch?v=o_RNb2mMmFc
@@ -838,6 +854,10 @@ terms:
   games:
   - name: 🚀 Space Science Review
     url: /games/review/g6-space.html
+    embed: true
+    questions: 15
+  - name: 🔴🟡 Connect 4 — Space Science
+    url: /games/connect4/g6-space-science-c4.html
     embed: true
     questions: 15
   videos:

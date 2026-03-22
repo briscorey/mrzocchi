@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Connect 4 — G6 Geometry</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--red:#ef4444;--yellow:#facc15;--teal:#2dd4bf;--text:#e2e4ee;--muted:#9ca3af;--blue:#3b82f6}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+h1{font-size:1.3rem;font-weight:700;text-align:center;padding:16px 12px 8px;letter-spacing:-0.02em}
+h1 span{color:var(--teal)}
+.modes{display:flex;gap:6px;padding:8px 12px;flex-wrap:wrap;justify-content:center}
+.mode-btn{padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.mode-btn:hover{border-color:var(--teal);color:var(--text)}
+.mode-btn.active{border-color:var(--teal);color:var(--teal);background:rgba(45,212,191,.08)}
+.board-wrap{position:relative;padding:8px}
+.board{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:var(--blue);border-radius:12px;padding:8px;max-width:420px;width:100%}
+.cell{width:100%;aspect-ratio:1;border-radius:50%;background:var(--bg);cursor:pointer;transition:all .15s;border:2px solid transparent}
+.cell:hover{background:#1e2130}
+.cell.p1{background:var(--red);border-color:rgba(239,68,68,.4);box-shadow:0 0 12px rgba(239,68,68,.3)}
+.cell.p2{background:var(--yellow);border-color:rgba(250,204,21,.4);box-shadow:0 0 12px rgba(250,204,21,.3)}
+.cell.win{animation:pulse .6s ease infinite alternate}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.1)}}
+.col-hover{display:flex;justify-content:center;gap:4px;padding:0 8px;max-width:420px;width:100%}
+.col-ind{flex:1;height:6px;border-radius:3px;background:transparent;transition:background .2s}
+.status{text-align:center;padding:8px 16px;font-size:.88rem;font-weight:600;min-height:36px;display:flex;align-items:center;justify-content:center;gap:8px}
+.status .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.dot-red{background:var(--red)}.dot-yellow{background:var(--yellow)}
+.q-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.q-overlay.show{display:flex}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:480px;width:100%;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.q-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:10px}
+.q-text{font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:18px}
+.q-opts{display:flex;flex-direction:column;gap:8px}
+.q-opt{padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-family:inherit;font-size:.88rem;cursor:pointer;text-align:left;transition:all .2s}
+.q-opt:hover{border-color:var(--teal);background:rgba(45,212,191,.05)}
+.q-opt.correct{border-color:#10b981;background:rgba(16,185,129,.1);color:#10b981}
+.q-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.08);color:var(--red)}
+.q-explain{margin-top:12px;padding:12px;border-radius:8px;background:rgba(45,212,191,.06);border-left:3px solid var(--teal);font-size:.82rem;color:var(--muted);line-height:1.5;display:none}
+.q-next{margin-top:14px;padding:10px 24px;border-radius:10px;border:none;background:var(--teal);color:var(--bg);font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;display:none;transition:transform .2s}
+.q-next:hover{transform:scale(1.03)}
+.scores{display:flex;gap:24px;justify-content:center;padding:4px 16px;font-size:.8rem}
+.scores span{display:flex;align-items:center;gap:6px}
+.controls{display:flex;gap:8px;padding:10px;flex-wrap:wrap;justify-content:center}
+.ctrl-btn{padding:8px 18px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.ctrl-btn:hover{border-color:var(--teal);color:var(--text)}
+@media(max-width:480px){.board{max-width:340px;gap:3px;padding:6px}.q-card{padding:18px}h1{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<h1>Connect 4 \u2014 <span>G6 Geometry</span></h1>
+<div class="modes" id="modes">
+<button class="mode-btn active" onclick="setMode('easy')">\ud83d\udfe2 Easy</button>
+<button class="mode-btn" onclick="setMode('medium')">\ud83d\udfe1 Medium</button>
+<button class="mode-btn" onclick="setMode('hard')">\ud83d\udd34 Hard</button>
+<button class="mode-btn" onclick="setMode('1v1')">\ud83d\udc65 1v1</button>
+</div>
+<div class="status" id="status"><span class="dot dot-red"></span> Your turn \u2014 answer to play!</div>
+<div class="scores" id="scores"><span><span class="dot dot-red"></span> You: <b id="s1">0</b></span><span><span class="dot dot-yellow"></span> AI: <b id="s2">0</b></span></div>
+<div class="col-hover" id="colhover"></div>
+<div class="board-wrap"><div class="board" id="board"></div></div>
+<div class="controls">
+<button class="ctrl-btn" onclick="resetGame()">\u21bb New Game</button>
+<button class="ctrl-btn" onclick="resetScores()">\ud83d\uddd1 Reset Scores</button>
+</div>
+<div class="q-overlay" id="qoverlay">
+<div class="q-card">
+<div class="q-label" id="qlabel">Question</div>
+<div class="q-text" id="qtext"></div>
+<div class="q-opts" id="qopts"></div>
+<div class="q-explain" id="qexplain"></div>
+<button class="q-next" id="qnext" onclick="closeQuestion()">Continue \u2192</button>
+</div>
+</div>
+<script>
+var Q = [{"question": "What is perimeter?", "options": ["The space inside a shape", "The distance around the outside of a shape", "The number of sides", "The height of a shape"], "answer": "The distance around the outside of a shape", "explain": "Perimeter = total distance around the outside. Add up all the side lengths."}, {"question": "The formula for the circumference of a circle is:", "options": ["C = πr", "C = 2πr", "C = πr²", "C = 2r"], "answer": "C = 2πr", "explain": "Circumference = 2 × π × radius. You can also use C = πd (π × diameter)."}, {"question": "What is the area of a triangle with base 10 cm and height 6 cm?", "options": ["60 cm²", "30 cm²", "16 cm²", "20 cm²"], "answer": "30 cm²", "explain": "A = ½ × base × height = ½ × 10 × 6 = 30 cm²"}, {"question": "Why must you use the PERPENDICULAR height in area formulas?", "options": ["It's the longest measurement", "It's at 90° to the base — the true vertical distance", "It's easier to measure", "It gives a bigger answer"], "answer": "It's at 90° to the base — the true vertical distance", "explain": "The perpendicular height is the shortest distance from base to top. Using the slant height gives an incorrect, larger answer."}, {"question": "What units are used to measure area?", "options": ["cm, m", "cm², m²", "cm³, m³", "kg, g"], "answer": "cm², m²", "explain": "Area is measured in SQUARED units because you're measuring 2-dimensional space."}, {"question": "What is the formula for the area of a circle?", "options": ["A = πd", "A = 2πr", "A = πr²", "A = πr"], "answer": "A = πr²", "explain": "Area of a circle = π × radius². Remember to square the radius first, then multiply by π."}, {"question": "What is surface area?", "options": ["The area of the base", "The total area of all faces of a 3D shape", "The volume of a shape", "The perimeter of a 3D shape"], "answer": "The total area of all faces of a 3D shape", "explain": "Imagine unfolding a box into a flat net — the total area of all those faces is the surface area."}, {"question": "What is the volume of a rectangular prism 5cm × 4cm × 3cm?", "options": ["12 cm³", "60 cm³", "120 cm³", "30 cm³"], "answer": "60 cm³", "explain": "V = length × width × height = 5 × 4 × 3 = 60 cm³"}, {"question": "What units are used to measure volume?", "options": ["cm², m²", "cm, m", "cm³, m³", "mL only"], "answer": "cm³, m³", "explain": "Volume is measured in CUBED units because you're measuring 3-dimensional space."}, {"question": "The golden rule for capacity is:", "options": ["1 cm³ = 10 mL", "1 cm³ = 1 mL", "1 m³ = 1 mL", "1 cm³ = 1 L"], "answer": "1 cm³ = 1 mL", "explain": "This is the most important conversion: 1 cubic centimetre holds exactly 1 millilitre."}, {"question": "How many millilitres in 1 litre?", "options": ["10 mL", "100 mL", "1,000 mL", "10,000 mL"], "answer": "1,000 mL", "explain": "1 L = 1,000 mL. To convert litres to mL, multiply by 1,000."}, {"question": "A fish tank is 40cm × 25cm × 30cm. What is its capacity in litres?", "options": ["30 L", "300 L", "3 L", "95 L"], "answer": "30 L", "explain": "V = 40 × 25 × 30 = 30,000 cm³ = 30,000 mL = 30 L"}, {"question": "What is a prism?", "options": ["A shape with no flat faces", "A 3D shape with the same cross-section along its length", "A type of triangle", "A shape with curved surfaces"], "answer": "A 3D shape with the same cross-section along its length", "explain": "A prism has a uniform cross-section — like slicing a loaf of bread, every slice is the same shape."}, {"question": "A cube has sides of 5 cm. What is its surface area?", "options": ["25 cm²", "125 cm²", "150 cm²", "100 cm²"], "answer": "150 cm²", "explain": "A cube has 6 faces, each 5×5 = 25 cm². Total SA = 6 × 25 = 150 cm²."}];
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+var ROWS=6,COLS=7,board,currentPlayer,gameOver,mode,qIdx,scores,pendingCol,aiThinking;
+function init(){board=Array.from({length:ROWS},function(){return Array(COLS).fill(0)});currentPlayer=1;gameOver=false;qIdx=0;aiThinking=false;pendingCol=-1;shuffle(Q);renderBoard();updateStatus()}
+function setMode(m){mode=m;document.querySelectorAll('.mode-btn').forEach(function(b){b.classList.toggle('active',b.textContent.toLowerCase().indexOf(m==='1v1'?'1v1':m)>=0)});var l=m==='1v1'?['Red','Yellow']:['You','AI'];document.getElementById('scores').innerHTML='<span><span class="dot dot-red"></span> '+l[0]+': <b id="s1">'+scores[0]+'</b></span><span><span class="dot dot-yellow"></span> '+l[1]+': <b id="s2">'+scores[1]+'</b></span>';resetGame()}
+function renderBoard(){var h='';for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){var cls=board[r][c]===1?'p1':board[r][c]===2?'p2':'';h+='<div class="cell '+cls+'" data-col="'+c+'" onclick="cellClick('+c+')"></div>'}document.getElementById('board').innerHTML=h;var ih='';for(var c=0;c<COLS;c++)ih+='<div class="col-ind" id="ci'+c+'"></div>';document.getElementById('colhover').innerHTML=ih}
+function updateStatus(){var s=document.getElementById('status');if(gameOver)return;if(mode==='1v1'){var col=currentPlayer===1?'dot-red':'dot-yellow';var name=currentPlayer===1?'Red':'Yellow';s.innerHTML='<span class="dot '+col+'"></span> '+name+"'s turn"}else{if(currentPlayer===1)s.innerHTML='<span class="dot dot-red"></span> Your turn';else s.innerHTML='<span class="dot dot-yellow"></span> AI thinking...'}}
+function getNextQ(){if(qIdx>=Q.length){shuffle(Q);qIdx=0}return Q[qIdx++]}
+function cellClick(col){if(gameOver||aiThinking)return;if(mode!=='1v1'&&currentPlayer===2)return;if(board[0][col]!==0)return;pendingCol=col;showQuestion()}
+function showQuestion(){var q=getNextQ();var ov=document.getElementById('qoverlay');document.getElementById('qlabel').textContent=(mode==='1v1'?(currentPlayer===1?'Red':'Yellow'):'Your')+' Question';document.getElementById('qtext').textContent=q.question;var opts=shuffle([].concat(q.options));var h='';opts.forEach(function(o){h+='<button class="q-opt" onclick="checkAnswer(this)">'+o+'</button>'});document.getElementById('qopts').innerHTML=h;document.getElementById('qexplain').style.display='none';document.getElementById('qexplain').textContent=q.explain||'';document.getElementById('qnext').style.display='none';ov.classList.add('show');ov.dataset.correct=q.answer}
+function checkAnswer(btn){var ov=document.getElementById('qoverlay');var correct=ov.dataset.correct;var chosen=btn.textContent;document.querySelectorAll('.q-opt').forEach(function(b){b.disabled=true;b.style.pointerEvents='none';if(b.textContent===correct)b.classList.add('correct')});if(chosen!==correct)btn.classList.add('wrong');var ex=document.getElementById('qexplain');if(ex.textContent)ex.style.display='block';document.getElementById('qnext').style.display='block';ov.dataset.result=chosen===correct?'correct':'wrong'}
+function closeQuestion(){var ov=document.getElementById('qoverlay');ov.classList.remove('show');var ok=ov.dataset.result==='correct';if(ok){dropPiece(pendingCol,currentPlayer);if(!gameOver){currentPlayer=currentPlayer===1?2:1;updateStatus();if(mode!=='1v1'&&currentPlayer===2){aiThinking=true;setTimeout(aiMove,600)}}}else{var s=document.getElementById('status');s.innerHTML='<span class="dot '+(currentPlayer===1?'dot-red':'dot-yellow')+'"></span> Wrong! Turn lost.';currentPlayer=currentPlayer===1?2:1;setTimeout(function(){updateStatus();if(mode!=='1v1'&&currentPlayer===2){aiThinking=true;setTimeout(aiMove,600)}},1200)}}
+function dropPiece(col,player){for(var r=ROWS-1;r>=0;r--){if(board[r][col]===0){board[r][col]=player;break}}renderBoard();if(checkWin(player)){gameOver=true;scores[player-1]++;document.getElementById('s'+player).textContent=scores[player-1];highlightWin(player);var s=document.getElementById('status');if(mode==='1v1')s.innerHTML='\ud83c\udf89 '+(player===1?'Red':'Yellow')+' wins!';else s.innerHTML=player===1?'\ud83c\udf89 You win!':'\ud83d\ude14 AI wins!'}else if(board[0].every(function(c){return c!==0})){gameOver=true;document.getElementById('status').innerHTML="\ud83e\udd1d It's a draw!"}}
+function aiMove(){var col=aiPickCol();dropPiece(col,2);aiThinking=false;if(!gameOver){currentPlayer=1;updateStatus()}}
+function aiPickCol(){var v=[];for(var c=0;c<COLS;c++)if(board[0][c]===0)v.push(c);for(var i=0;i<v.length;i++)if(wouldWin(v[i],2))return v[i];for(var i=0;i<v.length;i++)if(wouldWin(v[i],1))return v[i];if(mode==='easy')return v[Math.floor(Math.random()*v.length)];if(mode==='medium'){var p=[3,2,4,1,5,0,6];for(var i=0;i<p.length;i++)if(v.indexOf(p[i])>=0)return p[i];return v[0]}var best=-Infinity,bc=v[0];for(var i=0;i<v.length;i++){var b=cloneBoard();simDrop(b,v[i],2);var sc=minimax(b,4,false,-Infinity,Infinity);if(sc>best){best=sc;bc=v[i]}}return bc}
+function wouldWin(col,p){var b=cloneBoard();simDrop(b,col,p);return checkWinBoard(b,p)}
+function cloneBoard(){return board.map(function(r){return r.slice()})}
+function simDrop(b,col,p){for(var r=ROWS-1;r>=0;r--)if(b[r][col]===0){b[r][col]=p;return r}return -1}
+function minimax(b,d,isMax,a,bt){if(checkWinBoard(b,2))return 100+d;if(checkWinBoard(b,1))return -100-d;if(d===0)return scoreBoard(b);var v=[];for(var c=0;c<COLS;c++)if(b[0][c]===0)v.push(c);if(!v.length)return 0;if(isMax){var best=-Infinity;for(var i=0;i<v.length;i++){var nb=b.map(function(r){return r.slice()});simDrop(nb,v[i],2);var s=minimax(nb,d-1,false,a,bt);best=Math.max(best,s);a=Math.max(a,s);if(bt<=a)break}return best}else{var best=Infinity;for(var i=0;i<v.length;i++){var nb=b.map(function(r){return r.slice()});simDrop(nb,v[i],1);var s=minimax(nb,d-1,true,a,bt);best=Math.min(best,s);bt=Math.min(bt,s);if(bt<=a)break}return best}}
+function scoreBoard(b){var s=0;for(var r=0;r<ROWS;r++){if(b[r][3]===2)s+=3;if(b[r][3]===1)s-=3}return s}
+function checkWin(p){return checkWinBoard(board,p)}
+function checkWinBoard(b,p){for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){if(c+3<COLS&&b[r][c]===p&&b[r][c+1]===p&&b[r][c+2]===p&&b[r][c+3]===p)return true;if(r+3<ROWS&&b[r][c]===p&&b[r+1][c]===p&&b[r+2][c]===p&&b[r+3][c]===p)return true;if(r+3<ROWS&&c+3<COLS&&b[r][c]===p&&b[r+1][c+1]===p&&b[r+2][c+2]===p&&b[r+3][c+3]===p)return true;if(r+3<ROWS&&c-3>=0&&b[r][c]===p&&b[r+1][c-1]===p&&b[r+2][c-2]===p&&b[r+3][c-3]===p)return true}return false}
+function highlightWin(p){for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){if(c+3<COLS&&board[r][c]===p&&board[r][c+1]===p&&board[r][c+2]===p&&board[r][c+3]===p){mk(r,c);mk(r,c+1);mk(r,c+2);mk(r,c+3)}if(r+3<ROWS&&board[r][c]===p&&board[r+1][c]===p&&board[r+2][c]===p&&board[r+3][c]===p){mk(r,c);mk(r+1,c);mk(r+2,c);mk(r+3,c)}if(r+3<ROWS&&c+3<COLS&&board[r][c]===p&&board[r+1][c+1]===p&&board[r+2][c+2]===p&&board[r+3][c+3]===p){mk(r,c);mk(r+1,c+1);mk(r+2,c+2);mk(r+3,c+3)}if(r+3<ROWS&&c-3>=0&&board[r][c]===p&&board[r+1][c-1]===p&&board[r+2][c-2]===p&&board[r+3][c-3]===p){mk(r,c);mk(r+1,c-1);mk(r+2,c-2);mk(r+3,c-3)}}}
+function mk(r,c){document.querySelectorAll('.cell')[r*COLS+c].classList.add('win')}
+function resetGame(){init()}
+function resetScores(){scores=[0,0];document.getElementById('s1').textContent='0';document.getElementById('s2').textContent='0'}
+document.getElementById('board').addEventListener('mouseover',function(e){var col=e.target.dataset.col;document.querySelectorAll('.col-ind').forEach(function(ci,i){ci.style.background=i==col?(currentPlayer===1?'var(--red)':'var(--yellow)'):'transparent'})});
+document.getElementById('board').addEventListener('mouseleave',function(){document.querySelectorAll('.col-ind').forEach(function(ci){ci.style.background='transparent'})});
+scores=[0,0];mode='easy';init();
+</script>
+</body>
+</html>

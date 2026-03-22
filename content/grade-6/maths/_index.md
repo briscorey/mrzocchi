@@ -100,6 +100,10 @@ terms:
     url: /games/review/g6-number-sense.html
     embed: true
     questions: 15
+  - name: 🔴🟡 Connect 4 — Number Sense
+    url: /games/connect4/g6-number-sense-c4.html
+    embed: true
+    questions: 15
   videos:
   - name: 🎬 How Big Is a Googol? (TED-Ed)
     url: https://ed.ted.com/lessons/how-to-organize-sort-and-count-the-universe
@@ -278,6 +282,10 @@ terms:
   games:
   - name: 🍕 Fractions & Decimals Review
     url: /games/review/g6-fractions.html
+    embed: true
+    questions: 15
+  - name: 🔴🟡 Connect 4 — Fractions & Decimals
+    url: /games/connect4/g6-fractions-and-decimals-c4.html
     embed: true
     questions: 15
   videos:
@@ -465,6 +473,10 @@ terms:
     url: /games/review/g6-geometry.html
     embed: true
     questions: 14
+  - name: 🔴🟡 Connect 4 — Geometry
+    url: /games/connect4/g6-geometry-c4.html
+    embed: true
+    questions: 14
   videos:
   - name: 🎬 How to Find the Area of a Circle (TED-Ed)
     url: https://www.youtube.com/watch?v=YokKp3pwVFc
@@ -642,6 +654,10 @@ terms:
   games:
   - name: 🔤 Algebra Review
     url: /games/review/g6-algebra.html
+    embed: true
+    questions: 14
+  - name: 🔴🟡 Connect 4 — Algebra
+    url: /games/connect4/g6-algebra-c4.html
     embed: true
     questions: 14
   videos:
@@ -824,6 +840,10 @@ terms:
   games:
   - name: 📊 Probability & Statistics Review
     url: /games/review/g6-probability-stats.html
+    embed: true
+    questions: 14
+  - name: 🔴🟡 Connect 4 — Probability & Statistics
+    url: /games/connect4/g6-probability-and-statistics-c4.html
     embed: true
     questions: 14
   videos:

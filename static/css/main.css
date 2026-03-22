@@ -2363,6 +2363,230 @@ a.par-contact-value:hover { text-decoration: underline; }
 .quiz-ctrl-primary:hover { background: var(--navy-light); }
 
 /* Cards */
+/* Quiz mode switcher */
+.quiz-modes {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  background: var(--gray-100);
+  border-radius: 12px;
+  padding: 4px;
+  width: fit-content;
+}
+.quiz-mode-btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--gray-400);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quiz-mode-btn:hover { color: var(--gray-800); }
+.quiz-mode-active {
+  background: var(--white);
+  color: var(--grade-color, var(--teal));
+  box-shadow: 0 1px 4px rgba(27,42,74,0.08);
+}
+
+/* Test mode */
+.quiz-test-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.quiz-test-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--gray-100);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.quiz-test-fill {
+  height: 100%;
+  background: var(--grade-color, var(--teal));
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.quiz-test-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gray-400);
+  white-space: nowrap;
+}
+.quiz-test-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 28px;
+}
+.quiz-test-q {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.quiz-test-reveal-btn {
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--navy), var(--navy-light, #243660));
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 2px 8px rgba(27,42,74,0.15);
+}
+.quiz-test-reveal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(27,42,74,0.25);
+}
+.quiz-test-answer {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(42,157,143,0.06), rgba(233,196,106,0.03));
+  border-left: 4px solid var(--grade-color, var(--teal));
+  border-radius: 0 12px 12px 0;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  line-height: 1.6;
+  animation: sectionReveal 0.35s ease;
+}
+.quiz-test-rate {
+  margin-top: 20px;
+  animation: sectionReveal 0.35s ease;
+}
+.quiz-test-rate-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-400);
+  display: block;
+  margin-bottom: 10px;
+}
+.quiz-test-rate-btns {
+  display: flex;
+  gap: 8px;
+}
+.quiz-rate-got, .quiz-rate-close, .quiz-rate-miss {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--gray-600);
+}
+.quiz-rate-got:hover { border-color: #10B981; background: #ECFDF5; color: #059669; }
+.quiz-rate-close:hover { border-color: #F59E0B; background: #FFFBEB; color: #D97706; }
+.quiz-rate-miss:hover { border-color: #EF4444; background: #FEF2F2; color: #DC2626; }
+
+/* Results */
+.quiz-test-results {
+  text-align: center;
+  padding: 32px 24px;
+  animation: sectionReveal 0.4s ease;
+}
+.quiz-results-emoji { font-size: 3rem; margin-bottom: 8px; }
+.quiz-results-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 6px;
+}
+.quiz-results-detail {
+  font-size: 0.88rem;
+  color: var(--gray-400);
+  margin-bottom: 24px;
+}
+.quiz-results-bars {
+  max-width: 400px;
+  margin: 0 auto 24px;
+  text-align: left;
+}
+.quiz-result-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.quiz-result-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  width: 80px;
+  color: var(--gray-600);
+}
+.quiz-result-track {
+  flex: 1;
+  height: 8px;
+  background: var(--gray-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.quiz-result-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.quiz-fill-got { background: #10B981; }
+.quiz-fill-close { background: #F59E0B; }
+.quiz-fill-miss { background: #EF4444; }
+.quiz-result-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gray-600);
+  width: 24px;
+  text-align: right;
+}
+.quiz-test-restart, .quiz-test-to-browse {
+  padding: 10px 24px;
+  border-radius: 10px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-600);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0 4px;
+}
+.quiz-test-restart:hover { border-color: var(--teal); color: var(--teal); }
+.quiz-test-to-browse:hover { border-color: var(--gray-300); color: var(--gray-800); }
+
+/* Dark mode quiz test */
+[data-theme="dark"] .quiz-test-card { background: var(--gray-100); border-color: var(--gray-200); }
+[data-theme="dark"] .quiz-test-answer { background: rgba(42,157,143,0.08); color: var(--gray-600); }
+[data-theme="dark"] .quiz-modes { background: var(--gray-200); }
+[data-theme="dark"] .quiz-mode-active { background: var(--gray-100); }
+[data-theme="dark"] .quiz-rate-got, [data-theme="dark"] .quiz-rate-close, [data-theme="dark"] .quiz-rate-miss {
+  background: var(--gray-100); border-color: var(--gray-200);
+}
+
+/* Mobile quiz test */
+@media (max-width: 768px) {
+  .quiz-test-card { padding: 20px; }
+  .quiz-test-q { font-size: 0.98rem; }
+  .quiz-test-rate-btns { flex-direction: column; }
+  .quiz-test-reveal-btn { width: 100%; text-align: center; }
+  .quiz-modes { width: 100%; }
+  .quiz-mode-btn { flex: 1; text-align: center; }
+}
+
 .quiz-grid { display: flex; flex-direction: column; gap: 12px; }
 .quiz-card {
   background: var(--white);

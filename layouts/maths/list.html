@@ -252,15 +252,57 @@
         {{ if .quiz }}
         <div class="dash-content-section" id="quiz-t{{ .num }}">
           <h2 class="content-heading" data-i18n="heading.quiz">Self-Quiz</h2>
-          <p class="quiz-intro" data-i18n="quiz.intro">Test yourself! Click a question to reveal the answer.</p>
-          <div class="quiz-grid">
-            {{ range $i, $item := .quiz }}
-            <div class="quiz-card" onclick="this.classList.toggle('quiz-revealed')">
-              <div class="quiz-q"><span class="quiz-num">{{ add $i 1 }}</span><p>{{ $item.q }}</p></div>
-              <div class="quiz-a"><p>{{ $item.a }}</p></div>
-            </div>
-            {{ end }}
+
+          <div class="quiz-modes">
+            <button class="quiz-mode-btn quiz-mode-active" onclick="quizSetMode(this, 'browse', {{ .num }})">📖 Browse All</button>
+            <button class="quiz-mode-btn" onclick="quizSetMode(this, 'test', {{ .num }})">🧠 Test Me</button>
           </div>
+
+          <div class="quiz-browse" data-quiz-browse="{{ .num }}">
+            <p class="quiz-intro">Click a question to reveal the answer.</p>
+            <div class="quiz-grid">
+              {{ range $i, $item := .quiz }}
+              <div class="quiz-card" onclick="this.classList.toggle('quiz-revealed')">
+                <div class="quiz-q"><span class="quiz-num">{{ add $i 1 }}</span><p>{{ $item.q }}</p></div>
+                <div class="quiz-a"><p>{{ $item.a }}</p></div>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+
+          <div class="quiz-test" data-quiz-test="{{ .num }}" style="display:none;">
+            <div class="quiz-test-inner">
+              <div class="quiz-test-progress">
+                <div class="quiz-test-bar"><div class="quiz-test-fill"></div></div>
+                <span class="quiz-test-count"></span>
+              </div>
+              <div class="quiz-test-card">
+                <div class="quiz-test-q"></div>
+                <button class="quiz-test-reveal-btn" onclick="quizRevealAnswer({{ .num }})">Show Answer</button>
+                <div class="quiz-test-answer" style="display:none;"></div>
+                <div class="quiz-test-rate" style="display:none;">
+                  <span class="quiz-test-rate-label">How did you do?</span>
+                  <div class="quiz-test-rate-btns">
+                    <button class="quiz-rate-got" onclick="quizRate({{ .num }}, 'got')">✅ Got it</button>
+                    <button class="quiz-rate-close" onclick="quizRate({{ .num }}, 'close')">🟡 Almost</button>
+                    <button class="quiz-rate-miss" onclick="quizRate({{ .num }}, 'miss')">❌ Missed it</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="quiz-test-results" style="display:none;">
+              <div class="quiz-results-emoji"></div>
+              <h3 class="quiz-results-title"></h3>
+              <p class="quiz-results-detail"></p>
+              <div class="quiz-results-bars"></div>
+              <button class="quiz-test-restart" onclick="quizStartTest({{ .num }})">Try Again</button>
+              <button class="quiz-test-to-browse" onclick="quizSetMode(document.querySelector('[data-quiz-browse=\'{{ .num }}\']').closest('.dash-content-section').querySelector('.quiz-mode-btn'), 'browse', {{ .num }})">Browse Questions</button>
+            </div>
+          </div>
+
+          <script type="application/json" class="quiz-data-{{ .num }}">
+            [{{ range $i, $item := .quiz }}{{ if $i }},{{ end }}{"q":{{ $item.q | jsonify }},"a":{{ $item.a | jsonify }}}{{ end }}]
+          </script>
         </div>
         {{ end }}
 
@@ -311,6 +353,69 @@ function toggleGame(btn, url) {
     btn.innerHTML = '<span>▶</span> Play Here';
     btn.classList.remove('game-embed-active');
   }
+}
+
+var quizState = {};
+function quizSetMode(btn, mode, termNum) {
+  var section = btn.closest('.dash-content-section');
+  section.querySelectorAll('.quiz-mode-btn').forEach(function(b) { b.classList.remove('quiz-mode-active'); });
+  btn.classList.add('quiz-mode-active');
+  var browse = section.querySelector('[data-quiz-browse="' + termNum + '"]');
+  var test = section.querySelector('[data-quiz-test="' + termNum + '"]');
+  if (mode === 'browse') { browse.style.display = ''; test.style.display = 'none'; }
+  else { browse.style.display = 'none'; test.style.display = ''; quizStartTest(termNum); }
+}
+function quizStartTest(termNum) {
+  var dataEl = document.querySelector('.quiz-data-' + termNum);
+  if (!dataEl) return;
+  var questions = JSON.parse(dataEl.textContent);
+  for (var i = questions.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = questions[i]; questions[i] = questions[j]; questions[j] = tmp;
+  }
+  quizState[termNum] = { questions: questions, current: 0, results: { got: 0, close: 0, miss: 0 } };
+  var section = document.querySelector('[data-quiz-test="' + termNum + '"]');
+  section.querySelector('.quiz-test-inner').style.display = '';
+  section.querySelector('.quiz-test-results').style.display = 'none';
+  quizShowQuestion(termNum);
+}
+function quizClean(s) { return s.replace(/^"+|"+$/g, ''); }
+function quizShowQuestion(termNum) {
+  var s = quizState[termNum]; var section = document.querySelector('[data-quiz-test="' + termNum + '"]');
+  var q = s.questions[s.current]; var total = s.questions.length;
+  section.querySelector('.quiz-test-fill').style.width = ((s.current / total) * 100) + '%';
+  section.querySelector('.quiz-test-count').textContent = (s.current + 1) + ' / ' + total;
+  section.querySelector('.quiz-test-q').textContent = quizClean(q.q);
+  section.querySelector('.quiz-test-answer').style.display = 'none';
+  section.querySelector('.quiz-test-answer').textContent = quizClean(q.a);
+  section.querySelector('.quiz-test-rate').style.display = 'none';
+  section.querySelector('.quiz-test-reveal-btn').style.display = '';
+}
+function quizRevealAnswer(termNum) {
+  var section = document.querySelector('[data-quiz-test="' + termNum + '"]');
+  section.querySelector('.quiz-test-answer').style.display = '';
+  section.querySelector('.quiz-test-rate').style.display = '';
+  section.querySelector('.quiz-test-reveal-btn').style.display = 'none';
+}
+function quizRate(termNum, rating) {
+  var s = quizState[termNum]; s.results[rating]++; s.current++;
+  if (s.current >= s.questions.length) quizShowResults(termNum);
+  else quizShowQuestion(termNum);
+}
+function quizShowResults(termNum) {
+  var s = quizState[termNum]; var r = s.results; var total = s.questions.length;
+  var section = document.querySelector('[data-quiz-test="' + termNum + '"]');
+  section.querySelector('.quiz-test-inner').style.display = 'none';
+  var results = section.querySelector('.quiz-test-results'); results.style.display = '';
+  var pct = Math.round((r.got / total) * 100);
+  results.querySelector('.quiz-results-emoji').textContent = pct >= 80 ? '🌟' : pct >= 60 ? '💪' : pct >= 40 ? '📚' : '🔄';
+  results.querySelector('.quiz-results-title').textContent = pct >= 80 ? 'Excellent!' : pct >= 60 ? 'Good effort!' : pct >= 40 ? 'Keep practising!' : 'Time to review!';
+  results.querySelector('.quiz-results-detail').textContent = r.got + ' correct, ' + r.close + ' almost, ' + r.miss + ' to review out of ' + total + ' questions.';
+  results.querySelector('.quiz-results-bars').innerHTML =
+    '<div class="quiz-result-row"><span class="quiz-result-label">✅ Got it</span><div class="quiz-result-track"><div class="quiz-result-fill quiz-fill-got" style="width:' + ((r.got/total)*100) + '%"></div></div><span class="quiz-result-num">' + r.got + '</span></div>' +
+    '<div class="quiz-result-row"><span class="quiz-result-label">🟡 Almost</span><div class="quiz-result-track"><div class="quiz-result-fill quiz-fill-close" style="width:' + ((r.close/total)*100) + '%"></div></div><span class="quiz-result-num">' + r.close + '</span></div>' +
+    '<div class="quiz-result-row"><span class="quiz-result-label">❌ Missed</span><div class="quiz-result-track"><div class="quiz-result-fill quiz-fill-miss" style="width:' + ((r.miss/total)*100) + '%"></div></div><span class="quiz-result-num">' + r.miss + '</span></div>';
+  try { localStorage.setItem('quiz-' + termNum + '-' + window.location.pathname, JSON.stringify({ got: r.got, close: r.close, miss: r.miss, total: total, date: new Date().toISOString().split('T')[0] })); } catch(e) {}
 }
 </script>
 {{ end }}

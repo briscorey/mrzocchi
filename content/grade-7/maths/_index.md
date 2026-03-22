@@ -60,10 +60,10 @@ terms:
   # ══════════════════════════════════════════
   # TERM 1 — RATIO & PROPORTION
   # ══════════════════════════════════════════
-  - name: "Ratio & Proportion"
+  - name: "Ratios & Proportions"
     emoji: "⚖️"
     num: 1
-    unit_name: "Ratio & Proportion — Scaling, Sharing & Rates"
+    unit_name: "Ratios & Proportions — Scaling, Sharing & Rates"
     unit_tag: "Number"
     unit_dates: "August – October 2025"
     unit_description: "We are learning to simplify ratios, share quantities, work with direct proportion, and use scale drawings."

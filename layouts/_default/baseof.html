@@ -38,10 +38,10 @@
   <link rel="apple-touch-icon" href="/images/logo.svg">
 
   {{/* ── Styles ── */}}
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/main.min.css">
 
   {{/* ── Theme (load early to prevent flash) ── */}}
-  <script src="/js/theme.js"></script>
+  <script src="/js/theme.min.js"></script>
 
   {{/* ── JSON-LD Structured Data ── */}}
   {{ if .IsHome }}
@@ -94,6 +94,6 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
-  <script src="/js/i18n.js"></script>
+  <script src="/js/i18n.min.js"></script>
 </body>
 </html>

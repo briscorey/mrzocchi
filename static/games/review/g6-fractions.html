@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🍕 Grade 6 Fractions & Decimals Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grade: #2A9D8F;
+  --navy: #1B2A4A;
+  --cream: #FAF8F5;
+  --white: #FFFFFF;
+  --gray-100: #F3F1EE;
+  --gray-200: #E5E2DC;
+  --gray-400: #9B9690;
+  --gray-600: #6B6660;
+  --gray-800: #3D3A36;
+  --gold: #E9C46A;
+  --green: #10B981;
+  --red: #EF4444;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--gray-800); min-height:100vh; padding:20px; }
+
+.game-wrap { max-width:680px; margin:0 auto; }
+
+/* Header */
+.game-header { text-align:center; margin-bottom:20px; }
+.game-title { font-family:'Fraunces',serif; font-size:1.4rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.game-subtitle { font-size:0.82rem; color:var(--gray-400); }
+
+/* Progress */
+.progress-wrap { margin-bottom:20px; }
+.progress-bar { height:8px; background:var(--gray-200); border-radius:4px; overflow:hidden; margin-bottom:6px; }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--grade), var(--gold)); border-radius:4px; transition:width 0.5s cubic-bezier(0.22,1,0.36,1); width:0%; }
+.progress-text { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--gray-400); }
+.score-display { font-weight:700; }
+.score-display .correct { color:var(--green); }
+.score-display .wrong { color:var(--red); }
+
+/* Question card */
+.q-card {
+  background:var(--white); border-radius:18px; padding:28px;
+  border:1.5px solid var(--gray-200); box-shadow:0 1px 4px rgba(27,42,74,0.04);
+  margin-bottom:16px; animation:fadeIn 0.35s ease;
+}
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.q-num { font-family:'Fraunces',serif; font-size:0.72rem; font-weight:700; color:var(--grade); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; }
+.q-text { font-family:'Fraunces',serif; font-size:1.12rem; font-weight:600; color:var(--navy); line-height:1.5; margin-bottom:20px; }
+
+/* Options */
+.options { display:flex; flex-direction:column; gap:10px; }
+.opt-btn {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 18px; border-radius:14px;
+  border:1.5px solid var(--gray-200); background:var(--white);
+  font-family:'DM Sans',sans-serif; font-size:0.92rem;
+  color:var(--gray-800); cursor:pointer; transition:all 0.2s;
+  text-align:left; width:100%;
+}
+.opt-btn:hover:not(.locked) { border-color:var(--grade); background:rgba(42,157,143,0.04); transform:translateX(4px); }
+.opt-letter {
+  width:30px; height:30px; border-radius:10px;
+  background:var(--gray-100); display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:0.82rem; color:var(--gray-600); flex-shrink:0;
+  transition:all 0.2s;
+}
+.opt-btn:hover:not(.locked) .opt-letter { background:var(--grade); color:white; }
+.opt-btn.correct { border-color:var(--green); background:#ECFDF5; }
+.opt-btn.correct .opt-letter { background:var(--green); color:white; }
+.opt-btn.wrong { border-color:var(--red); background:#FEF2F2; }
+.opt-btn.wrong .opt-letter { background:var(--red); color:white; }
+.opt-btn.dimmed { opacity:0.4; }
+
+/* Feedback */
+.feedback {
+  margin-top:16px; padding:14px 18px; border-radius:12px;
+  font-size:0.88rem; line-height:1.6;
+  animation:fadeIn 0.3s ease;
+}
+.feedback.correct { background:#ECFDF5; border-left:4px solid var(--green); color:#065F46; }
+.feedback.wrong { background:#FEF2F2; border-left:4px solid var(--red); color:#991B1B; }
+.feedback strong { display:block; margin-bottom:2px; }
+
+/* Next button */
+.next-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:16px; padding:12px 28px; border-radius:12px;
+  background:var(--navy); color:var(--gold); border:none;
+  font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:600;
+  cursor:pointer; transition:all 0.25s;
+  box-shadow:0 2px 8px rgba(27,42,74,0.15);
+}
+.next-btn:hover { background:#243660; transform:translateY(-2px); box-shadow:0 4px 16px rgba(27,42,74,0.25); }
+
+/* Summary */
+.summary {
+  background:var(--white); border-radius:20px; padding:36px;
+  border:2px solid var(--grade); text-align:center;
+  box-shadow:0 4px 20px rgba(27,42,74,0.08);
+  animation:fadeIn 0.5s ease;
+}
+.summary-emoji { font-size:3.5rem; margin-bottom:12px; }
+.summary h2 { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.summary .score-big { font-family:'Fraunces',serif; font-size:2.5rem; font-weight:700; color:var(--grade); margin-bottom:8px; }
+.summary p { color:var(--gray-600); font-size:0.94rem; line-height:1.7; margin-bottom:16px; }
+.retry-btn {
+  padding:14px 32px; border-radius:12px;
+  background:var(--navy); color:var(--gold); border:none;
+  font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+}
+.retry-btn:hover { background:#243660; }
+
+@media (max-width:600px) {
+  body { padding:12px; }
+  .q-card { padding:20px; }
+  .q-text { font-size:1rem; }
+  .opt-btn { padding:12px 14px; font-size:0.88rem; }
+  .summary { padding:24px; }
+}
+</style>
+</head>
+<body>
+<div class="game-wrap">
+  <div class="game-header">
+    <div class="game-title">🍕 Grade 6 Fractions & Decimals Review</div>
+    <div class="game-subtitle">Test your knowledge — pick the best answer</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
+    <div class="progress-text">
+      <span id="pText">Question 1 of 14</span>
+      <span class="score-display"><span class="correct" id="sCorrect">0</span> ✓ &nbsp; <span class="wrong" id="sWrong">0</span> ✗</span>
+    </div>
+  </div>
+  <div id="gameArea"></div>
+</div>
+<script>
+var Q = [{"question": "Simplify 8/12.", "options": ["4/6", "2/3", "3/4", "6/8"], "answer": "2/3", "explain": "Divide both by HCF (4): 8÷4 = 2, 12÷4 = 3. So 8/12 = 2/3."}, {"question": "Which fraction is equivalent to 3/5?", "options": ["6/15", "9/15", "6/10", "3/10"], "answer": "6/10", "explain": "Multiply numerator and denominator by 2: 3×2=6, 5×2=10. So 3/5 = 6/10."}, {"question": "Calculate: 1/4 + 2/4", "options": ["3/8", "3/4", "2/4", "1/2"], "answer": "3/4", "explain": "Same denominator, so add numerators: 1+2=3. Answer: 3/4."}, {"question": "Calculate: 3/5 + 1/3", "options": ["4/8", "14/15", "4/15", "2/5"], "answer": "14/15", "explain": "LCD is 15. Convert: 9/15 + 5/15 = 14/15."}, {"question": "Calculate: 5/6 − 1/3", "options": ["4/3", "1/2", "2/6", "4/6"], "answer": "1/2", "explain": "Convert 1/3 to 2/6. Then 5/6 − 2/6 = 3/6 = 1/2."}, {"question": "Calculate: 2/3 × 4/5", "options": ["6/8", "8/15", "6/15", "2/5"], "answer": "8/15", "explain": "Multiply across: 2×4=8, 3×5=15. Answer: 8/15."}, {"question": "Calculate: 3/4 ÷ 1/2", "options": ["3/8", "3/2", "1/2", "6/4"], "answer": "3/2", "explain": "Keep-Change-Flip: 3/4 × 2/1 = 6/4 = 3/2 (or 1½)."}, {"question": "Convert 0.75 to a fraction.", "options": ["7/5", "3/4", "75/10", "7/50"], "answer": "3/4", "explain": "0.75 = 75/100 = 3/4 (divide both by 25)."}, {"question": "Convert 3/8 to a decimal.", "options": ["0.38", "0.375", "0.83", "3.8"], "answer": "0.375", "explain": "Divide: 3 ÷ 8 = 0.375."}, {"question": "What is 25% as a fraction?", "options": ["1/5", "2/5", "1/4", "1/25"], "answer": "1/4", "explain": "25% = 25/100 = 1/4."}, {"question": "What is 0.6 as a percentage?", "options": ["6%", "0.6%", "60%", "600%"], "answer": "60%", "explain": "0.6 × 100 = 60%."}, {"question": "Calculate: 1/3 of 24", "options": ["3", "6", "8", "12"], "answer": "8", "explain": "'Of' means multiply: 1/3 × 24 = 24 ÷ 3 = 8."}, {"question": "Which is larger: 2/3 or 3/5?", "options": ["2/3", "3/5", "They're equal", "Can't tell"], "answer": "2/3", "explain": "Convert to same denominator (15): 10/15 vs 9/15. So 2/3 is larger."}, {"question": "What is a mixed number?", "options": ["A fraction less than 1", "A whole number and a fraction together", "A decimal", "An improper fraction"], "answer": "A whole number and a fraction together", "explain": "e.g. 2¾ — a whole part (2) and a fractional part (3/4)."}, {"question": "Convert 11/4 to a mixed number.", "options": ["2¼", "2½", "2¾", "1¾"], "answer": "2¾", "explain": "11 ÷ 4 = 2 remainder 3. So 11/4 = 2¾."}];
+var idx=0, score=0, wrong=0, total=Q.length;
+
+function shuffle(a) { for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+Q = shuffle(Q);
+
+function render() {
+  if(idx >= total) { showSummary(); return; }
+  var q = Q[idx];
+  var opts = shuffle([...q.options]);
+  var letters = ['A','B','C','D'];
+  var h = '<div class="q-card"><div class="q-num">Question '+(idx+1)+' of '+total+'</div>';
+  h += '<div class="q-text">'+q.question+'</div><div class="options">';
+  opts.forEach(function(o,i) {
+    h += '<button class="opt-btn" data-val="'+o.replace(/"/g,'&quot;')+'" onclick="pick(this)">';
+    h += '<span class="opt-letter">'+letters[i]+'</span><span>'+o+'</span></button>';
+  });
+  h += '</div><div id="fb"></div></div>';
+  document.getElementById('gameArea').innerHTML = h;
+  document.getElementById('pFill').style.width = Math.round((idx/total)*100)+'%';
+  document.getElementById('pText').textContent = 'Question '+(idx+1)+' of '+total;
+}
+
+function pick(btn) {
+  if(btn.classList.contains('locked')) return;
+  var btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(function(b){ b.classList.add('locked'); });
+  
+  var val = btn.dataset.val;
+  var q = Q[idx];
+  var isCorrect = (val === q.answer);
+  
+  btns.forEach(function(b) {
+    if(b.dataset.val === q.answer) b.classList.add('correct');
+    else if(b === btn && !isCorrect) b.classList.add('wrong');
+    else b.classList.add('dimmed');
+  });
+  
+  if(isCorrect) { score++; document.getElementById('sCorrect').textContent = score; }
+  else { wrong++; document.getElementById('sWrong').textContent = wrong; }
+  
+  var fb = document.getElementById('fb');
+  fb.innerHTML = '<div class="feedback '+(isCorrect?'correct':'wrong')+'">' +
+    '<strong>'+(isCorrect?'✅ Correct!':'❌ Not quite')+'</strong>' +
+    q.explain + '</div>' +
+    '<button class="next-btn" onclick="next()">'+(idx<total-1?'Next Question →':'See Results →')+'</button>';
+}
+
+function next() { idx++; render(); }
+
+function showSummary() {
+  var pct = Math.round((score/total)*100);
+  var emoji = pct>=90?'🌟':pct>=70?'🎉':pct>=50?'💪':'📚';
+  var msg = pct>=90?'Outstanding! You really know this material.':
+            pct>=70?'Great work! Review the ones you missed.':
+            pct>=50?'Good start — keep practising the tricky ones.':
+            'Time to revise! Use the glossary and worksheets, then try again.';
+  document.getElementById('pFill').style.width = '100%';
+  document.getElementById('pText').textContent = 'Complete!';
+  document.getElementById('gameArea').innerHTML =
+    '<div class="summary"><div class="summary-emoji">'+emoji+'</div>' +
+    '<h2>Quiz Complete!</h2>' +
+    '<div class="score-big">'+score+' / '+total+'</div>' +
+    '<p>'+pct+'% correct. '+msg+'</p>' +
+    '<button class="retry-btn" onclick="retry()">↻ Play Again</button></div>';
+}
+
+function retry() { idx=0; score=0; wrong=0; Q=shuffle(Q);
+  document.getElementById('sCorrect').textContent='0';
+  document.getElementById('sWrong').textContent='0';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

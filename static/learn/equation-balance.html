@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Equation Balance</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a1628;color:#e8f4f2;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{font-size:1.3em;color:#2dd4bf;margin-bottom:2px}
+.sub{color:#64748b;font-size:.82em;margin-bottom:10px}
+.container{max-width:480px;width:100%}
+.eq-display{background:#0f1f38;border-radius:12px;padding:14px;text-align:center;border:2px solid #1e3a5f;margin-bottom:8px}
+.eq-text{font-size:1.6em;font-weight:700;font-family:'Courier New',monospace;color:#2dd4bf;letter-spacing:2px}
+.eq-text .x{color:#f97316}.eq-text .eq{color:#64748b}
+canvas{border-radius:12px;display:block;margin:0 auto 8px}
+.steps{background:#1e293b;border-radius:10px;padding:10px;max-height:200px;overflow-y:auto;margin-bottom:8px}
+.step{padding:4px 8px;font-size:.82em;color:#94a3b8;border-left:3px solid #334155;margin:4px 0}
+.step.current{border-left-color:#2dd4bf;color:#e8f4f2}
+.step .op{color:#f97316;font-weight:700}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.btn{padding:5px 12px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#cbd5e1;cursor:pointer;font-size:.82em}
+.btn:hover{border-color:#2dd4bf;color:#2dd4bf}
+.btn.op-btn{background:#0f172a;border-color:#2dd4bf30}
+.preset{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0}
+.preset-btn{padding:4px 10px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#94a3b8;cursor:pointer;font-size:.75em}
+.preset-btn:hover{border-color:#2dd4bf;color:#2dd4bf}
+.solved{color:#22c55e;font-weight:700;font-size:1.1em;text-align:center;margin:8px 0}
+</style></head><body>
+<h1>⚖️ Equation Balance</h1>
+<p class="sub">Solve equations step by step. Keep the balance equal!</p>
+<div class="container">
+<div class="eq-display"><span class="eq-text" id="eqDisplay"></span></div>
+<canvas id="c" width="440" height="140"></canvas>
+<div class="btn-row">
+  <button class="btn op-btn" onclick="doOp('add')">+ Add</button>
+  <button class="btn op-btn" onclick="doOp('sub')">− Subtract</button>
+  <button class="btn op-btn" onclick="doOp('mul')">× Multiply</button>
+  <button class="btn op-btn" onclick="doOp('div')">÷ Divide</button>
+  <input type="number" id="opVal" value="5" style="width:50px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:4px;padding:4px;text-align:center;font-size:.9em">
+</div>
+<div class="steps" id="steps"></div>
+<div id="solved"></div>
+<div class="preset">
+  <button class="preset-btn" onclick="setEq(3,5,20)">3x + 5 = 20</button>
+  <button class="preset-btn" onclick="setEq(4,-7,13)">4x − 7 = 13</button>
+  <button class="preset-btn" onclick="setEq(2,10,30)">2x + 10 = 30</button>
+  <button class="preset-btn" onclick="setEq(5,-3,22)">5x − 3 = 22</button>
+  <button class="preset-btn" onclick="setEq(7,0,42)">7x = 42</button>
+  <button class="preset-btn" onclick="setEq(1,9,9)">x + 9 = 9</button>
+</div>
+</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+let coeff=3,constant=5,rhs=20,history=[];
+
+function setEq(a,b,r){coeff=a;constant=b;rhs=r;history=[];updateAll()}
+
+function formatEq(){
+  let left='';
+  if(coeff===1)left='x';
+  else if(coeff===-1)left='-x';
+  else if(coeff!==0)left=coeff+'x';
+  if(constant>0&&coeff!==0)left+=' + '+constant;
+  else if(constant<0)left+=' − '+Math.abs(constant);
+  else if(constant!==0&&coeff===0)left=constant+'';
+  if(coeff===0&&constant===0)left='0';
+  return left+' = '+rhs;
+}
+
+function updateAll(){
+  // Display equation
+  const eq=formatEq();
+  document.getElementById('eqDisplay').innerHTML=eq.replace(/x/g,'<span class="x">x</span>').replace(/=/g,'<span class="eq"> = </span>');
+  
+  // Draw balance
+  ctx.clearRect(0,0,W,H);
+  const leftVal=coeff*rhs/coeff+constant; // approximate for visual
+  const rightVal=rhs;
+  const diff=leftVal-rightVal;
+  const tilt=Math.max(-15,Math.min(15,diff*.5));
+  
+  // Base
+  ctx.fillStyle='#334155';
+  ctx.beginPath();ctx.moveTo(W/2-8,H-10);ctx.lineTo(W/2+8,H-10);ctx.lineTo(W/2,H-50);ctx.fill();
+  
+  // Beam
+  ctx.save();ctx.translate(W/2,H-50);ctx.rotate(tilt*Math.PI/180);
+  ctx.strokeStyle='#64748b';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-160,0);ctx.lineTo(160,0);ctx.stroke();
+  
+  // Left pan
+  ctx.fillStyle='#1e3a5f';ctx.beginPath();ctx.ellipse(-140,10,45,8,0,0,Math.PI*2);ctx.fill();
+  ctx.font='bold 12px monospace';ctx.fillStyle='#2dd4bf';ctx.textAlign='center';
+  let leftLabel=coeff!==0?(coeff===1?'x':coeff+'x'):'';
+  if(constant>0&&coeff!==0)leftLabel+='+'+constant;
+  else if(constant<0)leftLabel+=constant;
+  else if(coeff===0)leftLabel=constant+'';
+  ctx.fillText(leftLabel,-140,-8);
+  
+  // Right pan
+  ctx.fillStyle='#1e3a5f';ctx.beginPath();ctx.ellipse(140,10,45,8,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#f97316';ctx.fillText(rhs+'',140,-8);
+  
+  ctx.restore();
+  
+  // Steps history
+  let stepsHtml='';
+  history.forEach((h,i)=>{
+    stepsHtml+=`<div class="step ${i===history.length-1?'current':''}">${h}</div>`;
+  });
+  document.getElementById('steps').innerHTML=stepsHtml;
+  
+  // Check if solved
+  if(coeff===1&&constant===0){
+    document.getElementById('solved').innerHTML=`<div class="solved">✅ Solved! x = ${rhs}</div>`;
+  }else if(coeff===0&&constant===rhs){
+    document.getElementById('solved').innerHTML=`<div class="solved">✅ True for all x (identity)</div>`;
+  }else if(coeff===0&&constant!==rhs){
+    document.getElementById('solved').innerHTML=`<div class="solved" style="color:#ef4444">❌ No solution (contradiction)</div>`;
+  }else{
+    document.getElementById('solved').textContent='';
+  }
+}
+
+function doOp(op){
+  const v=+document.getElementById('opVal').value;
+  if(v===0&&(op==='mul'||op==='div'))return;
+  
+  let desc='';
+  if(op==='add'){
+    constant+=v;rhs+=v;
+    desc=`<span class="op">+ ${v}</span> to both sides → ${formatEq()}`;
+  }else if(op==='sub'){
+    constant-=v;rhs-=v;
+    desc=`<span class="op">− ${v}</span> from both sides → ${formatEq()}`;
+  }else if(op==='mul'){
+    coeff*=v;constant*=v;rhs*=v;
+    desc=`<span class="op">× ${v}</span> both sides → ${formatEq()}`;
+  }else if(op==='div'){
+    if(coeff%v===0&&constant%v===0&&rhs%v===0){
+      coeff/=v;constant/=v;rhs/=v;
+      desc=`<span class="op">÷ ${v}</span> both sides → ${formatEq()}`;
+    }else{
+      coeff/=v;constant/=v;rhs/=v;
+      desc=`<span class="op">÷ ${v}</span> both sides → ${formatEq()}`;
+    }
+  }
+  history.push(desc);
+  updateAll();
+}
+
+setEq(3,5,20);
+</script></body></html>

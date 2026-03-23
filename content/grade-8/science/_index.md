@@ -171,11 +171,11 @@ terms:
       zh: 稀有气体
       definition: Group 0. Full outer shell = very unreactive. Helium, neon, argon, etc.
   tools:
-  - emoji: "⚛️"
-    name: "Periodic Table Explorer"
-    source: "Mr Zocchi"
-    task: "Click any element — see properties, group, and a fun fact about China, Korea, or Germany."
-    embed_url: "/tools/periodic-table.html"
+  - emoji: ⚛️
+    name: Periodic Table Explorer
+    source: Mr Zocchi
+    task: Click any element — see properties, group, and a fun fact about China, Korea, or Germany.
+    embed_url: /tools/periodic-table.html
   - name: Build an Atom
     emoji: ⚛️
     source: PhET Simulation
@@ -191,6 +191,11 @@ terms:
     source: PhET Simulation
     embed_url: https://phet.colorado.edu/sims/html/states-of-matter/latest/states-of-matter_all.html
     task: Watch particle behaviour in solids, liquids, and gases. Change temperature and pressure.
+  - emoji: ⚛️
+    name: Particle Model Simulator
+    source: Mr Zocchi
+    task: Heat and cool particles. See how state changes work at the particle level.
+    embed_url: /learn/particle-simulator.html
   toolkit:
   - name: Desmos Scientific Calculator
     url: https://www.desmos.com/scientific
@@ -240,19 +245,21 @@ terms:
   - q: What is the difference between an element and a compound?
     a: 'Element: one type of atom only (e.g. Fe). Compound: two or more different atoms chemically bonded (e.g. H₂O, NaCl).'
   extensions:
-  - emoji: "🧪"
-    title: "Element Trading Cards"
-    type: "Creative Project"
-    description: "Create trading cards for 20 elements. Each card should include: symbol, atomic number, group, period, properties, real-world uses, and a fun fact. Include elements discovered in China (e.g. Holmium named after Stockholm, but first isolated with Chinese rare earths)."
-  - emoji: "💎"
-    title: "Rare Earth Detective"
-    type: "Research"
-    description: "China produces 60% of the world's rare earth elements. Research: What are rare earths? Where are they mined? What are they used for in your phone? Why are they strategically important? Create an infographic."
-  - emoji: "🎨"
-    title: "Flame Test Rainbow"
-    type: "Practical Extension"
-    description: "Different metal salts produce different coloured flames. Research which elements produce which colours. Design a fireworks display using the correct chemical compounds. Explain why Korean and Chinese New Year fireworks are so colourful."
-
+  - emoji: 🧪
+    title: Element Trading Cards
+    type: Creative Project
+    description: 'Create trading cards for 20 elements. Each card should include: symbol, atomic number, group, period, properties, real-world uses, and a fun fact. Include elements discovered in China
+      (e.g. Holmium named after Stockholm, but first isolated with Chinese rare earths).'
+  - emoji: 💎
+    title: Rare Earth Detective
+    type: Research
+    description: 'China produces 60% of the world''s rare earth elements. Research: What are rare earths? Where are they mined? What are they used for in your phone? Why are they strategically important?
+      Create an infographic.'
+  - emoji: 🎨
+    title: Flame Test Rainbow
+    type: Practical Extension
+    description: Different metal salts produce different coloured flames. Research which elements produce which colours. Design a fireworks display using the correct chemical compounds. Explain why Korean
+      and Chinese New Year fireworks are so colourful.
 - name: Physics — Energy
   emoji: ⚡
   num: 2
@@ -372,16 +379,16 @@ terms:
       zh: 碳足迹
       definition: Total greenhouse gases produced by a person, product, or activity.
   tools:
-  - emoji: "⚡"
-    name: "Efficiency Calculator"
-    source: "Mr Zocchi"
-    task: "Calculate efficiency, build Sankey diagrams. Compare bulbs, engines, solar panels."
-    embed_url: "/tools/energy-calculator.html"
-  - emoji: "🔥"
-    name: "Energy Forms Sim"
-    source: "PhET"
-    task: "Explore energy transfers and conservation. Watch energy flow between stores."
-    embed_url: "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_all.html"
+  - emoji: ⚡
+    name: Efficiency Calculator
+    source: Mr Zocchi
+    task: Calculate efficiency, build Sankey diagrams. Compare bulbs, engines, solar panels.
+    embed_url: /tools/energy-calculator.html
+  - emoji: 🔥
+    name: Energy Forms Sim
+    source: PhET
+    task: Explore energy transfers and conservation. Watch energy flow between stores.
+    embed_url: https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_all.html
   - name: Energy Skate Park
     emoji: 🛹
     source: PhET Simulation
@@ -397,6 +404,11 @@ terms:
     source: Desmos
     link_url: https://www.desmos.com/scientific
     task: Calculate GPE, KE, and efficiency.
+  - emoji: ⚡
+    name: Energy Transfer Builder
+    source: Mr Zocchi
+    task: Build Sankey diagrams for light bulbs, car engines, solar panels, and Three Gorges Dam. Calculate efficiency.
+    embed_url: /learn/energy-builder.html
   toolkit:
   - name: Desmos Scientific Calculator
     url: https://www.desmos.com/scientific
@@ -443,19 +455,21 @@ terms:
   - q: China generates most of its electricity from coal. What are the consequences?
     a: High CO₂ emissions contributing to climate change, air pollution (smog), acid rain. China is also investing heavily in solar and wind to transition.
   extensions:
-  - emoji: "⚡"
-    title: "NIS Energy Audit"
-    type: "Real-World Investigation"
-    description: "Audit the energy use in one NIS classroom for a week. Measure/estimate: lights (watts × hours), computers, air conditioning. Calculate total energy in kWh. How much does it cost? Propose 3 ways to reduce energy use by 20%."
-  - emoji: "🏠"
-    title: "Passive House Designer"
-    type: "Design Challenge"
-    description: "Germany is a world leader in Passivhaus design — buildings that need almost no heating. Research the principles and design a passive house for Nanjing's climate. What changes would you need compared to Germany's climate? Sketch your design with labels."
-  - emoji: "☀️"
-    title: "Solar Panel Investigation"
-    type: "Data Analysis"
-    description: "China is the world's largest producer of solar panels. Research: How does a solar panel work? How much energy does a 1m² panel produce in Nanjing vs Seoul vs Berlin (different latitudes)? Is solar power viable for NIS?"
-
+  - emoji: ⚡
+    title: NIS Energy Audit
+    type: Real-World Investigation
+    description: 'Audit the energy use in one NIS classroom for a week. Measure/estimate: lights (watts × hours), computers, air conditioning. Calculate total energy in kWh. How much does it cost? Propose
+      3 ways to reduce energy use by 20%.'
+  - emoji: 🏠
+    title: Passive House Designer
+    type: Design Challenge
+    description: Germany is a world leader in Passivhaus design — buildings that need almost no heating. Research the principles and design a passive house for Nanjing's climate. What changes would you
+      need compared to Germany's climate? Sketch your design with labels.
+  - emoji: ☀️
+    title: Solar Panel Investigation
+    type: Data Analysis
+    description: 'China is the world''s largest producer of solar panels. Research: How does a solar panel work? How much energy does a 1m² panel produce in Nanjing vs Seoul vs Berlin (different latitudes)?
+      Is solar power viable for NIS?'
 - name: Ecology
   emoji: 🌿
   num: 3
@@ -582,11 +596,11 @@ terms:
       zh: 保护
       definition: Protecting ecosystems and species through management, reserves, and sustainable practices.
   tools:
-  - emoji: "🌿"
-    name: "10% Rule Calculator"
-    source: "Mr Zocchi"
-    task: "Enter producer energy — see the 10% rule across trophic levels."
-    embed_url: "/tools/energy-calculator.html"
+  - emoji: 🌿
+    name: 10% Rule Calculator
+    source: Mr Zocchi
+    task: Enter producer energy — see the 10% rule across trophic levels.
+    embed_url: /tools/energy-calculator.html
   - name: Natural Selection
     emoji: 🐇
     source: PhET Simulation
@@ -602,6 +616,11 @@ terms:
     source: Desmos
     link_url: https://www.desmos.com/scientific
     task: Calculate population changes and energy transfer percentages.
+  - emoji: 🕸️
+    name: Food Web Simulator
+    source: Mr Zocchi
+    task: Remove organisms from a Yangtze River food web and observe cascade effects on every trophic level.
+    embed_url: /learn/food-web-simulator.html
   toolkit:
   - name: Desmos Scientific Calculator
     url: https://www.desmos.com/scientific
@@ -646,23 +665,26 @@ terms:
   - q: What is the difference between conservation and preservation?
     a: 'Conservation: sustainable management and use. Preservation: protecting an area from ALL human activity.'
   extensions:
-  - emoji: "🐼"
-    title: "Conservation Campaign"
-    type: "Persuasive Project"
-    description: "Choose an endangered ecosystem: the Yangtze River, Korean DMZ, or Germany's Wadden Sea. Create a persuasive campaign (poster, video, or presentation) arguing why it must be protected. Include scientific data, not just emotional appeal."
-  - emoji: "🌱"
-    title: "NIS Food Web Map"
-    type: "Field Investigation"
-    description: "Spend 30 minutes observing organisms in the NIS school grounds. Identify as many species as you can. Construct a food web showing the feeding relationships. Where are the producers? Consumers? Decomposers? What would happen if you removed one species?"
-  - emoji: "📊"
-    title: "Yangtze Fishing Ban Data Analyst"
-    type: "Data & Prediction"
-    description: "Research the data from China's 10-year Yangtze fishing ban (started 2021). Has fish population recovered? Have any species returned? Use the available data to create graphs showing trends and predict what the ecosystem might look like in 2031."
-  - emoji: "🌍"
-    title: "Carbon Footprint Calculator"
-    type: "Maths & Science Extension"
-    description: "Calculate your personal carbon footprint for one week. Include: transport to school, electricity at home, food choices. Compare with the average in China, South Korea, and Germany. What single change would reduce your footprint the most?"
-
+  - emoji: 🐼
+    title: Conservation Campaign
+    type: Persuasive Project
+    description: 'Choose an endangered ecosystem: the Yangtze River, Korean DMZ, or Germany''s Wadden Sea. Create a persuasive campaign (poster, video, or presentation) arguing why it must be protected.
+      Include scientific data, not just emotional appeal.'
+  - emoji: 🌱
+    title: NIS Food Web Map
+    type: Field Investigation
+    description: Spend 30 minutes observing organisms in the NIS school grounds. Identify as many species as you can. Construct a food web showing the feeding relationships. Where are the producers? Consumers?
+      Decomposers? What would happen if you removed one species?
+  - emoji: 📊
+    title: Yangtze Fishing Ban Data Analyst
+    type: Data & Prediction
+    description: Research the data from China's 10-year Yangtze fishing ban (started 2021). Has fish population recovered? Have any species returned? Use the available data to create graphs showing trends
+      and predict what the ecosystem might look like in 2031.
+  - emoji: 🌍
+    title: Carbon Footprint Calculator
+    type: Maths & Science Extension
+    description: 'Calculate your personal carbon footprint for one week. Include: transport to school, electricity at home, food choices. Compare with the average in China, South Korea, and Germany. What
+      single change would reduce your footprint the most?'
 - name: Colonising Mars
   emoji: 🚀
   num: 4
@@ -671,17 +693,19 @@ terms:
   unit_dates: April – June 2026
   unit_description: Something exciting is coming. Stay tuned.
   extensions:
-  - emoji: "🪐"
-    title: "Mars Colony Architect"
-    type: "Design Challenge"
-    description: "Design a self-sustaining Mars colony for 100 people. Consider: atmosphere (95% CO2), gravity (38% of Earth), temperature (-60°C average), dust storms. What would you grow for food? How would you produce oxygen? Create a detailed blueprint."
-  - emoji: "🧑‍🚀"
-    title: "Tiangong vs ISS Debate"
-    type: "Research & Debate"
-    description: "Research China's Tiangong space station and the International Space Station. Compare: size, crew, experiments, cost, international cooperation. Hold a class debate: should space exploration be competitive or collaborative?"
-  - emoji: "🌱"
-    title: "Space Farming Experiment"
-    type: "Practical Investigation"
-    description: "Astronauts on the ISS grow lettuce in space. Design an experiment to test how one variable (light colour, gravity simulation, soil type) affects plant growth. Run it in class and compare your results with real space farming data."
-
+  - emoji: 🪐
+    title: Mars Colony Architect
+    type: Design Challenge
+    description: 'Design a self-sustaining Mars colony for 100 people. Consider: atmosphere (95% CO2), gravity (38% of Earth), temperature (-60°C average), dust storms. What would you grow for food? How
+      would you produce oxygen? Create a detailed blueprint.'
+  - emoji: 🧑‍🚀
+    title: Tiangong vs ISS Debate
+    type: Research & Debate
+    description: 'Research China''s Tiangong space station and the International Space Station. Compare: size, crew, experiments, cost, international cooperation. Hold a class debate: should space exploration
+      be competitive or collaborative?'
+  - emoji: 🌱
+    title: Space Farming Experiment
+    type: Practical Investigation
+    description: Astronauts on the ISS grow lettuce in space. Design an experiment to test how one variable (light colour, gravity simulation, soil type) affects plant growth. Run it in class and compare
+      your results with real space farming data.
 ---

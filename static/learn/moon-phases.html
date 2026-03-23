@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moon Phases Simulator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#050a18;color:#e8f4f2;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{font-size:1.3em;color:#fbbf24;margin-bottom:2px}
+.sub{color:#64748b;font-size:.82em;margin-bottom:10px}
+canvas{border-radius:12px;border:2px solid #1e2a40;cursor:grab;display:block;margin:0 auto}
+canvas:active{cursor:grabbing}
+.phase-name{font-size:1.2em;font-weight:700;color:#fbbf24;text-align:center;margin:8px 0 4px}
+.desc{color:#94a3b8;font-size:.82em;text-align:center;max-width:420px;margin-bottom:8px;line-height:1.4}
+.day{color:#64748b;font-size:.8em;text-align:center}
+.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.btn{padding:4px 10px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#cbd5e1;cursor:pointer;font-size:.75em}
+.btn:hover{border-color:#fbbf24;color:#fbbf24}
+.info{background:#0f172a;border-radius:8px;padding:10px;font-size:.78em;color:#64748b;max-width:420px;text-align:center;margin-top:6px;line-height:1.4}
+.info b{color:#fbbf24}
+</style></head><body>
+<h1>🌙 Moon Phases Simulator</h1>
+<p class="sub">Drag to rotate the Moon around Earth. See the phase from Earth's surface.</p>
+<canvas id="c" width="440" height="340"></canvas>
+<div class="phase-name" id="phase">Full Moon</div>
+<div class="desc" id="desc"></div>
+<div class="day" id="day">Day 15 of 29.5-day cycle</div>
+<div class="controls">
+  <button class="btn" onclick="setAngle(0)">🌑 New Moon</button>
+  <button class="btn" onclick="setAngle(90)">🌓 First Quarter</button>
+  <button class="btn" onclick="setAngle(180)">🌕 Full Moon</button>
+  <button class="btn" onclick="setAngle(270)">🌗 Last Quarter</button>
+  <button class="btn" onclick="animate()">▶️ Animate Cycle</button>
+</div>
+<div class="info"><b>Korean Chuseok</b> and <b>Chinese Mid-Autumn Festival</b> both celebrate the full moon (day ~15). The same phase is visible from Nanjing, Seoul, and Berlin at the same time.</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+let angle=180,dragging=false,animating=false,animId=null;
+const cx=W/2,cy=H/2-20,orbitR=110,moonR=18,earthR=22,sunDir=-1;
+const phases=[
+  {name:'New Moon',emoji:'🌑',desc:'Moon between Earth and Sun. Dark side faces us. Invisible.'},
+  {name:'Waxing Crescent',emoji:'🌒',desc:'A thin sliver appears on the right. Growing larger each night.'},
+  {name:'First Quarter',emoji:'🌓',desc:'Right half illuminated. Exactly half the Moon visible.'},
+  {name:'Waxing Gibbous',emoji:'🌔',desc:'More than half lit. Almost full. Getting brighter.'},
+  {name:'Full Moon',emoji:'🌕',desc:'Entire face illuminated. Earth between Moon and Sun. Chuseok! 🎑'},
+  {name:'Waning Gibbous',emoji:'🌖',desc:'Shrinking from the right side. Still mostly bright.'},
+  {name:'Last Quarter',emoji:'🌗',desc:'Left half illuminated. Exactly half visible again.'},
+  {name:'Waning Crescent',emoji:'🌘',desc:'Thin sliver on the left. Almost gone. New moon approaching.'},
+];
+
+function getPhase(a){
+  const norm=((a%360)+360)%360;
+  const idx=Math.round(norm/45)%8;
+  return{...phases[idx],day:Math.round(norm/360*29.5*10)/10};
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  // Starfield
+  ctx.fillStyle='#050a18';ctx.fillRect(0,0,W,H);
+  for(let i=0;i<60;i++){ctx.fillStyle=`rgba(255,255,255,${Math.random()*.5+.1})`;ctx.fillRect(Math.random()*W,Math.random()*H,1,1)}
+  
+  // Sun indicator
+  ctx.fillStyle='#fbbf2440';
+  ctx.beginPath();ctx.arc(-30,cy,80,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fbbf24';ctx.font='24px serif';ctx.textAlign='center';ctx.fillText('☀️',12,cy+6);
+  ctx.font='bold 9px sans-serif';ctx.fillStyle='#fbbf2480';ctx.fillText('SUN',12,cy+24);
+  
+  // Sun rays
+  ctx.strokeStyle='#fbbf2415';ctx.lineWidth=1;
+  for(let i=0;i<8;i++){const a=i*Math.PI/4;
+    ctx.beginPath();ctx.moveTo(12+Math.cos(a)*40,cy+Math.sin(a)*40);
+    ctx.lineTo(12+Math.cos(a)*W,cy+Math.sin(a)*W);ctx.stroke()}
+  
+  // Orbit path
+  ctx.strokeStyle='#1e3a5f';ctx.lineWidth=1;ctx.setLineDash([4,6]);
+  ctx.beginPath();ctx.arc(cx,cy,orbitR,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+  
+  // Earth
+  ctx.beginPath();ctx.arc(cx,cy,earthR,0,Math.PI*2);
+  const eg=ctx.createRadialGradient(cx-5,cy-5,2,cx,cy,earthR);
+  eg.addColorStop(0,'#60a5fa');eg.addColorStop(.5,'#3b82f6');eg.addColorStop(1,'#1e3a5f');
+  ctx.fillStyle=eg;ctx.fill();
+  ctx.font='14px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('🌍',cx,cy);
+  ctx.font='bold 8px sans-serif';ctx.fillStyle='#60a5fa80';ctx.fillText('EARTH',cx,cy+32);
+  
+  // Moon position
+  const rad=angle*Math.PI/180;
+  const mx=cx+Math.cos(rad)*orbitR;
+  const my=cy+Math.sin(rad)*orbitR;
+  
+  // Moon (with phase shading)
+  ctx.save();
+  ctx.beginPath();ctx.arc(mx,my,moonR,0,Math.PI*2);ctx.clip();
+  // Lit side
+  ctx.fillStyle='#e8e0d0';ctx.fillRect(mx-moonR,my-moonR,moonR*2,moonR*2);
+  // Shadow (from sun direction)
+  const sunAngle=Math.atan2(0,1); // sun is to the left
+  const moonAngleFromSun=Math.atan2(my-cy,mx-cx);
+  const shadowAngle=moonAngleFromSun;
+  // Simple phase: darken the side away from sun
+  ctx.fillStyle='#1a1a2e';
+  ctx.beginPath();
+  const phase=((angle%360)+360)%360;
+  // The illuminated portion depends on angle from sun
+  if(phase<180){
+    // Right side lit, draw shadow on left
+    const w=moonR*2*Math.abs(Math.cos(phase*Math.PI/180));
+    ctx.ellipse(mx,my,w/2,moonR,0,Math.PI/2,-Math.PI/2);
+    ctx.lineTo(mx-moonR,my-moonR);ctx.lineTo(mx-moonR,my+moonR);
+  }else{
+    // Left side lit, draw shadow on right
+    const w=moonR*2*Math.abs(Math.cos(phase*Math.PI/180));
+    ctx.ellipse(mx,my,w/2,moonR,0,-Math.PI/2,Math.PI/2);
+    ctx.lineTo(mx+moonR,my-moonR);ctx.lineTo(mx+moonR,my+moonR);
+  }
+  ctx.fill();
+  ctx.restore();
+  
+  // Moon border
+  ctx.strokeStyle='#4b556330';ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(mx,my,moonR,0,Math.PI*2);ctx.stroke();
+  ctx.font='bold 8px sans-serif';ctx.fillStyle='#94a3b8';ctx.textAlign='center';
+  ctx.fillText('MOON',mx,my+moonR+12);
+  
+  // Phase view (what you see from Earth)
+  const vx=W-50,vy=H-45;
+  ctx.fillStyle='#0f172a';ctx.strokeStyle='#334155';ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(vx,vy,25,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.save();ctx.beginPath();ctx.arc(vx,vy,24,0,Math.PI*2);ctx.clip();
+  ctx.fillStyle='#e8e0d0';ctx.fillRect(vx-24,vy-24,48,48);
+  ctx.fillStyle='#0a0a1a';
+  if(phase<180){
+    const w=24*Math.abs(Math.cos(phase*Math.PI/180));
+    ctx.beginPath();ctx.ellipse(vx,vy,w,24,0,Math.PI/2,-Math.PI/2);
+    ctx.lineTo(vx-24,vy-24);ctx.lineTo(vx-24,vy+24);ctx.fill();
+  }else{
+    const w=24*Math.abs(Math.cos(phase*Math.PI/180));
+    ctx.beginPath();ctx.ellipse(vx,vy,w,24,0,-Math.PI/2,Math.PI/2);
+    ctx.lineTo(vx+24,vy-24);ctx.lineTo(vx+24,vy+24);ctx.fill();
+  }
+  ctx.restore();
+  ctx.font='bold 8px sans-serif';ctx.fillStyle='#64748b';ctx.textAlign='center';
+  ctx.fillText('VIEW FROM',vx,vy-32);ctx.fillText('EARTH',vx,vy+36);
+  
+  // Update labels
+  const p=getPhase(angle);
+  document.getElementById('phase').textContent=p.emoji+' '+p.name;
+  document.getElementById('desc').textContent=p.desc;
+  document.getElementById('day').textContent=`Day ${p.day} of 29.5-day cycle`;
+}
+
+c.onmousedown=c.ontouchstart=e=>{dragging=true;animating=false;if(animId)cancelAnimationFrame(animId)};
+c.onmouseup=c.ontouchend=()=>dragging=false;
+c.onmousemove=c.ontouchmove=e=>{
+  if(!dragging)return;e.preventDefault();
+  const rect=c.getBoundingClientRect();
+  const ex=e.touches?e.touches[0].clientX:e.clientX;
+  const ey=e.touches?e.touches[0].clientY:e.clientY;
+  const mx=(ex-rect.left)*(W/rect.width)-cx;
+  const my=(ey-rect.top)*(H/rect.height)-cy;
+  angle=Math.atan2(my,mx)*180/Math.PI;
+  draw();
+};
+
+function setAngle(a){angle=a;animating=false;if(animId)cancelAnimationFrame(animId);draw()}
+function animate(){
+  animating=true;
+  function step(){if(!animating)return;angle=(angle+.5)%360;draw();animId=requestAnimationFrame(step)}
+  step();
+}
+draw();
+</script></body></html>

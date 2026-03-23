@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Particle Model Simulator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a1628;color:#e8f4f2;display:flex;flex-direction:column;align-items:center;padding:16px;min-height:100vh}
+h1{font-size:1.4em;color:#2dd4bf;margin-bottom:2px}
+.sub{color:#64748b;font-size:.82em;margin-bottom:12px}
+.container{display:flex;flex-direction:column;align-items:center;gap:12px;max-width:480px;width:100%}
+canvas{border-radius:12px;border:2px solid #1e3a5f;background:#0f1f38;cursor:pointer}
+.controls{display:flex;align-items:center;gap:12px;width:100%;padding:8px 0}
+.temp-label{font-size:.9em;color:#94a3b8;min-width:60px;text-align:right}
+input[type=range]{flex:1;accent-color:#2dd4bf;height:8px}
+.temp-val{font-size:1.4em;font-weight:700;color:#2dd4bf;min-width:70px;text-align:center;font-family:'Courier New',monospace}
+.state-badge{padding:6px 16px;border-radius:20px;font-size:1em;font-weight:700;letter-spacing:1px;transition:.3s}
+.info{background:#1e293b;border-radius:10px;padding:12px;width:100%;font-size:.85em;line-height:1.5;color:#94a3b8}
+.info b{color:#2dd4bf}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.preset{padding:5px 12px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#cbd5e1;cursor:pointer;font-size:.8em}
+.preset:hover{border-color:#2dd4bf;color:#2dd4bf}
+.preset.active{background:#2dd4bf;color:#0a1628;border-color:#2dd4bf;font-weight:700}
+</style></head><body>
+<h1>⚛️ Particle Model Simulator</h1>
+<p class="sub">Adjust temperature to see how particles behave in each state of matter.</p>
+<div class="container">
+<canvas id="c" width="440" height="300"></canvas>
+<div class="controls">
+  <span class="temp-label">🌡️ Temp</span>
+  <input type="range" id="temp" min="-50" max="250" value="25">
+  <span class="temp-val" id="tv">25°C</span>
+</div>
+<div id="badge" class="state-badge" style="background:#3b82f6;color:#fff">LIQUID</div>
+<div class="btn-row">
+  <button class="preset" onclick="setT(-30)">🧊 Freezer (-30°C)</button>
+  <button class="preset active" onclick="setT(25)">🏠 Room (25°C)</button>
+  <button class="preset" onclick="setT(100)">♨️ Boiling (100°C)</button>
+  <button class="preset" onclick="setT(200)">🔥 Steam (200°C)</button>
+  <button class="preset" onclick="setT(-5)">❄️ Nanjing Winter</button>
+  <button class="preset" onclick="setT(38)">☀️ Nanjing Summer</button>
+</div>
+<div class="info" id="info"></div>
+</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),slider=document.getElementById('temp'),tv=document.getElementById('tv'),badge=document.getElementById('badge'),info=document.getElementById('info');
+const N=60; let particles=[], temp=25;
+const W=c.width, H=c.height;
+
+function init(){particles=[];for(let i=0;i<N;i++) particles.push({x:W/2+Math.random()*100-50,y:H/2+Math.random()*100-50,vx:0,vy:0,r:6})}
+init();
+
+function getState(t){if(t<0)return'SOLID';if(t<100)return'LIQUID';return'GAS'}
+function getColor(s){return s==='SOLID'?'#60a5fa':s==='LIQUID'?'#3b82f6':'#f97316'}
+function getBg(s){return s==='SOLID'?'#1e3a5f':s==='LIQUID'?'#1e3a5f':'#3b1a08'}
+
+function update(){
+  const state=getState(temp);
+  const energy=Math.max(0.1,(temp+60)/80);
+  const col=getColor(state);
+  
+  ctx.fillStyle='#0f1f38';ctx.fillRect(0,0,W,H);
+  
+  // Container
+  ctx.strokeStyle='#334155';ctx.lineWidth=2;
+  ctx.strokeRect(20,20,W-40,H-40);
+  
+  particles.forEach(p=>{
+    // Random force based on temperature
+    p.vx+=(Math.random()-.5)*energy*.6;
+    p.vy+=(Math.random()-.5)*energy*.6;
+    
+    // Damping
+    const damp=state==='SOLID'?.85:state==='LIQUID'?.92:.97;
+    p.vx*=damp;p.vy*=damp;
+    
+    // Gravity for liquid
+    if(state==='LIQUID') p.vy+=.08;
+    if(state==='SOLID') p.vy+=.15;
+    
+    // Speed limit
+    const maxV=state==='GAS'?4:state==='LIQUID'?2:.5;
+    const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
+    if(spd>maxV){p.vx*=maxV/spd;p.vy*=maxV/spd}
+    
+    p.x+=p.vx;p.y+=p.vy;
+    
+    // Bounce off walls
+    if(p.x<26){p.x=26;p.vx*=-.8}
+    if(p.x>W-26){p.x=W-26;p.vx*=-.8}
+    if(p.y<26){p.y=26;p.vy*=-.8}
+    if(p.y>H-26){p.y=H-26;p.vy*=-.8}
+    
+    // Solid: attract to grid positions
+    if(state==='SOLID'){
+      const gridX=40+((particles.indexOf(p)%10)*40);
+      const gridY=60+(Math.floor(particles.indexOf(p)/10)*40);
+      p.vx+=(gridX-p.x)*.03;
+      p.vy+=(gridY-p.y)*.03;
+    }
+  });
+  
+  // Particle-particle repulsion
+  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+    const dx=particles[j].x-particles[i].x,dy=particles[j].y-particles[i].y;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    const minD=state==='SOLID'?14:state==='LIQUID'?16:10;
+    if(d<minD&&d>0){
+      const f=(minD-d)/d*.3;
+      particles[i].vx-=dx*f;particles[i].vy-=dy*f;
+      particles[j].vx+=dx*f;particles[j].vy+=dy*f;
+    }
+  }
+  
+  // Draw particles
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=col;ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1;ctx.stroke();
+    // Glow
+    const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2);
+    g.addColorStop(0,col+'40');g.addColorStop(1,'transparent');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*2,0,Math.PI*2);ctx.fill();
+  });
+  
+  // State label
+  badge.textContent=state;
+  badge.style.background=col;
+  badge.style.color=state==='GAS'?'#fff':'#fff';
+  
+  // Info
+  const infos={
+    'SOLID':'<b>SOLID:</b> Particles vibrate in fixed positions. Strong forces hold them in a regular arrangement. Fixed shape and volume. Like ice, or frozen ground in a Nanjing winter.',
+    'LIQUID':'<b>LIQUID:</b> Particles slide over each other. Weaker forces than solids. No fixed shape but fixed volume. Like water in Xuanwu Lake, or green tea in your cup.',
+    'GAS':'<b>GAS:</b> Particles move freely in all directions. Very weak forces. No fixed shape or volume — fills the container. Like steam from a hot pot (火锅) or air.'
+  };
+  info.innerHTML=infos[state];
+  
+  requestAnimationFrame(update);
+}
+
+slider.oninput=()=>{temp=+slider.value;tv.textContent=temp+'°C';
+  document.querySelectorAll('.preset').forEach(b=>b.classList.remove('active'))};
+function setT(t){temp=t;slider.value=t;tv.textContent=t+'°C';
+  document.querySelectorAll('.preset').forEach(b=>{
+    b.classList.toggle('active',b.textContent.includes(t+'°C')||
+      (t===-5&&b.textContent.includes('Winter'))||
+      (t===38&&b.textContent.includes('Summer')))
+  })}
+update();
+</script></body></html>

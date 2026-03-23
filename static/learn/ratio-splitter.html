@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ratio Splitter</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a1628;color:#e8f4f2;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{font-size:1.3em;color:#f87171;margin-bottom:2px}
+.sub{color:#64748b;font-size:.82em;margin-bottom:10px}
+.container{max-width:480px;width:100%}
+.input-row{display:flex;gap:8px;align-items:center;justify-content:center;margin:8px 0;flex-wrap:wrap}
+.input-row label{font-size:.85em;color:#94a3b8}
+.input-row input{width:60px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:4px;padding:4px 6px;font-size:.95em;text-align:center}
+.colon{font-size:1.4em;font-weight:700;color:#64748b}
+canvas{border-radius:12px;background:#0f1f38;border:2px solid #1e3a5f;display:block;margin:8px auto}
+.result{background:#1e293b;border-radius:10px;padding:12px;text-align:center;font-size:.9em;margin-top:8px}
+.result b{color:#f87171}
+.presets{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.preset{padding:4px 10px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#94a3b8;cursor:pointer;font-size:.75em}
+.preset:hover{border-color:#f87171;color:#f87171}
+</style></head><body>
+<h1>📊 Ratio Splitter</h1>
+<p class="sub">See how quantities are shared in a ratio. Adjust the numbers and watch the bar change.</p>
+<div class="container">
+<div class="input-row">
+  <label>Total:</label><input type="number" id="total" value="180" min="1" max="10000">
+  <label>Ratio:</label><input type="number" id="a" value="2" min="1" max="20"><span class="colon">:</span><input type="number" id="b" value="3" min="1" max="20"><span class="colon">:</span><input type="number" id="cc" value="0" min="0" max="20">
+</div>
+<div class="presets">
+  <button class="preset" onclick="set(180,2,3,0)">¥180 in 2:3</button>
+  <button class="preset" onclick="set(90000,1,2,3)">₩90,000 in 1:2:3</button>
+  <button class="preset" onclick="set(360,3,2,1)">360g recipe 3:2:1</button>
+  <button class="preset" onclick="set(24,3,5,0)">24 students 3:5</button>
+  <button class="preset" onclick="set(100,2,3,5)">€100 in 2:3:5</button>
+</div>
+<canvas id="c" width="460" height="180"></canvas>
+<div class="result" id="result"></div>
+</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+const ti=document.getElementById('total'),ai=document.getElementById('a'),bi=document.getElementById('b'),ci=document.getElementById('cc');
+const colors=['#f87171','#3b82f6','#22c55e'];
+
+function set(t,a,b,cc){ti.value=t;ai.value=a;bi.value=b;ci.value=cc;update()}
+
+function update(){
+  const total=+ti.value,a=+ai.value,b=+bi.value,cc=+ci.value;
+  const parts=[a,b];if(cc>0)parts.push(cc);
+  const totalParts=parts.reduce((s,p)=>s+p,0);
+  const onePart=total/totalParts;
+  const values=parts.map(p=>Math.round(p*onePart*100)/100);
+  
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#0f1f38';ctx.fillRect(0,0,W,H);
+  
+  const barY=40,barH=60,barX=30,barW=W-60;
+  let x=barX;
+  
+  // Draw parts bar
+  parts.forEach((p,i)=>{
+    const w=barW*(p/totalParts);
+    ctx.fillStyle=colors[i];
+    ctx.fillRect(x,barY,w-2,barH);
+    // Part count
+    ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(p+' part'+(p>1?'s':''),x+w/2,barY+barH/2-10);
+    // Value
+    ctx.font='bold 18px "Courier New",monospace';
+    ctx.fillText(values[i],x+w/2,barY+barH/2+12);
+    x+=w;
+  });
+  
+  // Labels below
+  ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+  x=barX;
+  const labels=['A','B','C'];
+  parts.forEach((p,i)=>{
+    const w=barW*(p/totalParts);
+    ctx.fillStyle=colors[i];
+    ctx.fillText(labels[i]+': '+values[i],x+w/2,barY+barH+18);
+    x+=w;
+  });
+  
+  // Total bar
+  ctx.fillStyle='#334155';ctx.fillRect(barX,barY+barH+30,barW,4);
+  ctx.fillStyle='#94a3b8';ctx.font='10px sans-serif';ctx.textAlign='center';
+  ctx.fillText('Total: '+total,W/2,barY+barH+50);
+  
+  // One part visualization
+  ctx.fillStyle='#fbbf2440';ctx.fillRect(barX,barY-25,barW/totalParts-2,18);
+  ctx.fillStyle='#fbbf24';ctx.font='bold 9px sans-serif';ctx.textAlign='left';
+  ctx.fillText('1 part = '+Math.round(onePart*100)/100,barX+4,barY-13);
+  
+  // Result text
+  const ratioStr=parts.join(':');
+  let resultHTML=`Share <b>${total}</b> in ratio <b>${ratioStr}</b><br>`;
+  resultHTML+=`Total parts: ${totalParts}. One part = ${total} ÷ ${totalParts} = <b>${Math.round(onePart*100)/100}</b><br>`;
+  resultHTML+=values.map((v,i)=>`${labels[i]} gets ${parts[i]} × ${Math.round(onePart*100)/100} = <b style="color:${colors[i]}">${v}</b>`).join(' | ');
+  document.getElementById('result').innerHTML=resultHTML;
+}
+
+[ti,ai,bi,ci].forEach(i=>i.oninput=update);
+update();
+</script></body></html>

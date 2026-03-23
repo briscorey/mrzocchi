@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Transfer Builder</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a1628;color:#e8f4f2;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{font-size:1.3em;color:#fbbf24;margin-bottom:2px}
+.sub{color:#64748b;font-size:.82em;margin-bottom:10px}
+.container{max-width:500px;width:100%}
+.scenario{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.sc-btn{padding:5px 10px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#94a3b8;cursor:pointer;font-size:.78em}
+.sc-btn:hover,.sc-btn.active{border-color:#fbbf24;color:#fbbf24}
+canvas{border-radius:12px;background:#0f1f38;border:2px solid #1e3a5f;display:block;margin:8px auto}
+.controls{display:flex;gap:6px;align-items:center;justify-content:center;margin:6px 0}
+.controls label{font-size:.82em;color:#94a3b8}
+.controls input{width:60px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:4px;padding:3px 6px;text-align:center;font-size:.9em}
+.result{background:#1e293b;border-radius:10px;padding:10px;font-size:.85em;text-align:center;margin-top:6px}
+.result b{color:#fbbf24}
+.eff{font-size:1.3em;font-weight:700}
+.good{color:#22c55e}.ok{color:#f59e0b}.bad{color:#ef4444}
+</style></head><body>
+<h1>⚡ Energy Transfer Builder</h1>
+<p class="sub">Explore how energy transfers between stores. Calculate efficiency.</p>
+<div class="container">
+<div class="scenario">
+  <button class="sc-btn active" onclick="setScene('bulb')">💡 Light Bulb</button>
+  <button class="sc-btn" onclick="setScene('car')">🚗 Car Engine</button>
+  <button class="sc-btn" onclick="setScene('solar')">☀️ Solar Panel</button>
+  <button class="sc-btn" onclick="setScene('dam')">🌊 Hydroelectric Dam</button>
+  <button class="sc-btn" onclick="setScene('human')">🏃 Human Body</button>
+  <button class="sc-btn" onclick="setScene('led')">💡 LED (Korea)</button>
+</div>
+<canvas id="c" width="480" height="200"></canvas>
+<div class="controls">
+  <label>Input Energy:</label><input type="number" id="inputE" value="100" min="1" max="10000" step="10"> J
+  <label>Useful %:</label><input type="number" id="effPct" value="10" min="1" max="99"> %
+</div>
+<div class="result" id="result"></div>
+</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+const inputE=document.getElementById('inputE'),effPct=document.getElementById('effPct');
+
+const scenes={
+  bulb:{name:'Incandescent Light Bulb',input:'Chemical (electricity)',useful:'Light',wasted:'Thermal (heat)',eff:10,inputVal:100,
+    desc:'Only 10% becomes light. 90% wasted as heat. That\'s why they\'re hot to touch!'},
+  car:{name:'Car Engine (Petrol)',input:'Chemical (fuel)',useful:'Kinetic (motion)',wasted:'Thermal + Sound',eff:25,inputVal:1000,
+    desc:'Only 25% moves the car. 75% lost as heat and sound. German Autobahn cars waste a LOT of energy.'},
+  solar:{name:'Solar Panel',input:'Light (Sun)',useful:'Electrical',wasted:'Thermal (heat)',eff:22,inputVal:500,
+    desc:'China\'s solar panels are ~22% efficient. They installed more in 2023 than the world did in 2022.'},
+  dam:{name:'Three Gorges Dam (China)',input:'Gravitational PE (water)',useful:'Electrical',wasted:'Thermal + Sound',eff:90,inputVal:1000,
+    desc:'Hydroelectric is ~90% efficient — the best! Three Gorges Dam powers millions of homes in China.'},
+  human:{name:'Human Body (Running)',input:'Chemical (food)',useful:'Kinetic (movement)',wasted:'Thermal (body heat)',eff:25,inputVal:400,
+    desc:'Your body is ~25% efficient for movement. The rest becomes heat — that\'s why you get warm exercising!'},
+  led:{name:'Korean LED Bulb',input:'Electrical',useful:'Light',wasted:'Thermal (tiny)',eff:80,inputVal:10,
+    desc:'LED bulbs are ~80% efficient — 8× better than old bulbs! Korean Samsung LEDs are among the world\'s best.'},
+};
+let scene='bulb';
+
+function setScene(s){
+  scene=s;
+  const sc=scenes[s];
+  inputE.value=sc.inputVal;effPct.value=sc.eff;
+  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.sc-btn').forEach(b=>{if(b.textContent.toLowerCase().includes(s)||
+    (s==='bulb'&&b.textContent.includes('Light Bulb')&&!b.textContent.includes('LED'))||
+    (s==='led'&&b.textContent.includes('LED')))b.classList.add('active')});
+  draw();
+}
+
+function draw(){
+  const sc=scenes[scene];
+  const input=+inputE.value,eff=+effPct.value;
+  const useful=Math.round(input*eff/100);
+  const wasted=input-useful;
+  
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#0f1f38';ctx.fillRect(0,0,W,H);
+  
+  // Sankey diagram
+  const startX=40,midX=W/2,endX=W-40;
+  const totalH=100,startY=(H-totalH)/2;
+  const usefulH=totalH*(eff/100);
+  const wastedH=totalH-usefulH;
+  
+  // Input arrow (full width)
+  ctx.fillStyle='#3b82f6';
+  ctx.beginPath();
+  ctx.moveTo(startX,startY);ctx.lineTo(midX-30,startY);ctx.lineTo(midX-30,startY+totalH);ctx.lineTo(startX,startY+totalH);
+  ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(sc.input,(startX+midX-30)/2,startY+totalH/2-8);
+  ctx.font='bold 14px "Courier New"';ctx.fillText(input+' J',(startX+midX-30)/2,startY+totalH/2+10);
+  
+  // Device box
+  ctx.fillStyle='#334155';ctx.strokeStyle='#64748b';ctx.lineWidth=2;
+  ctx.fillRect(midX-30,startY-10,60,totalH+20);ctx.strokeRect(midX-30,startY-10,60,totalH+20);
+  ctx.fillStyle='#fbbf24';ctx.font='bold 10px sans-serif';ctx.fillText('DEVICE',midX,startY+totalH/2);
+  
+  // Useful output (top)
+  ctx.fillStyle='#22c55e';
+  ctx.beginPath();
+  ctx.moveTo(midX+30,startY);ctx.lineTo(endX,startY);ctx.lineTo(endX,startY+usefulH);ctx.lineTo(midX+30,startY+usefulH);
+  ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';
+  ctx.fillText('USEFUL: '+sc.useful,(midX+30+endX)/2,startY+usefulH/2-8);
+  ctx.font='bold 13px "Courier New"';ctx.fillText(useful+' J',(midX+30+endX)/2,startY+usefulH/2+8);
+  
+  // Wasted output (bottom, angled down)
+  ctx.fillStyle='#ef4444';
+  ctx.beginPath();
+  ctx.moveTo(midX+30,startY+usefulH);ctx.lineTo(endX,startY+usefulH+10);
+  ctx.lineTo(endX,startY+totalH+10);ctx.lineTo(midX+30,startY+totalH);
+  ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';
+  const wastedMidY=startY+usefulH+(wastedH+10)/2;
+  ctx.fillText('WASTED: '+sc.wasted,(midX+30+endX)/2,wastedMidY-8);
+  ctx.font='bold 13px "Courier New"';ctx.fillText(wasted+' J',(midX+30+endX)/2,wastedMidY+8);
+  
+  // Arrows
+  ctx.fillStyle='#ffffff40';ctx.font='18px sans-serif';
+  ctx.fillText('→',(startX+midX-30)/2+40,startY+totalH/2);
+  ctx.fillText('→',(midX+30+endX)/2-40,startY+usefulH/2);
+  ctx.fillText('→',(midX+30+endX)/2-40,wastedMidY);
+  
+  // Efficiency
+  const effClass=eff>=70?'good':eff>=30?'ok':'bad';
+  document.getElementById('result').innerHTML=
+    `<b>${sc.name}</b><br>
+    Efficiency = useful ÷ total × 100 = ${useful} ÷ ${input} × 100 = <span class="eff ${effClass}">${eff}%</span><br>
+    <span style="color:#64748b;font-size:.8em">${sc.desc}</span>`;
+}
+
+[inputE,effPct].forEach(i=>i.oninput=draw);
+setScene('bulb');
+</script></body></html>

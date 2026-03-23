@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Forces Lab</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a1628;color:#e8f4f2;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{font-size:1.3em;color:#f87171;margin-bottom:2px}
+.sub{color:#64748b;font-size:.82em;margin-bottom:10px;text-align:center}
+canvas{border-radius:12px;background:#0f1f38;border:2px solid #1e3a5f;display:block;margin:0 auto}
+.row{display:flex;gap:8px;margin:8px 0;align-items:center;flex-wrap:wrap;justify-content:center}
+.force-input{display:flex;align-items:center;gap:4px;background:#1e293b;padding:6px 10px;border-radius:8px}
+.force-input label{font-size:.8em;color:#94a3b8}
+.force-input input{width:60px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:4px;padding:3px 6px;font-size:.9em;text-align:center}
+.btn{padding:5px 12px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#cbd5e1;cursor:pointer;font-size:.8em}
+.btn:hover{border-color:#f87171;color:#f87171}
+.result{background:#1e293b;border-radius:10px;padding:10px;font-size:.9em;text-align:center;max-width:480px;width:100%;margin-top:6px}
+.result b{color:#f87171}
+.balanced{color:#22c55e;font-weight:700}.unbalanced{color:#f97316;font-weight:700}
+.preset{padding:4px 10px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#94a3b8;cursor:pointer;font-size:.75em}
+.preset:hover{border-color:#f87171;color:#f87171}
+</style></head><body>
+<h1>⚡ Forces Lab</h1>
+<p class="sub">Adjust forces on the object. See the resultant force and whether forces are balanced.</p>
+<canvas id="c" width="480" height="260"></canvas>
+<div class="row">
+  <div class="force-input"><label>⬅️ Left</label><input type="number" id="fl" value="30" min="0" max="200" step="5"> N</div>
+  <div class="force-input"><label>➡️ Right</label><input type="number" id="fr" value="50" min="0" max="200" step="5"> N</div>
+  <div class="force-input"><label>⬆️ Up</label><input type="number" id="fu" value="40" min="0" max="200" step="5"> N</div>
+  <div class="force-input"><label>⬇️ Down</label><input type="number" id="fd" value="40" min="0" max="200" step="5"> N</div>
+</div>
+<div class="row">
+  <button class="preset" onclick="setForces(0,0,60,60)">📖 Book on Table</button>
+  <button class="preset" onclick="setForces(30,50,0,0)">🚗 Car Accelerating</button>
+  <button class="preset" onclick="setForces(40,40,0,0)">씨름 Tug-of-War (Equal)</button>
+  <button class="preset" onclick="setForces(0,0,100,40)">🚀 Rocket Launch</button>
+  <button class="preset" onclick="setForces(10,50,0,0)">🏎️ Maglev Train</button>
+  <button class="preset" onclick="setForces(50,50,60,60)">✈️ Constant Speed</button>
+</div>
+<div class="result" id="result"></div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+const fl=document.getElementById('fl'),fr=document.getElementById('fr'),fu=document.getElementById('fu'),fd=document.getElementById('fd');
+let objX=W/2,objVx=0,objVy=0;
+
+function setForces(l,r,u,d){fl.value=l;fr.value=r;fu.value=u;fd.value=d;objX=W/2;objVx=0;objVy=0}
+
+function drawArrow(x,y,dx,dy,color,label){
+  if(Math.abs(dx)<1&&Math.abs(dy)<1)return;
+  const len=Math.sqrt(dx*dx+dy*dy);
+  const nx=dx/len,ny=dy/len;
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+dx,y+dy);
+  ctx.strokeStyle=color;ctx.lineWidth=3;ctx.stroke();
+  // Arrowhead
+  ctx.beginPath();
+  ctx.moveTo(x+dx,y+dy);
+  ctx.lineTo(x+dx-nx*10+ny*6,y+dy-ny*10-nx*6);
+  ctx.lineTo(x+dx-nx*10-ny*6,y+dy-ny*10+nx*6);
+  ctx.fillStyle=color;ctx.fill();
+  // Label
+  ctx.font='bold 11px sans-serif';ctx.fillStyle=color;ctx.textAlign='center';
+  ctx.fillText(label,x+dx*.5+ny*14,y+dy*.5-nx*14+4);
+}
+
+function update(){
+  const left=+fl.value,right=+fr.value,up=+fu.value,down=+fd.value;
+  const netX=right-left,netY=down-up;
+  const balanced=netX===0&&netY===0;
+  
+  // Animate object position
+  objVx+=(netX>0?.1:netX<0?-.1:0)*.5;
+  objVy+=(netY>0?.1:netY<0?-.1:0)*.5;
+  objVx*=.95;objVy*=.95;
+  objX+=objVx;
+  if(objX<60)objX=60;if(objX>W-60)objX=W-60;
+  const objY=H/2;
+  
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#0f1f38';ctx.fillRect(0,0,W,H);
+  
+  // Ground line
+  if(down>0||up>0){ctx.strokeStyle='#1e3a5f';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(0,H/2+30);ctx.lineTo(W,H/2+30);ctx.stroke();ctx.setLineDash([])}
+  
+  // Object (box)
+  const bw=40,bh=30;
+  ctx.fillStyle=balanced?'#1e3a5f':'#2d1a0a';
+  ctx.strokeStyle=balanced?'#60a5fa':'#f97316';ctx.lineWidth=2;
+  ctx.fillRect(objX-bw/2,objY-bh/2,bw,bh);ctx.strokeRect(objX-bw/2,objY-bh/2,bw,bh);
+  ctx.font='16px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='#fff';ctx.fillText('📦',objX,objY);
+  
+  // Force arrows (scale: 1N = 1px)
+  const scale=.8;
+  if(left>0) drawArrow(objX-bw/2,objY,-left*scale,0,'#3b82f6',left+' N');
+  if(right>0) drawArrow(objX+bw/2,objY,right*scale,0,'#ef4444',right+' N');
+  if(up>0) drawArrow(objX,objY-bh/2,0,-up*scale,'#22c55e',up+' N');
+  if(down>0) drawArrow(objX,objY+bh/2,0,down*scale,'#f59e0b',down+' N');
+  
+  // Resultant arrow (dashed)
+  if(!balanced){
+    ctx.setLineDash([6,4]);
+    drawArrow(objX,objY,netX*scale,netY*scale,'#fff',Math.round(Math.sqrt(netX*netX+netY*netY))+' N');
+    ctx.setLineDash([]);
+  }
+  
+  // Result text
+  const dir=netX>0?'→ right':netX<0?'← left':'';
+  const dirY=netY>0?'↓ down':netY<0?'↑ up':'';
+  const dirStr=[dir,dirY].filter(Boolean).join(', ');
+  
+  document.getElementById('result').innerHTML=balanced?
+    `<span class="balanced">✅ BALANCED</span> — Net force = 0 N. No change in motion (Newton's First Law).`:
+    `<span class="unbalanced">⚡ UNBALANCED</span> — Resultant: <b>${Math.round(Math.sqrt(netX*netX+netY*netY))} N</b> ${dirStr}. The object accelerates! (Newton's Second Law)`;
+  
+  requestAnimationFrame(update);
+}
+[fl,fr,fu,fd].forEach(i=>i.oninput=()=>{objX=W/2;objVx=0});
+update();
+</script></body></html>

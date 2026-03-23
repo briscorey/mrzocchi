@@ -159,11 +159,11 @@ terms:
       zh: 最优购买
       definition: Finding which option gives the most for the least money by comparing unit prices.
   tools:
-  - emoji: "🍕"
-    name: "Fraction & Ratio Visualizer"
-    source: "Mr Zocchi"
-    task: "Visualize ratios as fractions with instant operations."
-    embed_url: "/tools/fraction-visualizer.html"
+  - emoji: 🍕
+    name: Fraction & Ratio Visualizer
+    source: Mr Zocchi
+    task: Visualize ratios as fractions with instant operations.
+    embed_url: /tools/fraction-visualizer.html
   - name: Proportion Playground
     emoji: ⚖️
     source: PhET Simulation
@@ -179,6 +179,11 @@ terms:
     source: Desmos
     link_url: https://www.desmos.com/scientific
     task: Use for ratio and proportion calculations.
+  - emoji: 📊
+    name: Ratio Splitter
+    source: Mr Zocchi
+    task: Visualise sharing in a ratio with a bar model. Try splitting won, yuan, euros, or recipe ingredients.
+    embed_url: /learn/ratio-splitter.html
   toolkit:
   - name: Desmos Scientific Calculator
     url: https://www.desmos.com/scientific
@@ -232,19 +237,21 @@ terms:
     desc: Use map scales and scale factors in real-world contexts
     status: upcoming
   extensions:
-  - emoji: "🍜"
-    title: "Recipe Scaler"
-    type: "Real-World Maths"
-    description: "Find a recipe for a Korean, Chinese, or German dish that serves 4 people. Use ratio to scale it up for 30 people (a class party). Calculate exact ingredient quantities. What challenges arise when scaling recipes?"
-  - emoji: "🗼"
-    title: "Scale Model Challenge"
-    type: "Design & Calculation"
-    description: "Choose a famous building (Zifeng Tower, N Seoul Tower, Brandenburg Gate). Calculate a scale that would make a model fit on your desk. Build the model to that exact scale. Show all ratio calculations."
-  - emoji: "🗺️"
-    title: "Map Scale Navigator"
-    type: "Practical Maths"
-    description: "Using a map of Nanjing with a given scale, plan a walking tour of 5 landmarks. Calculate the real distance between each stop and total distance. How long would the tour take at 5 km/h walking speed?"
-
+  - emoji: 🍜
+    title: Recipe Scaler
+    type: Real-World Maths
+    description: Find a recipe for a Korean, Chinese, or German dish that serves 4 people. Use ratio to scale it up for 30 people (a class party). Calculate exact ingredient quantities. What challenges
+      arise when scaling recipes?
+  - emoji: 🗼
+    title: Scale Model Challenge
+    type: Design & Calculation
+    description: Choose a famous building (Zifeng Tower, N Seoul Tower, Brandenburg Gate). Calculate a scale that would make a model fit on your desk. Build the model to that exact scale. Show all ratio
+      calculations.
+  - emoji: 🗺️
+    title: Map Scale Navigator
+    type: Practical Maths
+    description: Using a map of Nanjing with a given scale, plan a walking tour of 5 landmarks. Calculate the real distance between each stop and total distance. How long would the tour take at 5 km/h walking
+      speed?
 - name: Number Systems
   emoji: 🔢
   num: 2
@@ -432,15 +439,15 @@ terms:
     desc: Convert between ordinary numbers and standard form
     status: upcoming
   extensions:
-  - emoji: "🔐"
-    title: "Prime Number Codebreaker"
-    type: "Puzzle Challenge"
-    description: "Create a secret code where each letter maps to a prime number (A=2, B=3, C=5...). Write a coded message for a classmate to crack. Research why prime numbers are used in real encryption (RSA)."
-  - emoji: "📱"
-    title: "Powers of 2 in Technology"
-    type: "Research"
-    description: "Computer memory uses powers of 2 (1 KB = 2^10 bytes). Research how file sizes work. How many photos (3 MB each) fit on a 64 GB phone? Express all values as powers of 2 where possible."
-
+  - emoji: 🔐
+    title: Prime Number Codebreaker
+    type: Puzzle Challenge
+    description: Create a secret code where each letter maps to a prime number (A=2, B=3, C=5...). Write a coded message for a classmate to crack. Research why prime numbers are used in real encryption
+      (RSA).
+  - emoji: 📱
+    title: Powers of 2 in Technology
+    type: Research
+    description: Computer memory uses powers of 2 (1 KB = 2^10 bytes). Research how file sizes work. How many photos (3 MB each) fit on a 64 GB phone? Express all values as powers of 2 where possible.
 - name: Geometry
   emoji: 📐
   num: 3
@@ -629,19 +636,21 @@ terms:
     desc: Construct triangles and bisectors with compass and ruler
     status: upcoming
   extensions:
-  - emoji: "🕌"
-    title: "Symmetry in Architecture"
-    type: "Photo & Analysis Project"
-    description: "Photograph or find images of 5 buildings from China, Korea, and Germany that show different types of symmetry. Identify reflection lines, rotational symmetry order, and any tessellations. Create an annotated gallery."
-  - emoji: "🎨"
-    title: "Islamic Geometry Artist"
-    type: "Creative Maths"
-    description: "Islamic geometric patterns use reflection, rotation, and tessellation. Follow a tutorial to create your own pattern using compass and ruler only. Identify all the transformations in your design."
-  - emoji: "🏙️"
-    title: "Nanjing Coordinate Treasure Hunt"
-    type: "Practical Challenge"
-    description: "Using a coordinate grid overlaid on a map of the NIS campus, create a treasure hunt with 10 clue locations given as coordinates. Include at least 2 clues that require reflecting or translating a point to find the next location."
-
+  - emoji: 🕌
+    title: Symmetry in Architecture
+    type: Photo & Analysis Project
+    description: Photograph or find images of 5 buildings from China, Korea, and Germany that show different types of symmetry. Identify reflection lines, rotational symmetry order, and any tessellations.
+      Create an annotated gallery.
+  - emoji: 🎨
+    title: Islamic Geometry Artist
+    type: Creative Maths
+    description: Islamic geometric patterns use reflection, rotation, and tessellation. Follow a tutorial to create your own pattern using compass and ruler only. Identify all the transformations in your
+      design.
+  - emoji: 🏙️
+    title: Nanjing Coordinate Treasure Hunt
+    type: Practical Challenge
+    description: Using a coordinate grid overlaid on a map of the NIS campus, create a treasure hunt with 10 clue locations given as coordinates. Include at least 2 clues that require reflecting or translating
+      a point to find the next location.
 - name: Algebra
   emoji: 🔤
   num: 4
@@ -755,21 +764,21 @@ terms:
       zh: 坐标
       definition: A pair (x, y) showing position on a grid. x = horizontal, y = vertical.
   tools:
-  - emoji: "⚖️"
-    name: "Equation Solver"
-    source: "Mr Zocchi"
-    task: "Solve equations with brackets and unknowns on both sides — step by step."
-    embed_url: "/tools/equation-solver.html"
-  - emoji: "📈"
-    name: "Graph Plotter"
-    source: "Mr Zocchi"
-    task: "Plot y = mx + c lines. Adjust gradient and intercept. Compare multiple lines."
-    embed_url: "/tools/graph-plotter.html"
-  - emoji: "🔢"
-    name: "Sequence Finder"
-    source: "Mr Zocchi"
-    task: "Find the nth term for arithmetic, geometric, and quadratic sequences."
-    embed_url: "/tools/sequence-finder.html"
+  - emoji: ⚖️
+    name: Equation Solver
+    source: Mr Zocchi
+    task: Solve equations with brackets and unknowns on both sides — step by step.
+    embed_url: /tools/equation-solver.html
+  - emoji: 📈
+    name: Graph Plotter
+    source: Mr Zocchi
+    task: Plot y = mx + c lines. Adjust gradient and intercept. Compare multiple lines.
+    embed_url: /tools/graph-plotter.html
+  - emoji: 🔢
+    name: Sequence Finder
+    source: Mr Zocchi
+    task: Find the nth term for arithmetic, geometric, and quadratic sequences.
+    embed_url: /tools/sequence-finder.html
   - name: Equality Explorer
     emoji: ⚖️
     source: PhET Simulation
@@ -785,6 +794,11 @@ terms:
     source: Desmos
     link_url: https://www.desmos.com/calculator
     task: Type any equation to see its graph. Try y = 2x + 3, y = −x + 5, etc.
+  - emoji: ⚖️
+    name: Equation Balance Scale
+    source: Mr Zocchi
+    task: Solve multi-step equations visually. Add, subtract, multiply, or divide both sides and watch the balance respond.
+    embed_url: /learn/equation-balance.html
   toolkit:
   - name: Desmos Graphing Calculator
     url: https://www.desmos.com/calculator
@@ -840,20 +854,22 @@ terms:
     desc: Plot y = mx + c and interpret gradient and intercept
     status: upcoming
   extensions:
-  - emoji: "📱"
-    title: "App Pricing Analyser"
-    type: "Real-World Algebra"
-    description: "Compare subscription pricing for 3 apps (Spotify, Netflix, iQIYI). Write each as an algebraic formula (monthly cost × months + sign-up fee). Graph all three. At what point does the most expensive become the cheapest? Find the intersection."
-  - emoji: "🌡️"
-    title: "Temperature Converter App"
-    type: "Coding Challenge"
-    description: "Build a temperature converter in Scratch or Python that converts between °C, °F, and Kelvin. Use the substitution formulas. Add a feature that shows the current temperature in Nanjing, Seoul, and Berlin in all three units."
-    url: "https://scratch.mit.edu"
-  - emoji: "🔢"
-    title: "Fibonacci in Nature"
-    type: "Investigation"
-    description: "The Fibonacci sequence (1, 1, 2, 3, 5, 8, 13...) appears everywhere in nature. Find at least 5 examples in flowers, shells, or pinecones. Photograph them, count the spirals, and verify they match Fibonacci numbers."
-
+  - emoji: 📱
+    title: App Pricing Analyser
+    type: Real-World Algebra
+    description: Compare subscription pricing for 3 apps (Spotify, Netflix, iQIYI). Write each as an algebraic formula (monthly cost × months + sign-up fee). Graph all three. At what point does the most
+      expensive become the cheapest? Find the intersection.
+  - emoji: 🌡️
+    title: Temperature Converter App
+    type: Coding Challenge
+    description: Build a temperature converter in Scratch or Python that converts between °C, °F, and Kelvin. Use the substitution formulas. Add a feature that shows the current temperature in Nanjing,
+      Seoul, and Berlin in all three units.
+    url: https://scratch.mit.edu
+  - emoji: 🔢
+    title: Fibonacci in Nature
+    type: Investigation
+    description: The Fibonacci sequence (1, 1, 2, 3, 5, 8, 13...) appears everywhere in nature. Find at least 5 examples in flowers, shells, or pinecones. Photograph them, count the spirals, and verify
+      they match Fibonacci numbers.
 - name: Probability & Statistics
   emoji: 📊
   num: 5
@@ -986,6 +1002,11 @@ terms:
     source: Desmos
     link_url: https://www.desmos.com/scientific
     task: Calculate averages, probabilities, and frequency table means.
+  - emoji: 🎲
+    name: Probability Lab
+    source: Mr Zocchi
+    task: Simulate dice, coins, and two-dice sums. Compare experimental and theoretical probability with up to 1000 trials.
+    embed_url: /learn/probability-lab.html
   toolkit:
   - name: Desmos Scientific Calculator
     url: https://www.desmos.com/scientific
@@ -1039,12 +1060,14 @@ terms:
     desc: Describe relationships between variables using scatter graphs
     status: upcoming
   extensions:
-  - emoji: "🎯"
-    title: "Sports Statistics Analyst"
-    type: "Data Project"
-    description: "Choose a sport popular in all three cultures (e.g. football, basketball, table tennis). Collect data from recent tournaments for Chinese, Korean, and German teams. Calculate averages, create comparison charts, and predict outcomes."
-  - emoji: "🎰"
-    title: "Design a Fair Carnival Game"
-    type: "Probability Design"
-    description: "Design a carnival game that uses probability. Calculate the theoretical probability of winning. Test it 100 times. Is your game fair? If you charged ¥5 to play and gave ¥15 prizes, would you make or lose money over 100 games?"
+  - emoji: 🎯
+    title: Sports Statistics Analyst
+    type: Data Project
+    description: Choose a sport popular in all three cultures (e.g. football, basketball, table tennis). Collect data from recent tournaments for Chinese, Korean, and German teams. Calculate averages, create
+      comparison charts, and predict outcomes.
+  - emoji: 🎰
+    title: Design a Fair Carnival Game
+    type: Probability Design
+    description: Design a carnival game that uses probability. Calculate the theoretical probability of winning. Test it 100 times. Is your game fair? If you charged ¥5 to play and gave ¥15 prizes, would
+      you make or lose money over 100 games?
 ---

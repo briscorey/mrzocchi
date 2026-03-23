@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cell Explorer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a1628;color:#e8f4f2;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{font-size:1.3em;color:#f87171;margin-bottom:2px}
+.sub{color:#64748b;font-size:.82em;margin-bottom:10px}
+.container{max-width:500px;width:100%}
+.mode-row{display:flex;gap:6px;margin-bottom:10px;justify-content:center}
+.mode-btn{padding:5px 12px;border-radius:20px;border:2px solid #334155;background:transparent;color:#94a3b8;cursor:pointer;font-size:.82em;font-weight:600}
+.mode-btn.active{border-color:#f87171;color:#f87171;background:#f8717115}
+canvas{border-radius:12px;background:#0f1f38;border:2px solid #1e3a5f;cursor:pointer;display:block;margin:0 auto}
+.info-box{background:#1e293b;border-radius:10px;padding:12px;margin-top:8px;min-height:60px}
+.info-title{font-size:1em;font-weight:700;color:#f87171;margin-bottom:4px}
+.info-func{font-size:.85em;color:#94a3b8;line-height:1.5}
+.info-analogy{font-size:.8em;color:#fbbf24;margin-top:4px;font-style:italic}
+.score{text-align:center;margin-top:6px;font-size:.85em;color:#64748b}
+.legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:8px 0;font-size:.72em;color:#64748b}
+</style></head><body>
+<h1>🔬 Cell Explorer</h1>
+<p class="sub">Click on each organelle to learn what it does. Toggle between animal and plant cells.</p>
+<div class="container">
+<div class="mode-row">
+  <button class="mode-btn active" id="btnAnimal" onclick="setType('animal')">🐾 Animal Cell</button>
+  <button class="mode-btn" id="btnPlant" onclick="setType('plant')">🌱 Plant Cell</button>
+  <button class="mode-btn" onclick="startQuiz()">🧠 Quiz Mode</button>
+</div>
+<canvas id="c" width="460" height="340"></canvas>
+<div class="legend" id="legend"></div>
+<div class="info-box"><div class="info-title" id="iTitle">Click an organelle!</div><div class="info-func" id="iFunc">Tap any part of the cell to learn about it.</div><div class="info-analogy" id="iAnalogy"></div></div>
+<div class="score" id="score"></div>
+</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+let cellType='animal',quizMode=false,quizTarget=null,quizScore=0,quizTotal=0;
+
+const organelles={
+  nucleus:{x:230,y:170,r:35,color:'#6366f1',emoji:'🧬',name:'Nucleus',
+    func:'Contains DNA (genetic material). Controls all cell activities — like the brain of the cell.',
+    analogy:'Think of it as the school principal\'s office — all instructions come from here.',plant:true,animal:true},
+  membrane:{x:230,y:170,r:140,color:'#f472b640',name:'Cell Membrane',
+    func:'Controls what enters and leaves the cell. Semi-permeable — only lets certain molecules through.',
+    analogy:'Like the security gate at NIS — checks who comes in and out.',plant:true,animal:true,isOutline:true},
+  cytoplasm:{x:170,y:240,r:20,color:'#94a3b830',name:'Cytoplasm',
+    func:'Jelly-like substance filling the cell. Where most chemical reactions take place.',
+    analogy:'Like the hallways and rooms of a school — where all the work happens.',plant:true,animal:true,isFill:true},
+  mitochondria:{x:140,y:130,r:16,color:'#f97316',name:'Mitochondria',emoji:'⚡',
+    func:'The powerhouse of the cell! Releases energy from food through respiration.',
+    analogy:'Like the school\'s power generator — provides energy for everything.',plant:true,animal:true},
+  mitochondria2:{x:310,y:210,r:14,color:'#f97316',name:'Mitochondria',
+    func:'Cells can have hundreds of mitochondria. More active cells (like muscle) have more.',
+    analogy:'Athletes\' muscle cells have MORE mitochondria than skin cells.',plant:true,animal:true},
+  ribosome:{x:180,y:200,r:6,color:'#a78bfa',name:'Ribosome',
+    func:'Tiny structures that make proteins. Found free in cytoplasm or on the ER.',
+    analogy:'Like a 3D printer — builds proteins following DNA instructions.',plant:true,animal:true},
+  ribosome2:{x:270,y:150,r:5,color:'#a78bfa',name:'Ribosome',func:'Produces proteins.',plant:true,animal:true},
+  ribosome3:{x:200,y:260,r:5,color:'#a78bfa',name:'Ribosome',func:'Produces proteins.',plant:true,animal:true},
+  vacuole:{x:280,y:250,r:25,color:'#3b82f640',name:'Vacuole',
+    func:'Storage space. In PLANT cells: one large, permanent vacuole storing cell sap. In animal cells: small, temporary.',
+    analogy:'Like the school\'s storage room or locker.',plant:true,animal:true},
+  // Plant-only
+  cellWall:{x:230,y:170,r:148,color:'#22c55e40',name:'Cell Wall',
+    func:'Rigid outer layer made of cellulose. Gives the plant cell its fixed, rectangular shape.',
+    analogy:'Like the outer wall of a building — keeps the shape even without support.',plant:true,animal:false,isOutline:true},
+  chloroplast:{x:310,y:120,r:16,color:'#22c55e',emoji:'☀️',name:'Chloroplast',
+    func:'Contains chlorophyll (green pigment). Site of PHOTOSYNTHESIS — converts light energy into glucose.',
+    analogy:'Like a solar panel — captures sunlight and converts it to usable energy.',plant:true,animal:false},
+  chloroplast2:{x:160,y:260,r:14,color:'#22c55e',name:'Chloroplast',
+    func:'This is why plants are GREEN and can make their own food. Animals cannot do this!',
+    analogy:'Korean ginseng, Chinese bamboo, German oak — all powered by chloroplasts.',plant:true,animal:false},
+  largeVacuole:{x:260,y:200,r:50,color:'#3b82f620',name:'Large Permanent Vacuole',
+    func:'Filled with cell sap (water, sugars, salts). Keeps the plant cell turgid (firm). Takes up most of the cell.',
+    analogy:'Like a water balloon inside the cell — keeps it inflated and firm.',plant:true,animal:false},
+};
+
+function getVisible(){return Object.entries(organelles).filter(([k,o])=>cellType==='plant'?o.plant:o.animal)}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#0f1f38';ctx.fillRect(0,0,W,H);
+  
+  const visible=getVisible();
+  
+  // Draw cell wall (plant only)
+  if(cellType==='plant'){
+    ctx.strokeStyle='#22c55e60';ctx.lineWidth=6;
+    ctx.strokeRect(70,20,320,300);
+    ctx.strokeStyle='#22c55e30';ctx.lineWidth=2;
+    ctx.strokeRect(74,24,312,292);
+  }
+  
+  // Cell membrane
+  ctx.strokeStyle='#f472b6';ctx.lineWidth=2;
+  if(cellType==='plant'){ctx.strokeRect(82,28,296,284)}
+  else{ctx.beginPath();ctx.ellipse(230,170,145,140,0,0,Math.PI*2);ctx.stroke()}
+  
+  // Cytoplasm fill
+  ctx.fillStyle='#1e293b';
+  if(cellType==='plant'){ctx.fillRect(84,30,292,280)}
+  else{ctx.beginPath();ctx.ellipse(230,170,143,138,0,0,Math.PI*2);ctx.fill()}
+  
+  // Draw organelles
+  visible.forEach(([key,o])=>{
+    if(o.isOutline||o.isFill)return;
+    ctx.beginPath();
+    if(key.includes('chloroplast')){
+      // Oval
+      ctx.ellipse(o.x,o.y,o.r*1.4,o.r*.8,0.3,0,Math.PI*2);
+    }else if(key.includes('mitochondria')){
+      // Bean shape
+      ctx.ellipse(o.x,o.y,o.r*1.5,o.r*.7,0.5,0,Math.PI*2);
+    }else{
+      ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
+    }
+    ctx.fillStyle=o.color;ctx.fill();
+    ctx.strokeStyle=o.color.replace('40','')+'80';ctx.lineWidth=1;ctx.stroke();
+    
+    // Label
+    if(o.emoji){
+      ctx.font='12px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillStyle='#fff';ctx.fillText(o.emoji,o.x,o.y);
+    }
+    // Name label for main organelles
+    if(!key.includes('2')&&!key.includes('3')){
+      ctx.font='bold 8px sans-serif';ctx.fillStyle='#cbd5e180';ctx.textAlign='center';
+      ctx.fillText(o.name,o.x,o.y+o.r+10);
+    }
+  });
+  
+  // Title
+  ctx.font='bold 10px sans-serif';ctx.fillStyle='#475569';ctx.textAlign='left';
+  ctx.fillText(cellType==='plant'?'🌱 PLANT CELL':'🐾 ANIMAL CELL',10,H-8);
+  
+  // Quiz highlight
+  if(quizMode&&quizTarget){
+    ctx.strokeStyle='#fbbf24';ctx.lineWidth=3;ctx.setLineDash([6,4]);
+    const o=organelles[quizTarget];
+    ctx.beginPath();ctx.arc(o.x,o.y,o.r+8,0,Math.PI*2);ctx.stroke();
+    ctx.setLineDash([]);
+  }
+}
+
+function setType(t){
+  cellType=t;
+  document.getElementById('btnAnimal').classList.toggle('active',t==='animal');
+  document.getElementById('btnPlant').classList.toggle('active',t==='plant');
+  quizMode=false;
+  draw();
+  document.getElementById('iTitle').textContent='Click an organelle!';
+  document.getElementById('iFunc').textContent=`${t==='plant'?'Plant':'Animal'} cell — tap any structure to explore.`;
+  document.getElementById('iAnalogy').textContent=t==='plant'?'Plant cells have cell wall, chloroplasts, and a large vacuole that animal cells don\'t.':'';
+}
+
+c.onclick=e=>{
+  const rect=c.getBoundingClientRect();
+  const mx=(e.clientX-rect.left)*(W/rect.width);
+  const my=(e.clientY-rect.top)*(H/rect.height);
+  
+  const visible=getVisible().filter(([k,o])=>!o.isOutline&&!o.isFill);
+  let clicked=null;
+  visible.forEach(([key,o])=>{
+    const dx=mx-o.x,dy=my-o.y;
+    if(dx*dx+dy*dy<(o.r+8)*(o.r+8)) clicked=key;
+  });
+  
+  if(clicked){
+    const o=organelles[clicked];
+    if(quizMode){
+      if(clicked===quizTarget||organelles[clicked].name===organelles[quizTarget].name){
+        quizScore++;quizTotal++;
+        document.getElementById('iTitle').textContent='✅ Correct! '+o.name;
+        document.getElementById('iFunc').textContent=o.func;
+        setTimeout(nextQuiz,1500);
+      }else{
+        quizTotal++;
+        document.getElementById('iTitle').textContent='❌ That was '+o.name+'. Try again!';
+      }
+      document.getElementById('score').textContent=`Score: ${quizScore}/${quizTotal}`;
+    }else{
+      document.getElementById('iTitle').textContent=o.emoji?o.emoji+' ':''+o.name;
+      document.getElementById('iFunc').textContent=o.func;
+      document.getElementById('iAnalogy').textContent=o.analogy||'';
+    }
+  }
+  draw();
+};
+
+function startQuiz(){quizMode=true;quizScore=0;quizTotal=0;
+  document.getElementById('score').textContent='Score: 0/0';nextQuiz()}
+function nextQuiz(){
+  const visible=getVisible().filter(([k,o])=>!o.isOutline&&!o.isFill&&!k.includes('2')&&!k.includes('3'));
+  const r=visible[Math.floor(Math.random()*visible.length)];
+  quizTarget=r[0];
+  document.getElementById('iTitle').textContent='🎯 Find: '+r[1].name;
+  document.getElementById('iFunc').textContent='Click the correct organelle! Look for the yellow dashed circle.';
+  document.getElementById('iAnalogy').textContent='';
+  draw();
+}
+
+draw();
+</script></body></html>

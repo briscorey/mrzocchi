@@ -197,6 +197,22 @@ terms:
     title: Famous Forensic Cases
     type: Research Project
     description: Research a famous case where forensic science solved a mystery (e.g. identifying Terracotta Warriors' origins in Xi'an using chemical analysis). Present how the science worked.
+  journey:
+  - topic: Crime Scene Protocol
+    desc: Secure, photograph, collect, and label evidence
+    status: done
+  - topic: Fingerprints
+    desc: Identify arch, loop, and whorl patterns
+    status: done
+  - topic: Chromatography
+    desc: Separate inks and dyes, calculate Rf values
+    status: current
+  - topic: Fibre Analysis
+    desc: Classify natural and synthetic fibres using microscopy
+    status: upcoming
+  - topic: Blood Evidence
+    desc: Identify blood types and interpret spatter patterns
+    status: upcoming
 - name: Biology — Cells
   emoji: 🔬
   num: 2
@@ -367,6 +383,22 @@ terms:
     title: Build a Giant Cell Model
     type: Design Challenge
     description: Using household materials, build a 3D model of an animal or plant cell at least 30cm across. Every organelle must be labelled with its function. Film a 'guided tour' of your cell.
+  journey:
+  - topic: Cell Structure
+    desc: Identify organelles and their functions
+    status: done
+  - topic: Animal vs Plant Cells
+    desc: Compare structures — cell wall, chloroplasts, vacuole
+    status: done
+  - topic: Specialised Cells
+    desc: Explain how structure relates to function
+    status: current
+  - topic: Using Microscopes
+    desc: Prepare slides, calculate magnification
+    status: upcoming
+  - topic: Diffusion
+    desc: Explain movement of particles from high to low concentration
+    status: upcoming
 - name: Physics
   emoji: 💪
   num: 3
@@ -730,6 +762,22 @@ terms:
     type: Creative Science
     description: Use chromatography to separate the pigments in different coloured markers. Create a piece of art using the separated colours. Which brands have the most pigments? Do Korean, Chinese, and
       German markers differ?
+  journey:
+  - topic: Mixtures & Solutions
+    desc: Distinguish mixtures, solutions, and suspensions
+    status: done
+  - topic: Filtration
+    desc: Separate insoluble solids from liquids
+    status: done
+  - topic: Evaporation & Distillation
+    desc: Recover solute or solvent from a solution
+    status: current
+  - topic: Chromatography
+    desc: Separate and identify coloured substances
+    status: upcoming
+  - topic: Purity
+    desc: Test purity using melting and boiling points
+    status: upcoming
 - name: Space Science
   emoji: 🚀
   num: 5
@@ -906,4 +954,20 @@ terms:
     type: Creative Research
     description: Research 3 real exoplanets discovered by the Kepler or TESS telescope. Create a 'real estate listing' for each one — temperature, gravity, atmosphere, distance from its star. Would humans
       survive there? Which is the best candidate for life?
+  journey:
+  - topic: The Solar System
+    desc: Identify planets, classify as rocky or gas giant
+    status: done
+  - topic: Earth, Moon & Seasons
+    desc: Explain day/night, seasons, and Moon phases
+    status: done
+  - topic: Gravity & Weight
+    desc: Calculate weight on different planets using W = mg
+    status: current
+  - topic: Stars & Galaxies
+    desc: Describe star life cycles and light years
+    status: upcoming
+  - topic: Space Exploration
+    desc: Evaluate benefits and challenges of exploring space
+    status: upcoming
 ---

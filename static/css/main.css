@@ -135,6 +135,16 @@ body { font-family: var(--font-body); background: var(--cream); color: var(--gra
     var(--cream);
   background-size: 28px 28px;
 }
+/* On shorter viewports, reduce hero spacing to keep cards visible */
+@media (max-height: 820px) {
+  .home-fullpage { padding-top: 0; }
+  .home-hero { margin-bottom: var(--space-md); }
+  .home-hero-title { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 10px; }
+  .home-hero-badge { margin-bottom: 12px; padding: 6px 16px; font-size: 0.72rem; }
+  .home-hero-sub { font-size: 0.92rem; }
+  .home-card { min-height: 240px; }
+  .home-card-number { font-size: clamp(5rem, 12vw, 7rem); }
+}
 
 /* ── Animated background orbs ── */
 .home-bg-effects { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
@@ -219,8 +229,8 @@ body { font-family: var(--font-body); background: var(--cream); color: var(--gra
 .home-hero-sub {
   font-size: 1.05rem;
   color: var(--gray-400);
-  line-height: 1.7;
-  max-width: 560px;
+  line-height: 1.6;
+  max-width: 780px;
   margin: 0 auto;
 }
 
@@ -502,7 +512,7 @@ body { font-family: var(--font-body); background: var(--cream); color: var(--gra
 }
 
 /* ── INNER PAGES ── */
-.page-content { max-width: 760px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); }
+.page-content { max-width: 760px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); overflow-x: hidden; }
 .page-content h1 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 600; color: var(--navy); margin-bottom: var(--space-md); }
 .page-content h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
 .page-content p { margin-bottom: var(--space-md); color: var(--gray-600); line-height: 1.7; }
@@ -1331,6 +1341,7 @@ body { font-family: var(--font-body); background: var(--cream); color: var(--gra
   top: 58px;
   z-index: 50;
   box-shadow: 0 4px 20px rgba(27,42,74,0.06);
+  overflow: hidden;
 }
 .par-quicknav-inner {
   display: flex;
@@ -1359,6 +1370,7 @@ body { font-family: var(--font-body); background: var(--cream); color: var(--gra
   max-width: 900px;
   margin: 0 auto;
   padding: 0 24px 60px;
+  overflow-x: hidden;
 }
 
 /* ── Sections ── */
@@ -2742,7 +2754,7 @@ a.par-contact-value:hover { text-decoration: underline; }
 
    HOW TO REVISE — Strategy Guide
    ================================================ */
-.revise-page { min-height: 100vh; display: flex; flex-direction: column; }
+.revise-page { min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
 .rev-hero {
   position: relative; padding: 52px 40px 44px;
@@ -2777,7 +2789,7 @@ a.par-contact-value:hover { text-decoration: underline; }
   font-size: 1rem; color: rgba(255,255,255,0.5);
   line-height: 1.75; max-width: 600px;
 }
-.rev-body { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
+.rev-body { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; overflow-x: hidden; }
 
 /* ── Myths ── */
 .rev-myth-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }

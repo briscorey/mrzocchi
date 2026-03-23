@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Efficiency Calculator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f8f9fa;color:#1B2A4A;padding:16px;display:flex;flex-direction:column;align-items:center}
+h1{font-size:1.3em;color:#B8860B;margin-bottom:4px}
+.sub{color:#888;font-size:.82em;margin-bottom:14px}
+.card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 6px rgba(0,0,0,.06);max-width:480px;width:100%;margin-bottom:10px}
+.row{display:flex;gap:8px;margin:8px 0;align-items:center}
+.row label{width:110px;font-weight:600;font-size:.9em}
+.row input{flex:1;padding:8px;border:2px solid #ddd;border-radius:6px;font-size:1em;outline:none}
+.row input:focus{border-color:#B8860B}
+.row .unit{font-size:.85em;color:#888;width:30px}
+.eff{font-size:2.5em;font-weight:700;text-align:center;margin:10px 0;transition:.3s}
+.eff-label{text-align:center;font-size:.9em;color:#888}
+.sankey{height:80px;display:flex;align-items:stretch;margin:12px 0;border-radius:6px;overflow:hidden}
+.sankey-useful{background:#2A9D8F;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85em;transition:.3s}
+.sankey-wasted{background:#E9C46A;display:flex;align-items:center;justify-content:center;color:#1B2A4A;font-weight:700;font-size:.85em;transition:.3s}
+.examples{margin-top:8px}
+.ex{display:flex;justify-content:space-between;padding:6px 8px;background:#f8f9fa;border-radius:4px;margin:3px 0;font-size:.85em;cursor:pointer}
+.ex:hover{background:#fdf6e3}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.compare-item{text-align:center;padding:8px;background:#f8f9fa;border-radius:6px}
+.compare-item .pct{font-size:1.5em;font-weight:700;color:#B8860B}
+.compare-item .lbl{font-size:.8em;color:#888}
+.trophic{margin-top:8px}
+.trophic-level{display:flex;align-items:center;gap:8px;margin:4px 0}
+.trophic-bar{height:28px;background:#2A9D8F;border-radius:4px;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:.8em;font-weight:600;transition:.3s}
+.trophic-label{width:100px;font-size:.82em;text-align:right}
+</style></head>
+<body>
+<h1>⚡ Energy Calculator</h1>
+<p class="sub">Efficiency, Sankey diagrams & the 10% rule</p>
+
+<div class="card">
+  <h3 style="font-size:1em;margin-bottom:8px">Efficiency Calculator</h3>
+  <div style="text-align:center;font-family:'Courier New',monospace;color:#B8860B;font-size:1.1em;margin-bottom:8px">Efficiency = (Useful ÷ Total) × 100%</div>
+  <div class="row"><label>Total Input</label><input id="total" type="number" value="100" oninput="calcEff()"><span class="unit">J</span></div>
+  <div class="row"><label>Useful Output</label><input id="useful" type="number" value="25" oninput="calcEff()"><span class="unit">J</span></div>
+  <div class="eff" id="efficiency" style="color:#B8860B">25%</div>
+  <div class="eff-label">Wasted: <span id="wasted">75 J</span></div>
+  <div class="sankey">
+    <div class="sankey-useful" id="sUseful" style="width:25%">Useful 25J</div>
+    <div class="sankey-wasted" id="sWasted" style="width:75%">Wasted 75J</div>
+  </div>
+  <div class="examples"><strong style="font-size:.85em">Real-world examples:</strong>
+    <div class="ex" onclick="setEff(100,5)">💡 Old filament bulb: 5% efficient</div>
+    <div class="ex" onclick="setEff(100,80)">💡 Korean LED bulb: ~80% efficient</div>
+    <div class="ex" onclick="setEff(1000,250)">🚗 German car engine: ~25%</div>
+    <div class="ex" onclick="setEff(1000,900)">⚡ Electric motor: ~90%</div>
+    <div class="ex" onclick="setEff(100,22)">☀️ Solar panel in Nanjing: ~22%</div>
+    <div class="ex" onclick="setEff(100,46)">🌊 Three Gorges Dam: ~46%</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3 style="font-size:1em;margin-bottom:8px">🌿 10% Rule — Food Chain Energy</h3>
+  <div class="row"><label>Producer Energy</label><input id="producer" type="number" value="50000" oninput="calcTrophic()"><span class="unit">kJ</span></div>
+  <div class="trophic" id="trophic"></div>
+</div>
+
+<div class="card">
+  <h3 style="font-size:1em;margin-bottom:8px">📊 Compare Efficiency</h3>
+  <div class="compare">
+    <div class="compare-item"><div class="pct">5%</div><div class="lbl">Filament bulb</div></div>
+    <div class="compare-item"><div class="pct">80%</div><div class="lbl">LED bulb</div></div>
+    <div class="compare-item"><div class="pct">25%</div><div class="lbl">Car engine</div></div>
+    <div class="compare-item"><div class="pct">90%</div><div class="lbl">Electric motor</div></div>
+    <div class="compare-item"><div class="pct">22%</div><div class="lbl">Solar panel</div></div>
+    <div class="compare-item"><div class="pct">46%</div><div class="lbl">Hydroelectric</div></div>
+  </div>
+</div>
+
+<script>
+function calcEff(){
+  const t=parseFloat(document.getElementById('total').value)||0;
+  const u=parseFloat(document.getElementById('useful').value)||0;
+  const eff=t>0?(u/t*100):0;
+  const w=t-u;
+  document.getElementById('efficiency').textContent=eff.toFixed(1)+'%';
+  document.getElementById('efficiency').style.color=eff>60?'#2A9D8F':eff>30?'#B8860B':'#C8372D';
+  document.getElementById('wasted').textContent=w.toFixed(1)+' J';
+  const pct=Math.max(0,Math.min(100,eff));
+  document.getElementById('sUseful').style.width=Math.max(pct,5)+'%';
+  document.getElementById('sUseful').textContent=`Useful ${u}J`;
+  document.getElementById('sWasted').style.width=Math.max(100-pct,5)+'%';
+  document.getElementById('sWasted').textContent=`Wasted ${w.toFixed(0)}J`;
+}
+function setEff(t,u){document.getElementById('total').value=t;document.getElementById('useful').value=u;calcEff()}
+
+function calcTrophic(){
+  const p=parseFloat(document.getElementById('producer').value)||0;
+  const levels=['☀️ Producer','🌱 Primary Consumer','🐛 Secondary Consumer','🐸 Tertiary Consumer','🦅 Quaternary Consumer'];
+  let html='',energy=p;
+  const maxW=300;
+  for(let i=0;i<5;i++){
+    const w=Math.max((energy/p)*maxW,30);
+    html+=`<div class="trophic-level"><span class="trophic-label">${levels[i]}</span><div class="trophic-bar" style="width:${w}px;opacity:${1-i*0.15}">${energy.toLocaleString()} kJ</div></div>`;
+    energy*=0.1;
+  }
+  html+=`<p style="font-size:.82em;color:#888;margin-top:6px">Only 10% passes to each level. ${(p*0.9).toLocaleString()} kJ lost as heat at the first step alone!</p>`;
+  document.getElementById('trophic').innerHTML=html;
+}
+calcEff();calcTrophic();
+</script></body></html>

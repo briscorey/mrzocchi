@@ -165,6 +165,11 @@ terms:
       emoji: 📏
       definition: The distance a number is from zero on the number line, ignoring the sign. |−7| = 7.
   tools:
+  - emoji: "🧮"
+    name: "BIDMAS Step Calculator"
+    source: "Mr Zocchi"
+    task: "Enter any expression and see BIDMAS applied step by step."
+    embed_url: "/tools/equation-solver.html"
   - name: Number Line Explorer
     emoji: 📏
     source: MathsBot
@@ -367,6 +372,11 @@ terms:
       emoji: 🔄
       definition: 'Change from one form to another: fraction ↔ decimal ↔ percentage.'
   tools:
+  - emoji: "🍕"
+    name: "Fraction Visualizer"
+    source: "Mr Zocchi"
+    task: "See fractions on a fraction wall. Add, subtract, multiply, divide with visual feedback."
+    embed_url: "/tools/fraction-visualizer.html"
   - name: Fraction Wall
     emoji: 🧱
     source: MathsBot
@@ -769,6 +779,16 @@ terms:
       emoji: 🔮
       definition: A formula to find any term in a sequence without listing them all. e.g. T(n) = 3n + 1.
   tools:
+  - emoji: "⚖️"
+    name: "Equation Solver"
+    source: "Mr Zocchi"
+    task: "Enter any equation and see it solved step by step with checking."
+    embed_url: "/tools/equation-solver.html"
+  - emoji: "🔢"
+    name: "Sequence Finder"
+    source: "Mr Zocchi"
+    task: "Enter a sequence and discover the nth term rule instantly."
+    embed_url: "/tools/sequence-finder.html"
   - name: Algebra Tiles
     emoji: 🟦
     source: MathsBot

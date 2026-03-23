@@ -483,6 +483,16 @@ terms:
       zh: 弹簧测力计
       definition: A device (spring balance) used to measure forces in Newtons.
   tools:
+  - emoji: "🔧"
+    name: "Physics Calculator"
+    source: "Mr Zocchi"
+    task: "Calculate F=ma, speed, pressure, and weight on different planets."
+    embed_url: "/tools/physics-calculator.html"
+  - emoji: "🏗️"
+    name: "Forces & Motion Sim"
+    source: "PhET"
+    task: "Push objects, add friction, explore Newton's Laws with real-time force arrows."
+    embed_url: "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html"
   - name: Forces & Motion
     emoji: 💪
     source: PhET Simulation
@@ -826,6 +836,11 @@ terms:
       zh: 季节
       definition: Caused by Earth's 23.5° axial tilt, NOT distance from the Sun.
   tools:
+  - emoji: "⚖️"
+    name: "Planetary Weight Calculator"
+    source: "Mr Zocchi"
+    task: "Enter your mass — see your weight on Earth, Moon, Mars, Jupiter, and Tiangong."
+    embed_url: "/tools/physics-calculator.html"
   - name: Gravity & Orbits
     emoji: 🌍
     source: PhET Simulation

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fraction Visualizer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f8f9fa;color:#1B2A4A;padding:16px;display:flex;flex-direction:column;align-items:center}
+h1{font-size:1.3em;margin-bottom:4px;color:#0D7377}
+.sub{color:#888;font-size:.82em;margin-bottom:12px}
+.wall{max-width:500px;width:100%;margin-bottom:16px}
+.wall-row{display:flex;height:32px;margin:2px 0;position:relative}
+.wall-piece{border:1px solid rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:600;color:#fff;cursor:pointer;transition:.15s;border-radius:3px}
+.wall-piece:hover{transform:scaleY(1.15);z-index:2;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.wall-piece.selected{outline:3px solid #1B2A4A;outline-offset:-1px;z-index:3}
+.wall-label{position:absolute;right:-36px;font-size:.75em;color:#888;top:50%;transform:translateY(-50%)}
+.ops{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap;justify-content:center}
+.op-btn{padding:6px 14px;border:2px solid #0D7377;background:#fff;border-radius:6px;cursor:pointer;font-size:.9em}
+.op-btn.active{background:#0D7377;color:#fff}
+.frac-input{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:1.2em}
+.frac-box{display:flex;flex-direction:column;align-items:center}
+.frac-box input{width:40px;text-align:center;border:2px solid #ddd;border-radius:4px;padding:4px;font-size:1em;outline:none}
+.frac-box input:focus{border-color:#0D7377}
+.frac-line{width:40px;height:2px;background:#1B2A4A;margin:2px 0}
+.result-area{background:#fff;border-radius:10px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);max-width:500px;width:100%;min-height:60px}
+.result-frac{font-size:1.8em;font-weight:700;color:#0D7377;text-align:center;font-family:'Courier New',monospace}
+.result-dec{text-align:center;color:#888;font-size:.9em}
+.result-bar{height:24px;border-radius:4px;margin:8px 0;display:flex;overflow:hidden}
+.result-fill{background:#0D7377;transition:.3s}
+.result-empty{background:#e8f4f2}
+</style></head>
+<body>
+<h1>🍕 Fraction Visualizer</h1>
+<p class="sub">See fractions visually. Click the wall or enter your own.</p>
+
+<div class="wall" id="wall"></div>
+
+<div class="ops">
+  <button class="op-btn active" onclick="setOp('show')">Show</button>
+  <button class="op-btn" onclick="setOp('+')">Add +</button>
+  <button class="op-btn" onclick="setOp('-')">Subtract −</button>
+  <button class="op-btn" onclick="setOp('×')">Multiply ×</button>
+  <button class="op-btn" onclick="setOp('÷')">Divide ÷</button>
+</div>
+
+<div class="frac-input">
+  <div class="frac-box"><input id="n1" value="3" oninput="calc()"><div class="frac-line"></div><input id="d1" value="4" oninput="calc()"></div>
+  <span id="opSymbol" style="font-weight:700;color:#0D7377;min-width:20px;text-align:center"></span>
+  <div class="frac-box" id="frac2" style="display:none"><input id="n2" value="1" oninput="calc()"><div class="frac-line"></div><input id="d2" value="3" oninput="calc()"></div>
+  <span style="font-weight:700;margin:0 4px">=</span>
+  <span class="result-frac" id="result" style="font-size:1.3em"></span>
+</div>
+
+<div class="result-area">
+  <div class="result-frac" id="bigresult"></div>
+  <div class="result-dec" id="decimal"></div>
+  <div class="result-bar"><div class="result-fill" id="bar" style="width:75%"></div><div class="result-empty" style="flex:1"></div></div>
+  <div class="result-dec" id="percent"></div>
+</div>
+
+<script>
+const wallColors = ['#2A9D8F','#0D7377','#E9C46A','#C8372D','#6A5ACD','#E67E22','#2196F3','#8BC34A','#FF5722','#795548','#607D8B','#9C27B0'];
+let op = 'show';
+
+// Build fraction wall
+const wallEl = document.getElementById('wall');
+for(let d=1; d<=12; d++){
+  const row = document.createElement('div');
+  row.className = 'wall-row';
+  for(let n=1; n<=d; n++){
+    const piece = document.createElement('div');
+    piece.className = 'wall-piece';
+    piece.style.width = (100/d)+'%';
+    piece.style.background = wallColors[d-1];
+    piece.textContent = d===1?'1': n+'/'+d;
+    piece.onclick = () => {
+      document.getElementById('n1').value = n;
+      document.getElementById('d1').value = d;
+      calc();
+    };
+    row.appendChild(piece);
+  }
+  const label = document.createElement('span');
+  label.className = 'wall-label';
+  label.textContent = '1/'+d;
+  row.appendChild(label);
+  wallEl.appendChild(row);
+}
+
+function setOp(o){
+  op = o;
+  document.querySelectorAll('.op-btn').forEach(b => b.classList.toggle('active', b.textContent.includes(o==='show'?'Show':o)));
+  document.getElementById('frac2').style.display = o==='show'?'none':'flex';
+  document.getElementById('opSymbol').textContent = o==='show'?'':o;
+  calc();
+}
+
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+function simplify(n,d){const g=gcd(n,d);return[n/g,d/g]}
+
+function calc(){
+  const n1=parseInt(document.getElementById('n1').value)||0;
+  const d1=parseInt(document.getElementById('d1').value)||1;
+  let rn,rd;
+  
+  if(op==='show'){
+    rn=n1; rd=d1;
+  } else {
+    const n2=parseInt(document.getElementById('n2').value)||0;
+    const d2=parseInt(document.getElementById('d2').value)||1;
+    if(op==='+'){rn=n1*d2+n2*d1;rd=d1*d2}
+    else if(op==='-'){rn=n1*d2-n2*d1;rd=d1*d2}
+    else if(op==='×'){rn=n1*n2;rd=d1*d2}
+    else if(op==='÷'){rn=n1*d2;rd=d1*n2}
+  }
+  
+  if(rd===0){document.getElementById('bigresult').textContent='÷ by 0!';return}
+  
+  const [sn,sd]=simplify(rn,rd);
+  const dec = rn/rd;
+  
+  document.getElementById('result').textContent = sd===1?sn:`${sn}/${sd}`;
+  document.getElementById('bigresult').textContent = sd===1?sn:`${sn}/${sd}`;
+  if(sn!==rn||sd!==rd){
+    document.getElementById('bigresult').textContent += ` (simplified from ${rn}/${rd})`;
+  }
+  document.getElementById('decimal').textContent = `= ${parseFloat(dec.toFixed(6))}`;
+  document.getElementById('percent').textContent = `= ${parseFloat((dec*100).toFixed(2))}%`;
+  document.getElementById('bar').style.width = Math.min(Math.max(dec*100,0),100)+'%';
+}
+calc();
+</script></body></html>

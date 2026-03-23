@@ -576,6 +576,11 @@ terms:
       emoji: 🔴
       definition: A zone around the Pacific Ocean with ~75% of the world's volcanoes and ~90% of earthquakes.
   tools:
+  - emoji: "🌍"
+    name: "Live Earthquake Map"
+    source: "USGS"
+    task: "See earthquakes happening RIGHT NOW. Zoom into the Ring of Fire, China, or Europe."
+    link_url: "https://earthquake.usgs.gov/earthquakes/map/"
   - name: Density Experiment
     emoji: ⚖️
     source: PhET Simulation
@@ -792,6 +797,11 @@ terms:
       emoji: 🪓
       definition: Cutting down large areas of forest, destroying habitats and reducing biodiversity.
   tools:
+  - emoji: "⚡"
+    name: "10% Rule Calculator"
+    source: "Mr Zocchi"
+    task: "Enter producer energy and watch energy flow through trophic levels."
+    embed_url: "/tools/energy-calculator.html"
   - name: Natural Selection
     emoji: 🐇
     source: PhET Simulation

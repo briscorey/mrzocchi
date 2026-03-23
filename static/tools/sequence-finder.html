@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sequence Finder — nth Term</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f8f9fa;color:#1B2A4A;padding:20px;display:flex;flex-direction:column;align-items:center}
+h1{font-size:1.3em;margin-bottom:4px}
+.sub{color:#888;font-size:.82em;margin-bottom:14px}
+.input-area{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;justify-content:center}
+input{padding:10px;border:2px solid #ddd;border-radius:8px;font-size:1em;width:260px;text-align:center;outline:none}
+input:focus{border-color:#2A9D8F}
+button{padding:10px 18px;background:#2A9D8F;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.95em}
+button:hover{background:#238577}
+.examples{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.ex{padding:4px 10px;background:#e8f4f2;border:1px solid #2A9D8F;border-radius:6px;font-size:.82em;cursor:pointer}
+.ex:hover{background:#2A9D8F;color:#fff}
+.result{max-width:500px;width:100%;display:none}
+.card{background:#fff;border-radius:10px;padding:16px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.rule{font-size:1.8em;font-weight:700;color:#2A9D8F;text-align:center;font-family:'Courier New',monospace;margin:8px 0}
+.table-row{display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:4px;padding:4px 0;font-size:.9em}
+.table-row.header{font-weight:700;color:#2A9D8F;border-bottom:2px solid #2A9D8F}
+.predict-row{display:flex;gap:8px;align-items:center;margin-top:8px}
+.predict-row input{width:60px;padding:6px}
+.predict-row .ans{font-weight:700;color:#2A9D8F;font-size:1.1em}
+</style>
+</head>
+<body>
+<h1>🔢 Sequence Finder</h1>
+<p class="sub">Enter at least 3 terms separated by commas</p>
+<div class="examples">
+  <button class="ex" onclick="find('5,8,11,14,17')">5, 8, 11, 14, 17</button>
+  <button class="ex" onclick="find('3,7,11,15,19')">3, 7, 11, 15, 19</button>
+  <button class="ex" onclick="find('20,17,14,11,8')">20, 17, 14, 11, 8</button>
+  <button class="ex" onclick="find('1350,1450,1550,1650')">Seoul subway fares</button>
+  <button class="ex" onclick="find('2,6,18,54')">2, 6, 18, 54</button>
+</div>
+<div class="input-area">
+  <input id="terms" placeholder="e.g. 5, 8, 11, 14, 17" onkeypress="if(event.key==='Enter')find()">
+  <button onclick="find()">Find Rule</button>
+</div>
+<div class="result" id="result"></div>
+
+<script>
+function find(preset) {
+  const input = preset || document.getElementById('terms').value;
+  if(preset) document.getElementById('terms').value = preset;
+  const el = document.getElementById('result');
+  
+  const nums = input.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+  if(nums.length < 3) { el.style.display='none'; return; }
+  
+  el.style.display = 'block';
+  
+  // Check arithmetic
+  const diffs = [];
+  for(let i=1;i<nums.length;i++) diffs.push(nums[i]-nums[i-1]);
+  const isArithmetic = diffs.every(d => Math.abs(d - diffs[0]) < 0.001);
+  
+  // Check geometric
+  const ratios = [];
+  for(let i=1;i<nums.length;i++) ratios.push(nums[i]/nums[i-1]);
+  const isGeometric = nums[0] !== 0 && ratios.every(r => Math.abs(r - ratios[0]) < 0.001);
+  
+  let html = '';
+  
+  if(isArithmetic) {
+    const d = diffs[0];
+    const c = nums[0] - d;
+    const dStr = d >= 0 ? d : d;
+    const cStr = c > 0 ? ` + ${c}` : c < 0 ? ` - ${Math.abs(c)}` : '';
+    const rule = `T = ${d}n${cStr}`;
+    
+    html += `<div class="card"><p style="text-align:center;color:#888;font-size:.85em">This is an <strong>arithmetic sequence</strong></p>
+    <div class="rule">${rule}</div>
+    <p style="text-align:center;font-size:.85em">Common difference: <strong>${d}</strong></p></div>`;
+    
+    // Working table
+    html += `<div class="card"><p style="font-weight:600;margin-bottom:6px">Working:</p>
+    <div class="table-row header"><span>n</span><span>Term</span><span>${d}n</span><span>Adjust</span></div>`;
+    for(let i=0;i<Math.min(nums.length,5);i++) {
+      html += `<div class="table-row"><span>${i+1}</span><span>${nums[i]}</span><span>${d*(i+1)}</span><span>${c >= 0 ? '+' : ''}${c}</span></div>`;
+    }
+    html += `</div>`;
+    
+    // Predict
+    html += `<div class="card"><p style="font-weight:600;margin-bottom:6px">Predict any term:</p>
+    <div class="predict-row">n = <input id="pred" type="number" value="10" onchange="predict(${d},${c})"> 
+    → T = <span class="ans" id="predans">${d*10+c}</span></div>
+    <div class="predict-row" style="margin-top:4px">Which term = <input id="findn" type="number" value="47" onchange="findPos(${d},${c})">
+    → n = <span class="ans" id="findnans">${((47-c)/d).toFixed(2)}</span></div></div>`;
+    
+  } else if(isGeometric) {
+    const r = ratios[0];
+    html += `<div class="card"><p style="text-align:center;color:#888;font-size:.85em">This is a <strong>geometric sequence</strong></p>
+    <div class="rule">T = ${nums[0]} × ${r}<sup>n-1</sup></div>
+    <p style="text-align:center;font-size:.85em">Common ratio: <strong>×${r}</strong></p></div>`;
+    
+    html += `<div class="card"><p style="font-weight:600;margin-bottom:6px">Predict any term:</p>
+    <div class="predict-row">n = <input type="number" value="10" onchange="this.nextElementSibling.nextElementSibling.textContent=Math.round(${nums[0]}*Math.pow(${r},this.value-1))"> 
+    → T = <span class="ans">${Math.round(nums[0]*Math.pow(r,9))}</span></div></div>`;
+    
+  } else {
+    // Check quadratic (second differences constant)
+    const d2 = [];
+    for(let i=1;i<diffs.length;i++) d2.push(diffs[i]-diffs[i-1]);
+    const isQuadratic = d2.length > 0 && d2.every(d => Math.abs(d - d2[0]) < 0.001);
+    
+    if(isQuadratic) {
+      html += `<div class="card"><p style="text-align:center;color:#888;font-size:.85em">This is a <strong>quadratic sequence</strong></p>
+      <p style="text-align:center">First differences: ${diffs.join(', ')}</p>
+      <p style="text-align:center">Second differences: ${d2.join(', ')} (constant = quadratic!)</p></div>`;
+    } else {
+      html += `<div class="card"><p style="text-align:center">This sequence is <strong>not arithmetic or geometric</strong>.</p>
+      <p style="text-align:center;font-size:.85em">Differences: ${diffs.map(d=>d.toFixed(1)).join(', ')}</p></div>`;
+    }
+  }
+  
+  el.innerHTML = html;
+}
+
+function predict(d,c) {
+  const n = parseFloat(document.getElementById('pred').value);
+  document.getElementById('predans').textContent = d*n+c;
+}
+function findPos(d,c) {
+  const t = parseFloat(document.getElementById('findn').value);
+  const n = (t-c)/d;
+  document.getElementById('findnans').textContent = Number.isInteger(n) && n > 0 ? n : n.toFixed(2) + ' (not a whole number — not in the sequence)';
+}
+</script>
+</body>
+</html>

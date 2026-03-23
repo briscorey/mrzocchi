@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Physics Calculator — Forces, Speed & Pressure</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f8f9fa;color:#1B2A4A;padding:16px;display:flex;flex-direction:column;align-items:center}
+h1{font-size:1.3em;margin-bottom:4px;color:#C8372D}
+.sub{color:#888;font-size:.82em;margin-bottom:12px}
+.tabs{display:flex;gap:4px;margin-bottom:12px}
+.tab{padding:8px 16px;border:2px solid #ddd;border-radius:8px 8px 0 0;cursor:pointer;font-size:.9em;background:#fff}
+.tab.active{border-color:#C8372D;background:#C8372D;color:#fff}
+.panel{display:none;max-width:420px;width:100%;background:#fff;border-radius:0 10px 10px 10px;padding:16px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.formula{text-align:center;font-size:1.5em;font-weight:700;color:#C8372D;margin:8px 0;font-family:'Courier New',monospace}
+.row{display:flex;gap:8px;margin:8px 0;align-items:center}
+.row label{width:100px;font-weight:600;font-size:.9em}
+.row input{flex:1;padding:8px;border:2px solid #ddd;border-radius:6px;font-size:1em;outline:none}
+.row input:focus{border-color:#C8372D}
+.row .unit{font-size:.85em;color:#888;width:40px}
+.calc-btn{padding:8px 16px;background:#C8372D;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.95em;width:100%}
+.calc-btn:hover{background:#a62d24}
+.answer{text-align:center;font-size:1.4em;font-weight:700;color:#2A9D8F;margin:10px 0;min-height:1.8em}
+.examples{margin-top:8px}
+.ex-row{display:flex;justify-content:space-between;padding:6px 8px;background:#f8f9fa;border-radius:4px;margin:3px 0;font-size:.85em;cursor:pointer}
+.ex-row:hover{background:#e8f4f2}
+</style></head>
+<body>
+<h1>🔧 Physics Calculator</h1>
+<p class="sub">F = ma · s = d/t · P = F/A</p>
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">F = ma</div>
+  <div class="tab" onclick="showTab(1)">Speed</div>
+  <div class="tab" onclick="showTab(2)">Pressure</div>
+  <div class="tab" onclick="showTab(3)">Weight</div>
+</div>
+
+<div class="panel active" id="p0">
+  <div class="formula">F = m × a</div>
+  <div class="row"><label>Force (F)</label><input id="f0f" placeholder="?" oninput="calcFma()"><span class="unit">N</span></div>
+  <div class="row"><label>Mass (m)</label><input id="f0m" placeholder="?" oninput="calcFma()"><span class="unit">kg</span></div>
+  <div class="row"><label>Accel (a)</label><input id="f0a" placeholder="?" oninput="calcFma()"><span class="unit">m/s²</span></div>
+  <div class="answer" id="a0"></div>
+  <div class="examples"><strong style="font-size:.85em">Try these:</strong>
+    <div class="ex-row" onclick="setFma('',60,2)">🏃 60 kg student, a = 2 m/s²</div>
+    <div class="ex-row" onclick="setFma('',40000,'')">🚄 Shanghai Maglev: 40,000 kg, F = 200,000 N</div>
+    <div class="ex-row" onclick="setFma(3600,1200,'')">🚗 Car: F = 3,600 N, m = 1,200 kg</div>
+  </div>
+</div>
+
+<div class="panel" id="p1">
+  <div class="formula">s = d ÷ t</div>
+  <div class="row"><label>Speed (s)</label><input id="f1s" placeholder="?" oninput="calcSpeed()"><span class="unit">km/h</span></div>
+  <div class="row"><label>Distance (d)</label><input id="f1d" placeholder="?" oninput="calcSpeed()"><span class="unit">km</span></div>
+  <div class="row"><label>Time (t)</label><input id="f1t" placeholder="?" oninput="calcSpeed()"><span class="unit">h</span></div>
+  <div class="answer" id="a1"></div>
+  <div class="examples"><strong style="font-size:.85em">Try these:</strong>
+    <div class="ex-row" onclick="setSpd('',300,1.5)">🚄 Nanjing→Shanghai: 300 km, 1.5 h</div>
+    <div class="ex-row" onclick="setSpd('',400,1.3)">🚄 Korean KTX: 400 km, 1.3 h</div>
+    <div class="ex-row" onclick="setSpd(280,560,'')">🚄 German ICE: 280 km/h, 560 km</div>
+  </div>
+</div>
+
+<div class="panel" id="p2">
+  <div class="formula">P = F ÷ A</div>
+  <div class="row"><label>Pressure (P)</label><input id="f2p" placeholder="?" oninput="calcPres()"><span class="unit">Pa</span></div>
+  <div class="row"><label>Force (F)</label><input id="f2f" placeholder="?" oninput="calcPres()"><span class="unit">N</span></div>
+  <div class="row"><label>Area (A)</label><input id="f2a" placeholder="?" oninput="calcPres()"><span class="unit">m²</span></div>
+  <div class="answer" id="a2"></div>
+  <div class="examples"><strong style="font-size:.85em">Try these:</strong>
+    <div class="ex-row" onclick="setPres('',600,0.015)">👟 600 N person, shoe = 0.015 m²</div>
+    <div class="ex-row" onclick="setPres('',600,0.45)">🏂 Korean snowboard: 600 N, 0.45 m²</div>
+    <div class="ex-row" onclick="setPres('',600,0.001)">👠 High heel: 600 N, 0.001 m²</div>
+  </div>
+</div>
+
+<div class="panel" id="p3">
+  <div class="formula">W = m × g</div>
+  <div class="row"><label>Mass (m)</label><input id="f3m" value="60" oninput="calcWeight()"><span class="unit">kg</span></div>
+  <div class="answer" id="a3"></div>
+  <div style="font-size:.85em;margin-top:6px">
+    <div class="ex-row">🌍 Earth (g=10): <strong id="we"></strong> N</div>
+    <div class="ex-row">🌙 Moon (g=1.6): <strong id="wm"></strong> N</div>
+    <div class="ex-row">🔴 Mars (g=3.7): <strong id="wr"></strong> N</div>
+    <div class="ex-row">♃ Jupiter (g=24.8): <strong id="wj"></strong> N</div>
+    <div class="ex-row">🛰️ Tiangong (g≈8.7): <strong id="wt"></strong> N</div>
+  </div>
+</div>
+
+<script>
+function showTab(i){document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',j===i))}
+function tri(a,b,c,op){const va=parseFloat(a),vb=parseFloat(b),vc=parseFloat(c);if(!isNaN(va)&&!isNaN(vb))return op(va,vb,'c');if(!isNaN(va)&&!isNaN(vc))return op(va,vc,'b');if(!isNaN(vb)&&!isNaN(vc))return op(vb,vc,'a');return null}
+function fmt(n){return Math.abs(n)>10000||Math.abs(n)<0.01?n.toExponential(2):parseFloat(n.toFixed(4)).toString()}
+
+function calcFma(){const r=tri(f0f.value,f0m.value,f0a.value,(a,b,w)=>{if(w==='c')return{l:'F',v:a*b};if(w==='b')return{l:'a',v:a/b};return{l:'m',v:a/b}});a0.textContent=r?`${r.l} = ${fmt(r.v)}`:'Enter any 2 values'}
+function calcSpeed(){const r=tri(f1s.value,f1d.value,f1t.value,(a,b,w)=>{if(w==='c')return{l:'s',v:a/b};if(w==='b')return{l:'t',v:b/a};return{l:'d',v:a*b}});a1.textContent=r?`${r.l} = ${fmt(r.v)}`:'Enter any 2 values'}
+function calcPres(){const r=tri(f2p.value,f2f.value,f2a.value,(a,b,w)=>{if(w==='c')return{l:'P',v:a/b};if(w==='b')return{l:'A',v:b/a};return{l:'F',v:a*b}});a2.textContent=r?`${r.l} = ${fmt(r.v)}`:'Enter any 2 values'}
+
+function calcWeight(){const m=parseFloat(f3m.value)||0;we.textContent=fmt(m*10);wm.textContent=fmt(m*1.6);wr.textContent=fmt(m*3.7);wj.textContent=fmt(m*24.8);wt.textContent=fmt(m*8.7);a3.textContent=`On Earth: ${fmt(m*10)} N`}
+
+function setFma(f,m,a){f0f.value=f;f0m.value=m;f0a.value=a;calcFma()}
+function setSpd(s,d,t){f1s.value=s;f1d.value=d;f1t.value=t;calcSpeed()}
+function setPres(p,f,a){f2p.value=p;f2f.value=f;f2a.value=a;calcPres()}
+calcWeight();
+</script></body></html>

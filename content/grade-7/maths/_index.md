@@ -159,6 +159,11 @@ terms:
       zh: 最优购买
       definition: Finding which option gives the most for the least money by comparing unit prices.
   tools:
+  - emoji: "🍕"
+    name: "Fraction & Ratio Visualizer"
+    source: "Mr Zocchi"
+    task: "Visualize ratios as fractions with instant operations."
+    embed_url: "/tools/fraction-visualizer.html"
   - name: Proportion Playground
     emoji: ⚖️
     source: PhET Simulation
@@ -750,6 +755,21 @@ terms:
       zh: 坐标
       definition: A pair (x, y) showing position on a grid. x = horizontal, y = vertical.
   tools:
+  - emoji: "⚖️"
+    name: "Equation Solver"
+    source: "Mr Zocchi"
+    task: "Solve equations with brackets and unknowns on both sides — step by step."
+    embed_url: "/tools/equation-solver.html"
+  - emoji: "📈"
+    name: "Graph Plotter"
+    source: "Mr Zocchi"
+    task: "Plot y = mx + c lines. Adjust gradient and intercept. Compare multiple lines."
+    embed_url: "/tools/graph-plotter.html"
+  - emoji: "🔢"
+    name: "Sequence Finder"
+    source: "Mr Zocchi"
+    task: "Find the nth term for arithmetic, geometric, and quadratic sequences."
+    embed_url: "/tools/sequence-finder.html"
   - name: Equality Explorer
     emoji: ⚖️
     source: PhET Simulation

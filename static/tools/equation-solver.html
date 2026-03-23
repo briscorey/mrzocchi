@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Equation Solver — Step by Step</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f8f9fa;color:#1B2A4A;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px}
+h1{font-size:1.4em;margin-bottom:4px;color:#1B2A4A}
+.sub{color:#888;font-size:.85em;margin-bottom:16px}
+.input-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+input{padding:10px 14px;border:2px solid #ddd;border-radius:8px;font-size:1.1em;width:280px;text-align:center;outline:none;transition:.2s}
+input:focus{border-color:#2A9D8F}
+button{padding:10px 20px;background:#2A9D8F;color:#fff;border:none;border-radius:8px;font-size:1em;cursor:pointer;transition:.2s}
+button:hover{background:#238577}
+.examples{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.ex-btn{padding:5px 12px;background:#e8f4f2;border:1px solid #2A9D8F;border-radius:6px;font-size:.85em;cursor:pointer;color:#1B2A4A;transition:.2s}
+.ex-btn:hover{background:#2A9D8F;color:#fff}
+.steps{max-width:500px;width:100%}
+.step{background:#fff;border-radius:10px;padding:14px 18px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);animation:fadeIn .4s ease;border-left:4px solid #2A9D8F}
+.step.action{border-left-color:#E9C46A}
+.step-num{font-size:.75em;color:#2A9D8F;font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.step-eq{font-size:1.3em;font-weight:700;color:#1B2A4A;font-family:'Courier New',monospace;margin-bottom:4px}
+.step-explain{font-size:.9em;color:#666}
+.result{background:#e8f4f2;border-left-color:#2A9D8F;border-width:4px}
+.result .step-eq{color:#2A9D8F}
+.error{background:#fde8e8;border-left-color:#C8372D}
+.error .step-eq{color:#C8372D;font-size:1em;font-weight:400}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<h1>🧮 Equation Solver</h1>
+<p class="sub">Enter an equation and see every step</p>
+<div class="examples">
+  <button class="ex-btn" onclick="solve('3x + 5 = 20')">3x + 5 = 20</button>
+  <button class="ex-btn" onclick="solve('5x - 3 = 2x + 18')">5x - 3 = 2x + 18</button>
+  <button class="ex-btn" onclick="solve('2(x+4) = 18')">2(x+4) = 18</button>
+  <button class="ex-btn" onclick="solve('4x + 7 = 31')">4x + 7 = 31</button>
+  <button class="ex-btn" onclick="solve('7x - 2 = 3x + 10')">7x - 2 = 3x + 10</button>
+</div>
+<div class="input-row">
+  <input id="eq" placeholder="e.g. 3x + 5 = 20" onkeypress="if(event.key==='Enter')solve()">
+  <button onclick="solve()">Solve</button>
+</div>
+<div class="steps" id="steps"></div>
+
+<script>
+function solve(preset) {
+  const input = preset || document.getElementById('eq').value.trim();
+  if (preset) document.getElementById('eq').value = preset;
+  const el = document.getElementById('steps');
+  el.innerHTML = '';
+  if (!input) return;
+  
+  try {
+    const steps = solveEquation(input);
+    steps.forEach((s, i) => {
+      setTimeout(() => {
+        const div = document.createElement('div');
+        div.className = 'step' + (s.result ? ' result' : '') + (s.action ? ' action' : '');
+        div.innerHTML = `<div class="step-num">${s.label}</div><div class="step-eq">${s.eq}</div><div class="step-explain">${s.explain}</div>`;
+        el.appendChild(div);
+        div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, i * 400);
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="step error"><div class="step-num">Error</div><div class="step-eq">${e.message || 'Could not parse this equation. Try format: 3x + 5 = 20'}</div></div>`;
+  }
+}
+
+function solveEquation(input) {
+  const steps = [];
+  let eq = input.replace(/\s+/g, '');
+  steps.push({ label: 'Start', eq: formatEq(input), explain: 'Write down the equation.' });
+  
+  // Expand brackets: simple a(bx+c) pattern
+  const bracketMatch = eq.match(/^(.*?)(-?\d*)\((-?\d*x?[+\-]?\d*)\)(.*)=(.*)$/);
+  if (bracketMatch || eq.includes('(')) {
+    // Simple expansion
+    eq = expandBrackets(eq);
+    steps.push({ label: 'Expand brackets', eq: formatEq(eq), explain: 'Multiply everything inside the bracket.', action: true });
+  }
+  
+  // Parse both sides
+  const [leftStr, rightStr] = eq.split('=');
+  let left = parseSide(leftStr);  // {x: coeff, c: constant}
+  let right = parseSide(rightStr);
+  
+  // Collect x terms on left
+  if (right.x !== 0) {
+    const moved = right.x;
+    left.x -= moved;
+    right.x = 0;
+    const op = moved > 0 ? `Subtract ${moved}x from both sides` : `Add ${Math.abs(moved)}x to both sides`;
+    steps.push({ label: op, eq: `${formatSide(left)} = ${formatSide(right)}`, explain: 'Get all x terms on the left side.', action: true });
+  }
+  
+  // Collect constants on right
+  if (left.c !== 0) {
+    const moved = left.c;
+    right.c -= moved;
+    left.c = 0;
+    const op = moved > 0 ? `Subtract ${moved} from both sides` : `Add ${Math.abs(moved)} to both sides`;
+    steps.push({ label: op, eq: `${formatSide(left)} = ${formatSide(right)}`, explain: 'Get all numbers on the right side.', action: true });
+  }
+  
+  // Divide by coefficient
+  if (left.x !== 1 && left.x !== 0) {
+    const coeff = left.x;
+    right.c = right.c / coeff;
+    left.x = 1;
+    steps.push({ label: `Divide both sides by ${coeff}`, eq: `x = ${formatNum(right.c)}`, explain: 'Isolate x.', action: true });
+  }
+  
+  if (left.x === 0) {
+    steps.push({ label: 'Result', eq: 'No solution or infinite solutions', explain: 'The x terms cancelled out.', result: true });
+  } else {
+    const answer = right.c;
+    steps.push({ label: '✅ Solution', eq: `x = ${formatNum(answer)}`, explain: `Check: substitute x = ${formatNum(answer)} back into the original equation.`, result: true });
+    
+    // Verification
+    const origLeft = parseSide(expandBrackets(input.replace(/\s/g,'')).split('=')[0]);
+    const origRight = parseSide(expandBrackets(input.replace(/\s/g,'')).split('=')[1]);
+    const lVal = origLeft.x * answer + origLeft.c;
+    const rVal = origRight.x * answer + origRight.c;
+    steps.push({ label: 'Check', eq: `Left = ${formatNum(lVal)}, Right = ${formatNum(rVal)}`, explain: Math.abs(lVal - rVal) < 0.001 ? '✅ Both sides match! Answer is correct.' : '⚠️ Check your working.', result: true });
+  }
+  
+  return steps;
+}
+
+function parseSide(s) {
+  let x = 0, c = 0;
+  s = s.replace(/--/g, '+').replace(/\+-/g, '-').replace(/-\+/g, '-');
+  // Add leading + if starts with digit or x
+  if (s[0] !== '-' && s[0] !== '+') s = '+' + s;
+  // Match terms
+  const terms = s.match(/[+\-][^+\-]+/g) || [];
+  for (let t of terms) {
+    t = t.replace(/\s/g, '');
+    if (t.includes('x')) {
+      let coeff = t.replace('x', '');
+      if (coeff === '+' || coeff === '') coeff = '1';
+      if (coeff === '-') coeff = '-1';
+      x += parseFloat(coeff);
+    } else {
+      c += parseFloat(t);
+    }
+  }
+  return { x, c };
+}
+
+function formatSide(s) {
+  let parts = [];
+  if (s.x !== 0) parts.push(s.x === 1 ? 'x' : s.x === -1 ? '-x' : s.x + 'x');
+  if (s.c !== 0 || parts.length === 0) {
+    if (parts.length > 0 && s.c > 0) parts.push('+ ' + formatNum(s.c));
+    else parts.push(formatNum(s.c));
+  }
+  return parts.join(' ');
+}
+
+function formatNum(n) {
+  return Number.isInteger(n) ? n.toString() : parseFloat(n.toFixed(4)).toString();
+}
+
+function formatEq(s) {
+  return s.replace(/\*/g, '×').replace(/([+\-=])/g, ' $1 ').replace(/\s+/g, ' ').trim();
+}
+
+function expandBrackets(eq) {
+  // Handle patterns like 2(3x+5) or -(x+3) or 3(x-2)
+  return eq.replace(/(-?\d*)\(([^)]+)\)/g, (match, coeff, inner) => {
+    if (coeff === '' || coeff === '+') coeff = '1';
+    if (coeff === '-') coeff = '-1';
+    const c = parseFloat(coeff);
+    const parsed = parseSide(inner);
+    const newX = parsed.x * c;
+    const newC = parsed.c * c;
+    let result = '';
+    if (newX !== 0) result += (newX >= 0 && result ? '+' : '') + (newX === 1 ? '' : newX === -1 ? '-' : newX) + 'x';
+    if (newC !== 0) result += (newC > 0 && result ? '+' : '') + newC;
+    if (!result) result = '0';
+    return result;
+  });
+}
+</script>
+</body>
+</html>

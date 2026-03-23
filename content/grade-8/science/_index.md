@@ -171,6 +171,11 @@ terms:
       zh: 稀有气体
       definition: Group 0. Full outer shell = very unreactive. Helium, neon, argon, etc.
   tools:
+  - emoji: "⚛️"
+    name: "Periodic Table Explorer"
+    source: "Mr Zocchi"
+    task: "Click any element — see properties, group, and a fun fact about China, Korea, or Germany."
+    embed_url: "/tools/periodic-table.html"
   - name: Build an Atom
     emoji: ⚛️
     source: PhET Simulation
@@ -367,6 +372,16 @@ terms:
       zh: 碳足迹
       definition: Total greenhouse gases produced by a person, product, or activity.
   tools:
+  - emoji: "⚡"
+    name: "Efficiency Calculator"
+    source: "Mr Zocchi"
+    task: "Calculate efficiency, build Sankey diagrams. Compare bulbs, engines, solar panels."
+    embed_url: "/tools/energy-calculator.html"
+  - emoji: "🔥"
+    name: "Energy Forms Sim"
+    source: "PhET"
+    task: "Explore energy transfers and conservation. Watch energy flow between stores."
+    embed_url: "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_all.html"
   - name: Energy Skate Park
     emoji: 🛹
     source: PhET Simulation
@@ -567,6 +582,11 @@ terms:
       zh: 保护
       definition: Protecting ecosystems and species through management, reserves, and sustainable practices.
   tools:
+  - emoji: "🌿"
+    name: "10% Rule Calculator"
+    source: "Mr Zocchi"
+    task: "Enter producer energy — see the 10% rule across trophic levels."
+    embed_url: "/tools/energy-calculator.html"
   - name: Natural Selection
     emoji: 🐇
     source: PhET Simulation

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Graph Plotter — y = mx + c</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f8f9fa;color:#1B2A4A;padding:16px;display:flex;flex-direction:column;align-items:center}
+h1{font-size:1.3em;margin-bottom:4px}
+.sub{color:#888;font-size:.82em;margin-bottom:12px}
+.controls{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+.slider-group{text-align:center}
+.slider-group label{display:block;font-size:.85em;font-weight:600;color:#1B2A4A}
+.slider-group .val{font-size:1.2em;font-weight:700;color:#2A9D8F;font-family:'Courier New',monospace}
+input[type=range]{width:140px;accent-color:#2A9D8F}
+canvas{border:1px solid #ddd;border-radius:10px;background:#fff;max-width:100%}
+.eq-display{font-size:1.3em;font-weight:700;color:#1B2A4A;font-family:'Courier New',monospace;margin:8px 0;text-align:center}
+.info{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.info-card{background:#fff;border-radius:8px;padding:8px 14px;box-shadow:0 1px 3px rgba(0,0,0,.06);font-size:.85em;text-align:center}
+.info-card strong{color:#2A9D8F;display:block;font-size:1.1em}
+.lines{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0}
+.line-btn{padding:4px 10px;border:2px solid;border-radius:6px;font-size:.8em;cursor:pointer;background:#fff;transition:.2s}
+.line-btn:hover{transform:scale(1.05)}
+.line-btn.active{color:#fff}
+</style>
+</head>
+<body>
+<h1>📈 Linear Graph Plotter</h1>
+<p class="sub">Adjust gradient (m) and y-intercept (c) to explore y = mx + c</p>
+
+<div class="lines" id="linebtns"></div>
+
+<div class="controls">
+  <div class="slider-group">
+    <label>Gradient (m)</label>
+    <div class="val" id="mval">2</div>
+    <input type="range" id="mslider" min="-5" max="5" step="0.5" value="2" oninput="update()">
+  </div>
+  <div class="slider-group">
+    <label>y-intercept (c)</label>
+    <div class="val" id="cval">1</div>
+    <input type="range" id="cslider" min="-8" max="8" step="1" value="1" oninput="update()">
+  </div>
+</div>
+
+<div class="eq-display" id="eqdisplay">y = 2x + 1</div>
+<canvas id="graph" width="440" height="440"></canvas>
+
+<div class="info">
+  <div class="info-card">Gradient<strong id="gradient-info">2</strong>For every 1 right, go 2 up</div>
+  <div class="info-card">y-intercept<strong id="intercept-info">(0, 1)</strong>Crosses y-axis here</div>
+  <div class="info-card">x-intercept<strong id="xint-info">(-0.5, 0)</strong>Crosses x-axis here</div>
+  <div class="info-card">Direction<strong id="dir-info">↗ Uphill</strong>Positive gradient</div>
+</div>
+
+<script>
+const colors = ['#2A9D8F','#C8372D','#B8860B','#6A5ACD','#E67E22'];
+const names = ['Line A','Line B','Line C'];
+let lines = [{m:2,c:1,color:colors[0],name:'Line A'}];
+let activeIdx = 0;
+
+function renderButtons() {
+  const el = document.getElementById('linebtns');
+  let html = '';
+  lines.forEach((l,i) => {
+    const active = i === activeIdx;
+    html += `<button class="line-btn${active?' active':''}" style="border-color:${l.color};${active?'background:'+l.color:''}" onclick="selectLine(${i})">${l.name}: y=${l.m}x${l.c>=0?'+':''}${l.c}</button>`;
+  });
+  if (lines.length < 5) html += `<button class="line-btn" style="border-color:#aaa" onclick="addLine()">+ Add Line</button>`;
+  el.innerHTML = html;
+}
+
+function addLine() {
+  const i = lines.length;
+  lines.push({m: -1, c: 3, color: colors[i % colors.length], name: names[i] || 'Line '+(i+1)});
+  activeIdx = i;
+  syncSliders();
+  update();
+}
+
+function selectLine(i) {
+  activeIdx = i;
+  syncSliders();
+  update();
+}
+
+function syncSliders() {
+  document.getElementById('mslider').value = lines[activeIdx].m;
+  document.getElementById('cslider').value = lines[activeIdx].c;
+}
+
+function update() {
+  const m = parseFloat(document.getElementById('mslider').value);
+  const c = parseFloat(document.getElementById('cslider').value);
+  lines[activeIdx].m = m;
+  lines[activeIdx].c = c;
+  
+  document.getElementById('mval').textContent = m;
+  document.getElementById('cval').textContent = c;
+  
+  const cStr = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
+  const mStr = m === 1 ? '' : m === -1 ? '-' : m;
+  document.getElementById('eqdisplay').textContent = c === 0 ? `y = ${mStr}x` : `y = ${mStr}x ${cStr}`;
+  
+  document.getElementById('gradient-info').textContent = m;
+  document.getElementById('intercept-info').textContent = `(0, ${c})`;
+  const xint = m !== 0 ? (-c/m).toFixed(2) : '∞';
+  document.getElementById('xint-info').textContent = m !== 0 ? `(${xint}, 0)` : 'None';
+  document.getElementById('dir-info').textContent = m > 0 ? '↗ Uphill' : m < 0 ? '↘ Downhill' : '→ Flat';
+  
+  renderButtons();
+  draw();
+}
+
+function draw() {
+  const canvas = document.getElementById('graph');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2;
+  const scale = 35;
+  
+  ctx.clearRect(0, 0, W, H);
+  
+  // Grid
+  ctx.strokeStyle = '#eee'; ctx.lineWidth = 1;
+  for (let i = -10; i <= 10; i++) {
+    const x = cx + i * scale, y = cy - i * scale;
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+  
+  // Axes
+  ctx.strokeStyle = '#999'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+  
+  // Labels
+  ctx.fillStyle = '#999'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
+  for (let i = -6; i <= 6; i++) {
+    if (i === 0) continue;
+    ctx.fillText(i, cx + i*scale, cy + 14);
+    ctx.fillText(i, cx - 16, cy - i*scale + 4);
+  }
+  ctx.fillText('x', W - 10, cy - 6);
+  ctx.fillText('y', cx + 8, 12);
+  
+  // Draw all lines
+  lines.forEach((l, idx) => {
+    const {m, c, color} = l;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = idx === activeIdx ? 3 : 1.5;
+    ctx.setLineDash(idx === activeIdx ? [] : [6,4]);
+    ctx.beginPath();
+    const x1 = -10, y1 = m * x1 + c;
+    const x2 = 10, y2 = m * x2 + c;
+    ctx.moveTo(cx + x1*scale, cy - y1*scale);
+    ctx.lineTo(cx + x2*scale, cy - y2*scale);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    // y-intercept dot
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(cx, cy - c*scale, 5, 0, Math.PI*2);
+    ctx.fill();
+  });
+}
+
+renderButtons();
+update();
+</script>
+</body>
+</html>

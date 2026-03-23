@@ -188,6 +188,16 @@ terms:
     a: A known sample for comparison. Without it, you can't confirm whether an unknown sample matches.
   - q: Explain why forensic science must follow the scientific method.
     a: Evidence must be collected systematically, tested fairly, and conclusions based on evidence — otherwise it wouldn't hold up in court.
+  extensions:
+  - emoji: "🔍"
+    title: "Crime Scene: NIS Edition"
+    type: "Investigation Challenge"
+    description: "Stage a mock crime scene in the classroom. Teams must collect evidence (fingerprints, fibres, mystery powders), analyse it scientifically, and present their case. Who committed the 'crime'?"
+  - emoji: "🧬"
+    title: "Famous Forensic Cases"
+    type: "Research Project"
+    description: "Research a famous case where forensic science solved a mystery (e.g. identifying Terracotta Warriors' origins in Xi'an using chemical analysis). Present how the science worked."
+
 - name: Biology — Cells
   emoji: 🔬
   num: 2
@@ -343,6 +353,20 @@ terms:
     a: Higher temperature = particles have more kinetic energy = they move faster = they collide and spread more quickly.
   - q: What is the difference between a cell and a tissue?
     a: A cell is the basic unit. A tissue is a group of similar cells working together for one function (e.g. muscle tissue).
+  extensions:
+  - emoji: "🔬"
+    title: "Microscope Art Gallery"
+    type: "Creative Science"
+    description: "Using a microscope, photograph at least 5 different specimens (onion cells, cheek cells, pond water). Create a 'gallery' display with each image labelled with cell structures. Can classmates identify which specimen is which?"
+  - emoji: "🏥"
+    title: "Cell Disease Detective"
+    type: "Research"
+    description: "Research a disease caused by cell malfunction (sickle cell, cancer, cystic fibrosis). Create a comic strip or infographic explaining what goes wrong at the cell level and how it affects the whole body."
+  - emoji: "🧱"
+    title: "Build a Giant Cell Model"
+    type: "Design Challenge"
+    description: "Using household materials, build a 3D model of an animal or plant cell at least 30cm across. Every organelle must be labelled with its function. Film a 'guided tour' of your cell."
+
 - name: Physics
   emoji: 💪
   num: 3
@@ -519,6 +543,24 @@ terms:
     a: 'Newton''s 1st Law: an object in motion stays in motion unless acted on by a force. With no forces, it moves at constant speed forever.'
   - q: Why does a falling skydiver eventually reach terminal velocity?
     a: Air resistance increases with speed until it equals weight. Forces become balanced → constant speed (no acceleration).
+  extensions:
+  - emoji: "🚗"
+    title: "Balloon Rocket Grand Prix"
+    type: "Design & Test"
+    description: "Build a balloon-powered car using recycled materials. Test it on a smooth floor. Measure distance travelled. Then modify ONE variable (wheel size, body weight, balloon size) and test again. Which modification improved performance most? Use Newton's Laws to explain why."
+  - emoji: "🌉"
+    title: "Bridge Building Challenge"
+    type: "Engineering Design"
+    description: "Using only newspaper and tape, build a bridge between two desks that can hold the most weight. Test with textbooks. Calculate the forces involved. Why do some designs hold more than others? Research how the Nanjing Yangtze River Bridge was designed."
+  - emoji: "🪂"
+    title: "Parachute Design Investigation"
+    type: "Fair Test"
+    description: "Design and test parachutes of different sizes and materials. Drop from the same height and time the fall. Calculate average speed. Which design gives the lowest terminal velocity? Present your results as a scientific report."
+  - emoji: "🏎️"
+    title: "Maglev Model"
+    type: "Research & Build"
+    description: "Research how Shanghai's maglev train uses magnetic levitation. Can you build a simple model using magnets that demonstrates the principle? Document your design process and explain the forces involved."
+
 - name: Chemistry — Separation
   emoji: 🧪
   num: 4
@@ -659,6 +701,16 @@ terms:
     a: Dissolved impurities disrupt the structure, requiring more energy to break the bonds between water molecules.
   - q: A student filters muddy water and says it's now pure. Are they correct?
     a: No — the water may look clear but still contain dissolved substances. Pure water boils at exactly 100°C; this water likely doesn't.
+  extensions:
+  - emoji: "💧"
+    title: "Water Purification Challenge"
+    type: "Design & Test"
+    description: "Using only sand, gravel, cotton, charcoal, and plastic bottles, build a water filter. Test it with muddy water. How clear is the output? Research how water purification works in Nanjing's water treatment plants."
+  - emoji: "🎨"
+    title: "Chromatography Art"
+    type: "Creative Science"
+    description: "Use chromatography to separate the pigments in different coloured markers. Create a piece of art using the separated colours. Which brands have the most pigments? Do Korean, Chinese, and German markers differ?"
+
 - name: Space Science
   emoji: 🚀
   num: 5
@@ -814,4 +866,13 @@ terms:
     a: Earth is actually slightly CLOSER to the Sun during Northern Hemisphere winter. Seasons are caused by the 23.5° tilt of Earth's axis.
   - q: What would happen if the Sun's gravity suddenly disappeared?
     a: All planets would fly off in straight lines (tangent to their orbits) at their current speed. No gravity = no orbit.
+  extensions:
+  - emoji: "🛰️"
+    title: "Space Station Design"
+    type: "Design Challenge"
+    description: "China's Tiangong space station orbits Earth. Design an upgrade module for it. What experiments would you include? How would astronauts exercise in microgravity? Research real Tiangong experiments for inspiration."
+  - emoji: "🌍"
+    title: "Exoplanet Real Estate Agent"
+    type: "Creative Research"
+    description: "Research 3 real exoplanets discovered by the Kepler or TESS telescope. Create a 'real estate listing' for each one — temperature, gravity, atmosphere, distance from its star. Would humans survive there? Which is the best candidate for life?"
 ---

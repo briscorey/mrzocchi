@@ -234,6 +234,20 @@ terms:
   - topic: Evaluating
     desc: Judge reliability and suggest improvements
     status: upcoming
+  extensions:
+  - emoji: "🔬"
+    title: "Design Your Own Experiment"
+    type: "Investigation"
+    description: "Pick any question about your daily life in Nanjing (e.g. 'Does the temperature of green tea affect how fast it cools?'). Design a full investigation with hypothesis, variables, method, and results table. Present your findings as a poster."
+  - emoji: "🎥"
+    title: "Science Fails Compilation"
+    type: "Research Project"
+    description: "Find 3 famous scientific experiments that went wrong but led to amazing discoveries (e.g. penicillin, X-rays, microwave oven). Create a short presentation explaining what happened and what we learned."
+  - emoji: "🌏"
+    title: "Science Across Cultures"
+    type: "Research"
+    description: "Compare how ancient Chinese, Korean, and European scientists approached the same problem (e.g. measuring the Earth, understanding disease). How were their methods similar to the modern scientific method?"
+
 - name: Chemistry
   emoji: ⚗️
   num: 2
@@ -427,6 +441,20 @@ terms:
   - topic: Applying the Model
     desc: Use the particle model to explain real-world phenomena
     status: upcoming
+  extensions:
+  - emoji: "🍳"
+    title: "Kitchen Chemistry Challenge"
+    type: "Home Investigation"
+    description: "Document 5 changes of state that happen in your kitchen at home (boiling water for noodles, ice cream melting, steam from rice cooker). Photograph each one, identify the change, and explain the particle movement."
+  - emoji: "🏔️"
+    title: "Why Does Water Boil at Different Temperatures?"
+    type: "Research Challenge"
+    description: "Research why water boils at 70°C on Mount Everest but 100°C in Nanjing. How would this affect cooking ramyeon (Korean instant noodles) at high altitude? Write a short explanation with a diagram."
+  - emoji: "🧊"
+    title: "Build a Particle Model"
+    type: "Creative Project"
+    description: "Using balls, marbles, or even bubble tea pearls, create a physical model showing particles in solid, liquid, and gas states. Film a short video explaining your model."
+
 - name: Earth Science
   emoji: 🌍
   num: 3
@@ -621,6 +649,24 @@ terms:
   - topic: Continental Drift
     desc: Use evidence to support Wegener's theory of Pangaea
     status: upcoming
+  extensions:
+  - emoji: "🏗️"
+    title: "Earthquake-Proof Tower Challenge"
+    type: "Design Challenge"
+    description: "Using only spaghetti and marshmallows, build the tallest tower that can survive 10 seconds of shaking on a wobble board. Compare designs with classmates. Which shapes are most stable?"
+  - emoji: "🗺️"
+    title: "Nanjing's Geological Story"
+    type: "Field Research"
+    description: "Research the geology under Nanjing. What rocks are found at Purple Mountain (Zijin Shan)? Why are there hot springs near Tangshan? Create a geological map of interesting features within 50 km of NIS."
+  - emoji: "🌋"
+    title: "Volcano Documentary Director"
+    type: "Creative Project"
+    description: "Write a 2-minute documentary script about a famous volcanic eruption (Mt. Fuji, Mt. Hallasan, Mt. Pinatubo). Include the science of why it erupted, the human impact, and what we learned. Record it if you can!"
+  - emoji: "📰"
+    title: "Earthquake Preparedness Plan"
+    type: "Real-World Application"
+    description: "Create an earthquake preparedness guide for NIS students. Research what Japan, Korea, and China recommend. Include: what to do during shaking, what to pack in an emergency kit, and how to reunite with family."
+
 - name: Ecology
   emoji: 🌿
   num: 4
@@ -810,6 +856,21 @@ terms:
   - topic: Conservation
     desc: Propose solutions to protect biodiversity
     status: upcoming
+  extensions:
+  - emoji: "🐼"
+    title: "Species Rescue Mission"
+    type: "Research & Design"
+    description: "Choose an endangered species from China (giant panda, Yangtze finless porpoise), Korea (Amur leopard), or Germany (European hamster). Research why it's endangered and design a conservation action plan. Present as an infographic."
+  - emoji: "🌿"
+    title: "NIS Biodiversity Audit"
+    type: "Field Investigation"
+    description: "Survey the school grounds. How many different plant and animal species can you find in 30 minutes? Calculate a simple biodiversity index. Compare with a partner who surveyed a different area. Which area is more biodiverse and why?"
+  - emoji: "🎬"
+    title: "'How Wolves Change Rivers' Response"
+    type: "Critical Thinking"
+    description: "Watch the video 'How Wolves Change Rivers' by Sustainable Human on YouTube. Then research: could a similar trophic cascade happen in the Yangtze River now that the 10-year fishing ban is in place? Write a 300-word argument."
+    url: "https://www.youtube.com/watch?v=ysa5OBhXz-Q"
+
 - name: Space Science
   emoji: 🚀
   num: 5
@@ -1004,4 +1065,17 @@ terms:
   - topic: Space Exploration
     desc: Evaluate the benefits and challenges of exploring space
     status: upcoming
+  extensions:
+  - emoji: "🚀"
+    title: "Design a Moon Base"
+    type: "Design Challenge"
+    description: "China's Chang'e programme is planning a lunar research station. Design your own moon base considering: gravity (1/6 of Earth), no atmosphere, extreme temperatures. What materials would you use? How would astronauts get food and water?"
+  - emoji: "🌙"
+    title: "Moon Journal"
+    type: "Observation Project"
+    description: "Observe and sketch the moon every night for 2 weeks from Nanjing. Record the date, time, and phase. Can you predict what it will look like tomorrow? Compare your observations with the official lunar calendar."
+  - emoji: "⚖️"
+    title: "Weight on Other Planets"
+    type: "Maths Extension"
+    description: "Calculate your weight on every planet in the solar system. Create a bar chart comparing them. On which planet would you weigh the most? The least? Could you jump higher on Mars than on Earth? Calculate it."
 ---

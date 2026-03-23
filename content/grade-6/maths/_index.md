@@ -238,6 +238,20 @@ terms:
   - topic: Factors, Multiples & Primes
     desc: Find HCF, LCM, and identify prime numbers
     status: upcoming
+  extensions:
+  - emoji: "🎯"
+    title: "Number Systems Around the World"
+    type: "Research Project"
+    description: "Research how ancient Chinese (rod numerals), Korean (Hangul numerals), and Roman number systems worked. Can you do basic addition in each system? Create a poster comparing them to our modern system."
+  - emoji: "🛒"
+    title: "Nanjing Market Challenge"
+    type: "Real-World Maths"
+    description: "You have ¥200 to buy ingredients for dinner for 4 people at a Nanjing market. Plan a meal, estimate costs, and calculate change. Include multiplication and division in your working. Present your menu and budget."
+  - emoji: "🧮"
+    title: "The 24 Game"
+    type: "Number Puzzle"
+    description: "Using exactly 4 numbers and any operations (+, −, ×, ÷), make the answer 24. Start with easy sets (1, 2, 3, 4) then try harder ones (3, 3, 8, 8). Create 5 of your own puzzles for classmates to solve."
+
 - name: Fractions & Decimals
   emoji: 🍕
   num: 2
@@ -426,6 +440,20 @@ terms:
   - topic: Percentage Problems
     desc: Find percentages of amounts and apply to real-world contexts
     status: upcoming
+  extensions:
+  - emoji: "🍕"
+    title: "Fraction Feast"
+    type: "Real-World Investigation"
+    description: "Visit a restaurant menu (real or online) from Nanjing, Seoul, or Berlin. If you split dishes equally between different group sizes, what fraction does each person get? Calculate for groups of 2, 3, 4, and 6."
+  - emoji: "📊"
+    title: "Percentage Detective"
+    type: "Data Collection"
+    description: "Walk around NIS or a shopping area. Find 10 real-world uses of percentages (discounts, battery levels, test scores, weather forecasts). Photograph each one and explain what the percentage means in context."
+  - emoji: "🎲"
+    title: "FDP Card Game"
+    type: "Game Design"
+    description: "Design a card matching game where players match equivalent fractions, decimals, and percentages (e.g. 1/4 = 0.25 = 25%). Make at least 20 sets. Test it with a partner."
+
 - name: Geometry
   emoji: 📐
   num: 3
@@ -610,6 +638,24 @@ terms:
   - topic: Capacity
     desc: Convert between cm³, mL, and litres using the golden rule
     status: upcoming
+  extensions:
+  - emoji: "🏠"
+    title: "Dream Bedroom Designer"
+    type: "Design Challenge"
+    description: "Design your dream bedroom on graph paper. It must fit inside a 5m × 4m room. Calculate the perimeter, area of the floor, and volume of the room. Include furniture with real measurements. Calculate how much paint you need for the walls."
+  - emoji: "🏛️"
+    title: "Famous Buildings Measurement Challenge"
+    type: "Research & Calculation"
+    description: "Research the dimensions of 3 famous buildings: Nanjing's Zifeng Tower, Seoul's Lotte World Tower, and Berlin's TV Tower. Calculate the volume of each (approximate as rectangular prisms). Which has the greatest volume? Create a comparison infographic."
+  - emoji: "🎁"
+    title: "Gift Wrapping Olympics"
+    type: "Practical Challenge"
+    description: "Bring 3 different-shaped boxes to class. Measure each one, calculate the exact surface area, then cut wrapping paper to those exact dimensions. Who can wrap their boxes with the least wasted paper?"
+  - emoji: "🏊"
+    title: "Pool Capacity Investigation"
+    type: "Real-World Maths"
+    description: "The NIS pool is 25m × 16m × 1.6m deep. Calculate: How long would it take to fill using a garden hose (15 L/min)? How many students could swim at once if each needs 5m² of space? How much would it cost to heat at ¥0.05 per litre per degree?"
+
 - name: Algebra
   emoji: 🔤
   num: 4
@@ -796,6 +842,21 @@ terms:
   - topic: Sequences
     desc: Find patterns and write rules for number sequences
     status: upcoming
+  extensions:
+  - emoji: "🔮"
+    title: "Pattern Hunters"
+    type: "Investigation"
+    description: "Find 3 number patterns in the real world around Nanjing (floor tiles, building windows, stair steps). Photograph each one, write the sequence, find the nth term rule, and predict the 100th term."
+  - emoji: "🎮"
+    title: "Code Your Own Function Machine"
+    type: "Coding Challenge"
+    description: "Use Scratch (scratch.mit.edu) to build an interactive function machine. The user enters a number, the machine applies a rule, and shows the output. Can you make it show the rule as an equation?"
+    url: "https://scratch.mit.edu"
+  - emoji: "💰"
+    title: "Taxi Fare Comparison"
+    type: "Real-World Algebra"
+    description: "Research taxi fare formulas for Nanjing, Seoul, and Berlin. Write each as an algebraic expression. Create a graph comparing the cost for journeys from 1 km to 20 km. Which city is cheapest for a 5 km ride? A 15 km ride?"
+
 - name: Probability & Statistics
   emoji: 📊
   num: 5
@@ -986,4 +1047,17 @@ terms:
   - topic: Experimental Probability
     desc: Compare experimental results to theoretical predictions
     status: upcoming
+  extensions:
+  - emoji: "📈"
+    title: "NIS Data Journalist"
+    type: "Data Collection & Analysis"
+    description: "Conduct a survey of at least 30 NIS students on a topic you choose (favourite food, hours of sleep, screen time). Collect data, calculate mean/median/mode, create appropriate charts, and write a short 'news article' presenting your findings."
+  - emoji: "🎲"
+    title: "Is This Game Fair?"
+    type: "Probability Investigation"
+    description: "Design a simple game using dice or coins. Play it 50 times and record results. Calculate the theoretical probability vs. experimental probability. Is the game fair? If not, how would you change it?"
+  - emoji: "🏅"
+    title: "Olympic Medal Predictor"
+    type: "Data Analysis"
+    description: "Research medal counts from the last 3 Olympics for China, South Korea, and Germany. Identify trends. Use your data to predict how many medals each country will win at the next Olympics. Explain your reasoning with graphs."
 ---

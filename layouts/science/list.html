@@ -59,10 +59,16 @@
           <span class="sidebar-icon">📖</span><span data-i18n="sidebar.glossary">Glossary</span>
         </button>
         {{ end }}
+        {{ if .extensions }}
+        <button class="sidebar-item" onclick="showSection(this, 'extensions-t{{ .num }}')">
+          <span class="sidebar-icon">🚀</span><span>Extensions</span>
+        </button>
+        {{ end }}
         {{ if .tools }}
         <button class="sidebar-item" onclick="showSection(this, 'explore-t{{ .num }}')">
           <span class="sidebar-icon">🧪</span><span data-i18n="sidebar.explore">Explore</span>
         </button>
+        {{ end }}
         {{ end }}
         {{ if .quiz }}
         <button class="sidebar-item" onclick="showSection(this, 'quiz-t{{ .num }}')">
@@ -230,6 +236,26 @@
             </div>
           </div>
           {{ end }}
+        </div>
+        {{ end }}
+
+        {{/* Extensions — Inspiring Activities */}}
+        {{ if .extensions }}
+        <div class="dash-content-section" id="extensions-t{{ .num }}">
+          <h2 class="content-heading">🚀 Extension Activities</h2>
+          <p class="explore-intro">Go beyond the textbook. Choose an activity that interests you and challenge yourself.</p>
+          <div class="explore-grid">
+            {{ range .extensions }}
+            <div class="explore-card">
+              <div class="explore-card-head">
+                <span class="explore-emoji">{{ .emoji }}</span>
+                <div><h4 class="explore-name">{{ .title }}</h4><span class="explore-source">{{ .type }}</span></div>
+              </div>
+              <p class="explore-task">{{ .description }}</p>
+              {{ with .url }}<a href="{{ . }}" target="_blank" class="explore-btn">↗ Open Resource</a>{{ end }}
+            </div>
+            {{ end }}
+          </div>
         </div>
         {{ end }}
 

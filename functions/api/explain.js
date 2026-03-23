@@ -64,7 +64,7 @@ RULES:
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20241022",
+        model: "claude-haiku-4-5-20251001",
         max_tokens: 1000,
         system: systemPrompt,
         messages: [{ role: "user", content: `Explain this to me: ${concept.trim()}` }],
@@ -73,8 +73,8 @@ RULES:
 
     const data = await response.json();
 
-    if (data.error) {
-      console.error("Anthropic error:", data.error);
+    if (!response.ok || data.error) {
+      console.error("Anthropic error:", JSON.stringify(data.error || data));
       return new Response(JSON.stringify({ error: "The explain service is temporarily busy. Try again in a moment." }), {
         status: 500, headers: corsHeaders,
       });

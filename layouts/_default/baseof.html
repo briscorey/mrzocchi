@@ -37,7 +37,8 @@
   <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/images/logo.svg">
 
-  {{/* ── Styles ── */}}
+  {{/* ── Styles (preload for faster render) ── */}}
+  <link rel="preload" href="/css/main.css" as="style">
   <link rel="stylesheet" href="/css/main.css">
 
   {{/* ── Theme (load early to prevent flash) ── */}}
@@ -94,6 +95,6 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
-  <script src="/js/i18n.js"></script>
+  <script src="/js/i18n.js" defer></script>
 </body>
 </html>

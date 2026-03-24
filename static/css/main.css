@@ -4367,3 +4367,47 @@ img, svg { transition: filter 0.3s ease; }
 /* Tighten homepage layout — don't vertically center, push content up */
 .home-fullpage { justify-content: flex-start !important; padding-top: 32px !important; }
 @media (max-width: 640px) { .home-fullpage { padding-top: 16px !important; } }
+
+/* ════════════════════════════════════
+   FULL-WIDTH LAYOUT UPGRADE
+   Widen every page to use available screen space
+   ════════════════════════════════════ */
+
+/* Homepage — wider hero, grid, pedagogy, tools */
+.home-hero { max-width: 900px; }
+.home-grid { max-width: 1400px; }
+.home-pedagogy { max-width: 1400px; }
+.home-tools { max-width: 1400px; }
+
+/* Subject pages — wider content area */
+.dash-hero-content { max-width: 1400px; }
+.dash-main { max-width: none; }
+
+/* About page */
+.abt-hero-content { max-width: 1100px; }
+.abt-body, .abt-section { max-width: 1100px; }
+
+/* Parents page */
+.parent-hero-content { max-width: 1100px; }
+.parent-body { max-width: 1100px; }
+
+/* Revise page */
+.rev-hero-content { max-width: 900px; }
+.rev-body { max-width: 1100px; }
+
+/* Resource rows — let them breathe */
+.resource-list { max-width: none; }
+
+/* Explore/extension card grids — use more columns on wide screens */
+@media (min-width: 1200px) {
+  .explore-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Quiz grid — wider */
+.quiz-grid { max-width: none; }
+
+/* Term strip — wider */
+.term-strip-inner { max-width: 1400px; }
+
+/* Widen the general page content container */
+.page-content { max-width: 1100px; }

@@ -323,15 +323,19 @@ async function askExplain(){
   document.getElementById('emptyState').style.display='none';
 
   try {
+    var controller=new AbortController();
+    var fetchTimeout=setTimeout(function(){controller.abort();},30000);
     var res=await fetch('/api/explain',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({concept:concept,grade:selectedGrade,subject:selectedSubject}),
+      signal:controller.signal,
     });
+    clearTimeout(fetchTimeout);
     var data=await res.json();
 
     if(data.error){
-      document.getElementById('errorMsg').textContent=data.error;
+      document.getElementById('errorMsg').innerHTML=data.error+' <button onclick="askExplain()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Retry</button>';
       document.getElementById('errorMsg').className='error-msg show';
     } else {
       setUsage(usage.count+1);
@@ -393,7 +397,8 @@ async function askExplain(){
       input.dispatchEvent(new Event('input'));
     }
   } catch(err){
-    document.getElementById('errorMsg').textContent='Could not connect. Check your internet and try again.';
+    var emsg=err.name==='AbortError'?'Request timed out (30s). The AI might be busy.':'Could not connect. Check your internet.';
+    document.getElementById('errorMsg').innerHTML=emsg+' <button onclick="askExplain()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Retry</button>';
     document.getElementById('errorMsg').className='error-msg show';
   }
   document.getElementById('loading').className='loading';

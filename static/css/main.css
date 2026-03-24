@@ -348,3 +348,18 @@
 
 [data-theme="dark"] .game-embed-header{background:linear-gradient(135deg,var(--gray-100),var(--gray-50))}
 [data-theme="dark"] .quiz-card::before{background:var(--gray-100);border-color:var(--gray-200)}
+
+
+/* ═══ MOBILE LAYOUT FIXES ═══ */
+@media(max-width:768px){
+  .dash-page{overflow-x:hidden}
+  .dash-layout{overflow:visible!important}
+  .dash-sidebar{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+  .dash-main{overflow-x:hidden}
+  .content-heading{display:flex;align-items:center;gap:8px;font-size:1.1rem}
+  .explore-grid,.ext-grid,.toolkit-grid,.video-grid{grid-template-columns:1fr}
+  .quiz-card::before{position:static;display:block;text-align:right;font-size:.62rem;padding:8px 14px 0;margin-bottom:-6px}
+  .quiz-q{padding-right:14px}
+  .explore-intro,.glossary-intro,.quiz-intro{font-size:.85rem;margin-bottom:14px}
+  .games-list{gap:10px}
+}

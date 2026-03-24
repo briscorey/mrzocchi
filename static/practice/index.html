@@ -1,442 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Practice Builder | Mr Zocchi</title>
-<link rel="icon" href="/images/logo.svg" type="image/svg+xml">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--navy:#1B2A4A;--teal:#2A9D8F;--teal-dark:#1A7A6F;--gold:#E9C46A;--red:#C8372D;--green:#10B981;--cream:#FAF8F5;--white:#FFF;--gray-50:#F9F8F6;--gray-100:#F3F1EE;--gray-200:#E5E2DC;--gray-300:#D1CEC7;--gray-400:#9B9690;--gray-600:#6B6660;--gray-800:#3D3A36;--font-display:'Fraunces',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif}
-[data-theme="dark"]{--cream:#0B0D14;--white:#141722;--gray-50:#1A1D28;--gray-100:#1E2130;--gray-200:#282C3A;--gray-300:#353A4C;--gray-400:#6B7084;--gray-600:#9B9EB0;--gray-800:#E2E4EE;--navy:#E2E4EE}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font-body);background:var(--cream);color:var(--gray-800);min-height:100vh;display:flex;flex-direction:column}
-.header{background:#1B2A4A;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-[data-theme="dark"] .header{background:#080A10}
-.header img{width:32px;height:32px;border-radius:8px}
-.header a{color:#fff;text-decoration:none;font-family:var(--font-display);font-weight:600;font-size:1rem}
-.header a span{color:var(--gold)}
-.header-right{margin-left:auto;display:flex;gap:12px;align-items:center}
-.header-back{color:rgba(255,255,255,0.4);font-size:0.8rem;text-decoration:none}.header-back:hover{color:#fff}
-.theme-toggle{background:none;border:none;font-size:1.1rem;cursor:pointer}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Practice Builder | Mr Zocchi</title>
+  <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#1B2A4A;--teal:#2A9D8F;--teal-dark:#1A7A6F;--gold:#E9C46A;--red:#C8372D;--green:#10B981;--cream:#FAF8F5;--white:#FFF;--gray-50:#F9F8F6;--gray-100:#F3F1EE;--gray-200:#E5E2DC;--gray-300:#D1CEC7;--gray-400:#9B9690;--gray-600:#6B6660;--gray-800:#3D3A36;--font-display:'Fraunces',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif}
+    [data-theme="dark"]{--cream:#0B0D14;--white:#141722;--gray-50:#1A1D28;--gray-100:#1E2130;--gray-200:#282C3A;--gray-300:#353A4C;--gray-400:#6B7084;--gray-600:#9B9EB0;--gray-800:#E2E4EE;--navy:#E2E4EE}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-body);background:var(--cream);color:var(--gray-800);min-height:100vh;display:flex;flex-direction:column}
+    .header{background:#1B2A4A;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+    [data-theme="dark"] .header{background:#080A10}
+    .header img{width:32px;height:32px;border-radius:8px}
+    .header a{color:#fff;text-decoration:none;font-family:var(--font-display);font-weight:600;font-size:1rem}
+    .header a span{color:var(--gold)}
+    .header-right{margin-left:auto;display:flex;gap:12px;align-items:center}
+    .header-back{color:rgba(255,255,255,0.4);font-size:0.8rem;text-decoration:none}
+    .header-back:hover{color:#fff}
+    .theme-toggle{background:none;border:none;font-size:1.1rem;cursor:pointer}
 
-.app{flex:1;display:flex;flex-direction:column;max-width:1100px;width:100%;margin:0 auto;padding:24px}
+    .app{flex:1;display:flex;flex-direction:column;max-width:1000px;width:100%;margin:0 auto;padding:24px}
 
-/* Setup panel */
-.setup{background:var(--white);border-radius:20px;border:1.5px solid var(--gray-200);padding:28px;margin-bottom:20px}
-.setup-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:4px}
-.setup-title em{font-style:normal;background:linear-gradient(135deg,var(--teal),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.setup-sub{color:var(--gray-400);font-size:0.88rem;margin-bottom:20px;line-height:1.5}
+    /* Setup form */
+    .setup{animation:fadeIn 0.4s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .setup-title{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:4px}
+    .setup-title em{font-style:normal;background:linear-gradient(135deg,var(--teal),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .setup-sub{color:var(--gray-400);font-size:0.88rem;margin-bottom:24px;line-height:1.5}
 
-.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
-.form-group{display:flex;flex-direction:column;gap:4px}
-.form-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400)}
-.form-select{padding:9px 12px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-family:var(--font-body);font-size:0.85rem;color:var(--gray-800);outline:none;cursor:pointer;transition:border-color 0.2s}
-.form-select:focus{border-color:var(--teal)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+    .form-group{display:flex;flex-direction:column;gap:5px}
+    .form-group.full{grid-column:1/-1}
+    .form-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400)}
+    .form-select,.form-input,.form-textarea{padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--white);font-family:var(--font-body);font-size:0.88rem;color:var(--gray-800);outline:none;transition:border-color 0.2s}
+    .form-select:focus,.form-input:focus,.form-textarea:focus{border-color:var(--teal)}
+    .form-textarea{resize:vertical;min-height:60px}
+    select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239B9690' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 
-.profile-section{margin-bottom:16px}
-.profile-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.profile-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.ptag{padding:6px 14px;border-radius:100px;border:1px solid var(--gray-200);background:var(--white);color:var(--gray-600);font-size:0.78rem;cursor:pointer;transition:all 0.15s;font-family:var(--font-body)}
-.ptag:hover{border-color:var(--teal);color:var(--teal)}
-.ptag.selected{background:var(--teal);border-color:var(--teal);color:#fff}
+    .pill-row{display:flex;gap:4px;flex-wrap:wrap}
+    .diff-pill{padding:6px 16px;border-radius:8px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.15s}
+    .diff-pill:hover{border-color:var(--gray-300)}
+    .diff-pill.active{background:var(--teal);border-color:var(--teal);color:#fff}
 
-.profile-custom{display:flex;gap:8px;align-items:center}
-.profile-input{flex:1;padding:9px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-family:var(--font-body);font-size:0.85rem;color:var(--gray-800);outline:none;transition:border-color 0.2s}
-.profile-input:focus{border-color:var(--teal)}
-.add-btn{padding:9px 16px;border-radius:10px;border:1.5px solid var(--teal);background:transparent;color:var(--teal);font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.2s;font-family:var(--font-body)}
-.add-btn:hover{background:var(--teal);color:#fff}
+    .about-you{background:var(--white);border:1.5px solid var(--gray-200);border-radius:16px;padding:20px;margin-bottom:20px}
+    .about-you-title{font-family:var(--font-display);font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+    .about-you-sub{font-size:0.78rem;color:var(--gray-400);margin-bottom:14px}
+    .tag-input-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:8px;border:1.5px solid var(--gray-200);border-radius:10px;min-height:42px;cursor:text;background:var(--gray-50);transition:border-color 0.2s}
+    .tag-input-wrap:focus-within{border-color:var(--teal);background:var(--white)}
+    .tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;background:linear-gradient(135deg,rgba(42,157,143,0.1),rgba(42,157,143,0.05));border:1px solid rgba(42,157,143,0.15);font-size:0.78rem;font-weight:600;color:var(--teal)}
+    .tag-x{cursor:pointer;opacity:0.5;font-size:0.9em}
+    .tag-x:hover{opacity:1}
+    .tag-field{border:none;outline:none;background:transparent;font-family:var(--font-body);font-size:0.85rem;color:var(--gray-800);min-width:80px;flex:1}
+    .tag-field::placeholder{color:var(--gray-300)}
+    .quick-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+    .qt{padding:3px 10px;border-radius:100px;border:1px solid var(--gray-200);background:transparent;color:var(--gray-400);font-size:0.7rem;cursor:pointer;transition:all 0.15s}
+    .qt:hover{border-color:var(--teal);color:var(--teal)}
 
-.profile-preview{background:var(--gray-50);border-radius:12px;padding:12px 16px;font-size:0.82rem;color:var(--gray-600);line-height:1.5;margin-top:8px;min-height:40px;border:1px solid var(--gray-100)}
-.profile-preview em{color:var(--teal);font-style:normal;font-weight:600}
+    .gen-btn{width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-family:var(--font-body);font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 12px rgba(42,157,143,0.25);display:flex;align-items:center;justify-content:center;gap:8px}
+    .gen-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 24px rgba(42,157,143,0.35)}
+    .gen-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
 
-.generate-btn{width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-family:var(--font-body);font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.25s;box-shadow:0 2px 12px rgba(42,157,143,0.25);display:flex;align-items:center;justify-content:center;gap:8px}
-.generate-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 24px rgba(42,157,143,0.35)}
-.generate-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+    /* Loading */
+    .loading{display:none;text-align:center;padding:60px 24px}
+    .loading.show{display:block}
+    .ld-dots{display:inline-flex;gap:6px}
+    .ld-dots span{width:10px;height:10px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out}
+    .ld-dots span:nth-child(2){animation-delay:0.16s}
+    .ld-dots span:nth-child(3){animation-delay:0.32s}
+    @keyframes ldB{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
+    .ld-text{margin-top:14px;color:var(--gray-400);font-size:0.85rem}
 
-/* Loading */
-.loading{display:none;text-align:center;padding:50px}
-.loading.show{display:block}
-.loading-dots{display:inline-flex;gap:6px}
-.loading-dots span{width:10px;height:10px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out}
-.loading-dots span:nth-child(2){animation-delay:0.16s}
-.loading-dots span:nth-child(3){animation-delay:0.32s}
-@keyframes ldB{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
-.loading-text{margin-top:12px;color:var(--gray-400);font-size:0.85rem}
-.error-msg{display:none;padding:10px 16px;background:rgba(200,55,45,0.06);border:1px solid rgba(200,55,45,0.12);border-radius:10px;color:var(--red);font-size:0.82rem;margin-bottom:12px}
-.error-msg.show{display:block}
+    .error-msg{display:none;padding:10px 16px;background:rgba(200,55,45,0.06);border:1px solid rgba(200,55,45,0.12);border-radius:10px;color:var(--red);font-size:0.82rem;margin-bottom:12px}
+    .error-msg.show{display:block}
 
-/* Quiz area */
-.quiz{display:none}
-.quiz.show{display:block}
-.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-.quiz-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--navy)}
-.quiz-progress{font-size:0.8rem;color:var(--gray-400);display:flex;align-items:center;gap:8px}
-.progress-bar{width:200px;height:6px;background:var(--gray-200);border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;background:var(--teal);border-radius:3px;transition:width 0.3s}
-.quiz-score{font-size:0.82rem;font-weight:700;color:var(--teal)}
+    /* Worksheet result */
+    .worksheet{display:none;animation:fadeIn 0.5s ease}
+    .worksheet.show{display:block}
+    .ws-head{background:linear-gradient(135deg,#1B2A4A,#243B5E);border-radius:16px 16px 0 0;padding:24px;color:#fff}
+    .ws-title{font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:4px}
+    .ws-intro{font-size:0.85rem;opacity:0.7;line-height:1.5}
+    .ws-body{background:var(--white);border:1.5px solid var(--gray-200);border-top:none;border-radius:0 0 16px 16px;padding:4px 0}
+    .q-card{padding:20px 24px;border-bottom:1px solid var(--gray-100)}
+    .q-card:last-child{border-bottom:none}
+    .q-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-size:0.75rem;font-weight:800;margin-right:10px;flex-shrink:0}
+    .q-num-mcq{background:rgba(42,157,143,0.1);color:var(--teal)}
+    .q-num-short{background:rgba(233,196,106,0.15);color:#B8941E}
+    .q-num-calculation{background:rgba(59,130,246,0.1);color:#3B82F6}
+    .q-num-extended{background:rgba(168,85,247,0.1);color:#A855F7}
+    .q-top{display:flex;align-items:flex-start;margin-bottom:10px}
+    .q-text{font-size:0.9rem;line-height:1.6;flex:1}
+    .q-type{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);margin-left:8px;white-space:nowrap}
 
-.q-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:16px;padding:24px;margin-bottom:14px;transition:border-color 0.3s}
-.q-card.correct{border-color:var(--green)}
-.q-card.incorrect{border-color:var(--red)}
-.q-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,rgba(42,157,143,0.12),rgba(42,157,143,0.04));color:var(--teal);font-size:0.75rem;font-weight:800;margin-bottom:8px}
-.q-diff{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-left:8px}
-.q-diff.easy{background:rgba(16,185,129,0.1);color:var(--green)}
-.q-diff.medium{background:rgba(233,196,106,0.15);color:#B8860B}
-.q-diff.hard{background:rgba(200,55,45,0.1);color:var(--red)}
-.q-text{font-size:0.95rem;font-weight:600;color:var(--navy);margin-bottom:12px;line-height:1.5}
-.q-connection{font-size:0.75rem;color:var(--teal);margin-bottom:10px;font-style:italic}
+    /* MCQ options */
+    .q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+    .q-opt{padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-size:0.85rem;cursor:pointer;transition:all 0.2s;text-align:left}
+    .q-opt:hover{border-color:var(--gray-300);background:var(--white)}
+    .q-opt.selected{border-color:var(--teal);background:rgba(42,157,143,0.06);font-weight:600}
+    .q-opt.correct{border-color:var(--green);background:rgba(16,185,129,0.08);color:var(--green)}
+    .q-opt.wrong{border-color:var(--red);background:rgba(200,55,45,0.06);color:var(--red);opacity:0.6}
 
-.q-options{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
-.q-opt{padding:10px 16px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--white);cursor:pointer;font-size:0.88rem;transition:all 0.2s;display:flex;align-items:center;gap:10px}
-.q-opt:hover:not(.disabled){border-color:var(--teal);background:rgba(42,157,143,0.03)}
-.q-opt.selected{border-color:var(--teal);background:rgba(42,157,143,0.06);font-weight:600}
-.q-opt.correct-answer{border-color:var(--green);background:rgba(16,185,129,0.08)}
-.q-opt.wrong-answer{border-color:var(--red);background:rgba(200,55,45,0.06)}
-.q-opt.disabled{cursor:default;opacity:0.8}
-.q-opt-letter{width:24px;height:24px;border-radius:6px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:var(--gray-400);flex-shrink:0}
-.q-opt.selected .q-opt-letter{background:var(--teal);color:#fff}
-.q-opt.correct-answer .q-opt-letter{background:var(--green);color:#fff}
-.q-opt.wrong-answer .q-opt-letter{background:var(--red);color:#fff}
+    /* Short answer */
+    .q-answer{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-family:var(--font-body);font-size:0.88rem;color:var(--gray-800);outline:none;transition:border-color 0.2s}
+    .q-answer:focus{border-color:var(--teal);background:var(--white)}
 
-/* Short answer / calc */
-.q-input{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);font-family:var(--font-body);font-size:0.9rem;outline:none;margin-bottom:8px;background:var(--gray-50);color:var(--gray-800)}
-.q-input:focus{border-color:var(--teal)}
-.q-check-btn{padding:8px 20px;border-radius:10px;border:none;background:var(--teal);color:#fff;font-weight:700;font-size:0.82rem;cursor:pointer;transition:all 0.2s;font-family:var(--font-body)}
-.q-check-btn:hover{background:var(--teal-dark)}
-.q-check-btn:disabled{opacity:0.4;cursor:not-allowed}
+    /* Feedback */
+    .q-feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:0.82rem;line-height:1.5}
+    .q-feedback.show{display:block}
+    .q-feedback.correct{background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#065F46}
+    .q-feedback.wrong{background:rgba(200,55,45,0.06);border:1px solid rgba(200,55,45,0.12);color:#991B1B}
+    [data-theme="dark"] .q-feedback.correct{color:#6EE7B7}
+    [data-theme="dark"] .q-feedback.wrong{color:#FCA5A5}
 
-.q-feedback{display:none;margin-top:10px;padding:12px 16px;border-radius:10px;font-size:0.85rem;line-height:1.5}
-.q-feedback.show{display:block}
-.q-feedback.correct{background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#065F46}
-.q-feedback.incorrect{background:rgba(200,55,45,0.06);border:1px solid rgba(200,55,45,0.12);color:#991B1B}
-[data-theme="dark"] .q-feedback.correct{color:#6EE7B7}
-[data-theme="dark"] .q-feedback.incorrect{color:#FCA5A5}
+    .ws-actions{display:flex;gap:10px;padding:20px 24px;flex-wrap:wrap}
+    .ws-btn{padding:10px 20px;border-radius:10px;font-family:var(--font-body);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-800)}
+    .ws-btn:hover{border-color:var(--teal);color:var(--teal)}
+    .ws-btn-primary{background:var(--teal);border-color:var(--teal);color:#fff}
+    .ws-btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+    .ws-score{display:none;padding:16px 24px;background:var(--gray-50);border-radius:12px;text-align:center;margin:16px 24px;font-family:var(--font-display)}
+    .ws-score.show{display:block}
+    .ws-score-num{font-size:2rem;font-weight:800;color:var(--teal)}
+    .ws-score-label{font-size:0.8rem;color:var(--gray-400)}
 
-/* Results */
-.results-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:16px;padding:28px;text-align:center;margin-top:20px}
-.results-score{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--teal);margin-bottom:4px}
-.results-msg{font-size:1rem;color:var(--gray-600);margin-bottom:16px}
-.results-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.results-btn{padding:10px 24px;border-radius:12px;font-family:var(--font-body);font-weight:700;font-size:0.88rem;cursor:pointer;transition:all 0.2s;text-decoration:none}
-.results-btn-primary{border:none;background:var(--teal);color:#fff}
-.results-btn-secondary{border:1.5px solid var(--gray-200);background:transparent;color:var(--gray-600)}
-.results-btn:hover{transform:translateY(-1px)}
+    .back-btn{margin-top:16px;padding:10px 20px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);font-size:0.85rem;cursor:pointer;font-weight:600;transition:all 0.2s}
+    .back-btn:hover{border-color:var(--teal);color:var(--teal)}
 
-@media(max-width:768px){
-  .form-row{grid-template-columns:1fr}
-  .app{padding:16px}
-  .setup{padding:20px}
-  .setup-title{font-size:1.2rem}
-  .progress-bar{width:120px}
-}
-</style>
+    @media(max-width:640px){
+      .form-grid{grid-template-columns:1fr}
+      .q-options{grid-template-columns:1fr}
+      .app{padding:16px}
+    }
+  </style>
 </head>
 <body>
-<div class="header">
-  <a href="/"><img src="/images/logo.svg" alt=""></a>
-  <a href="/">Mr <span>Zocchi</span></a>
-  <div class="header-right">
-    <a href="/" class="header-back">&larr; Home</a>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  <div class="header">
+    <a href="/"><img src="/images/logo.svg" alt=""></a>
+    <a href="/">Mr <span>Zocchi</span></a>
+    <div class="header-right">
+      <a href="/" class="header-back">&larr; Home</a>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
   </div>
-</div>
 
-<div class="app">
-  <!-- SETUP PANEL -->
-  <div class="setup" id="setupPanel">
-    <div class="setup-title">🎯 <em>Practice Builder</em></div>
-    <p class="setup-sub">Tell us about yourself and what you want to study. We'll create a personalised practice quiz with questions connected to YOUR life.</p>
+  <div class="app">
+    <!-- Setup form -->
+    <div class="setup" id="setupPanel">
+      <h1 class="setup-title">🎯 <em>Practice Builder</em></h1>
+      <p class="setup-sub">Choose your topic and tell us about yourself. We'll create a personalised practice worksheet with questions themed around YOUR interests and culture.</p>
 
-    <div class="form-row">
-      <div class="form-group">
-        <span class="form-label">Grade</span>
-        <select class="form-select" id="grade"><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option></select>
+      <div class="form-grid">
+        <div class="form-group">
+          <span class="form-label">Grade</span>
+          <select class="form-select" id="pGrade">
+            <option value="6">Grade 6</option>
+            <option value="7">Grade 7</option>
+            <option value="8">Grade 8</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <span class="form-label">Subject</span>
+          <select class="form-select" id="pSubject">
+            <option value="science">🔬 Science</option>
+            <option value="maths">📐 Mathematics</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <span class="form-label">Topic</span>
+          <select class="form-select" id="pTopic">
+            <option value="">Choose a topic...</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <span class="form-label">Difficulty</span>
+          <div class="pill-row">
+            <button class="diff-pill" data-d="easy" onclick="setDiff(this)">🟢 Easy — I'm just starting</button>
+            <button class="diff-pill active" data-d="medium" onclick="setDiff(this)">🟡 Medium — I know the basics</button>
+            <button class="diff-pill" data-d="hard" onclick="setDiff(this)">🔴 Hard — Challenge me</button>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <span class="form-label">Subject</span>
-        <select class="form-select" id="subject"><option value="science">🔬 Science</option><option value="maths">📐 Maths</option></select>
-      </div>
-      <div class="form-group">
-        <span class="form-label">Topic</span>
-        <select class="form-select" id="topic"></select>
-      </div>
-    </div>
 
-    <div class="profile-section">
-      <div class="profile-label">🌍 Your Heritage <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.75rem;color:var(--gray-300)">— where are you or your family from?</span></div>
-      <div class="profile-tags" id="heritageTags">
-        <button class="ptag" onclick="toggleTag(this)">🇨🇳 Chinese</button>
-        <button class="ptag" onclick="toggleTag(this)">🇰🇷 Korean</button>
-        <button class="ptag" onclick="toggleTag(this)">🇩🇪 German</button>
-        <button class="ptag" onclick="toggleTag(this)">🇯🇵 Japanese</button>
-        <button class="ptag" onclick="toggleTag(this)">🇺🇸 American</button>
-        <button class="ptag" onclick="toggleTag(this)">🇦🇺 Australian</button>
-        <button class="ptag" onclick="toggleTag(this)">🇮🇳 Indian</button>
-        <button class="ptag" onclick="toggleTag(this)">🇬🇧 British</button>
+      <div class="about-you">
+        <div class="about-you-title">🌍 About You <span style="font-size:0.7rem;color:var(--gray-400);font-weight:400">(optional but makes it way better)</span></div>
+        <p class="about-you-sub">The more you share, the more personalised your practice will be. Questions will use YOUR interests as context.</p>
+
+        <div class="form-grid" style="margin-bottom:0">
+          <div class="form-group">
+            <span class="form-label">Your Heritage / Culture</span>
+            <div class="tag-input-wrap" id="heritageWrap">
+              <input class="tag-field" id="heritageInput" placeholder="e.g. Korean, Chinese, German...">
+            </div>
+            <div class="quick-tags">
+              <button class="qt" onclick="addTag('heritage','🇨🇳 Chinese')">🇨🇳 Chinese</button>
+              <button class="qt" onclick="addTag('heritage','🇰🇷 Korean')">🇰🇷 Korean</button>
+              <button class="qt" onclick="addTag('heritage','🇩🇪 German')">🇩🇪 German</button>
+              <button class="qt" onclick="addTag('heritage','🇯🇵 Japanese')">🇯🇵 Japanese</button>
+              <button class="qt" onclick="addTag('heritage','🇦🇺 Australian')">🇦🇺 Australian</button>
+              <button class="qt" onclick="addTag('heritage','🇺🇸 American')">🇺🇸 American</button>
+              <button class="qt" onclick="addTag('heritage','🇮🇳 Indian')">🇮🇳 Indian</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="form-label">Interests & Hobbies</span>
+            <div class="tag-input-wrap" id="interestsWrap">
+              <input class="tag-field" id="interestsInput" placeholder="e.g. basketball, K-pop, cooking...">
+            </div>
+            <div class="quick-tags">
+              <button class="qt" onclick="addTag('interests','⚽ Football')">⚽ Football</button>
+              <button class="qt" onclick="addTag('interests','🏀 Basketball')">🏀 Basketball</button>
+              <button class="qt" onclick="addTag('interests','🎮 Gaming')">🎮 Gaming</button>
+              <button class="qt" onclick="addTag('interests','🎵 K-pop')">🎵 K-pop</button>
+              <button class="qt" onclick="addTag('interests','🍳 Cooking')">🍳 Cooking</button>
+              <button class="qt" onclick="addTag('interests','🎨 Art')">🎨 Art</button>
+              <button class="qt" onclick="addTag('interests','📱 Tech')">📱 Tech</button>
+              <button class="qt" onclick="addTag('interests','🐾 Animals')">🐾 Animals</button>
+              <button class="qt" onclick="addTag('interests','✈️ Travel')">✈️ Travel</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="profile-section">
-      <div class="profile-label">⚽ Your Interests <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.75rem;color:var(--gray-300)">— pick all that apply or add your own</span></div>
-      <div class="profile-tags" id="interestTags">
-        <button class="ptag" onclick="toggleTag(this)">⚽ Football</button>
-        <button class="ptag" onclick="toggleTag(this)">🏀 Basketball</button>
-        <button class="ptag" onclick="toggleTag(this)">🎮 Gaming</button>
-        <button class="ptag" onclick="toggleTag(this)">🎵 Music</button>
-        <button class="ptag" onclick="toggleTag(this)">📱 Technology</button>
-        <button class="ptag" onclick="toggleTag(this)">🍳 Cooking</button>
-        <button class="ptag" onclick="toggleTag(this)">🎨 Art & Drawing</button>
-        <button class="ptag" onclick="toggleTag(this)">📚 Reading</button>
-        <button class="ptag" onclick="toggleTag(this)">🐾 Animals</button>
-        <button class="ptag" onclick="toggleTag(this)">✈️ Travel</button>
-        <button class="ptag" onclick="toggleTag(this)">🏊 Swimming</button>
-        <button class="ptag" onclick="toggleTag(this)">🎬 K-Drama / Anime</button>
-      </div>
-      <div class="profile-custom">
-        <input class="profile-input" id="customInterest" placeholder="Add something else (e.g. 'K-pop', 'chess', 'baking')">
-        <button class="add-btn" onclick="addCustom()">+ Add</button>
-      </div>
-    </div>
-
-    <div class="profile-section">
-      <div class="profile-label">📝 Your Name <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.75rem;color:var(--gray-300)">— optional, makes it more personal</span></div>
-      <input class="profile-input" id="studentName" placeholder="e.g. Min-jun, Lina, Felix" style="max-width:300px">
-    </div>
-
-    <div class="profile-preview" id="profilePreview">Select your heritage and interests above to preview your profile.</div>
-
-    <div style="margin-top:16px">
       <div class="error-msg" id="errorMsg"></div>
-      <button class="generate-btn" id="genBtn" onclick="generate()">🎯 Generate My Practice</button>
+      <button class="gen-btn" id="genBtn" onclick="generate()">⚡ Generate My Practice</button>
     </div>
-  </div>
 
-  <!-- LOADING -->
-  <div class="loading" id="loading">
-    <div class="loading-dots"><span></span><span></span><span></span></div>
-    <p class="loading-text" id="loadingText">Creating your personalised practice...</p>
-  </div>
+    <!-- Loading -->
+    <div class="loading" id="loading">
+      <div class="ld-dots"><span></span><span></span><span></span></div>
+      <p class="ld-text" id="ldText">Creating your personalised practice...</p>
+    </div>
 
-  <!-- QUIZ -->
-  <div class="quiz" id="quizPanel"></div>
-</div>
+    <!-- Worksheet -->
+    <div class="worksheet" id="worksheetPanel"></div>
+  </div>
 
 <script>
 // Topic data
 var topics={
-  'science-6':['Scientific Skills','States of Matter & Particles','Earth Science — Layers & Tectonics','Ecology — Ecosystems & Food Webs','Space — Solar System & Seasons'],
-  'science-7':['Forensic Science','Biology — Cells & Diffusion','Physics — Forces & Pressure','Chemistry — Separation Techniques','Space — Stars & Gravity'],
-  'science-8':['Chemistry — Periodic Table & Atoms','Physics — Energy & Sustainability','Ecology — Populations & Conservation','Colonising Mars'],
-  'maths-6':['Number Sense & BIDMAS','Fractions, Decimals & Percentages','Geometry — Area, Perimeter, Volume','Algebra — Expressions & Equations','Probability & Statistics'],
-  'maths-7':['Ratios & Proportions','Number Systems — Powers & Standard Form','Geometry — Angles & Transformations','Algebra — Expanding & Graphs','Probability — Tree Diagrams & Combined Events'],
-  'maths-8':['Algebra & Equations','Geometry & Pythagoras','Statistics & Probability'],
+  'science-6':['Scientific Skills','States of Matter','Particle Model','Ecosystems','Food Chains','Adaptations','Human Impact','Biodiversity','Earth\'s Layers','Tectonic Plates','Solar System','Moon Phases','Seasons'],
+  'science-7':['Crime Scene Investigation','Fingerprints','Chromatography','Cell Structure','Animal vs Plant Cells','Diffusion','Types of Forces','Speed Calculations','Pressure','Mixtures & Solutions','Filtration','Distillation','Gravity & Weight','Stars & Galaxies'],
+  'science-8':['Atoms & Elements','Periodic Table','Metals & Non-Metals','States of Matter','Energy Types','Energy Transfers','Efficiency','Renewable Energy','Ecosystems','Food Webs','Populations','Conservation','Mars Colonisation'],
+  'maths-6':['Place Value','Rounding','BIDMAS','Negative Numbers','Factors & Primes','Fractions','Decimals & Percentages','Area & Perimeter','Angles','Algebra Expressions','Solving Equations','Probability','Averages'],
+  'maths-7':['Ratios','Proportion','Scale Drawings','Integers','Powers & Roots','Standard Form','HCF & LCM','Angle Facts','Transformations','Expanding Brackets','Solving Equations','Inequalities','Probability','Tree Diagrams'],
+  'maths-8':['Algebra','Equations','Pythagoras','Compound Interest','Inequalities','Simultaneous Equations','Enlargement','Bearings'],
 };
+var tags={heritage:[],interests:[]};
+var difficulty='medium';
 
 function updateTopics(){
-  var key=document.getElementById('subject').value+'-'+document.getElementById('grade').value;
-  var sel=document.getElementById('topic');
-  sel.innerHTML='';
-  (topics[key]||[]).forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sel.appendChild(o);});
+  var g=document.getElementById('pGrade').value;
+  var s=document.getElementById('pSubject').value;
+  var sel=document.getElementById('pTopic');
+  var key=s+'-'+g;
+  var arr=topics[key]||[];
+  sel.innerHTML='<option value="">Choose a topic...</option>';
+  arr.forEach(function(t){sel.innerHTML+='<option value="'+t+'">'+t+'</option>';});
 }
-document.getElementById('grade').addEventListener('change',updateTopics);
-document.getElementById('subject').addEventListener('change',updateTopics);
+document.getElementById('pGrade').onchange=updateTopics;
+document.getElementById('pSubject').onchange=updateTopics;
 updateTopics();
 
-function toggleTag(el){el.classList.toggle('selected');updatePreview();}
-
-function addCustom(){
-  var input=document.getElementById('customInterest');
-  var val=input.value.trim();
-  if(!val)return;
-  var container=document.getElementById('interestTags');
-  var btn=document.createElement('button');
-  btn.className='ptag selected';
-  btn.textContent='✨ '+val;
-  btn.onclick=function(){toggleTag(btn);};
-  container.appendChild(btn);
-  input.value='';
-  updatePreview();
-}
-document.getElementById('customInterest').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();addCustom();}});
-
-function getProfile(){
-  var heritage=[];
-  document.querySelectorAll('#heritageTags .ptag.selected').forEach(function(t){heritage.push(t.textContent.trim());});
-  var interests=[];
-  document.querySelectorAll('#interestTags .ptag.selected').forEach(function(t){interests.push(t.textContent.trim());});
-  var name=document.getElementById('studentName').value.trim();
-  var parts=[];
-  if(name) parts.push('Name: '+name);
-  if(heritage.length) parts.push('Heritage: '+heritage.join(', '));
-  if(interests.length) parts.push('Interests: '+interests.join(', '));
-  return parts.join('. ');
+function setDiff(btn){
+  document.querySelectorAll('.diff-pill').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  difficulty=btn.dataset.d;
 }
 
-function updatePreview(){
-  var p=getProfile();
-  var el=document.getElementById('profilePreview');
-  if(!p){el.textContent='Select your heritage and interests above to preview your profile.';return;}
-  el.innerHTML='Your practice will use contexts from: <em>'+p.replace(/\. /g,'</em> · <em>')+'</em>';
+// Tag system
+function addTag(type,text){
+  if(tags[type].includes(text)) return;
+  tags[type].push(text);
+  renderTags(type);
 }
-document.getElementById('studentName').addEventListener('input',updatePreview);
+function removeTag(type,idx){
+  tags[type].splice(idx,1);
+  renderTags(type);
+}
+function renderTags(type){
+  var wrap=document.getElementById(type+'Wrap');
+  var input=document.getElementById(type+'Input');
+  wrap.querySelectorAll('.tag').forEach(function(t){t.remove();});
+  tags[type].forEach(function(t,i){
+    var el=document.createElement('span');
+    el.className='tag';
+    el.innerHTML=t+' <span class="tag-x" onclick="removeTag(\''+type+'\','+i+')">&times;</span>';
+    wrap.insertBefore(el,input);
+  });
+}
+['heritage','interests'].forEach(function(type){
+  document.getElementById(type+'Input').addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&this.value.trim()){
+      e.preventDefault();
+      addTag(type,this.value.trim());
+      this.value='';
+    }
+  });
+});
+
+// Loading messages
+var ldMsgs=['Creating your personalised practice...','Connecting questions to your interests...','Building interactive exercises...','Almost ready...'];
+var ldI=0;
+setInterval(function(){
+  var el=document.getElementById('ldText');
+  if(el&&document.getElementById('loading').classList.contains('show')){
+    ldI=(ldI+1)%ldMsgs.length;
+    el.textContent=ldMsgs[ldI];
+  }
+},3000);
 
 // Generate
-var questions=[], score=0, answered=0;
-
 async function generate(){
-  var profile=getProfile();
-  if(!profile||profile.length<5){
-    document.getElementById('errorMsg').textContent='Please select at least one heritage or interest so we can personalise your practice.';
-    document.getElementById('errorMsg').className='error-msg show';
-    return;
-  }
+  var topic=document.getElementById('pTopic').value;
+  if(!topic){document.getElementById('errorMsg').textContent='Please choose a topic.';document.getElementById('errorMsg').className='error-msg show';return;}
+
   document.getElementById('errorMsg').className='error-msg';
   document.getElementById('setupPanel').style.display='none';
   document.getElementById('loading').className='loading show';
-  document.getElementById('quizPanel').className='quiz';
-
-  var msgs=['Creating your personalised practice...','Connecting questions to your interests...','Almost ready...','Building interactive quiz...'];
-  var mi=0;
-  var msgInterval=setInterval(function(){mi=(mi+1)%msgs.length;document.getElementById('loadingText').textContent=msgs[mi];},2500);
+  document.getElementById('worksheetPanel').className='worksheet';
 
   try{
     var controller=new AbortController();
-    var timeout=setTimeout(function(){controller.abort();},35000);
+    var tid=setTimeout(function(){controller.abort();},35000);
     var res=await fetch('/api/practice',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        grade:document.getElementById('grade').value,
-        subject:document.getElementById('subject').value,
-        topic:document.getElementById('topic').value,
-        profile:profile,
+        grade:document.getElementById('pGrade').value,
+        subject:document.getElementById('pSubject').value,
+        topic:topic,
+        difficulty:difficulty,
+        heritage:tags.heritage.join(', '),
+        interests:tags.interests.join(', '),
       }),
       signal:controller.signal,
     });
-    clearTimeout(timeout);
+    clearTimeout(tid);
     var data=await res.json();
-    clearInterval(msgInterval);
 
     if(data.error){
-      document.getElementById('errorMsg').innerHTML=data.error+' <button onclick="backToSetup()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">Back</button>';
+      document.getElementById('errorMsg').innerHTML=data.error+' <button onclick="backToSetup()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Try again</button>';
       document.getElementById('errorMsg').className='error-msg show';
-      document.getElementById('loading').className='loading';
       document.getElementById('setupPanel').style.display='block';
-      return;
+    } else {
+      renderWorksheet(data);
     }
-
-    questions=data.questions;score=0;answered=0;
-    renderQuiz();
   }catch(err){
-    clearInterval(msgInterval);
-    var msg=err.name==='AbortError'?'Timed out (35s). Try again.':'Could not connect.';
-    document.getElementById('errorMsg').innerHTML=msg+' <button onclick="backToSetup()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">Back</button>';
+    var emsg=err.name==='AbortError'?'Request timed out. Try again.':'Could not connect.';
+    document.getElementById('errorMsg').innerHTML=emsg+' <button onclick="backToSetup()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Try again</button>';
     document.getElementById('errorMsg').className='error-msg show';
-    document.getElementById('loading').className='loading';
     document.getElementById('setupPanel').style.display='block';
   }
+  document.getElementById('loading').className='loading';
+}
+
+var wsData=null;
+function renderWorksheet(data){
+  wsData=data;
+  var panel=document.getElementById('worksheetPanel');
+  var html='<div class="ws-head"><div class="ws-title">'+esc(data.title||'Practice Worksheet')+'</div><div class="ws-intro">'+esc(data.intro||'')+'</div></div>';
+  html+='<div class="ws-body">';
+  (data.questions||[]).forEach(function(q,i){
+    var numClass='q-num-'+(q.type||'short');
+    html+='<div class="q-card" id="q'+i+'"><div class="q-top"><span class="q-num '+numClass+'">'+(q.num||i+1)+'</span><span class="q-text">'+esc(q.question)+'</span><span class="q-type">'+esc(q.type||'')+'</span></div>';
+    if(q.type==='mcq'&&q.options){
+      html+='<div class="q-options">';
+      q.options.forEach(function(opt,oi){
+        html+='<button class="q-opt" data-q="'+i+'" data-o="'+oi+'" onclick="selectOpt(this,'+i+','+oi+')">'+esc(opt)+'</button>';
+      });
+      html+='</div>';
+    } else {
+      html+='<textarea class="q-answer" id="ans'+i+'" rows="2" placeholder="Type your answer..."></textarea>';
+    }
+    html+='<div class="q-feedback" id="fb'+i+'"></div></div>';
+  });
+  html+='</div>';
+  html+='<div class="ws-score" id="wsScore"><div class="ws-score-num" id="scoreNum"></div><div class="ws-score-label">Questions correct</div></div>';
+  html+='<div class="ws-actions"><button class="ws-btn ws-btn-primary" onclick="checkAll()">✅ Check My Answers</button><button class="ws-btn" onclick="revealAll()">👁 Show All Answers</button><button class="ws-btn" onclick="backToSetup()">⚡ New Practice</button></div>';
+  panel.innerHTML=html;
+  panel.className='worksheet show';
+}
+
+function selectOpt(btn,qi,oi){
+  document.querySelectorAll('[data-q="'+qi+'"]').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+}
+
+function checkAll(){
+  if(!wsData) return;
+  var correct=0, total=wsData.questions.length;
+  wsData.questions.forEach(function(q,i){
+    var fb=document.getElementById('fb'+i);
+    if(q.type==='mcq'){
+      var sel=document.querySelector('[data-q="'+i+'"].selected');
+      var selText=sel?sel.textContent:'';
+      var isCorrect=selText===q.answer;
+      document.querySelectorAll('[data-q="'+i+'"]').forEach(function(b){
+        if(b.textContent===q.answer) b.classList.add('correct');
+        else if(b.classList.contains('selected')) b.classList.add('wrong');
+      });
+      if(isCorrect) correct++;
+      fb.className='q-feedback show '+(isCorrect?'correct':'wrong');
+      fb.textContent=isCorrect?'✅ Correct! '+q.explanation:'❌ The answer is: '+q.answer+'. '+q.explanation;
+    } else {
+      fb.className='q-feedback show correct';
+      fb.textContent='📝 Model answer: '+(q.answer||'')+(q.working?' | Working: '+q.working:'')+(q.explanation?' — '+q.explanation:'');
+    }
+  });
+  var scoreEl=document.getElementById('wsScore');
+  document.getElementById('scoreNum').textContent=correct+'/'+total;
+  scoreEl.className='ws-score show';
+}
+
+function revealAll(){
+  if(!wsData) return;
+  wsData.questions.forEach(function(q,i){
+    var fb=document.getElementById('fb'+i);
+    fb.className='q-feedback show correct';
+    fb.textContent='Answer: '+(q.answer||'')+(q.working?' | Working: '+q.working:'')+(q.explanation?' — '+q.explanation:'');
+    if(q.type==='mcq'){
+      document.querySelectorAll('[data-q="'+i+'"]').forEach(function(b){
+        if(b.textContent===q.answer) b.classList.add('correct');
+      });
+    }
+  });
 }
 
 function backToSetup(){
   document.getElementById('setupPanel').style.display='block';
-  document.getElementById('quizPanel').className='quiz';
+  document.getElementById('worksheetPanel').className='worksheet';
   document.getElementById('loading').className='loading';
+  document.getElementById('errorMsg').className='error-msg';
+  window.scrollTo(0,0);
 }
 
-function renderQuiz(){
-  document.getElementById('loading').className='loading';
-  var topic=document.getElementById('topic').value;
-  var html='<div class="quiz-header"><div class="quiz-title">📝 '+topic+'</div><div class="quiz-progress"><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div><span id="progressText">0/'+questions.length+'</span><span class="quiz-score" id="scoreText"></span></div></div>';
-
-  questions.forEach(function(q,i){
-    var diff=i<3?'easy':i<6?'medium':'hard';
-    var diffLabel=i<3?'Easy':i<6?'Medium':'Hard';
-    html+='<div class="q-card" id="qcard-'+i+'"><span class="q-num">'+q.num+'</span><span class="q-diff '+diff+'">'+diffLabel+'</span>';
-    html+='<div class="q-text">'+q.question+'</div>';
-    if(q.connection) html+='<div class="q-connection">🔗 '+q.connection+'</div>';
-
-    if(q.type==='mcq'&&q.options){
-      html+='<div class="q-options" id="opts-'+i+'">';
-      var letters=['A','B','C','D'];
-      q.options.forEach(function(opt,j){
-        html+='<div class="q-opt" onclick="selectOpt('+i+','+j+')" id="opt-'+i+'-'+j+'"><span class="q-opt-letter">'+letters[j]+'</span>'+opt+'</div>';
-      });
-      html+='</div>';
-    } else {
-      html+='<input class="q-input" id="input-'+i+'" placeholder="Type your answer...">';
-      html+='<button class="q-check-btn" id="checkbtn-'+i+'" onclick="checkOpen('+i+')">Check Answer</button>';
-    }
-    html+='<div class="q-feedback" id="fb-'+i+'"></div>';
-    html+='</div>';
-  });
-
-  document.getElementById('quizPanel').innerHTML=html;
-  document.getElementById('quizPanel').className='quiz show';
-}
-
-function selectOpt(qi,oi){
-  var q=questions[qi];
-  if(q._answered) return;
-  q._answered=true;
-  answered++;
-
-  var opts=document.querySelectorAll('#opts-'+qi+' .q-opt');
-  opts.forEach(function(o){o.classList.add('disabled');});
-
-  var letters=['A','B','C','D'];
-  var selected=letters[oi];
-  var correctIdx=letters.indexOf(q.answer);
-  var isCorrect=selected===q.answer;
-
-  document.getElementById('opt-'+qi+'-'+oi).classList.add(isCorrect?'correct-answer':'wrong-answer');
-  document.getElementById('opt-'+qi+'-'+oi).classList.add('selected');
-  if(!isCorrect&&correctIdx>=0) document.getElementById('opt-'+qi+'-'+correctIdx).classList.add('correct-answer');
-
-  if(isCorrect) score++;
-  document.getElementById('qcard-'+qi).classList.add(isCorrect?'correct':'incorrect');
-
-  var fb=document.getElementById('fb-'+qi);
-  fb.className='q-feedback show '+(isCorrect?'correct':'incorrect');
-  fb.textContent=(isCorrect?'✅ Correct! ':'❌ Incorrect. ')+q.explanation;
-
-  updateProgress();
-}
-
-function checkOpen(qi){
-  var q=questions[qi];
-  if(q._answered) return;
-  q._answered=true;
-  answered++;
-
-  var input=document.getElementById('input-'+qi);
-  input.disabled=true;
-  document.getElementById('checkbtn-'+qi).disabled=true;
-
-  // For open questions, show the model answer
-  var fb=document.getElementById('fb-'+qi);
-  fb.className='q-feedback show correct';
-  fb.textContent='📖 Model answer: '+q.explanation;
-  score+=0.5; // partial credit for attempting
-  document.getElementById('qcard-'+qi).classList.add('correct');
-  updateProgress();
-}
-
-function updateProgress(){
-  var pct=Math.round(answered/questions.length*100);
-  document.getElementById('progressFill').style.width=pct+'%';
-  document.getElementById('progressText').textContent=answered+'/'+questions.length;
-  document.getElementById('scoreText').textContent=Math.round(score)+'/'+questions.length;
-
-  if(answered===questions.length){
-    var pctScore=Math.round(score/questions.length*100);
-    var msg=pctScore>=80?'🎉 Amazing work!':pctScore>=60?'👏 Good effort!':pctScore>=40?'📚 Keep practising!':'💪 Don\'t give up!';
-    var card=document.createElement('div');
-    card.className='results-card';
-    card.innerHTML='<div class="results-score">'+Math.round(score)+'/'+questions.length+'</div><div class="results-msg">'+msg+' You scored '+pctScore+'% on '+document.getElementById('topic').value+'</div><div class="results-btns"><button class="results-btn results-btn-primary" onclick="generate()">🔄 New Practice</button><button class="results-btn results-btn-secondary" onclick="backToSetup()">← Change Topic</button></div>';
-    document.getElementById('quizPanel').appendChild(card);
-  }
-}
+function esc(t){if(!t)return'';var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
 
 // Theme
 function toggleTheme(){

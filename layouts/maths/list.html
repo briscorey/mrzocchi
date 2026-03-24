@@ -241,15 +241,15 @@
         <div class="dash-content-section" id="extensions-t{{ .num }}">
           <h2 class="content-heading">🚀 Extension Activities</h2>
           <p class="explore-intro">Go beyond the textbook. Choose an activity that interests you and challenge yourself.</p>
-          <div class="explore-grid">
+          <div class="ext-grid">
             {{ range .extensions }}
-            <div class="explore-card">
-              <div class="explore-card-head">
-                <span class="explore-emoji">{{ .emoji }}</span>
-                <div><h4 class="explore-name">{{ .title }}</h4><span class="explore-source">{{ .type }}</span></div>
+            <div class="ext-card">
+              <div class="ext-card-head">
+                <span class="ext-emoji">{{ .emoji }}</span>
+                <div><h4 class="ext-name">{{ .title }}</h4><span class="ext-type">{{ .type }}</span></div>
               </div>
-              <p class="explore-task">{{ .description }}</p>
-              {{ with .url }}<a href="{{ . }}" target="_blank" class="explore-btn">↗ Open Resource</a>{{ end }}
+              <p class="ext-desc">{{ .description }}</p>
+              {{ with .url }}<a href="{{ . }}" target="_blank" class="ext-btn">↗ Open Resource</a>{{ end }}
             </div>
             {{ end }}
           </div>
@@ -344,8 +344,15 @@
         <div class="dash-content-section" id="toolkit-t{{ .num }}">
           <h2 class="content-heading" data-i18n="heading.toolkit">Maths Toolkit</h2>
           <p class="explore-intro">Useful tools and references for your mathematical work.</p>
-          <div class="resource-list">{{ range .toolkit }}
-            <a href="{{ .url }}" class="resource-row rr-tool" target="_blank"><span class="resource-row-icon">{{ .icon | default "🔗" }}</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <div class="toolkit-grid">{{ range .toolkit }}
+            <a href="{{ .url }}" class="toolkit-card" target="_blank" rel="noopener">
+              <span class="toolkit-icon">{{ .icon | default "🔗" }}</span>
+              <span class="toolkit-info">
+                <span class="toolkit-name">{{ .name }}</span>
+                <span class="toolkit-label">Open Tool</span>
+              </span>
+              <span class="toolkit-arrow">↗</span>
+            </a>
           {{ end }}</div>
         </div>
         {{ end }}

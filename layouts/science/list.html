@@ -204,8 +204,21 @@
         {{ if .videos }}
         <div class="dash-content-section" id="videos-t{{ .num }}">
           <h2 class="content-heading" data-i18n="heading.videos">Videos</h2>
-          <div class="resource-list">{{ range .videos }}
-            <a href="{{ .url }}" class="resource-row rr-video" target="_blank"><span class="resource-row-icon">🎬</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <div class="video-grid">{{ range .videos }}
+            {{ $name := .name | replaceRE "^🎬\\s*" "" }}
+            {{ $source := "" }}{{ $title := $name }}
+            {{ if findRE "\\(.*\\)$" $name }}
+              {{ $source = $name | replaceRE ".*\\((.*)\\)$" "$1" }}
+              {{ $title = $name | replaceRE "\\s*\\(.*\\)$" "" }}
+            {{ end }}
+            <a href="{{ .url }}" class="video-card" target="_blank" rel="noopener">
+              <span class="video-play">▶</span>
+              <span class="video-info">
+                <span class="video-title">{{ $title }}</span>
+                {{ with $source }}<span class="video-source">{{ . }}</span>{{ end }}
+              </span>
+              <span class="video-arrow">↗</span>
+            </a>
           {{ end }}</div>
         </div>
         {{ end }}
@@ -249,15 +262,15 @@
         <div class="dash-content-section" id="extensions-t{{ .num }}">
           <h2 class="content-heading">🚀 Extension Activities</h2>
           <p class="explore-intro">Go beyond the textbook. Choose an activity that interests you and challenge yourself.</p>
-          <div class="explore-grid">
+          <div class="ext-grid">
             {{ range .extensions }}
-            <div class="explore-card">
-              <div class="explore-card-head">
-                <span class="explore-emoji">{{ .emoji }}</span>
-                <div><h4 class="explore-name">{{ .title }}</h4><span class="explore-source">{{ .type }}</span></div>
+            <div class="ext-card">
+              <div class="ext-card-head">
+                <span class="ext-emoji">{{ .emoji }}</span>
+                <div><h4 class="ext-name">{{ .title }}</h4><span class="ext-type">{{ .type }}</span></div>
               </div>
-              <p class="explore-task">{{ .description }}</p>
-              {{ with .url }}<a href="{{ . }}" target="_blank" class="explore-btn">↗ Open Resource</a>{{ end }}
+              <p class="ext-desc">{{ .description }}</p>
+              {{ with .url }}<a href="{{ . }}" target="_blank" class="ext-btn">↗ Open Resource</a>{{ end }}
             </div>
             {{ end }}
           </div>

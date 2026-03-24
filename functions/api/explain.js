@@ -127,22 +127,36 @@ export async function onRequestPost(context) {
         const { ok, status, data } = await callClaude(apiKey, model, systemPrompt, userMessage);
 
         if (ok && data.content && data.content[0] && data.content[0].text) {
-          const rawText = data.content[0].text;
+          let rawText = data.content[0].text;
+
+          // Strip markdown code fences if present
+          rawText = rawText.replace(/^```(?:json)?\s*\n?/i, '').replace(/\n?```\s*$/i, '').trim();
 
           // Try to parse as JSON
           try {
-            const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-            if (jsonMatch) {
-              const parsed = JSON.parse(jsonMatch[0]);
-              if (parsed.explanation) {
-                return new Response(JSON.stringify({
-                  explanation: parsed.explanation,
-                  visualization: parsed.visualization || null,
-                }), { headers: CORS });
-              }
+            const parsed = JSON.parse(rawText);
+            if (parsed.explanation) {
+              return new Response(JSON.stringify({
+                explanation: parsed.explanation,
+                visualization: parsed.visualization || null,
+              }), { headers: CORS });
             }
           } catch (parseErr) {
-            // JSON parse failed — return as text-only explanation
+            // JSON parse failed — try extracting JSON object
+            try {
+              const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+              if (jsonMatch) {
+                const parsed = JSON.parse(jsonMatch[0]);
+                if (parsed.explanation) {
+                  return new Response(JSON.stringify({
+                    explanation: parsed.explanation,
+                    visualization: parsed.visualization || null,
+                  }), { headers: CORS });
+                }
+              }
+            } catch (e2) {
+              // Both attempts failed
+            }
           }
 
           // Fallback: return raw text as explanation without visualization

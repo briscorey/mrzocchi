@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Explain to Me | Mr Zocchi</title>
   <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --navy: #1B2A4A; --teal: #2A9D8F; --teal-dark: #1A7A6F; --gold: #E9C46A;
@@ -16,331 +16,403 @@
       --font-body: 'DM Sans', system-ui, sans-serif;
     }
     [data-theme="dark"] {
-      --cream: #0F1117; --white: #1A1D27; --gray-50: #1E2130;
-      --gray-100: #252838; --gray-200: #2D3244; --gray-300: #3A3F54;
+      --cream: #0B0D14; --white: #141722; --gray-50: #1A1D28;
+      --gray-100: #1E2130; --gray-200: #282C3A; --gray-300: #353A4C;
       --gray-400: #6B7084; --gray-600: #9B9EB0; --gray-800: #E2E4EE;
       --navy: #E2E4EE;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: var(--font-body); background: var(--cream); color: var(--gray-800); min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
-    .header { background: #1B2A4A; padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
-    [data-theme="dark"] .header { background: #0D0F16; }
-    .header img { width: 36px; height: 36px; border-radius: 8px; }
-    .header a { color: #fff; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; }
+
+    /* Header */
+    .header { background: #1B2A4A; padding: 12px 24px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    [data-theme="dark"] .header { background: #080A10; }
+    .header img { width: 32px; height: 32px; border-radius: 8px; }
+    .header a { color: #fff; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
     .header a span { color: var(--gold); }
     .header-right { margin-left: auto; display: flex; gap: 12px; align-items: center; }
-    .header-back { color: rgba(255,255,255,0.5); font-size: 0.85rem; text-decoration: none; }
+    .header-back { color: rgba(255,255,255,0.4); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
     .header-back:hover { color: #fff; }
-    .theme-toggle { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+    .theme-toggle { background: none; border: none; font-size: 1.1rem; cursor: pointer; }
 
-    .main { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 32px 24px 80px; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: linear-gradient(135deg, rgba(42,157,143,0.1), rgba(233,196,106,0.06)); border: 1px solid rgba(42,157,143,0.15); border-radius: 100px; font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-bottom: 12px; }
-    .hero-title { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 6px; }
-    .hero-sub { color: var(--gray-400); font-size: 0.92rem; line-height: 1.5; margin-bottom: 24px; max-width: 620px; }
+    /* App layout — full height */
+    .app { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-    .controls-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: flex-end; }
-    .sel-group { display: flex; flex-direction: column; gap: 4px; }
-    .sel-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); }
-    .sel-pills { display: flex; gap: 3px; }
-    .sel-pill { padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-    .sel-pill:hover { border-color: var(--gray-300); color: var(--gray-800); }
-    .sel-pill.active { background: var(--teal); border-color: var(--teal); color: #fff; }
-    .limit-info { margin-left: auto; font-size: 0.75rem; color: var(--gray-400); display: flex; align-items: center; gap: 6px; }
-    .limit-dots { display: flex; gap: 3px; }
-    .limit-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); transition: all 0.3s; }
+    /* Input bar — sticky at top */
+    .input-bar {
+      padding: 16px 24px 12px;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .input-top { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+    .input-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--navy); white-space: nowrap; }
+    .input-title em { font-style: normal; background: linear-gradient(135deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .pill-group { display: flex; gap: 3px; }
+    .pill { padding: 5px 12px; border-radius: 7px; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .pill:hover { border-color: var(--gray-300); }
+    .pill.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+    .limit-info { margin-left: auto; font-size: 0.7rem; color: var(--gray-400); display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+    .limit-dots { display: flex; gap: 2px; }
+    .limit-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); transition: all 0.3s; }
     .limit-dot.used { background: var(--gray-200); }
 
-    .input-card { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 16px; padding: 18px; margin-bottom: 20px; transition: border-color 0.3s, box-shadow 0.3s; }
-    .input-card:focus-within { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(42,157,143,0.08); }
-    .input-textarea { width: 100%; border: none; outline: none; resize: none; font-family: var(--font-body); font-size: 1rem; color: var(--gray-800); background: transparent; line-height: 1.5; min-height: 60px; }
-    .input-textarea::placeholder { color: var(--gray-300); }
-    .input-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-100); }
-    .char-count { font-size: 0.72rem; color: var(--gray-400); }
-    .submit-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; border: none; border-radius: 12px; font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.25s; box-shadow: 0 2px 8px rgba(42,157,143,0.2); }
-    .submit-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,157,143,0.3); }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .input-row { display: flex; gap: 10px; align-items: flex-end; }
+    .input-field {
+      flex: 1; padding: 10px 16px; border-radius: 12px;
+      border: 1.5px solid var(--gray-200); background: var(--gray-50);
+      font-family: var(--font-body); font-size: 0.92rem; color: var(--gray-800);
+      outline: none; resize: none; min-height: 42px; max-height: 120px;
+      transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.4;
+    }
+    .input-field:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,157,143,0.1); background: var(--white); }
+    .input-field::placeholder { color: var(--gray-300); }
+    .send-btn {
+      padding: 10px 22px; background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: #fff; border: none; border-radius: 12px; font-family: var(--font-body);
+      font-size: 0.85rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+      transition: all 0.2s; box-shadow: 0 2px 8px rgba(42,157,143,0.25);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .send-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,157,143,0.35); }
+    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .char-ct { font-size: 0.65rem; color: var(--gray-400); margin-top: 4px; }
 
-    .suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-    .sug-chip { padding: 7px 14px; border-radius: 100px; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
-    .sug-chip:hover { border-color: var(--teal); color: var(--teal); background: rgba(42,157,143,0.04); }
+    .sug-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .sug { padding: 5px 12px; border-radius: 100px; border: 1px solid var(--gray-200); background: transparent; color: var(--gray-400); font-size: 0.72rem; cursor: pointer; transition: all 0.15s; font-family: var(--font-body); }
+    .sug:hover { border-color: var(--teal); color: var(--teal); }
 
-    .loading { display: none; text-align: center; padding: 40px 24px; }
+    /* Results area — scrollable, full remaining height */
+    .results { flex: 1; overflow-y: auto; padding: 20px 24px 40px; }
+
+    .loading { display: none; text-align: center; padding: 60px 24px; }
     .loading.show { display: block; }
     .loading-dots { display: inline-flex; gap: 6px; }
-    .loading-dots span { width: 10px; height: 10px; background: var(--teal); border-radius: 50%; animation: ldBounce 1.4s infinite ease-in-out; }
+    .loading-dots span { width: 10px; height: 10px; background: var(--teal); border-radius: 50%; animation: ldB 1.4s infinite ease-in-out; }
     .loading-dots span:nth-child(2) { animation-delay: 0.16s; }
     .loading-dots span:nth-child(3) { animation-delay: 0.32s; }
-    @keyframes ldBounce { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
-    .loading-text { margin-top: 14px; color: var(--gray-400); font-size: 0.85rem; }
+    @keyframes ldB { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+    .loading-text { margin-top: 14px; color: var(--gray-400); font-size: 0.82rem; }
 
-    .error-msg { display: none; padding: 12px 18px; background: rgba(200,55,45,0.06); border: 1px solid rgba(200,55,45,0.15); border-radius: 12px; color: var(--red); font-size: 0.85rem; margin-bottom: 16px; }
+    .error-msg { display: none; padding: 10px 16px; background: rgba(200,55,45,0.06); border: 1px solid rgba(200,55,45,0.12); border-radius: 10px; color: var(--red); font-size: 0.82rem; margin-bottom: 12px; }
     .error-msg.show { display: block; }
 
-    /* ── Response Card ── */
-    .response-card { display: none; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 20px; overflow: hidden; animation: cardSlide 0.5s cubic-bezier(0.22,1,0.36,1); margin-bottom: 20px; }
-    .response-card.show { display: block; }
-    @keyframes cardSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .response-head { padding: 16px 20px; background: linear-gradient(135deg, rgba(42,157,143,0.06), rgba(233,196,106,0.03)); border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 12px; }
-    .response-icon { width: 36px; height: 36px; background: var(--teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
-    .response-q { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; color: var(--navy); }
-    .response-meta { font-size: 0.72rem; color: var(--gray-400); }
+    /* Response card — full width, prominent */
+    .resp { display: none; border-radius: 16px; overflow: hidden; margin-bottom: 20px; animation: rSlide 0.4s cubic-bezier(0.22,1,0.36,1); border: 1px solid var(--gray-200); background: var(--white); }
+    .resp.show { display: block; }
+    @keyframes rSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Two-panel layout */
-    .response-panels { display: grid; grid-template-columns: 1fr 1fr; }
-    .response-panels.no-viz { grid-template-columns: 1fr; }
-    .panel-text { padding: 20px; font-size: 0.88rem; line-height: 1.7; color: var(--gray-800); border-right: 1px solid var(--gray-100); overflow-y: auto; max-height: 600px; }
-    .panel-text p { margin-bottom: 10px; }
-    .panel-text strong { color: var(--teal-dark); font-weight: 700; }
-    [data-theme="dark"] .panel-text strong { color: #5EEAD4; }
-    .panel-text h3, .panel-text h4 { font-family: var(--font-display); color: var(--navy); margin: 14px 0 6px; font-size: 1rem; }
-    .panel-text ul, .panel-text ol { margin: 6px 0 10px 18px; }
-    .panel-text li { margin-bottom: 4px; }
-    .panel-text code { background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
-
-    .panel-viz { position: relative; background: #0f172a; min-height: 300px; display: flex; align-items: stretch; }
-    .panel-viz-label { position: absolute; top: 8px; left: 12px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(45,212,191,0.5); z-index: 2; }
-    .panel-viz iframe { width: 100%; border: none; min-height: 300px; background: #0f172a; }
-    .panel-viz .viz-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; color: rgba(255,255,255,0.3); font-size: 0.85rem; }
-
-    @media (max-width: 768px) {
-      .response-panels { grid-template-columns: 1fr; }
-      .panel-text { border-right: none; border-bottom: 1px solid var(--gray-100); max-height: none; }
-      .panel-viz { min-height: 280px; }
-      .main { padding: 20px 16px 60px; }
-      .hero-title { font-size: 1.5rem; }
-      .controls-row { flex-direction: column; align-items: stretch; }
-      .limit-info { margin-left: 0; }
-      .submit-btn { width: 100%; justify-content: center; }
+    .resp-head {
+      padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+      background: linear-gradient(135deg, rgba(42,157,143,0.05), rgba(233,196,106,0.03));
+      border-bottom: 1px solid var(--gray-200);
     }
-    .history-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-300); margin: 24px 0 10px; }
+    .resp-dot { width: 32px; height: 32px; background: var(--teal); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .resp-q { font-family: var(--font-display); font-weight: 600; font-size: 0.88rem; color: var(--navy); }
+    .resp-meta { font-size: 0.68rem; color: var(--gray-400); }
+    .resp-tabs { display: flex; border-bottom: 1px solid var(--gray-200); }
+    .resp-tab {
+      flex: 1; padding: 10px; text-align: center; font-size: 0.78rem; font-weight: 700;
+      color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent;
+      transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .resp-tab:hover { color: var(--gray-600); }
+    .resp-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+    .resp-pane { display: none; }
+    .resp-pane.active { display: block; }
+
+    .pane-text { padding: 24px; font-size: 0.9rem; line-height: 1.75; max-width: none; }
+    .pane-text p { margin-bottom: 10px; }
+    .pane-text strong { color: var(--teal-dark); font-weight: 700; }
+    [data-theme="dark"] .pane-text strong { color: #5EEAD4; }
+    .pane-text h3, .pane-text h4 { font-family: var(--font-display); color: var(--navy); margin: 16px 0 6px; font-size: 1rem; }
+    .pane-text ul, .pane-text ol { margin: 6px 0 10px 20px; }
+    .pane-text li { margin-bottom: 4px; }
+    .pane-text code { background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+
+    .pane-viz { background: #0f172a; min-height: 450px; position: relative; }
+    .pane-viz iframe { width: 100%; border: none; min-height: 450px; background: #0f172a; display: block; }
+
+    /* Side-by-side on wide screens */
+    .resp-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 450px; }
+    .resp-split .pane-text { border-right: 1px solid var(--gray-200); overflow-y: auto; max-height: 550px; }
+    .resp-split .pane-viz { min-height: 450px; }
+    .resp-split .pane-text, .resp-split .pane-viz { display: block !important; }
+
+    .view-toggle { display: flex; gap: 4px; margin-left: auto; }
+    .vt-btn { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--gray-200); background: transparent; color: var(--gray-400); font-size: 0.7rem; cursor: pointer; font-weight: 600; transition: all 0.15s; }
+    .vt-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+    .empty-state { text-align: center; padding: 80px 24px; color: var(--gray-300); }
+    .empty-state .big { font-size: 3rem; margin-bottom: 12px; }
+    .empty-state p { font-size: 0.9rem; max-width: 400px; margin: 0 auto; line-height: 1.6; }
+    .history-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-300); margin: 20px 0 8px; }
+
+    @media (max-width: 900px) {
+      .resp-split { grid-template-columns: 1fr; }
+      .resp-split .pane-text { max-height: none; border-right: none; border-bottom: 1px solid var(--gray-200); }
+      .resp-split .pane-viz { min-height: 350px; }
+      .pane-viz { min-height: 350px; }
+      .pane-viz iframe { min-height: 350px; }
+    }
+    @media (max-width: 640px) {
+      .input-top { gap: 8px; }
+      .input-title { font-size: 1rem; }
+      .input-row { flex-direction: column; }
+      .send-btn { width: 100%; justify-content: center; }
+      .results { padding: 16px; }
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <a href="/"><img src="/images/logo.svg" alt="Logo"></a>
+    <a href="/"><img src="/images/logo.svg" alt=""></a>
     <a href="/">Mr <span>Zocchi</span></a>
     <div class="header-right">
-      <a href="/" class="header-back">&larr; Back</a>
+      <a href="/" class="header-back">&larr; Home</a>
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
   </div>
 
-  <div class="main">
-    <div class="hero-badge">💡 AI Study Helper</div>
-    <h1 class="hero-title">Explain to Me</h1>
-    <p class="hero-sub">Ask any science or maths question. Get a clear explanation with Chinese translation <strong>and an interactive visualization</strong> to help you understand.</p>
-
-    <div class="controls-row">
-      <div class="sel-group">
-        <span class="sel-label">Grade</span>
-        <div class="sel-pills" id="gradePills">
-          <button class="sel-pill active" data-val="6">G6</button>
-          <button class="sel-pill" data-val="7">G7</button>
-          <button class="sel-pill" data-val="8">G8</button>
+  <div class="app">
+    <!-- Sticky input bar -->
+    <div class="input-bar">
+      <div class="input-top">
+        <span class="input-title">💡 <em>Explain to Me</em></span>
+        <div class="pill-group" id="gradePills">
+          <button class="pill active" data-val="6">G6</button>
+          <button class="pill" data-val="7">G7</button>
+          <button class="pill" data-val="8">G8</button>
+        </div>
+        <div class="pill-group" id="subjectPills">
+          <button class="pill active" data-val="science">🔬 Science</button>
+          <button class="pill" data-val="maths">📐 Maths</button>
+        </div>
+        <div class="limit-info">
+          <div class="limit-dots" id="limitDots"></div>
+          <span id="limitText"></span>
         </div>
       </div>
-      <div class="sel-group">
-        <span class="sel-label">Subject</span>
-        <div class="sel-pills" id="subjectPills">
-          <button class="sel-pill active" data-val="science">🔬 Science</button>
-          <button class="sel-pill" data-val="maths">📐 Maths</button>
+      <div class="input-row">
+        <textarea class="input-field" id="conceptInput" placeholder="Ask anything… e.g. 'How does photosynthesis work?' or 'Explain Pythagoras theorem'" rows="1" maxlength="300"></textarea>
+        <button class="send-btn" id="submitBtn" onclick="askExplain()">Explain ⚡</button>
+      </div>
+      <div class="sug-row" id="suggestions"></div>
+    </div>
+
+    <!-- Scrollable results -->
+    <div class="results" id="resultsArea">
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="loading" id="loading">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p class="loading-text">Building your explanation and interactive visualization…</p>
+      </div>
+      <div id="responseArea">
+        <div class="empty-state" id="emptyState">
+          <div class="big">💡</div>
+          <p>Ask any Maths or Science question above.<br>You'll get a clear explanation with Chinese translation and an interactive visualization.</p>
         </div>
       </div>
-      <div class="limit-info">
-        <div class="limit-dots" id="limitDots"></div>
-        <span id="limitText"></span>
-      </div>
     </div>
-
-    <div class="suggestions" id="suggestions"></div>
-
-    <div class="error-msg" id="errorMsg"></div>
-
-    <div class="input-card">
-      <textarea class="input-textarea" id="conceptInput" placeholder="e.g. 'How does photosynthesis work?' or 'Explain Pythagoras theorem'" rows="2" maxlength="300"></textarea>
-      <div class="input-footer">
-        <span class="char-count" id="charCount">0 / 300</span>
-        <button class="submit-btn" id="submitBtn" onclick="askExplain()">💡 Explain &amp; Visualize</button>
-      </div>
-    </div>
-
-    <div class="loading" id="loading">
-      <div class="loading-dots"><span></span><span></span><span></span></div>
-      <p class="loading-text">Building your explanation and visualization...</p>
-    </div>
-
-    <div id="responseArea"></div>
   </div>
 
 <script>
-  var selectedGrade = '6', selectedSubject = 'science';
-  var MAX_PER_DAY = 10;
-  var input = document.getElementById('conceptInput');
+var selectedGrade='6', selectedSubject='science', MAX_PER_DAY=10;
+var input=document.getElementById('conceptInput');
 
-  // Pill selectors
-  document.querySelectorAll('.sel-pills').forEach(function(g) {
-    g.querySelectorAll('.sel-pill').forEach(function(p) {
-      p.addEventListener('click', function() {
-        g.querySelectorAll('.sel-pill').forEach(function(b) { b.classList.remove('active'); });
-        p.classList.add('active');
-        if (g.id === 'gradePills') selectedGrade = p.dataset.val;
-        if (g.id === 'subjectPills') selectedSubject = p.dataset.val;
-        updateSuggestions();
-      });
+// Auto-resize textarea
+input.addEventListener('input', function() {
+  this.style.height='auto';
+  this.style.height=Math.min(this.scrollHeight,120)+'px';
+});
+
+// Pills
+document.querySelectorAll('.pill-group').forEach(function(g){
+  g.querySelectorAll('.pill').forEach(function(p){
+    p.addEventListener('click',function(){
+      g.querySelectorAll('.pill').forEach(function(b){b.classList.remove('active');});
+      p.classList.add('active');
+      if(g.id==='gradePills') selectedGrade=p.dataset.val;
+      if(g.id==='subjectPills') selectedSubject=p.dataset.val;
+      updateSuggestions();
     });
   });
+});
 
-  // Rate limiting
-  function getToday() { return new Date().toISOString().split('T')[0]; }
-  function getUsage() { try { var d = JSON.parse(localStorage.getItem('explain_usage') || '{}'); return d.date === getToday() ? d : { date: getToday(), count: 0 }; } catch(e) { return { date: getToday(), count: 0 }; } }
-  function setUsage(c) { localStorage.setItem('explain_usage', JSON.stringify({ date: getToday(), count: c })); }
+// Rate limit
+function getToday(){return new Date().toISOString().split('T')[0];}
+function getUsage(){try{var d=JSON.parse(localStorage.getItem('explain_usage')||'{}');return d.date===getToday()?d:{date:getToday(),count:0};}catch(e){return{date:getToday(),count:0};}}
+function setUsage(c){localStorage.setItem('explain_usage',JSON.stringify({date:getToday(),count:c}));}
+function updateLimitDisplay(){
+  var u=getUsage(), rem=Math.max(0,MAX_PER_DAY-u.count), dots='';
+  for(var i=0;i<MAX_PER_DAY;i++) dots+='<span class="limit-dot'+(i<u.count?' used':'')+'"></span>';
+  document.getElementById('limitDots').innerHTML=dots;
+  document.getElementById('limitText').textContent=rem+'/'+MAX_PER_DAY;
+  document.getElementById('submitBtn').disabled=rem===0;
+}
+updateLimitDisplay();
 
-  function updateLimitDisplay() {
-    var usage = getUsage();
-    var rem = Math.max(0, MAX_PER_DAY - usage.count);
-    var dots = '';
-    for (var i = 0; i < MAX_PER_DAY; i++) dots += '<span class="limit-dot' + (i < usage.count ? ' used' : '') + '"></span>';
-    document.getElementById('limitDots').innerHTML = dots;
-    document.getElementById('limitText').textContent = rem + ' left today';
-    document.getElementById('submitBtn').disabled = rem === 0;
+// Suggestions
+var sugMap={
+  'science-6':['What are the layers of the Earth?','How do food chains work?','What is diffusion?','Explain states of matter','What are the Moon phases?','How does the water cycle work?'],
+  'science-7':['How do cells work?','What is photosynthesis?','Explain balanced forces','How does chromatography work?','What causes seasons?','How do vaccines work?'],
+  'science-8':['What is the periodic table?','How does energy transfer?','Explain food webs','What is an ecosystem?','How do atoms work?','What is Mars like?'],
+  'maths-6':['How does BIDMAS work?','Explain fractions visually','What is a prime number?','How to find the mean','What is probability?','How do negative numbers work?'],
+  'maths-7':['How to simplify ratios','What is standard form?','Explain parallel line angles','How do tree diagrams work?','What is direct proportion?','How to calculate speed?'],
+  'maths-8':['How to solve equations','Explain Pythagoras theorem','What are inequalities?','How does enlargement work?','What is compound interest?','How do simultaneous equations work?'],
+};
+function updateSuggestions(){
+  var arr=sugMap[selectedSubject+'-'+selectedGrade]||sugMap['science-6'];
+  document.getElementById('suggestions').innerHTML=arr.map(function(s){return '<button class="sug" onclick="fillSug(this)">'+s+'</button>';}).join('');
+}
+updateSuggestions();
+function fillSug(el){input.value=el.textContent;input.dispatchEvent(new Event('input'));input.focus();}
+
+// Markdown
+function renderMd(t){
+  if(!t) return '';
+  return t
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g,'<em>$1</em>')
+    .replace(/^### (.+)$/gm,'<h4>$1</h4>')
+    .replace(/^## (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/\n{2,}/g,'</p><p>')
+    .replace(/\n/g,'<br>');
+}
+function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+
+// View toggle for response cards
+function setView(btn, id, mode) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  card.querySelectorAll('.vt-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  var split = card.querySelector('.resp-split');
+  var tabs = card.querySelector('.resp-tabs');
+  var textPane = card.querySelector('.pane-text');
+  var vizPane = card.querySelector('.pane-viz');
+  if (mode === 'split') {
+    if (split) { split.style.display = 'grid'; split.style.gridTemplateColumns = '1fr 1fr'; }
+    if (tabs) tabs.style.display = 'none';
+    if (textPane) textPane.style.display = 'block';
+    if (vizPane) vizPane.style.display = 'block';
+  } else if (mode === 'text') {
+    if (split) { split.style.display = 'block'; }
+    if (textPane) textPane.style.display = 'block';
+    if (vizPane) vizPane.style.display = 'none';
+  } else if (mode === 'viz') {
+    if (split) { split.style.display = 'block'; }
+    if (textPane) textPane.style.display = 'none';
+    if (vizPane) vizPane.style.display = 'block';
   }
-  updateLimitDisplay();
+}
 
-  // Character counter
-  input.addEventListener('input', function() {
-    var len = input.value.length;
-    var el = document.getElementById('charCount');
-    el.textContent = len + ' / 300';
-    el.className = 'char-count' + (len > 280 ? ' warn' : '');
-  });
+// Main
+async function askExplain(){
+  var concept=input.value.trim();
+  if(!concept) return;
+  var usage=getUsage();
+  if(usage.count>=MAX_PER_DAY) return;
 
-  // Suggestions
-  var sugMap = {
-    'science-6': ['What are the layers of the Earth?', 'How do food chains work?', 'What is diffusion?', 'Explain states of matter', 'What are the Moon phases?'],
-    'science-7': ['How do cells work?', 'What is photosynthesis?', 'Explain balanced forces', 'How does chromatography work?', 'What causes seasons?'],
-    'science-8': ['What is the periodic table?', 'How does energy transfer?', 'Explain food webs', 'What is an ecosystem?', 'How do atoms work?'],
-    'maths-6': ['How does BIDMAS work?', 'Explain fractions', 'What is a prime number?', 'How to find the mean', 'What is probability?'],
-    'maths-7': ['How to simplify ratios', 'What is standard form?', 'Explain parallel line angles', 'How do tree diagrams work?', 'What is direct proportion?'],
-    'maths-8': ['How to solve equations', 'Explain Pythagoras theorem', 'What are inequalities?', 'How does enlargement work?', 'What is compound interest?'],
-  };
-  function updateSuggestions() {
-    var key = selectedSubject + '-' + selectedGrade;
-    var arr = sugMap[key] || sugMap['science-6'];
-    document.getElementById('suggestions').innerHTML = arr.map(function(s) { return '<button class="sug-chip" onclick="fillSug(this)">' + s + '</button>'; }).join('');
-  }
-  updateSuggestions();
+  document.getElementById('errorMsg').className='error-msg';
+  document.getElementById('loading').className='loading show';
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('emptyState').style.display='none';
 
-  function fillSug(el) { input.value = el.textContent; input.dispatchEvent(new Event('input')); input.focus(); }
+  try {
+    var res=await fetch('/api/explain',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({concept:concept,grade:selectedGrade,subject:selectedSubject}),
+    });
+    var data=await res.json();
 
-  // Markdown renderer
-  function renderMd(t) {
-    if (!t) return '';
-    return t
-      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-      .replace(/^### (.+)$/gm, '<h4>$1</h4>')
-      .replace(/^## (.+)$/gm, '<h3>$1</h3>')
-      .replace(/^- (.+)$/gm, '<li>$1</li>')
-      .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-      .replace(/`([^`]+)`/g, '<code>$1</code>')
-      .replace(/\n{2,}/g, '</p><p>')
-      .replace(/\n/g, '<br>');
-  }
-  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    if(data.error){
+      document.getElementById('errorMsg').textContent=data.error;
+      document.getElementById('errorMsg').className='error-msg show';
+    } else {
+      setUsage(usage.count+1);
+      updateLimitDisplay();
 
-  // Main function
-  async function askExplain() {
-    var concept = input.value.trim();
-    if (!concept) return;
-    var usage = getUsage();
-    if (usage.count >= MAX_PER_DAY) return;
+      var hasViz=data.visualization&&data.visualization.length>50;
+      var cardId='r-'+Date.now();
+      var vizId='v-'+Date.now();
+      var card=document.createElement('div');
+      card.className='resp show';
+      card.id=cardId;
 
-    document.getElementById('errorMsg').className = 'error-msg';
-    document.getElementById('loading').className = 'loading show';
-    document.getElementById('submitBtn').disabled = true;
-
-    try {
-      var res = await fetch('/api/explain', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ concept: concept, grade: selectedGrade, subject: selectedSubject }),
-      });
-      var data = await res.json();
-
-      if (data.error) {
-        document.getElementById('errorMsg').textContent = data.error;
-        document.getElementById('errorMsg').className = 'error-msg show';
-      } else {
-        setUsage(usage.count + 1);
-        updateLimitDisplay();
-
-        var hasViz = data.visualization && data.visualization.length > 50;
-        var card = document.createElement('div');
-        card.className = 'response-card show';
-
-        var panelClass = hasViz ? 'response-panels' : 'response-panels no-viz';
-        var vizPanel = '';
-        if (hasViz) {
-          var vizId = 'viz-' + Date.now();
-          vizPanel = '<div class="panel-viz"><span class="panel-viz-label">Interactive Visualization</span><iframe id="' + vizId + '" sandbox="allow-scripts" title="Visualization"></iframe></div>';
-        }
-
-        card.innerHTML = '<div class="response-head"><div class="response-icon">💡</div><div><div class="response-q">' + esc(concept) + '</div><div class="response-meta">Grade ' + selectedGrade + ' ' + (selectedSubject === 'maths' ? 'Mathematics' : 'Science') + '</div></div></div><div class="' + panelClass + '"><div class="panel-text"><p>' + renderMd(data.explanation) + '</p></div>' + vizPanel + '</div>';
-
-        var area = document.getElementById('responseArea');
-        if (!area.querySelector('.history-label') && area.children.length > 0) {
-          var lbl = document.createElement('div');
-          lbl.className = 'history-label';
-          lbl.textContent = 'Previous questions';
-          area.insertBefore(lbl, area.firstChild);
-        }
-        area.insertBefore(card, area.firstChild);
-
-        // Inject visualization into iframe
-        if (hasViz) {
-          var iframe = document.getElementById(vizId);
-          if (iframe) {
-            iframe.addEventListener('load', function() {
-              try {
-                iframe.style.height = Math.max(300, iframe.contentDocument.body.scrollHeight + 20) + 'px';
-              } catch(e) {}
-            });
-            var vizHtml = data.visualization;
-            // Ensure it has proper HTML structure
-            if (!vizHtml.includes('<!DOCTYPE') && !vizHtml.includes('<html')) {
-              vizHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0f172a;color:#e2e8f0;font-family:system-ui,sans-serif;padding:16px;min-height:100vh}</style></head><body>' + vizHtml + '</body></html>';
-            }
-            iframe.srcdoc = vizHtml;
-          }
-        }
-
-        input.value = '';
-        input.dispatchEvent(new Event('input'));
+      var headHtml='<div class="resp-head"><div class="resp-dot">💡</div><div style="flex:1"><div class="resp-q">'+esc(concept)+'</div><div class="resp-meta">Grade '+selectedGrade+' · '+(selectedSubject==='maths'?'Mathematics':'Science')+'</div></div>';
+      if(hasViz){
+        headHtml+='<div class="view-toggle"><button class="vt-btn active" onclick="setView(this,\''+cardId+'\',\'split\')">Split</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'text\')">Text</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'viz\')">Visual</button></div>';
       }
-    } catch (err) {
-      document.getElementById('errorMsg').textContent = 'Could not connect. Check your internet and try again.';
-      document.getElementById('errorMsg').className = 'error-msg show';
+      headHtml+='</div>';
+
+      var bodyHtml;
+      if(hasViz){
+        bodyHtml='<div class="resp-split"><div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div><div class="pane-viz"><iframe id="'+vizId+'" sandbox="allow-scripts" title="Visualization"></iframe></div></div>';
+      } else {
+        bodyHtml='<div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div>';
+      }
+
+      card.innerHTML=headHtml+bodyHtml;
+
+      var area=document.getElementById('responseArea');
+      var empty=document.getElementById('emptyState');
+      if(empty) empty.style.display='none';
+      if(!area.querySelector('.history-label')&&area.querySelectorAll('.resp').length>0){
+        var lbl=document.createElement('div');
+        lbl.className='history-label';
+        lbl.textContent='Previous questions';
+        area.insertBefore(lbl,area.querySelector('.resp'));
+      }
+      area.insertBefore(card,area.firstChild);
+
+      // Scroll to top of results
+      document.getElementById('resultsArea').scrollTop=0;
+
+      // Inject viz
+      if(hasViz){
+        var iframe=document.getElementById(vizId);
+        if(iframe){
+          iframe.addEventListener('load',function(){
+            try{iframe.style.height=Math.max(400,iframe.contentDocument.body.scrollHeight+20)+'px';}catch(e){}
+          });
+          var vizHtml=data.visualization;
+          if(!vizHtml.includes('<!DOCTYPE')&&!vizHtml.includes('<html')){
+            vizHtml='<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0f172a;color:#e2e8f0;font-family:system-ui,sans-serif;padding:16px;min-height:100vh}</style></head><body>'+vizHtml+'</body></html>';
+          }
+          iframe.srcdoc=vizHtml;
+        }
+      }
+
+      input.value='';
+      input.style.height='auto';
+      input.dispatchEvent(new Event('input'));
     }
-
-    document.getElementById('loading').className = 'loading';
-    document.getElementById('submitBtn').disabled = getUsage().count >= MAX_PER_DAY;
+  } catch(err){
+    document.getElementById('errorMsg').textContent='Could not connect. Check your internet and try again.';
+    document.getElementById('errorMsg').className='error-msg show';
   }
+  document.getElementById('loading').className='loading';
+  document.getElementById('submitBtn').disabled=getUsage().count>=MAX_PER_DAY;
+}
 
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askExplain(); }
-  });
+input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askExplain();}});
 
-  // Theme
-  function toggleTheme() {
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
-  }
-  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('themeBtn').textContent = '☀️';
-  }
+// Theme
+function toggleTheme(){
+  var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',isDark?'':'dark');
+  localStorage.setItem('theme',isDark?'light':'dark');
+  document.getElementById('themeBtn').textContent=isDark?'🌙':'☀️';
+}
+if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
+  document.documentElement.setAttribute('data-theme','dark');
+  document.getElementById('themeBtn').textContent='☀️';
+}
 </script>
 </body>
 </html>

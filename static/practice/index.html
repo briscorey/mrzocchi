@@ -6,12 +6,13 @@
   <title>Practice Builder | Mr Zocchi</title>
   <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
   <style>
-    :root{--navy:#1B2A4A;--teal:#2A9D8F;--teal-dark:#1A7A6F;--gold:#E9C46A;--red:#C8372D;--green:#10B981;--cream:#FAF8F5;--white:#FFF;--gray-50:#F9F8F6;--gray-100:#F3F1EE;--gray-200:#E5E2DC;--gray-300:#D1CEC7;--gray-400:#9B9690;--gray-600:#6B6660;--gray-800:#3D3A36;--font-display:'Fraunces',Georgia,'Times New Roman',serif;--font-body:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif}
-    [data-theme="dark"]{--cream:#0B0D14;--white:#141722;--gray-50:#1A1D28;--gray-100:#1E2130;--gray-200:#282C3A;--gray-300:#353A4C;--gray-400:#6B7084;--gray-600:#9B9EB0;--gray-800:#E2E4EE;--navy:#E2E4EE}
+    :root{--navy:#1B2A4A;--teal:#2A9D8F;--teal-dark:#1A7A6F;--teal-glow:rgba(42,157,143,0.15);--gold:#E9C46A;--red:#E76F51;--green:#10B981;--cream:#FAF8F5;--white:#FFF;--gray-50:#F9F8F6;--gray-100:#F3F1EE;--gray-200:#E5E2DC;--gray-300:#D1CEC7;--gray-400:#9B9690;--gray-600:#6B6660;--gray-800:#3D3A36;--font-display:Georgia,'Times New Roman',serif;--font-body:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--radius:14px}
+    [data-theme="dark"]{--cream:#0B0D14;--white:#141722;--gray-50:#1A1D28;--gray-100:#1E2130;--gray-200:#282C3A;--gray-300:#353A4C;--gray-400:#6B7084;--gray-600:#9B9EB0;--gray-800:#E2E4EE;--navy:#E2E4EE;--teal-glow:rgba(42,157,143,0.08)}
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:var(--font-body);background:var(--cream);color:var(--gray-800);min-height:100vh;display:flex;flex-direction:column}
 
-    .header{background:#1B2A4A;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+    /* ── Header ── */
+    .header{background:#1B2A4A;padding:12px 24px;display:flex;align-items:center;gap:12px}
     [data-theme="dark"] .header{background:#080A10}
     .header img{width:32px;height:32px;border-radius:8px}
     .header a{color:#fff;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:1rem}
@@ -21,109 +22,131 @@
     .header-back:hover{color:#fff}
     .theme-toggle{background:none;border:none;font-size:1.1rem;cursor:pointer}
 
-    .app{flex:1;display:flex;flex-direction:column;max-width:1000px;width:100%;margin:0 auto;padding:24px}
+    /* ── App ── */
+    .app{flex:1;display:flex;flex-direction:column;max-width:760px;width:100%;margin:0 auto;padding:24px 20px}
 
-    .setup{animation:fadeIn 0.4s ease}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .setup-title{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:4px}
-    .setup-title em{font-style:normal;background:linear-gradient(135deg,var(--teal),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .setup-sub{color:var(--gray-400);font-size:0.88rem;margin-bottom:24px;line-height:1.5}
+    /* ── Panels ── */
+    .panel{display:none;animation:slideUp 0.35s ease}
+    .panel.active{display:block}
+    @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pop{0%{transform:scale(0.8);opacity:0}60%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
 
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-    .form-group{display:flex;flex-direction:column;gap:5px}
-    .form-group.full{grid-column:1/-1}
-    .form-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400)}
-    .form-select{padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--white);font-family:var(--font-body);font-size:0.88rem;color:var(--gray-800);outline:none;transition:border-color 0.2s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239B9690' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+    /* ── SETUP ── */
+    .setup-title{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--navy);margin-bottom:2px}
+    .setup-title em{font-style:normal;color:var(--teal)}
+    .setup-sub{color:var(--gray-400);font-size:0.85rem;margin-bottom:24px;line-height:1.5}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+    .form-row.full{grid-template-columns:1fr}
+    .form-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--gray-400);margin-bottom:4px;display:block}
+    .form-select{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--white);font-family:var(--font-body);font-size:0.88rem;color:var(--gray-800);outline:none;transition:border-color 0.2s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239B9690' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
     .form-select:focus{border-color:var(--teal)}
 
-    .pill-row{display:flex;gap:6px;flex-wrap:wrap}
-    .diff-pill{padding:6px 16px;border-radius:8px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.15s}
+    .diff-row{display:flex;gap:6px;margin-bottom:16px}
+    .diff-pill{flex:1;padding:8px 4px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.15s;text-align:center}
     .diff-pill:hover{border-color:var(--gray-300)}
-    .diff-pill.active{background:var(--teal);border-color:var(--teal);color:#fff}
+    .diff-pill.active{border-color:var(--teal);background:var(--teal);color:#fff}
 
-    .about-you{background:var(--white);border:1.5px solid var(--gray-200);border-radius:16px;padding:20px;margin-bottom:20px}
-    .about-you-title{font-family:var(--font-display);font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:8px}
-    .about-you-sub{font-size:0.78rem;color:var(--gray-400);margin-bottom:14px}
-    .tag-input-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:8px;border:1.5px solid var(--gray-200);border-radius:10px;min-height:42px;cursor:text;background:var(--gray-50);transition:border-color 0.2s}
-    .tag-input-wrap:focus-within{border-color:var(--teal);background:var(--white)}
-    .tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;background:linear-gradient(135deg,rgba(42,157,143,0.1),rgba(42,157,143,0.05));border:1px solid rgba(42,157,143,0.15);font-size:0.78rem;font-weight:600;color:var(--teal)}
-    .tag-x{cursor:pointer;opacity:0.5;font-size:0.9em}
-    .tag-x:hover{opacity:1}
-    .tag-field{border:none;outline:none;background:transparent;font-family:var(--font-body);font-size:0.85rem;color:var(--gray-800);min-width:80px;flex:1}
-    .tag-field::placeholder{color:var(--gray-300)}
-    .quick-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
-    .qt{padding:3px 10px;border-radius:100px;border:1px solid var(--gray-200);background:transparent;color:var(--gray-400);font-size:0.7rem;cursor:pointer;transition:all 0.15s}
+    .about-box{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:18px;margin-bottom:18px}
+    .about-title{font-weight:700;font-size:0.88rem;color:var(--navy);margin-bottom:2px}
+    .about-sub{font-size:0.75rem;color:var(--gray-400);margin-bottom:12px}
+    .tag-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:7px 8px;border:1.5px solid var(--gray-200);border-radius:10px;min-height:38px;background:var(--gray-50);transition:border-color 0.2s}
+    .tag-wrap:focus-within{border-color:var(--teal);background:var(--white)}
+    .tag{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:6px;background:var(--teal-glow);border:1px solid rgba(42,157,143,0.15);font-size:0.75rem;font-weight:600;color:var(--teal)}
+    .tag-x{cursor:pointer;opacity:0.5;font-size:0.85em}.tag-x:hover{opacity:1}
+    .tag-input{border:none;outline:none;background:transparent;font-family:var(--font-body);font-size:0.82rem;color:var(--gray-800);min-width:60px;flex:1}
+    .tag-input::placeholder{color:var(--gray-300)}
+    .qtags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+    .qt{padding:2px 9px;border-radius:100px;border:1px solid var(--gray-200);background:transparent;color:var(--gray-400);font-size:0.68rem;cursor:pointer;transition:all 0.12s}
     .qt:hover{border-color:var(--teal);color:var(--teal)}
 
-    .gen-btn{width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-family:var(--font-body);font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 12px rgba(42,157,143,0.25);display:flex;align-items:center;justify-content:center;gap:8px}
+    .gen-btn{width:100%;padding:14px;border-radius:var(--radius);border:none;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-family:var(--font-body);font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 12px rgba(42,157,143,0.25)}
     .gen-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 24px rgba(42,157,143,0.35)}
     .gen-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
 
-    .loading{display:none;text-align:center;padding:60px 24px}
-    .loading.show{display:block}
-    .ld-dots{display:inline-flex;gap:6px}
-    .ld-dots span{width:10px;height:10px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out}
-    .ld-dots span:nth-child(2){animation-delay:0.16s}
-    .ld-dots span:nth-child(3){animation-delay:0.32s}
-    @keyframes ldB{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
-    .ld-text{margin-top:14px;color:var(--gray-400);font-size:0.85rem}
+    .err{display:none;padding:12px 16px;background:rgba(231,111,81,0.08);border:1px solid rgba(231,111,81,0.15);border-radius:10px;color:var(--red);font-size:0.82rem;margin-bottom:12px;line-height:1.5}
+    .err.show{display:flex;align-items:center;gap:8px}
+    .err-retry{padding:3px 12px;border-radius:6px;border:1.5px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem;white-space:nowrap}
+    .err-retry:hover{background:var(--teal);color:#fff}
 
-    .error-msg{display:none;padding:14px 18px;background:rgba(200,55,45,0.06);border:1px solid rgba(200,55,45,0.12);border-radius:10px;color:var(--red);font-size:0.85rem;margin-bottom:12px;line-height:1.5}
-    .error-msg.show{display:block}
-    .retry-btn{margin-left:8px;padding:4px 14px;border-radius:6px;border:1.5px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.8rem;transition:all 0.15s}
-    .retry-btn:hover{background:var(--teal);color:#fff}
+    /* ── LOADING ── */
+    .loading-wrap{text-align:center;padding:80px 24px}
+    .spinner{width:48px;height:48px;border:4px solid var(--gray-200);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .ld-msg{color:var(--gray-400);font-size:0.88rem}
 
-    .worksheet{display:none;animation:fadeIn 0.5s ease}
-    .worksheet.show{display:block}
-    .ws-head{background:linear-gradient(135deg,#1B2A4A,#243B5E);border-radius:16px 16px 0 0;padding:24px;color:#fff}
-    .ws-title{font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:4px}
-    .ws-intro{font-size:0.85rem;opacity:0.7;line-height:1.5}
-    .ws-body{background:var(--white);border:1.5px solid var(--gray-200);border-top:none;border-radius:0 0 16px 16px;padding:4px 0}
-    .q-card{padding:20px 24px;border-bottom:1px solid var(--gray-100)}
-    .q-card:last-child{border-bottom:none}
-    .q-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-size:0.75rem;font-weight:800;margin-right:10px;flex-shrink:0}
-    .q-num-mcq{background:rgba(42,157,143,0.1);color:var(--teal)}
-    .q-num-short{background:rgba(233,196,106,0.15);color:#B8941E}
-    .q-num-calculation{background:rgba(59,130,246,0.1);color:#3B82F6}
-    .q-num-extended{background:rgba(168,85,247,0.1);color:#A855F7}
-    .q-top{display:flex;align-items:flex-start;margin-bottom:10px}
-    .q-text{font-size:0.9rem;line-height:1.6;flex:1}
-    .q-type{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);margin-left:8px;white-space:nowrap}
+    /* ── QUIZ ── */
+    .quiz-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .progress-track{flex:1;height:6px;background:var(--gray-200);border-radius:3px;overflow:hidden}
+    .progress-fill{height:100%;background:var(--teal);border-radius:3px;transition:width 0.4s ease}
+    .quiz-counter{font-size:0.78rem;font-weight:700;color:var(--gray-400);white-space:nowrap}
+    .streak{font-size:0.78rem;font-weight:700;color:var(--gold);display:none;align-items:center;gap:3px}
+    .streak.show{display:flex}
 
-    .q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
-    .q-opt{padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-size:0.85rem;cursor:pointer;transition:all 0.2s;text-align:left;font-family:var(--font-body);color:var(--gray-800)}
-    .q-opt:hover:not(.correct):not(.wrong){border-color:var(--gray-300);background:var(--white)}
+    .q-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:28px 24px;animation:slideUp 0.35s ease}
+    .q-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:6px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px}
+    .q-badge-mcq{background:rgba(42,157,143,0.1);color:var(--teal)}
+    .q-badge-short{background:rgba(233,196,106,0.15);color:#B8941E}
+    .q-badge-calculation{background:rgba(59,130,246,0.1);color:#3B82F6}
+    .q-badge-extended{background:rgba(168,85,247,0.1);color:#A855F7}
+    .q-text{font-size:1.05rem;line-height:1.65;margin-bottom:18px;color:var(--navy);font-weight:500}
+
+    .q-opts{display:flex;flex-direction:column;gap:8px}
+    .q-opt{padding:13px 16px;border-radius:12px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-size:0.9rem;cursor:pointer;transition:all 0.2s;text-align:left;font-family:var(--font-body);color:var(--gray-800);position:relative}
+    .q-opt:hover:not(.locked){border-color:var(--gray-300);background:var(--white);transform:translateX(4px)}
     .q-opt.selected{border-color:var(--teal);background:rgba(42,157,143,0.06);font-weight:600}
     .q-opt.correct{border-color:var(--green);background:rgba(16,185,129,0.08);color:#065F46;cursor:default}
-    .q-opt.wrong{border-color:var(--red);background:rgba(200,55,45,0.06);color:#991B1B;opacity:0.6;cursor:default}
+    .q-opt.correct::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--green)}
+    .q-opt.wrong{border-color:var(--red);background:rgba(231,111,81,0.06);color:#991B1B;opacity:0.5;cursor:default}
     [data-theme="dark"] .q-opt.correct{color:#6EE7B7}
     [data-theme="dark"] .q-opt.wrong{color:#FCA5A5}
 
-    .q-answer{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-family:var(--font-body);font-size:0.88rem;color:var(--gray-800);outline:none;resize:vertical;transition:border-color 0.2s}
-    .q-answer:focus{border-color:var(--teal);background:var(--white)}
+    .q-input{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-family:var(--font-body);font-size:0.9rem;color:var(--gray-800);outline:none;resize:vertical;min-height:80px;transition:border-color 0.2s}
+    .q-input:focus{border-color:var(--teal);background:var(--white)}
 
-    .q-feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:0.82rem;line-height:1.5;white-space:pre-line}
-    .q-feedback.show{display:block}
-    .q-feedback.correct{background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#065F46}
-    .q-feedback.wrong{background:rgba(200,55,45,0.06);border:1px solid rgba(200,55,45,0.12);color:#991B1B}
-    [data-theme="dark"] .q-feedback.correct{color:#6EE7B7}
-    [data-theme="dark"] .q-feedback.wrong{color:#FCA5A5}
+    .q-fb{display:none;margin-top:14px;padding:14px 16px;border-radius:12px;font-size:0.85rem;line-height:1.6;white-space:pre-line;animation:slideUp 0.3s ease}
+    .q-fb.show{display:block}
+    .q-fb.ok{background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#065F46}
+    .q-fb.no{background:rgba(231,111,81,0.06);border:1px solid rgba(231,111,81,0.12);color:#991B1B}
+    [data-theme="dark"] .q-fb.ok{color:#6EE7B7}
+    [data-theme="dark"] .q-fb.no{color:#FCA5A5}
 
-    .ws-actions{display:flex;gap:10px;padding:20px 0;flex-wrap:wrap}
-    .ws-btn{padding:10px 20px;border-radius:10px;font-family:var(--font-body);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-800)}
-    .ws-btn:hover{border-color:var(--teal);color:var(--teal)}
-    .ws-btn-primary{background:var(--teal);border-color:var(--teal);color:#fff}
-    .ws-btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
-    .ws-score{display:none;padding:16px 24px;background:var(--gray-50);border-radius:12px;text-align:center;margin:16px 0}
-    .ws-score.show{display:block}
-    .ws-score-num{font-size:2rem;font-weight:800;color:var(--teal);font-family:var(--font-display)}
-    .ws-score-label{font-size:0.8rem;color:var(--gray-400)}
+    .q-actions{display:flex;gap:10px;margin-top:18px}
+    .btn{padding:10px 22px;border-radius:10px;font-family:var(--font-body);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;border:none}
+    .btn-primary{background:var(--teal);color:#fff;box-shadow:0 2px 8px rgba(42,157,143,0.2)}
+    .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+    .btn-ghost{background:transparent;border:1.5px solid var(--gray-200);color:var(--gray-600)}
+    .btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
 
-    @media(max-width:640px){
-      .form-grid{grid-template-columns:1fr}
-      .q-options{grid-template-columns:1fr}
-      .app{padding:16px}
-      .q-card{padding:16px}
+    /* ── RESULTS ── */
+    .results{text-align:center;animation:pop 0.5s ease}
+    .results-ring{width:140px;height:140px;margin:0 auto 20px;position:relative}
+    .results-ring svg{transform:rotate(-90deg)}
+    .results-ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+    .ring-bg{stroke:var(--gray-200)}
+    .ring-fill{stroke:var(--teal);transition:stroke-dashoffset 1.2s ease}
+    .ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .ring-score{font-size:2.2rem;font-weight:800;color:var(--teal);font-family:var(--font-display)}
+    .ring-label{font-size:0.75rem;color:var(--gray-400)}
+    .results-title{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:6px}
+    .results-msg{color:var(--gray-400);font-size:0.88rem;margin-bottom:24px;line-height:1.5}
+    .results-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+    .review-list{text-align:left;margin-top:24px;display:none}
+    .review-list.show{display:block}
+    .review-item{padding:14px 16px;background:var(--white);border:1.5px solid var(--gray-200);border-radius:12px;margin-bottom:8px}
+    .review-q{font-size:0.85rem;font-weight:600;color:var(--navy);margin-bottom:4px}
+    .review-a{font-size:0.8rem;color:var(--gray-600);line-height:1.5;white-space:pre-line}
+    .review-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.65rem;font-weight:700;text-transform:uppercase;margin-right:6px}
+    .review-ok{background:rgba(16,185,129,0.1);color:var(--green)}
+    .review-no{background:rgba(231,111,81,0.1);color:var(--red)}
+    .review-na{background:rgba(155,150,144,0.1);color:var(--gray-400)}
+
+    @media(max-width:600px){
+      .form-row{grid-template-columns:1fr}
+      .app{padding:16px 14px}
+      .q-card{padding:20px 16px}
+      .q-text{font-size:0.95rem}
+      .results-ring{width:120px;height:120px}
     }
   </style>
 </head>
@@ -138,100 +161,97 @@
   </div>
 
   <div class="app">
-    <div class="setup" id="setupPanel">
+    <!-- ═══ SETUP ═══ -->
+    <div class="panel active" id="panelSetup">
       <h1 class="setup-title">🎯 <em>Practice Builder</em></h1>
-      <p class="setup-sub">Choose your topic and tell us about yourself. We'll create a personalised practice worksheet with questions themed around YOUR interests and culture.</p>
+      <p class="setup-sub">Choose your topic, tell us about yourself, and get a personalised quiz where every question connects to YOUR world.</p>
 
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label" for="pGrade">Grade</label>
-          <select class="form-select" id="pGrade">
-            <option value="6">Grade 6</option>
-            <option value="7">Grade 7</option>
-            <option value="8">Grade 8</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="pSubject">Subject</label>
-          <select class="form-select" id="pSubject">
-            <option value="science">🔬 Science</option>
-            <option value="maths">📐 Mathematics</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label class="form-label" for="pTopic">Topic</label>
-          <select class="form-select" id="pTopic">
-            <option value="">Choose a topic...</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <span class="form-label">Difficulty</span>
-          <div class="pill-row" id="diffRow">
-            <button class="diff-pill" data-d="easy">🟢 Easy</button>
-            <button class="diff-pill active" data-d="medium">🟡 Medium</button>
-            <button class="diff-pill" data-d="hard">🔴 Hard</button>
-          </div>
-        </div>
+      <div class="form-row">
+        <div><label class="form-label" for="pGrade">Grade</label>
+          <select class="form-select" id="pGrade"><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option></select></div>
+        <div><label class="form-label" for="pSubject">Subject</label>
+          <select class="form-select" id="pSubject"><option value="science">🔬 Science</option><option value="maths">📐 Mathematics</option></select></div>
+      </div>
+      <div class="form-row full">
+        <div><label class="form-label" for="pTopic">Topic</label>
+          <select class="form-select" id="pTopic"><option value="">Choose a topic...</option></select></div>
       </div>
 
-      <div class="about-you">
-        <div class="about-you-title">🌍 About You <span style="font-size:0.7rem;color:var(--gray-400);font-weight:400">(optional — makes it way better!)</span></div>
-        <p class="about-you-sub">The more you share, the more personalised your practice will be. Questions will use YOUR interests as real-world context.</p>
+      <label class="form-label">Difficulty</label>
+      <div class="diff-row" id="diffRow">
+        <button class="diff-pill" data-d="easy">🟢 Easy</button>
+        <button class="diff-pill active" data-d="medium">🟡 Medium</button>
+        <button class="diff-pill" data-d="hard">🔴 Hard</button>
+      </div>
 
-        <div class="form-grid" style="margin-bottom:0">
-          <div class="form-group">
-            <label class="form-label">Your Heritage / Culture</label>
-            <div class="tag-input-wrap" id="heritageWrap">
-              <input class="tag-field" id="heritageInput" placeholder="e.g. Korean, Chinese...">
-            </div>
-            <div class="quick-tags" id="heritageQuick">
-              <button class="qt" data-tag="🇨🇳 Chinese">🇨🇳 Chinese</button>
-              <button class="qt" data-tag="🇰🇷 Korean">🇰🇷 Korean</button>
-              <button class="qt" data-tag="🇩🇪 German">🇩🇪 German</button>
-              <button class="qt" data-tag="🇯🇵 Japanese">🇯🇵 Japanese</button>
-              <button class="qt" data-tag="🇦🇺 Australian">🇦🇺 Australian</button>
-              <button class="qt" data-tag="🇺🇸 American">🇺🇸 American</button>
-              <button class="qt" data-tag="🇮🇳 Indian">🇮🇳 Indian</button>
-              <button class="qt" data-tag="🇮🇹 Italian">🇮🇹 Italian</button>
+      <div class="about-box">
+        <div class="about-title">🌍 About You <span style="font-size:0.72rem;color:var(--gray-400);font-weight:400">— optional, makes it way better</span></div>
+        <p class="about-sub">Questions will use your culture and hobbies as real-world context.</p>
+        <div class="form-row">
+          <div>
+            <label class="form-label">Heritage / Culture</label>
+            <div class="tag-wrap" id="hWrap"><input class="tag-input" id="hIn" placeholder="e.g. Korean..."></div>
+            <div class="qtags" id="hQt">
+              <button class="qt" data-t="🇨🇳 Chinese">🇨🇳 Chinese</button>
+              <button class="qt" data-t="🇰🇷 Korean">🇰🇷 Korean</button>
+              <button class="qt" data-t="🇩🇪 German">🇩🇪 German</button>
+              <button class="qt" data-t="🇯🇵 Japanese">🇯🇵 Japanese</button>
+              <button class="qt" data-t="🇦🇺 Australian">🇦🇺 Aus</button>
+              <button class="qt" data-t="🇺🇸 American">🇺🇸 US</button>
+              <button class="qt" data-t="🇮🇳 Indian">🇮🇳 Indian</button>
+              <button class="qt" data-t="🇮🇹 Italian">🇮🇹 Italian</button>
             </div>
           </div>
-          <div class="form-group">
+          <div>
             <label class="form-label">Interests & Hobbies</label>
-            <div class="tag-input-wrap" id="interestsWrap">
-              <input class="tag-field" id="interestsInput" placeholder="e.g. basketball, K-pop...">
-            </div>
-            <div class="quick-tags" id="interestsQuick">
-              <button class="qt" data-tag="⚽ Football">⚽ Football</button>
-              <button class="qt" data-tag="🏀 Basketball">🏀 Basketball</button>
-              <button class="qt" data-tag="🎮 Gaming">🎮 Gaming</button>
-              <button class="qt" data-tag="🎵 K-pop">🎵 K-pop</button>
-              <button class="qt" data-tag="🍳 Cooking">🍳 Cooking</button>
-              <button class="qt" data-tag="🎨 Art">🎨 Art</button>
-              <button class="qt" data-tag="📱 Tech">📱 Tech</button>
-              <button class="qt" data-tag="🐾 Animals">🐾 Animals</button>
-              <button class="qt" data-tag="✈️ Travel">✈️ Travel</button>
+            <div class="tag-wrap" id="iWrap"><input class="tag-input" id="iIn" placeholder="e.g. basketball..."></div>
+            <div class="qtags" id="iQt">
+              <button class="qt" data-t="⚽ Football">⚽ Football</button>
+              <button class="qt" data-t="🏀 Basketball">🏀 Bball</button>
+              <button class="qt" data-t="🎮 Gaming">🎮 Gaming</button>
+              <button class="qt" data-t="🎵 K-pop">🎵 K-pop</button>
+              <button class="qt" data-t="🍳 Cooking">🍳 Cooking</button>
+              <button class="qt" data-t="🎨 Art">🎨 Art</button>
+              <button class="qt" data-t="📱 Tech">📱 Tech</button>
+              <button class="qt" data-t="🐾 Animals">🐾 Animals</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="error-msg" id="errorMsg"></div>
+      <div class="err" id="err"></div>
       <button class="gen-btn" id="genBtn">⚡ Generate My Practice</button>
     </div>
 
-    <div class="loading" id="loading">
-      <div class="ld-dots"><span></span><span></span><span></span></div>
-      <p class="ld-text" id="ldText">Creating your personalised practice...</p>
+    <!-- ═══ LOADING ═══ -->
+    <div class="panel" id="panelLoading">
+      <div class="loading-wrap">
+        <div class="spinner"></div>
+        <p class="ld-msg" id="ldMsg">Creating your personalised practice...</p>
+      </div>
     </div>
 
-    <div class="worksheet" id="worksheetPanel"></div>
+    <!-- ═══ QUIZ ═══ -->
+    <div class="panel" id="panelQuiz">
+      <div class="quiz-bar">
+        <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+        <span class="quiz-counter" id="qCounter">1 / 8</span>
+        <span class="streak" id="streak">🔥 0</span>
+      </div>
+      <div id="qContainer"></div>
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="panel" id="panelResults">
+      <div class="results" id="resultsInner"></div>
+    </div>
   </div>
 
 <script>
 (function(){
   "use strict";
 
-  var TOPICS = {
+  var TOPICS={
     'science-6':['Scientific Skills','States of Matter','Particle Model','Ecosystems','Food Chains','Adaptations','Human Impact','Biodiversity','Earth Layers','Tectonic Plates','Solar System','Moon Phases','Seasons'],
     'science-7':['Crime Scene Investigation','Fingerprints','Chromatography','Cell Structure','Animal vs Plant Cells','Diffusion','Types of Forces','Speed Calculations','Pressure','Mixtures and Solutions','Filtration','Distillation','Gravity and Weight','Stars and Galaxies'],
     'science-8':['Atoms and Elements','Periodic Table','Metals and Non-Metals','States of Matter','Energy Types','Energy Transfers','Efficiency','Renewable Energy','Ecosystems','Food Webs','Populations','Conservation','Mars Colonisation'],
@@ -240,265 +260,297 @@
     'maths-8':['Algebra','Equations','Pythagoras','Compound Interest','Inequalities','Simultaneous Equations','Enlargement','Bearings']
   };
 
-  var tags = { heritage: [], interests: [] };
-  var difficulty = 'medium';
-  var wsData = null;
-  var checked = false;
+  var LD_MSGS=['Creating your personalised practice...','Connecting questions to your interests...','Building interactive exercises...','Almost ready — just checking the answers...'];
+  var tags={h:[],i:[]};
+  var diff='medium';
+  var ws=null, qi=0, score=0, streakN=0, answered=[];
 
-  var $ = function(id) { return document.getElementById(id); };
-  var elGrade = $('pGrade'), elSubject = $('pSubject'), elTopic = $('pTopic');
-  var elSetup = $('setupPanel'), elLoading = $('loading'), elLdText = $('ldText');
-  var elWorksheet = $('worksheetPanel'), elError = $('errorMsg'), elGenBtn = $('genBtn');
-
-  function esc(t) { if (!t) return ''; var d = document.createElement('div'); d.textContent = String(t); return d.innerHTML; }
-
-  function showError(msg) {
-    elError.innerHTML = esc(msg) + ' <button class="retry-btn" id="retryBtn">↻ Try again</button>';
-    elError.className = 'error-msg show';
-    elSetup.style.display = '';
-    elLoading.className = 'loading';
-    $('retryBtn').addEventListener('click', function() { elError.className = 'error-msg'; });
-  }
+  var $=function(id){return document.getElementById(id)};
+  function esc(t){if(!t)return'';var d=document.createElement('div');d.textContent=String(t);return d.innerHTML;}
+  function show(id){document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});$(id).classList.add('active');}
 
   // ── Topics ──
-  function updateTopics() {
-    var key = elSubject.value + '-' + elGrade.value;
-    var arr = TOPICS[key] || [];
-    elTopic.innerHTML = '<option value="">Choose a topic...</option>';
-    for (var i = 0; i < arr.length; i++) {
-      var o = document.createElement('option');
-      o.value = arr[i]; o.textContent = arr[i];
-      elTopic.appendChild(o);
-    }
+  function updateTopics(){
+    var k=$('pSubject').value+'-'+$('pGrade').value, a=TOPICS[k]||[];
+    $('pTopic').innerHTML='<option value="">Choose a topic...</option>';
+    a.forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;$('pTopic').appendChild(o);});
   }
-  elGrade.addEventListener('change', updateTopics);
-  elSubject.addEventListener('change', updateTopics);
+  $('pGrade').addEventListener('change',updateTopics);
+  $('pSubject').addEventListener('change',updateTopics);
   updateTopics();
 
   // ── Difficulty ──
-  $('diffRow').addEventListener('click', function(e) {
-    var btn = e.target.closest('.diff-pill');
-    if (!btn) return;
-    document.querySelectorAll('.diff-pill').forEach(function(b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    difficulty = btn.getAttribute('data-d');
+  $('diffRow').addEventListener('click',function(e){
+    var b=e.target.closest('.diff-pill');if(!b)return;
+    document.querySelectorAll('.diff-pill').forEach(function(x){x.classList.remove('active')});
+    b.classList.add('active');diff=b.getAttribute('data-d');
   });
 
   // ── Tags ──
-  function addTag(type, text) {
-    text = text.trim();
-    if (!text || tags[type].indexOf(text) !== -1) return;
-    tags[type].push(text);
-    renderTags(type);
+  function addTag(type,text){
+    text=text.trim();if(!text||tags[type].indexOf(text)!==-1)return;
+    tags[type].push(text);renderTags(type);
   }
-  function removeTag(type, idx) { tags[type].splice(idx, 1); renderTags(type); }
-  function renderTags(type) {
-    var wrap = $(type + 'Wrap'), input = $(type + 'Input');
-    wrap.querySelectorAll('.tag').forEach(function(t) { t.remove(); });
-    for (var j = 0; j < tags[type].length; j++) {
-      var el = document.createElement('span');
-      el.className = 'tag';
-      el.innerHTML = esc(tags[type][j]) + ' <span class="tag-x" data-type="' + type + '" data-idx="' + j + '">&times;</span>';
-      wrap.insertBefore(el, input);
-    }
+  function removeTag(type,idx){tags[type].splice(idx,1);renderTags(type);}
+  function renderTags(type){
+    var wrap=$(type+'Wrap'),input=$(type+'In');
+    wrap.querySelectorAll('.tag').forEach(function(t){t.remove()});
+    tags[type].forEach(function(t,j){
+      var el=document.createElement('span');el.className='tag';
+      el.innerHTML=esc(t)+' <span class="tag-x" data-t="'+type+'" data-j="'+j+'">&times;</span>';
+      wrap.insertBefore(el,input);
+    });
   }
-
-  $('heritageQuick').addEventListener('click', function(e) { var b = e.target.closest('.qt'); if (b) addTag('heritage', b.getAttribute('data-tag')); });
-  $('interestsQuick').addEventListener('click', function(e) { var b = e.target.closest('.qt'); if (b) addTag('interests', b.getAttribute('data-tag')); });
-
-  document.addEventListener('click', function(e) {
-    var x = e.target.closest('.tag-x');
-    if (x) removeTag(x.getAttribute('data-type'), parseInt(x.getAttribute('data-idx')));
-  });
-
-  $('heritageInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && this.value.trim()) { e.preventDefault(); addTag('heritage', this.value); this.value = ''; }
-  });
-  $('interestsInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && this.value.trim()) { e.preventDefault(); addTag('interests', this.value); this.value = ''; }
-  });
+  $('hQt').addEventListener('click',function(e){var b=e.target.closest('.qt');if(b)addTag('h',b.getAttribute('data-t'))});
+  $('iQt').addEventListener('click',function(e){var b=e.target.closest('.qt');if(b)addTag('i',b.getAttribute('data-t'))});
+  document.addEventListener('click',function(e){var x=e.target.closest('.tag-x');if(x)removeTag(x.getAttribute('data-t'),parseInt(x.getAttribute('data-j')))});
+  $('hIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim()){e.preventDefault();addTag('h',this.value);this.value='';}});
+  $('iIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim()){e.preventDefault();addTag('i',this.value);this.value='';}});
 
   // ── Loading messages ──
-  var ldMsgs = ['Creating your personalised practice...', 'Connecting questions to your interests...', 'Building interactive exercises...', 'Almost ready...'];
-  var ldI = 0;
-  setInterval(function() {
-    if (elLoading.classList.contains('show')) { ldI = (ldI + 1) % ldMsgs.length; elLdText.textContent = ldMsgs[ldI]; }
-  }, 3000);
+  var ldI=0;
+  setInterval(function(){if($('panelLoading').classList.contains('active')){ldI=(ldI+1)%LD_MSGS.length;$('ldMsg').textContent=LD_MSGS[ldI];}},2800);
+
+  // ── Error ──
+  function showErr(msg){
+    $('err').innerHTML=esc(msg)+' <button class="err-retry" id="errRetry">↻ Try again</button>';
+    $('err').className='err show';show('panelSetup');
+    $('errRetry').addEventListener('click',function(){$('err').className='err';});
+  }
 
   // ── Generate ──
-  elGenBtn.addEventListener('click', generate);
+  $('genBtn').addEventListener('click',generate);
+  async function generate(){
+    var topic=$('pTopic').value;
+    if(!topic){showErr('Please choose a topic.');return;}
+    $('err').className='err';
+    show('panelLoading');
+    qi=0;score=0;streakN=0;answered=[];
 
-  async function generate() {
-    var topic = elTopic.value;
-    if (!topic) { showError('Please choose a topic first.'); return; }
-
-    elError.className = 'error-msg';
-    elSetup.style.display = 'none';
-    elLoading.className = 'loading show';
-    elWorksheet.className = 'worksheet';
-    checked = false;
-
-    try {
-      var controller = new AbortController();
-      var tid = setTimeout(function() { controller.abort(); }, 40000);
-      var res = await fetch('/api/practice', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          grade: elGrade.value, subject: elSubject.value, topic: topic,
-          difficulty: difficulty, heritage: tags.heritage.join(', '), interests: tags.interests.join(', ')
-        }),
-        signal: controller.signal
+    try{
+      var ctrl=new AbortController();
+      var tid=setTimeout(function(){ctrl.abort();},42000);
+      var res=await fetch('/api/practice',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({grade:$('pGrade').value,subject:$('pSubject').value,topic:topic,difficulty:diff,heritage:tags.h.join(', '),interests:tags.i.join(', ')}),
+        signal:ctrl.signal
       });
       clearTimeout(tid);
-
       var data;
-      try { data = await res.json(); } catch (pe) { showError('Invalid response from server. Please try again.'); return; }
-
-      elLoading.className = 'loading';
-
-      if (!res.ok || data.error) { showError(data.error || 'Something went wrong. Please try again.'); return; }
-      if (!data.questions || data.questions.length === 0) { showError('No questions generated. Please try again.'); return; }
-
-      renderWorksheet(data);
-    } catch (err) {
-      elLoading.className = 'loading';
-      showError(err.name === 'AbortError' ? 'Request timed out. The AI is busy — please try again.' : 'Could not connect. Check your internet and try again.');
+      try{data=await res.json();}catch(pe){showErr('Invalid response. Please try again.');return;}
+      if(!res.ok||data.error){showErr(data.error||'Something went wrong.');return;}
+      if(!data.questions||data.questions.length===0){showErr('No questions generated. Try again.');return;}
+      ws=data;
+      startQuiz();
+    }catch(err){
+      showErr(err.name==='AbortError'?'Request timed out — the AI is busy. Try again.':'Could not connect. Check your internet.');
     }
   }
 
-  // ── Render ──
-  function renderWorksheet(data) {
-    wsData = data;
-    var h = '<div class="ws-head"><div class="ws-title">' + esc(data.title || 'Practice Worksheet') + '</div><div class="ws-intro">' + esc(data.intro || '') + '</div></div>';
-    h += '<div class="ws-body">';
-    for (var i = 0; i < data.questions.length; i++) {
-      var q = data.questions[i];
-      var type = (q.type || 'short').toLowerCase();
-      h += '<div class="q-card" id="q' + i + '"><div class="q-top"><span class="q-num q-num-' + type + '">' + (q.num || i + 1) + '</span><span class="q-text">' + esc(q.question) + '</span><span class="q-type">' + esc(type) + '</span></div>';
-      if (type === 'mcq' && q.options && q.options.length > 0) {
-        h += '<div class="q-options">';
-        for (var oi = 0; oi < q.options.length; oi++) h += '<button class="q-opt" data-qi="' + i + '" data-oi="' + oi + '">' + esc(q.options[oi]) + '</button>';
-        h += '</div>';
-      } else {
-        h += '<textarea class="q-answer" id="ans' + i + '" rows="2" placeholder="Type your answer..."></textarea>';
-      }
-      h += '<div class="q-feedback" id="fb' + i + '"></div></div>';
-    }
-    h += '</div>';
-    h += '<div class="ws-score" id="wsScore"><div class="ws-score-num" id="scoreNum"></div><div class="ws-score-label">Questions correct</div></div>';
-    h += '<div class="ws-actions"><button class="ws-btn ws-btn-primary" id="checkBtn">✅ Check My Answers</button><button class="ws-btn" id="revealBtn">👁 Show All Answers</button><button class="ws-btn" id="newBtn">⚡ New Practice</button></div>';
-    elWorksheet.innerHTML = h;
-    elWorksheet.className = 'worksheet show';
-    window.scrollTo(0, 0);
+  // ── Quiz flow ──
+  function startQuiz(){
+    qi=0;score=0;streakN=0;answered=new Array(ws.questions.length).fill(null);
+    show('panelQuiz');
+    renderQuestion();
   }
 
-  // Event delegation for worksheet
-  document.addEventListener('click', function(e) {
-    var opt = e.target.closest('.q-opt');
-    if (opt && !checked) {
-      var qi = opt.getAttribute('data-qi');
-      document.querySelectorAll('[data-qi="' + qi + '"]').forEach(function(b) { b.classList.remove('selected'); });
-      opt.classList.add('selected');
-      return;
-    }
-    if (e.target.closest('#checkBtn')) { checkAll(); return; }
-    if (e.target.closest('#revealBtn')) { revealAll(); return; }
-    if (e.target.closest('#newBtn')) { backToSetup(); return; }
-  });
+  function renderQuestion(){
+    var q=ws.questions[qi];
+    var total=ws.questions.length;
+    $('progFill').style.width=((qi)/total*100)+'%';
+    $('qCounter').textContent=(qi+1)+' / '+total;
+    updateStreak();
 
-  // ── MCQ matching (robust, handles all API answer formats) ──
-  function isCorrectOpt(optText, answer, options) {
-    if (!optText || !answer) return false;
-    var ot = optText.trim(), at = answer.trim();
-    // 1. Exact match
-    if (ot === at) return true;
-    // 2. Answer is a single letter (A/B/C/D) — match by position
-    var letter = at.replace(/[^A-Da-d]/g, '').toUpperCase();
-    if (letter.length === 1 && options) {
-      var idx = 'ABCD'.indexOf(letter);
-      if (idx >= 0 && idx < options.length && options[idx].trim() === ot) return true;
+    var type=(q.type||'short').toLowerCase();
+    var badge='q-badge-'+type;
+    var typeLabel={mcq:'Multiple Choice',short:'Short Answer',calculation:'Calculation',extended:'Extended Response'}[type]||type;
+
+    var h='<div class="q-card"><span class="q-badge '+badge+'">'+esc(typeLabel)+'</span>';
+    h+='<div class="q-text">'+esc(q.question)+'</div>';
+
+    if(type==='mcq'&&q.options&&q.options.length>0){
+      h+='<div class="q-opts" id="qOpts">';
+      q.options.forEach(function(opt,oi){
+        h+='<button class="q-opt" data-oi="'+oi+'">'+esc(opt)+'</button>';
+      });
+      h+='</div>';
+    }else{
+      h+='<textarea class="q-input" id="qInput" placeholder="Type your answer..." rows="3"></textarea>';
+      h+='<div class="q-actions"><button class="btn btn-primary" id="checkBtn">Check Answer</button></div>';
     }
-    // 3. Strip A./B./C./D. prefixes from both and compare
-    var stripPrefix = function(s) { return s.replace(/^[A-Da-d][.):\s]+/, '').trim(); };
-    if (stripPrefix(ot) === stripPrefix(at)) return true;
-    // 4. One contains the other (handles partial matches)
-    var otL = ot.toLowerCase(), atL = at.toLowerCase();
-    if (otL.length > 3 && atL.length > 3 && (otL.indexOf(atL) !== -1 || atL.indexOf(otL) !== -1)) return true;
+    h+='<div class="q-fb" id="qFb"></div>';
+    h+='<div class="q-actions" id="nextWrap" style="display:none"><button class="btn btn-primary" id="nextBtn">'+(qi<total-1?'Next Question →':'See My Results')+'</button></div>';
+    h+='</div>';
+
+    $('qContainer').innerHTML=h;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // ── MCQ matching ──
+  function isMatch(optText,answer,options){
+    if(!optText||!answer)return false;
+    var ot=optText.trim(),at=answer.trim();
+    if(ot===at)return true;
+    var letter=at.replace(/[^A-Da-d]/g,'').toUpperCase();
+    if(letter.length===1&&options){var idx='ABCD'.indexOf(letter);if(idx>=0&&idx<options.length&&options[idx].trim()===ot)return true;}
+    var strip=function(s){return s.replace(/^[A-Da-d][.):\s]+/,'').trim()};
+    if(strip(ot)===strip(at))return true;
+    var oL=ot.toLowerCase(),aL=at.toLowerCase();
+    if(oL.length>3&&aL.length>3&&(oL.indexOf(aL)!==-1||aL.indexOf(oL)!==-1))return true;
     return false;
   }
 
-  function checkAll() {
-    if (!wsData || checked) return;
-    checked = true;
-    var correct = 0, total = wsData.questions.length;
-    for (var i = 0; i < total; i++) {
-      var q = wsData.questions[i], fb = $('fb' + i), type = (q.type || 'short').toLowerCase();
-      if (type === 'mcq') {
-        var sel = document.querySelector('[data-qi="' + i + '"].selected');
-        var selText = sel ? sel.textContent : '';
-        var isRight = isCorrectOpt(selText, q.answer, q.options);
-        document.querySelectorAll('[data-qi="' + i + '"]').forEach(function(b) {
-          if (isCorrectOpt(b.textContent, q.answer, q.options)) b.classList.add('correct');
-          else if (b.classList.contains('selected')) b.classList.add('wrong');
-        });
-        if (isRight) correct++;
-        fb.className = 'q-feedback show ' + (isRight ? 'correct' : 'wrong');
-        fb.textContent = isRight ? '✅ Correct! ' + (q.explanation || '') : '❌ ' + (q.explanation || 'The correct answer is highlighted above.');
-      } else {
-        fb.className = 'q-feedback show correct';
-        var m = '📝 Model answer: ' + (q.answer || '');
-        if (q.working) m += '\n📐 Working: ' + q.working;
-        if (q.explanation) m += '\n💡 ' + q.explanation;
-        fb.textContent = m;
-      }
+  // ── Event delegation ──
+  document.addEventListener('click',function(e){
+    // MCQ option click
+    var opt=e.target.closest('.q-opt');
+    if(opt&&!opt.classList.contains('locked')){
+      handleMCQ(opt);return;
     }
-    $('scoreNum').textContent = correct + ' / ' + total;
-    $('wsScore').className = 'ws-score show';
+    // Check button (short/calc)
+    if(e.target.closest('#checkBtn')){handleShort();return;}
+    // Next button
+    if(e.target.closest('#nextBtn')){nextQuestion();return;}
+    // Results buttons
+    if(e.target.closest('#tryAgainBtn')){startQuiz();return;}
+    if(e.target.closest('#newTopicBtn')){show('panelSetup');return;}
+    if(e.target.closest('#reviewBtn')){
+      var rl=document.querySelector('.review-list');
+      if(rl)rl.classList.toggle('show');return;
+    }
+  });
+
+  function handleMCQ(opt){
+    var q=ws.questions[qi];
+    var allOpts=document.querySelectorAll('.q-opt');
+    var correct=isMatch(opt.textContent,q.answer,q.options);
+
+    // Lock all options
+    allOpts.forEach(function(b){b.classList.add('locked');});
+
+    // Highlight
+    allOpts.forEach(function(b){
+      if(isMatch(b.textContent,q.answer,q.options))b.classList.add('correct');
+      else if(b===opt)b.classList.add('wrong');
+    });
+
+    if(correct){score++;streakN++;} else{streakN=0;}
+    answered[qi]={correct:correct,type:'mcq'};
+    updateStreak();
+    showFeedback(q,correct);
+    showNext();
   }
 
-  function revealAll() {
-    if (!wsData) return;
-    checked = true;
-    for (var i = 0; i < wsData.questions.length; i++) {
-      var q = wsData.questions[i], fb = $('fb' + i);
-      fb.className = 'q-feedback show correct';
-      var m = '📝 Answer: ' + (q.answer || '');
-      if (q.working) m += '\n📐 Working: ' + q.working;
-      if (q.explanation) m += '\n💡 ' + q.explanation;
-      fb.textContent = m;
-      if ((q.type || '').toLowerCase() === 'mcq' && q.options) {
-        document.querySelectorAll('[data-qi="' + i + '"]').forEach(function(b) {
-          if (isCorrectOpt(b.textContent, q.answer, q.options)) b.classList.add('correct');
-        });
-      }
+  function handleShort(){
+    var q=ws.questions[qi];
+    var input=document.querySelector('#qInput');
+    if(input)input.setAttribute('readonly','true');
+    var checkBtn=document.querySelector('#checkBtn');
+    if(checkBtn)checkBtn.style.display='none';
+    answered[qi]={correct:null,type:'open'};
+    showFeedback(q,null);
+    showNext();
+  }
+
+  function showFeedback(q,correct){
+    var fb=$('qFb');
+    if(correct===true){
+      fb.className='q-fb show ok';
+      fb.textContent='✅ Correct! '+(q.explanation||'');
+    }else if(correct===false){
+      fb.className='q-fb show no';
+      fb.textContent='❌ '+(q.explanation||'The correct answer is highlighted above.');
+    }else{
+      fb.className='q-fb show ok';
+      var m='📝 Model answer: '+(q.answer||'');
+      if(q.working)m+='\n📐 Working: '+q.working;
+      if(q.explanation)m+='\n💡 '+q.explanation;
+      fb.textContent=m;
     }
   }
 
-  function backToSetup() {
-    elSetup.style.display = '';
-    elWorksheet.className = 'worksheet';
-    elLoading.className = 'loading';
-    elError.className = 'error-msg';
-    checked = false;
-    window.scrollTo(0, 0);
+  function showNext(){
+    $('nextWrap').style.display='flex';
+  }
+
+  function updateStreak(){
+    var el=$('streak');
+    if(streakN>=2){el.className='streak show';el.textContent='🔥 '+streakN;}
+    else{el.className='streak';}
+  }
+
+  function nextQuestion(){
+    qi++;
+    if(qi>=ws.questions.length){showResults();return;}
+    $('progFill').style.width=(qi/ws.questions.length*100)+'%';
+    renderQuestion();
+  }
+
+  // ── Results ──
+  function showResults(){
+    $('progFill').style.width='100%';
+    var total=ws.questions.length;
+    var mcqTotal=answered.filter(function(a){return a&&a.type==='mcq'}).length;
+    var pct=mcqTotal>0?Math.round(score/mcqTotal*100):0;
+    var circ=2*Math.PI*62;
+    var offset=circ-(pct/100*circ);
+
+    var msg,emoji;
+    if(pct===100){emoji='🏆';msg='Perfect score! Every MCQ correct.';}
+    else if(pct>=75){emoji='⭐';msg='Great work! You really know this topic.';}
+    else if(pct>=50){emoji='💪';msg='Good effort! Review the questions you missed.';}
+    else{emoji='📚';msg='Keep practising! Try an easier difficulty or review the topic.';}
+
+    var h='<div class="results-ring"><svg viewBox="0 0 140 140" width="140" height="140">';
+    h+='<circle class="ring-bg" cx="70" cy="70" r="62"/>';
+    h+='<circle class="ring-fill" cx="70" cy="70" r="62" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="ringFill"/>';
+    h+='</svg><div class="ring-text"><span class="ring-score">'+score+'/'+mcqTotal+'</span><span class="ring-label">MCQs correct</span></div></div>';
+    h+='<div class="results-title">'+emoji+' '+esc(ws.title||'Practice Complete')+'</div>';
+    h+='<div class="results-msg">'+esc(msg)+'</div>';
+    h+='<div class="results-actions">';
+    h+='<button class="btn btn-primary" id="tryAgainBtn">🔄 Try Again</button>';
+    h+='<button class="btn btn-ghost" id="newTopicBtn">🎯 New Topic</button>';
+    h+='<button class="btn btn-ghost" id="reviewBtn">📋 Review Answers</button>';
+    h+='</div>';
+
+    // Review list
+    h+='<div class="review-list" id="reviewList">';
+    ws.questions.forEach(function(q,j){
+      var a=answered[j];
+      var tagClass=a?(a.correct===true?'review-ok':a.correct===false?'review-no':'review-na'):'review-na';
+      var tagText=a?(a.correct===true?'Correct':a.correct===false?'Wrong':'Open'):'Skipped';
+      h+='<div class="review-item"><div class="review-q"><span class="review-tag '+tagClass+'">'+tagText+'</span>Q'+(q.num||j+1)+': '+esc(q.question)+'</div>';
+      h+='<div class="review-a">📝 '+esc(q.answer||'');
+      if(q.working)h+='\n📐 '+esc(q.working);
+      if(q.explanation)h+='\n💡 '+esc(q.explanation);
+      h+='</div></div>';
+    });
+    h+='</div>';
+
+    $('resultsInner').innerHTML=h;
+    show('panelResults');
+    window.scrollTo({top:0,behavior:'smooth'});
+
+    // Animate ring
+    setTimeout(function(){
+      var ring=document.getElementById('ringFill');
+      if(ring)ring.style.strokeDashoffset=offset;
+    },100);
   }
 
   // ── Theme ──
-  var themeBtn = $('themeBtn');
-  themeBtn.addEventListener('click', function() {
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
-    try { localStorage.setItem('mz-theme', isDark ? 'light' : 'dark'); } catch(e) {}
-    themeBtn.textContent = isDark ? '🌙' : '☀️';
+  var themeBtn=$('themeBtn');
+  themeBtn.addEventListener('click',function(){
+    var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+    document.documentElement.setAttribute('data-theme',isDark?'':'dark');
+    try{localStorage.setItem('mz-theme',isDark?'light':'dark');}catch(e){}
+    themeBtn.textContent=isDark?'🌙':'☀️';
   });
-  try {
-    if (localStorage.getItem('mz-theme') === 'dark' || (!localStorage.getItem('mz-theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      themeBtn.textContent = '☀️';
+  try{
+    if(localStorage.getItem('mz-theme')==='dark'||(!localStorage.getItem('mz-theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');themeBtn.textContent='☀️';
     }
-  } catch(e) {}
-
+  }catch(e){}
 })();
 </script>
 </body>

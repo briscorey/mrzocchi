@@ -125,36 +125,6 @@
           </div>
           {{ end }}
 
-          {{/* Quick Start — visual resource cards */}}
-          {{ if and .powerpoints .worksheets }}
-          <div class="quick-start">
-            <h4 class="quick-start-title">⚡ Start Here</h4>
-            <div class="quick-start-grid">
-              {{ if ge (len .powerpoints) 2 }}{{ with (index .powerpoints (sub (len .powerpoints) 2)) }}
-              <a href="{{ .url }}" class="quick-card qc-ppt" target="_blank">
-                <span class="quick-card-icon">📊</span>
-                <span class="quick-card-label">Lesson Slides</span>
-                <span class="quick-card-name">{{ .name }}</span>
-              </a>
-              {{ end }}{{ end }}
-              {{ with (index .worksheets 0) }}
-              <a href="{{ .url }}" class="quick-card qc-ws" target="_blank">
-                <span class="quick-card-icon">📝</span>
-                <span class="quick-card-label">Revision Booklet</span>
-                <span class="quick-card-name">{{ .name }}</span>
-              </a>
-              {{ end }}
-              {{ if .games }}{{ with (index .games 0) }}
-              <a href="{{ .url }}" class="quick-card qc-game" target="_blank">
-                <span class="quick-card-icon">🎮</span>
-                <span class="quick-card-label">Review Game</span>
-                <span class="quick-card-name">{{ .name }}</span>
-              </a>
-              {{ end }}{{ end }}
-            </div>
-          </div>
-          {{ end }}
-
         </div>
 
         {{/* Criteria — shared across all terms */}}
@@ -177,22 +147,29 @@
           {{ end }}
         </div>
 
-        {{/* Powerpoints */}}
+        {{/* Powerpoints — card grid */}}
         {{ if .powerpoints }}
         <div class="dash-content-section" id="powerpoints-t{{ .num }}">
-          <h2 class="content-heading" data-i18n="heading.ppts">Powerpoints</h2>
-          <div class="resource-list">{{ range .powerpoints }}
-            <a href="{{ .url }}" class="resource-row rr-ppt" target="_blank"><span class="resource-row-icon">📊</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <h2 class="content-heading" data-i18n="heading.ppts">Lesson Slides</h2>
+          <div class="res-card-grid">{{ range $i, $p := .powerpoints }}
+            <a href="{{ $p.url }}" class="res-card res-card-ppt" target="_blank">
+              <span class="res-card-num">{{ add $i 1 }}</span>
+              <span class="res-card-name">{{ $p.name }}</span>
+              <span class="res-card-dl">⬇ Download</span>
+            </a>
           {{ end }}</div>
         </div>
         {{ end }}
 
-        {{/* Worksheets */}}
+        {{/* Worksheets — card grid */}}
         {{ if .worksheets }}
         <div class="dash-content-section" id="worksheets-t{{ .num }}">
           <h2 class="content-heading" data-i18n="heading.worksheets">Worksheets</h2>
-          <div class="resource-list">{{ range .worksheets }}
-            <a href="{{ .url }}" class="resource-row rr-ws" target="_blank"><span class="resource-row-icon">📝</span><span class="resource-row-name">{{ .name }}</span><span class="resource-row-arrow">↗</span></a>
+          <div class="res-card-grid">{{ range .worksheets }}
+            <a href="{{ .url }}" class="res-card res-card-ws" target="_blank">
+              <span class="res-card-name">{{ .name }}</span>
+              <span class="res-card-dl">{{ if (strings.Contains .url "/feedback") }}🤖 Open{{ else }}⬇ Download{{ end }}</span>
+            </a>
           {{ end }}</div>
         </div>
         {{ end }}

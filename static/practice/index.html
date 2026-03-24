@@ -228,6 +228,7 @@
       <div class="loading-wrap">
         <div class="spinner"></div>
         <p class="ld-msg" id="ldMsg">Creating your personalised practice...</p>
+        <p style="color:var(--gray-300);font-size:0.82rem;margin-top:8px" id="ldTimer">This usually takes 10-20 seconds</p>
       </div>
     </div>
 
@@ -260,13 +261,13 @@
     'maths-8':['Algebra','Equations','Pythagoras','Compound Interest','Inequalities','Simultaneous Equations','Enlargement','Bearings']
   };
 
-  var LD_MSGS=['Creating your personalised practice...','Connecting questions to your interests...','Building interactive exercises...','Almost ready — just checking the answers...'];
+  var LD_MSGS=['Creating your personalised practice...','Connecting questions to your interests...','Building interactive exercises...','Checking the answers are correct...','Almost ready...'];
   var tags={h:[],i:[]};
   var diff='medium';
   var ws=null, qi=0, score=0, streakN=0, answered=[];
 
   var $=function(id){return document.getElementById(id)};
-  function esc(t){if(!t)return'';var d=document.createElement('div');d.textContent=String(t);return d.innerHTML;}
+  function esc(t){var d=document.createElement('div');d.textContent=String(t==null?'':t);return d.innerHTML;}
   function show(id){document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});$(id).classList.add('active');}
 
   // ── Topics ──
@@ -307,9 +308,24 @@
   $('hIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim()){e.preventDefault();addTag('h',this.value);this.value='';}});
   $('iIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim()){e.preventDefault();addTag('i',this.value);this.value='';}});
 
-  // ── Loading messages ──
-  var ldI=0;
+  // ── Loading messages + timer ──
+  var ldI=0, ldSec=0, ldTimerInterval=null;
   setInterval(function(){if($('panelLoading').classList.contains('active')){ldI=(ldI+1)%LD_MSGS.length;$('ldMsg').textContent=LD_MSGS[ldI];}},2800);
+  function startLoadingTimer() {
+    ldSec = 0;
+    if (ldTimerInterval) clearInterval(ldTimerInterval);
+    $('ldTimer').textContent = 'This usually takes 10-20 seconds';
+    ldTimerInterval = setInterval(function() {
+      ldSec++;
+      if (ldSec < 10) $('ldTimer').textContent = 'This usually takes 10-20 seconds';
+      else if (ldSec < 25) $('ldTimer').textContent = ldSec + 's — generating questions...';
+      else if (ldSec < 40) $('ldTimer').textContent = ldSec + 's — almost there...';
+      else $('ldTimer').textContent = ldSec + 's — still working, please wait...';
+    }, 1000);
+  }
+  function stopLoadingTimer() {
+    if (ldTimerInterval) { clearInterval(ldTimerInterval); ldTimerInterval = null; }
+  }
 
   // ── Error ──
   function showErr(msg){
@@ -325,6 +341,7 @@
     if(!topic){showErr('Please choose a topic.');return;}
     $('err').className='err';
     show('panelLoading');
+    startLoadingTimer();
     qi=0;score=0;streakN=0;answered=[];
 
     try{
@@ -337,13 +354,14 @@
       });
       clearTimeout(tid);
       var data;
-      try{data=await res.json();}catch(pe){showErr('Invalid response. Please try again.');return;}
-      if(!res.ok||data.error){showErr(data.error||'Something went wrong.');return;}
-      if(!data.questions||data.questions.length===0){showErr('No questions generated. Try again.');return;}
+      try{data=await res.json();}catch(pe){stopLoadingTimer();showErr('Invalid response. Please try again.');return;}
+      if(!res.ok||data.error){stopLoadingTimer();showErr(data.error||'Something went wrong.');return;}
+      if(!data.questions||data.questions.length===0){stopLoadingTimer();showErr('No questions generated. Try again.');return;}
+      stopLoadingTimer();
       ws=data;
       startQuiz();
     }catch(err){
-      showErr(err.name==='AbortError'?'Request timed out — the AI is busy. Try again.':'Could not connect. Check your internet.');
+      stopLoadingTimer();showErr(err.name==='AbortError'?'Request timed out — the AI is busy. Try again.':'Could not connect. Check your internet.');
     }
   }
 
@@ -356,6 +374,14 @@
 
   function renderQuestion(){
     var q=ws.questions[qi];
+    // Guard: skip malformed questions
+    if (!q || !q.question || q.question.trim().length < 3) {
+      answered[qi] = {correct: null, type: 'skipped'};
+      qi++;
+      if (qi >= ws.questions.length) { showResults(); return; }
+      renderQuestion();
+      return;
+    }
     var total=ws.questions.length;
     $('progFill').style.width=((qi)/total*100)+'%';
     $('qCounter').textContent=(qi+1)+' / '+total;
@@ -366,7 +392,7 @@
     var typeLabel={mcq:'Multiple Choice',short:'Short Answer',calculation:'Calculation',extended:'Extended Response'}[type]||type;
 
     var h='<div class="q-card"><span class="q-badge '+badge+'">'+esc(typeLabel)+'</span>';
-    h+='<div class="q-text">'+esc(q.question)+'</div>';
+    h+='<div class="q-text">'+esc(q.question||'(Question text missing)')+'</div>';
 
     if(type==='mcq'&&q.options&&q.options.length>0){
       h+='<div class="q-opts" id="qOpts">';
@@ -380,9 +406,17 @@
     }
     h+='<div class="q-fb" id="qFb"></div>';
     h+='<div class="q-actions" id="nextWrap" style="display:none"><button class="btn btn-primary" id="nextBtn">'+(qi<total-1?'Next Question →':'See My Results')+'</button></div>';
+    h+='<div class="q-actions" id="skipWrap"><button class="btn btn-ghost" id="skipBtn" style="font-size:0.85rem;padding:10px 20px">Skip →</button></div>';
     h+='</div>';
 
     $('qContainer').innerHTML=h;
+    // Enter key submits short answer
+    var qInput = document.getElementById('qInput');
+    if (qInput) {
+      qInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleShort(); }
+      });
+    }
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -411,6 +445,11 @@
     if(e.target.closest('#checkBtn')){handleShort();return;}
     // Next button
     if(e.target.closest('#nextBtn')){nextQuestion();return;}
+    // Skip button
+    if(e.target.closest('#skipBtn')){
+      answered[qi]={correct:null,type:'skipped'};
+      nextQuestion();return;
+    }
     // Results buttons
     if(e.target.closest('#tryAgainBtn')){startQuiz();return;}
     if(e.target.closest('#newTopicBtn')){show('panelSetup');return;}
@@ -471,6 +510,8 @@
 
   function showNext(){
     $('nextWrap').style.display='flex';
+    var skipWrap = document.getElementById('skipWrap');
+    if (skipWrap) skipWrap.style.display = 'none';
   }
 
   function updateStreak(){
@@ -491,7 +532,7 @@
     $('progFill').style.width='100%';
     var total=ws.questions.length;
     var mcqTotal=answered.filter(function(a){return a&&a.type==='mcq'}).length;
-    var pct=mcqTotal>0?Math.round(score/mcqTotal*100):0;
+    var pct=mcqTotal>0?Math.round(score/mcqTotal*100):(answered.filter(function(a){return a&&a.correct!==null}).length>0?50:0);
     var circ=2*Math.PI*62;
     var offset=circ-(pct/100*circ);
 
@@ -504,7 +545,7 @@
     var h='<div class="results-ring"><svg viewBox="0 0 140 140" width="140" height="140">';
     h+='<circle class="ring-bg" cx="70" cy="70" r="62"/>';
     h+='<circle class="ring-fill" cx="70" cy="70" r="62" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="ringFill"/>';
-    h+='</svg><div class="ring-text"><span class="ring-score">'+score+'/'+mcqTotal+'</span><span class="ring-label">MCQs correct</span></div></div>';
+    h+='</svg><div class="ring-text"><span class="ring-score">'+(mcqTotal>0?score+'/'+mcqTotal:'✓')+'</span><span class="ring-label">'+(mcqTotal>0?'MCQs correct':'Completed')+'</span></div></div>';
     h+='<div class="results-title">'+emoji+' '+esc(ws.title||'Practice Complete')+'</div>';
     h+='<div class="results-msg">'+esc(msg)+'</div>';
     h+='<div class="results-actions">';

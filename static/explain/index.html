@@ -20,147 +20,95 @@
       --gray-400: #6B7084; --gray-600: #9B9EB0; --gray-800: #E2E4EE;
       --navy: #E2E4EE;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: var(--font-body); background: var(--cream); color: var(--gray-800); min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
-
-    .header { background: #1B2A4A; padding: 12px 24px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-    [data-theme="dark"] .header { background: #080A10; }
-    .header img { width: 32px; height: 32px; border-radius: 8px; }
-    .header a { color: #fff; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
-    .header a span { color: var(--gold); }
-    .header-right { margin-left: auto; display: flex; gap: 12px; align-items: center; }
-    .header-back { color: rgba(255,255,255,0.4); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
-    .header-back:hover { color: #fff; }
-    .theme-toggle { background: none; border: none; font-size: 1.1rem; cursor: pointer; }
-
-    .app { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-    .input-bar {
-      padding: 16px 24px 12px; background: var(--white);
-      border-bottom: 1px solid var(--gray-200); flex-shrink: 0; z-index: 10;
-    }
-    .input-top { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
-    .input-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--navy); white-space: nowrap; }
-    .input-title em { font-style: normal; background: linear-gradient(135deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .pill-group { display: flex; gap: 3px; }
-    .pill { padding: 5px 12px; border-radius: 7px; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-    .pill:hover { border-color: var(--gray-300); }
-    .pill.active { background: var(--teal); border-color: var(--teal); color: #fff; }
-    .limit-info { margin-left: auto; font-size: 0.7rem; color: var(--gray-400); display: flex; align-items: center; gap: 5px; white-space: nowrap; }
-    .limit-dots { display: flex; gap: 2px; }
-    .limit-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); transition: all 0.3s; }
-    .limit-dot.used { background: var(--gray-200); }
-
-    .input-row { display: flex; gap: 10px; align-items: flex-end; }
-    .input-field {
-      flex: 1; padding: 10px 16px; border-radius: 12px;
-      border: 1.5px solid var(--gray-200); background: var(--gray-50);
-      font-family: var(--font-body); font-size: 0.92rem; color: var(--gray-800);
-      outline: none; resize: none; min-height: 42px; max-height: 120px;
-      transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.4;
-    }
-    .input-field:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,157,143,0.1); background: var(--white); }
-    .input-field::placeholder { color: var(--gray-300); }
-    .send-btn {
-      padding: 10px 22px; background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-      color: #fff; border: none; border-radius: 12px; font-family: var(--font-body);
-      font-size: 0.85rem; font-weight: 700; cursor: pointer; white-space: nowrap;
-      transition: all 0.2s; box-shadow: 0 2px 8px rgba(42,157,143,0.25);
-      display: flex; align-items: center; gap: 6px;
-    }
-    .send-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,157,143,0.35); }
-    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-    .sug-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
-    .sug { padding: 5px 12px; border-radius: 100px; border: 1px solid var(--gray-200); background: transparent; color: var(--gray-400); font-size: 0.72rem; cursor: pointer; transition: all 0.15s; font-family: var(--font-body); }
-    .sug:hover { border-color: var(--teal); color: var(--teal); }
-
-    .results { flex: 1; overflow-y: auto; padding: 20px 24px 40px; }
-
-    .loading { display: none; text-align: center; padding: 60px 24px; }
-    .loading.show { display: block; }
-    .loading-dots { display: inline-flex; gap: 6px; }
-    .loading-dots span { width: 10px; height: 10px; background: var(--teal); border-radius: 50%; animation: ldB 1.4s infinite ease-in-out; }
-    .loading-dots span:nth-child(2) { animation-delay: 0.16s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.32s; }
-    @keyframes ldB { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
-    .loading-text { margin-top: 14px; color: var(--gray-400); font-size: 0.82rem; }
-
-    .error-msg { display: none; padding: 10px 16px; background: rgba(200,55,45,0.06); border: 1px solid rgba(200,55,45,0.12); border-radius: 10px; color: var(--red); font-size: 0.82rem; margin-bottom: 12px; }
-    .error-msg.show { display: block; }
-
-    .resp { display: none; border-radius: 16px; overflow: hidden; margin-bottom: 20px; animation: rSlide 0.4s cubic-bezier(0.22,1,0.36,1); border: 1px solid var(--gray-200); background: var(--white); }
-    .resp.show { display: block; }
-    @keyframes rSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-    .resp-head {
-      padding: 14px 20px; display: flex; align-items: center; gap: 12px;
-      background: linear-gradient(135deg, rgba(42,157,143,0.05), rgba(233,196,106,0.03));
-      border-bottom: 1px solid var(--gray-200);
-    }
-    .resp-dot { width: 32px; height: 32px; background: var(--teal); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-    .resp-q { font-family: var(--font-display); font-weight: 600; font-size: 0.88rem; color: var(--navy); }
-    .resp-meta { font-size: 0.68rem; color: var(--gray-400); }
-
-    .resp-actions { display: flex; gap: 6px; margin-left: auto; flex-shrink: 0; }
-    .lang-btn {
-      padding: 5px 10px; border-radius: 7px; border: 1.5px solid var(--gray-200);
-      background: var(--white); color: var(--gray-600); font-size: 0.72rem; font-weight: 700;
-      cursor: pointer; transition: all 0.15s; font-family: var(--font-body);
-    }
-    .lang-btn:hover { border-color: var(--teal); color: var(--teal); }
-    .lang-btn.loading-lang { opacity: 0.5; pointer-events: none; }
-    .lang-btn.active-lang { background: var(--teal); border-color: var(--teal); color: #fff; }
-
-    .view-toggle { display: flex; gap: 4px; }
-    .vt-btn { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--gray-200); background: transparent; color: var(--gray-400); font-size: 0.7rem; cursor: pointer; font-weight: 600; transition: all 0.15s; }
-    .vt-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
-
-    .pane-text { padding: 24px; font-size: 0.9rem; line-height: 1.75; }
-    .pane-text p { margin-bottom: 10px; }
-    .pane-text strong { color: var(--teal-dark); font-weight: 700; }
-    [data-theme="dark"] .pane-text strong { color: #5EEAD4; }
-    .pane-text h3, .pane-text h4 { font-family: var(--font-display); color: var(--navy); margin: 16px 0 6px; font-size: 1rem; }
-    .pane-text ul, .pane-text ol { margin: 6px 0 10px 20px; }
-    .pane-text li { margin-bottom: 4px; }
-    .pane-text code { background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
-
-    .pane-viz { background: #0f172a; border-radius: 0 0 16px 16px; padding: 12px; min-height: 300px; display: flex; align-items: center; justify-content: center; }
-    .pane-viz svg { max-width: 100%; height: auto; display: block; }
-
-    .resp-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 400px; }
-    .resp-split .pane-text { border-right: 1px solid var(--gray-200); overflow-y: auto; max-height: 550px; }
-    .resp-split .pane-viz { min-height: 400px; border-radius: 0; }
-    .resp-split .pane-text, .resp-split .pane-viz { display: block !important; }
-
-    /* Language translation panel */
-    .lang-panel { display: none; border-top: 1px solid var(--gray-200); }
-    .lang-panel.show { display: block; }
-    .lang-panel-head { padding: 10px 20px; background: var(--gray-50); display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--gray-200); }
-    .lang-panel-body { padding: 20px 24px; font-size: 0.9rem; line-height: 1.75; }
-    .lang-panel-body p { margin-bottom: 10px; }
-    .lang-panel-body strong { color: var(--teal-dark); font-weight: 700; }
-    [data-theme="dark"] .lang-panel-body strong { color: #5EEAD4; }
-    .lang-loading { text-align: center; padding: 24px; color: var(--gray-400); font-size: 0.82rem; }
-
-    .empty-state { text-align: center; padding: 80px 24px; color: var(--gray-300); }
-    .empty-state .big { font-size: 3rem; margin-bottom: 12px; }
-    .empty-state p { font-size: 0.9rem; max-width: 400px; margin: 0 auto; line-height: 1.6; }
-    .history-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-300); margin: 20px 0 8px; }
-
-    @media (max-width: 900px) {
-      .resp-split { grid-template-columns: 1fr; }
-      .resp-split .pane-text { max-height: none; border-right: none; border-bottom: 1px solid var(--gray-200); }
-    }
-    @media (max-width: 640px) {
-      .input-top { gap: 8px; }
-      .input-title { font-size: 1rem; }
-      .input-row { flex-direction: column; }
-      .send-btn { width: 100%; justify-content: center; }
-      .results { padding: 16px; }
-      .resp-head { flex-wrap: wrap; }
-      .resp-actions { width: 100%; justify-content: flex-start; margin-left: 44px; margin-top: 4px; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-body);background:var(--cream);color:var(--gray-800);min-height:100vh;display:flex;flex-direction:column;transition:background 0.3s,color 0.3s}
+    .header{background:#1B2A4A;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+    [data-theme="dark"] .header{background:#080A10}
+    .header img{width:32px;height:32px;border-radius:8px}
+    .header a{color:#fff;text-decoration:none;font-family:var(--font-display);font-weight:600;font-size:1rem}
+    .header a span{color:var(--gold)}
+    .header-right{margin-left:auto;display:flex;gap:12px;align-items:center}
+    .header-back{color:rgba(255,255,255,0.4);font-size:0.8rem;text-decoration:none;transition:color 0.2s}
+    .header-back:hover{color:#fff}
+    .theme-toggle{background:none;border:none;font-size:1.1rem;cursor:pointer}
+    .app{flex:1;display:flex;flex-direction:column;overflow:hidden}
+    .input-bar{padding:16px 24px 12px;background:var(--white);border-bottom:1px solid var(--gray-200);flex-shrink:0;z-index:10}
+    .input-top{display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+    .input-title{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--navy);white-space:nowrap}
+    .input-title em{font-style:normal;background:linear-gradient(135deg,var(--teal),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .pill-group{display:flex;gap:3px}
+    .pill{padding:5px 12px;border-radius:7px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);font-family:var(--font-body);font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.15s}
+    .pill:hover{border-color:var(--gray-300)}
+    .pill.active{background:var(--teal);border-color:var(--teal);color:#fff}
+    .limit-info{margin-left:auto;font-size:0.7rem;color:var(--gray-400);display:flex;align-items:center;gap:5px;white-space:nowrap}
+    .limit-dots{display:flex;gap:2px}
+    .limit-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);transition:all 0.3s}
+    .limit-dot.used{background:var(--gray-200)}
+    .input-row{display:flex;gap:10px;align-items:flex-end}
+    .input-field{flex:1;padding:10px 16px;border-radius:12px;border:1.5px solid var(--gray-200);background:var(--gray-50);font-family:var(--font-body);font-size:0.92rem;color:var(--gray-800);outline:none;resize:none;min-height:42px;max-height:120px;transition:border-color 0.2s,box-shadow 0.2s;line-height:1.4}
+    .input-field:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(42,157,143,0.1);background:var(--white)}
+    .input-field::placeholder{color:var(--gray-300)}
+    .send-btn{padding:10px 22px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;border:none;border-radius:12px;font-family:var(--font-body);font-size:0.85rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;box-shadow:0 2px 8px rgba(42,157,143,0.25);display:flex;align-items:center;gap:6px}
+    .send-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 16px rgba(42,157,143,0.35)}
+    .send-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+    .sug-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+    .sug{padding:5px 12px;border-radius:100px;border:1px solid var(--gray-200);background:transparent;color:var(--gray-400);font-size:0.72rem;cursor:pointer;transition:all 0.15s;font-family:var(--font-body)}
+    .sug:hover{border-color:var(--teal);color:var(--teal)}
+    .results{flex:1;overflow-y:auto;padding:20px 24px 40px}
+    .loading{display:none;text-align:center;padding:60px 24px}
+    .loading.show{display:block}
+    .loading-dots{display:inline-flex;gap:6px}
+    .loading-dots span{width:10px;height:10px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out}
+    .loading-dots span:nth-child(2){animation-delay:0.16s}
+    .loading-dots span:nth-child(3){animation-delay:0.32s}
+    @keyframes ldB{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
+    .loading-text{margin-top:14px;color:var(--gray-400);font-size:0.82rem}
+    .error-msg{display:none;padding:10px 16px;background:rgba(200,55,45,0.06);border:1px solid rgba(200,55,45,0.12);border-radius:10px;color:var(--red);font-size:0.82rem;margin-bottom:12px}
+    .error-msg.show{display:block}
+    .resp{display:none;border-radius:16px;overflow:hidden;margin-bottom:20px;animation:rSlide 0.4s cubic-bezier(0.22,1,0.36,1);border:1px solid var(--gray-200);background:var(--white)}
+    .resp.show{display:block}
+    @keyframes rSlide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .resp-head{padding:14px 20px;display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,rgba(42,157,143,0.05),rgba(233,196,106,0.03));border-bottom:1px solid var(--gray-200)}
+    .resp-dot{width:32px;height:32px;background:var(--teal);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+    .resp-q{font-family:var(--font-display);font-weight:600;font-size:0.88rem;color:var(--navy)}
+    .resp-meta{font-size:0.68rem;color:var(--gray-400)}
+    .resp-actions{display:flex;gap:6px;margin-left:auto;flex-shrink:0;flex-wrap:wrap}
+    .lang-btn{padding:5px 10px;border-radius:7px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);font-size:0.72rem;font-weight:700;cursor:pointer;transition:all 0.15s;font-family:var(--font-body)}
+    .lang-btn:hover{border-color:var(--teal);color:var(--teal)}
+    .lang-btn.loading-lang{opacity:0.5;pointer-events:none}
+    .lang-btn.active-lang{background:var(--teal);border-color:var(--teal);color:#fff}
+    .view-toggle{display:flex;gap:4px}
+    .vt-btn{padding:4px 10px;border-radius:6px;border:1px solid var(--gray-200);background:transparent;color:var(--gray-400);font-size:0.7rem;cursor:pointer;font-weight:600;transition:all 0.15s}
+    .vt-btn.active{background:var(--teal);border-color:var(--teal);color:#fff}
+    .pane-text{padding:24px;font-size:0.9rem;line-height:1.75}
+    .pane-text p{margin-bottom:10px}
+    .pane-text strong{color:var(--teal-dark);font-weight:700}
+    [data-theme="dark"] .pane-text strong{color:#5EEAD4}
+    .pane-text h3,.pane-text h4{font-family:var(--font-display);color:var(--navy);margin:16px 0 6px;font-size:1rem}
+    .pane-text ul,.pane-text ol{margin:6px 0 10px 20px}
+    .pane-text li{margin-bottom:4px}
+    .pane-text code{background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:0.85em}
+    .pane-viz{background:#0f172a;border-radius:0 0 16px 16px;padding:16px;min-height:280px;display:flex;align-items:center;justify-content:center}
+    .pane-viz svg{max-width:100%;height:auto;display:block}
+    .pane-viz .viz-fallback{color:#94a3b8;font-size:0.85rem;text-align:center;padding:40px 20px}
+    .resp-split{display:grid;grid-template-columns:1fr 1fr;min-height:380px}
+    .resp-split .pane-text{border-right:1px solid var(--gray-200);overflow-y:auto;max-height:550px}
+    .resp-split .pane-viz{min-height:380px;border-radius:0}
+    .resp-split .pane-text,.resp-split .pane-viz{display:block!important}
+    .lang-panel{display:none;border-top:1px solid var(--gray-200)}
+    .lang-panel.show{display:block}
+    .lang-panel-head{padding:10px 20px;background:var(--gray-50);display:flex;align-items:center;gap:8px;font-size:0.75rem;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--gray-200)}
+    .lang-panel-body{padding:20px 24px;font-size:0.9rem;line-height:1.75}
+    .lang-panel-body p{margin-bottom:10px}
+    .lang-panel-body strong{color:var(--teal-dark);font-weight:700}
+    [data-theme="dark"] .lang-panel-body strong{color:#5EEAD4}
+    .lang-loading{text-align:center;padding:24px;color:var(--gray-400);font-size:0.82rem}
+    .empty-state{text-align:center;padding:80px 24px;color:var(--gray-300)}
+    .empty-state .big{font-size:3rem;margin-bottom:12px}
+    .empty-state p{font-size:0.9rem;max-width:400px;margin:0 auto;line-height:1.6}
+    .history-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-300);margin:20px 0 8px}
+    @media(max-width:900px){.resp-split{grid-template-columns:1fr}.resp-split .pane-text{max-height:none;border-right:none;border-bottom:1px solid var(--gray-200)}}
+    @media(max-width:640px){.input-top{gap:8px}.input-title{font-size:1rem}.input-row{flex-direction:column}.send-btn{width:100%;justify-content:center}.results{padding:16px}.resp-head{flex-wrap:wrap}.resp-actions{width:100%;justify-content:flex-start;margin-left:44px;margin-top:4px}}
   </style>
 </head>
 <body>
@@ -172,7 +120,6 @@
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
   </div>
-
   <div class="app">
     <div class="input-bar">
       <div class="input-top">
@@ -193,16 +140,15 @@
       </div>
       <div class="input-row">
         <textarea class="input-field" id="conceptInput" placeholder="Ask anything… e.g. 'How does photosynthesis work?' or 'Explain fractions'" rows="1" maxlength="300"></textarea>
-        <button class="send-btn" id="submitBtn" onclick="askExplain()">Explain ⚡</button>
+        <button class="send-btn" id="submitBtn">Explain ⚡</button>
       </div>
       <div class="sug-row" id="suggestions"></div>
     </div>
-
     <div class="results" id="resultsArea">
       <div class="error-msg" id="errorMsg"></div>
       <div class="loading" id="loading">
         <div class="loading-dots"><span></span><span></span><span></span></div>
-        <p class="loading-text">Building your explanation and diagram…</p>
+        <p class="loading-text" id="loadingText">Building your explanation and diagram…</p>
       </div>
       <div id="responseArea">
         <div class="empty-state" id="emptyState">
@@ -212,34 +158,41 @@
       </div>
     </div>
   </div>
-
 <script>
-var selectedGrade='6', selectedSubject='science', MAX_PER_DAY=10;
-var input=document.getElementById('conceptInput');
+(function(){
+"use strict";
 
-input.addEventListener('input', function() {
-  this.style.height='auto';
-  this.style.height=Math.min(this.scrollHeight,120)+'px';
-});
+var selectedGrade='6',selectedSubject='science',MAX_PER_DAY=10;
+var input=document.getElementById('conceptInput');
+var cardRegistry={};
+var loadingTimer=null,loadingSec=0;
+var LOADING_MSGS=['Building your explanation and diagram…','Thinking about the best way to explain this…','Creating a visual diagram…','Almost there…'];
+var loadingMsgIdx=0;
+
+input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';});
 
 document.querySelectorAll('.pill-group').forEach(function(g){
   g.querySelectorAll('.pill').forEach(function(p){
     p.addEventListener('click',function(){
       g.querySelectorAll('.pill').forEach(function(b){b.classList.remove('active');});
       p.classList.add('active');
-      if(g.id==='gradePills') selectedGrade=p.dataset.val;
-      if(g.id==='subjectPills') selectedSubject=p.dataset.val;
+      if(g.id==='gradePills')selectedGrade=p.dataset.val;
+      if(g.id==='subjectPills')selectedSubject=p.dataset.val;
       updateSuggestions();
     });
   });
 });
 
+// Safe localStorage
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+
 function getToday(){return new Date().toISOString().split('T')[0];}
-function getUsage(){try{var d=JSON.parse(localStorage.getItem('explain_usage')||'{}');return d.date===getToday()?d:{date:getToday(),count:0};}catch(e){return{date:getToday(),count:0};}}
-function setUsage(c){localStorage.setItem('explain_usage',JSON.stringify({date:getToday(),count:c}));}
+function getUsage(){try{var d=JSON.parse(lsGet('explain_usage')||'{}');return d.date===getToday()?d:{date:getToday(),count:0};}catch(e){return{date:getToday(),count:0};}}
+function setUsage(c){lsSet('explain_usage',JSON.stringify({date:getToday(),count:c}));}
 function updateLimitDisplay(){
-  var u=getUsage(), rem=Math.max(0,MAX_PER_DAY-u.count), dots='';
-  for(var i=0;i<MAX_PER_DAY;i++) dots+='<span class="limit-dot'+(i<u.count?' used':'')+'"></span>';
+  var u=getUsage(),rem=Math.max(0,MAX_PER_DAY-u.count),dots='';
+  for(var i=0;i<MAX_PER_DAY;i++)dots+='<span class="limit-dot'+(i<u.count?' used':'')+'"></span>';
   document.getElementById('limitDots').innerHTML=dots;
   document.getElementById('limitText').textContent=rem+'/'+MAX_PER_DAY;
   document.getElementById('submitBtn').disabled=rem===0;
@@ -256,14 +209,19 @@ var sugMap={
 };
 function updateSuggestions(){
   var arr=sugMap[selectedSubject+'-'+selectedGrade]||sugMap['science-6'];
-  document.getElementById('suggestions').innerHTML=arr.map(function(s){return '<button class="sug" onclick="fillSug(this)">'+s+'</button>';}).join('');
+  document.getElementById('suggestions').innerHTML=arr.map(function(s){return '<button class="sug">'+s+'</button>';}).join('');
 }
 updateSuggestions();
-function fillSug(el){input.value=el.textContent;input.dispatchEvent(new Event('input'));input.focus();}
+
+document.getElementById('suggestions').addEventListener('click',function(e){
+  var b=e.target.closest('.sug');if(!b)return;
+  input.value=b.textContent;input.dispatchEvent(new Event('input'));input.focus();
+});
 
 function renderMd(t){
-  if(!t) return '';
+  if(!t)return'';
   return t
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
     .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g,'<em>$1</em>')
     .replace(/^### (.+)$/gm,'<h4>$1</h4>')
@@ -273,194 +231,214 @@ function renderMd(t){
     .replace(/\n{2,}/g,'</p><p>')
     .replace(/\n/g,'<br>');
 }
-function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+function esc(t){var d=document.createElement('div');d.textContent=String(t||'');return d.innerHTML;}
 
-function setView(btn, id, mode) {
-  var card = document.getElementById(id);
-  if (!card) return;
+function setView(btn,id,mode){
+  var card=document.getElementById(id);if(!card)return;
   card.querySelectorAll('.vt-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  var split = card.querySelector('.resp-split');
-  var textPane = card.querySelector('.pane-text');
-  var vizPane = card.querySelector('.pane-viz');
-  if (!split) return;
-  if (mode === 'split') {
-    split.style.display = 'grid'; split.style.gridTemplateColumns = '1fr 1fr';
-    if (textPane) textPane.style.display = 'block';
-    if (vizPane) vizPane.style.display = 'block';
-  } else if (mode === 'text') {
-    split.style.display = 'block';
-    if (textPane) textPane.style.display = 'block';
-    if (vizPane) vizPane.style.display = 'none';
-  } else if (mode === 'viz') {
-    split.style.display = 'block';
-    if (textPane) textPane.style.display = 'none';
-    if (vizPane) vizPane.style.display = 'block';
-  }
+  var split=card.querySelector('.resp-split');
+  var textPane=card.querySelector('.pane-text');
+  var vizPane=card.querySelector('.pane-viz');
+  if(!split)return;
+  if(mode==='split'){split.style.display='grid';split.style.gridTemplateColumns='1fr 1fr';if(textPane)textPane.style.display='block';if(vizPane)vizPane.style.display='block';}
+  else if(mode==='text'){split.style.display='block';if(textPane)textPane.style.display='block';if(vizPane)vizPane.style.display='none';}
+  else if(mode==='viz'){split.style.display='block';if(textPane)textPane.style.display='none';if(vizPane)vizPane.style.display='block';}
 }
 
-// Sanitize SVG — strip any script tags or event handlers
-function sanitizeSvg(svgStr) {
-  svgStr = svgStr.replace(/<script[\s\S]*?<\/script>/gi, '');
-  svgStr = svgStr.replace(/\bon\w+\s*=\s*"[^"]*"/gi, '');
-  svgStr = svgStr.replace(/\bon\w+\s*=\s*'[^']*'/gi, '');
+// Sanitize SVG — strip scripts, event handlers, foreign objects
+function sanitizeSvg(svgStr){
+  svgStr=svgStr.replace(/<script[\s\S]*?<\/script>/gi,'');
+  svgStr=svgStr.replace(/<foreignObject[\s\S]*?<\/foreignObject>/gi,'');
+  svgStr=svgStr.replace(/\bon\w+\s*=\s*"[^"]*"/gi,'');
+  svgStr=svgStr.replace(/\bon\w+\s*=\s*'[^']*'/gi,'');
+  svgStr=svgStr.replace(/javascript\s*:/gi,'');
   return svgStr;
 }
 
-// Language translation
-async function requestTranslation(btn, cardId, concept, grade, subject, lang) {
-  var card = document.getElementById(cardId);
-  if (!card) return;
-
-  var langLabel = lang === 'zh' ? '🇨🇳 中文' : '🇰🇷 한국어';
-  var panelId = cardId + '-' + lang;
-  var existing = document.getElementById(panelId);
-
-  // Toggle off if already showing
-  if (existing && existing.classList.contains('show')) {
-    existing.classList.remove('show');
-    btn.classList.remove('active-lang');
-    return;
+// Validate SVG actually renders
+function renderSvgSafe(svgStr){
+  try{
+    var clean=sanitizeSvg(svgStr);
+    // Test parse
+    var parser=new DOMParser();
+    var doc=parser.parseFromString(clean,'image/svg+xml');
+    var err=doc.querySelector('parsererror');
+    if(err)return '<div class="viz-fallback">📊 Diagram could not be displayed.<br>The text explanation covers everything you need.</div>';
+    // Check it actually has content
+    var svg=doc.querySelector('svg');
+    if(!svg||svg.children.length<2)return '<div class="viz-fallback">📊 Diagram could not be displayed.<br>The text explanation covers everything you need.</div>';
+    return clean;
+  }catch(e){
+    return '<div class="viz-fallback">📊 Diagram could not be displayed.<br>The text explanation covers everything you need.</div>';
   }
-  // Show if already loaded
-  if (existing) {
-    existing.classList.add('show');
-    btn.classList.add('active-lang');
-    return;
-  }
+}
 
-  // Create panel
-  var panel = document.createElement('div');
-  panel.className = 'lang-panel show';
-  panel.id = panelId;
-  panel.innerHTML = '<div class="lang-panel-head">' + langLabel + ' Translation</div><div class="lang-loading"><div class="loading-dots" style="display:inline-flex;gap:6px"><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out"></span><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out;animation-delay:0.16s"></span><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out;animation-delay:0.32s"></span></div><p style="margin-top:8px">Translating…</p></div>';
+// Loading timer
+function startLoadingTimer(){
+  loadingSec=0;loadingMsgIdx=0;
+  var el=document.getElementById('loadingText');
+  if(loadingTimer)clearInterval(loadingTimer);
+  loadingTimer=setInterval(function(){
+    loadingSec++;
+    if(loadingSec%4===0){loadingMsgIdx=(loadingMsgIdx+1)%LOADING_MSGS.length;el.textContent=LOADING_MSGS[loadingMsgIdx];}
+  },1000);
+}
+function stopLoadingTimer(){if(loadingTimer){clearInterval(loadingTimer);loadingTimer=null;}}
+
+// Language translation — uses event delegation, no inline onclick
+function handleLangClick(btn){
+  var cardId=btn.dataset.card,lang=btn.dataset.lang;
+  var reg=cardRegistry[cardId];if(!reg)return;
+  var card=document.getElementById(cardId);if(!card)return;
+  var langLabel=lang==='zh'?'🇨🇳 中文':'🇰🇷 한국어';
+  var panelId=cardId+'-'+lang;
+  var existing=document.getElementById(panelId);
+
+  if(existing&&existing.classList.contains('show')){existing.classList.remove('show');btn.classList.remove('active-lang');return;}
+  if(existing){existing.classList.add('show');btn.classList.add('active-lang');return;}
+
+  var panel=document.createElement('div');
+  panel.className='lang-panel show';panel.id=panelId;
+  panel.innerHTML='<div class="lang-panel-head">'+langLabel+' Translation</div><div class="lang-loading"><div class="loading-dots" style="display:inline-flex;gap:6px"><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out"></span><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out;animation-delay:0.16s"></span><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out;animation-delay:0.32s"></span></div><p style="margin-top:8px">Translating…</p></div>';
   card.appendChild(panel);
   btn.classList.add('loading-lang');
 
-  try {
-    var res = await fetch('/api/explain', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ concept: concept, grade: grade, subject: subject, lang: lang }),
-    });
-    var data = await res.json();
-
-    if (data.error) {
-      panel.querySelector('.lang-loading').innerHTML = '<p style="color:var(--red)">' + data.error + '</p>';
-    } else {
-      var usage = getUsage();
-      setUsage(usage.count + 1);
-      updateLimitDisplay();
-      panel.innerHTML = '<div class="lang-panel-head">' + langLabel + ' Translation</div><div class="lang-panel-body"><p>' + renderMd(data.explanation) + '</p></div>';
+  var ctrl=new AbortController();
+  var tid=setTimeout(function(){ctrl.abort();},30000);
+  fetch('/api/explain',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({concept:reg.concept,grade:reg.grade,subject:reg.subject,lang:lang}),
+    signal:ctrl.signal
+  }).then(function(r){clearTimeout(tid);return r.json();}).then(function(data){
+    if(data.error){
+      panel.querySelector('.lang-loading').innerHTML='<p style="color:var(--red)">'+esc(data.error)+'</p>';
+    }else{
+      var usage=getUsage();setUsage(usage.count+1);updateLimitDisplay();
+      panel.innerHTML='<div class="lang-panel-head">'+langLabel+' Translation</div><div class="lang-panel-body"><p>'+renderMd(data.explanation)+'</p></div>';
     }
-  } catch (err) {
-    panel.querySelector('.lang-loading').innerHTML = '<p style="color:var(--red)">Translation failed. Try again.</p>';
-  }
-
-  btn.classList.remove('loading-lang');
-  btn.classList.add('active-lang');
+    btn.classList.remove('loading-lang');btn.classList.add('active-lang');
+  }).catch(function(err){
+    clearTimeout(tid);
+    var msg=err.name==='AbortError'?'Translation timed out. Try again.':'Could not connect. Check your internet.';
+    panel.querySelector('.lang-loading').innerHTML='<p style="color:var(--red)">'+esc(msg)+'</p>';
+    btn.classList.remove('loading-lang');
+  });
 }
+
+// Event delegation for all dynamic buttons
+document.addEventListener('click',function(e){
+  var langBtn=e.target.closest('.lang-btn');if(langBtn){handleLangClick(langBtn);return;}
+  var vtBtn=e.target.closest('.vt-btn');
+  if(vtBtn){
+    var cardEl=vtBtn.closest('.resp');
+    if(cardEl)setView(vtBtn,cardEl.id,vtBtn.dataset.mode);
+    return;
+  }
+});
 
 async function askExplain(){
   var concept=input.value.trim();
-  if(!concept) return;
+  if(!concept)return;
   var usage=getUsage();
-  if(usage.count>=MAX_PER_DAY) return;
+  if(usage.count>=MAX_PER_DAY)return;
 
   document.getElementById('errorMsg').className='error-msg';
   document.getElementById('loading').className='loading show';
   document.getElementById('submitBtn').disabled=true;
   document.getElementById('emptyState').style.display='none';
+  startLoadingTimer();
 
-  var retryBtn = ' <button onclick="askExplain()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Retry</button>';
+  var retryHtml=' <button onclick="document.getElementById(\'loading\').className=\'loading show\';askExplain()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Retry</button>';
 
-  try {
+  try{
     var controller=new AbortController();
-    var fetchTimeout=setTimeout(function(){controller.abort();},30000);
+    var fetchTimeout=setTimeout(function(){controller.abort();},35000);
     var res=await fetch('/api/explain',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+      method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({concept:concept,grade:selectedGrade,subject:selectedSubject}),
       signal:controller.signal,
     });
     clearTimeout(fetchTimeout);
-    var data=await res.json();
+
+    var data;
+    try{data=await res.json();}catch(pe){
+      stopLoadingTimer();
+      document.getElementById('errorMsg').innerHTML='Got an invalid response. Please try again.'+retryHtml;
+      document.getElementById('errorMsg').className='error-msg show';
+      document.getElementById('loading').className='loading';
+      document.getElementById('submitBtn').disabled=getUsage().count>=MAX_PER_DAY;
+      return;
+    }
 
     if(data.error){
-      document.getElementById('errorMsg').innerHTML=data.error+retryBtn;
+      document.getElementById('errorMsg').innerHTML=esc(data.error)+retryHtml;
       document.getElementById('errorMsg').className='error-msg show';
-    } else {
-      setUsage(usage.count+1);
-      updateLimitDisplay();
+    }else{
+      setUsage(usage.count+1);updateLimitDisplay();
 
-      var hasViz = data.visualization && data.visualization.length > 50 && data.visualization.indexOf('<svg') !== -1;
-      var cardId = 'r-'+Date.now();
-      var card = document.createElement('div');
-      card.className = 'resp show';
-      card.id = cardId;
+      var hasViz=data.visualization&&data.visualization.length>50&&data.visualization.indexOf('<svg')!==-1;
+      var cardId='r-'+Date.now();
 
-      // Store metadata for translation
-      card.dataset.concept = concept;
-      card.dataset.grade = selectedGrade;
-      card.dataset.subject = selectedSubject;
+      // Store in registry for language buttons
+      cardRegistry[cardId]={concept:concept,grade:selectedGrade,subject:selectedSubject};
 
-      var headHtml = '<div class="resp-head"><div class="resp-dot">💡</div><div style="flex:1"><div class="resp-q">'+esc(concept)+'</div><div class="resp-meta">Grade '+selectedGrade+' · '+(selectedSubject==='maths'?'Mathematics':'Science')+'</div></div>';
+      var card=document.createElement('div');
+      card.className='resp show';card.id=cardId;
 
-      // Language + view buttons
-      headHtml += '<div class="resp-actions">';
-      headHtml += '<button class="lang-btn" onclick="requestTranslation(this,\''+cardId+'\',\''+esc(concept).replace(/'/g,"\\'")+'\',\''+selectedGrade+'\',\''+selectedSubject+'\',\'zh\')">🇨🇳 中文</button>';
-      headHtml += '<button class="lang-btn" onclick="requestTranslation(this,\''+cardId+'\',\''+esc(concept).replace(/'/g,"\\'")+'\',\''+selectedGrade+'\',\''+selectedSubject+'\',\'ko\')">🇰🇷 한국어</button>';
+      var headHtml='<div class="resp-head"><div class="resp-dot">💡</div><div style="flex:1"><div class="resp-q">'+esc(concept)+'</div><div class="resp-meta">Grade '+selectedGrade+' · '+(selectedSubject==='maths'?'Mathematics':'Science')+'</div></div>';
+      headHtml+='<div class="resp-actions">';
+      headHtml+='<button class="lang-btn" data-card="'+cardId+'" data-lang="zh">🇨🇳 中文</button>';
+      headHtml+='<button class="lang-btn" data-card="'+cardId+'" data-lang="ko">🇰🇷 한국어</button>';
       if(hasViz){
-        headHtml += '<div class="view-toggle" style="margin-left:4px"><button class="vt-btn active" onclick="setView(this,\''+cardId+'\',\'split\')">Split</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'text\')">Text</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'viz\')">Visual</button></div>';
+        headHtml+='<div class="view-toggle" style="margin-left:4px"><button class="vt-btn active" data-mode="split">Split</button><button class="vt-btn" data-mode="text">Text</button><button class="vt-btn" data-mode="viz">Visual</button></div>';
       }
-      headHtml += '</div></div>';
+      headHtml+='</div></div>';
 
       var bodyHtml;
       if(hasViz){
-        var cleanSvg = sanitizeSvg(data.visualization);
-        bodyHtml = '<div class="resp-split"><div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div><div class="pane-viz">'+cleanSvg+'</div></div>';
-      } else {
-        bodyHtml = '<div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div>';
+        var renderedSvg=renderSvgSafe(data.visualization);
+        bodyHtml='<div class="resp-split"><div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div><div class="pane-viz">'+renderedSvg+'</div></div>';
+      }else{
+        bodyHtml='<div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div>';
       }
 
-      card.innerHTML = headHtml + bodyHtml;
+      card.innerHTML=headHtml+bodyHtml;
 
-      var area = document.getElementById('responseArea');
-      var empty = document.getElementById('emptyState');
-      if(empty) empty.style.display='none';
-      if(!area.querySelector('.history-label') && area.querySelectorAll('.resp').length > 0){
-        var lbl = document.createElement('div');
-        lbl.className = 'history-label';
-        lbl.textContent = 'Previous questions';
-        area.insertBefore(lbl, area.querySelector('.resp'));
+      var area=document.getElementById('responseArea');
+      var empty=document.getElementById('emptyState');
+      if(empty)empty.style.display='none';
+      if(!area.querySelector('.history-label')&&area.querySelectorAll('.resp').length>0){
+        var lbl=document.createElement('div');lbl.className='history-label';lbl.textContent='Previous questions';
+        area.insertBefore(lbl,area.querySelector('.resp'));
       }
-      area.insertBefore(card, area.firstChild);
-      document.getElementById('resultsArea').scrollTop = 0;
-
-      input.value = '';
-      input.style.height = 'auto';
+      area.insertBefore(card,area.firstChild);
+      document.getElementById('resultsArea').scrollTop=0;
+      input.value='';input.style.height='auto';
     }
-  } catch(err){
-    var emsg = err.name==='AbortError' ? 'Request timed out (30s). The AI might be busy.' : 'Could not connect. Check your internet.';
-    document.getElementById('errorMsg').innerHTML = emsg + retryBtn;
-    document.getElementById('errorMsg').className = 'error-msg show';
+  }catch(err){
+    var emsg=err.name==='AbortError'?'Request timed out (35s). The AI might be busy — try again.':'Could not connect. Check your internet.';
+    document.getElementById('errorMsg').innerHTML=esc(emsg)+retryHtml;
+    document.getElementById('errorMsg').className='error-msg show';
   }
+  stopLoadingTimer();
   document.getElementById('loading').className='loading';
   document.getElementById('submitBtn').disabled=getUsage().count>=MAX_PER_DAY;
 }
 
+document.getElementById('submitBtn').addEventListener('click',askExplain);
 input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askExplain();}});
 
 function toggleTheme(){
   var isDark=document.documentElement.getAttribute('data-theme')==='dark';
   document.documentElement.setAttribute('data-theme',isDark?'':'dark');
-  localStorage.setItem('theme',isDark?'light':'dark');
+  lsSet('theme',isDark?'light':'dark');
   document.getElementById('themeBtn').textContent=isDark?'🌙':'☀️';
 }
-if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
-  document.documentElement.setAttribute('data-theme','dark');
-  document.getElementById('themeBtn').textContent='☀️';
+if(lsGet('theme')==='dark'||(!lsGet('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
+  document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='☀️';
 }
+})();
 </script>
 </body>
 </html>

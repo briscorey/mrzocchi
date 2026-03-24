@@ -326,3 +326,25 @@
   .video-grid,.explore-grid,.toolkit-grid,.ext-grid{grid-template-columns:1fr}
   .explore-iframe{height:300px}
 }
+
+/* ═══ REFINED: Quiz Cards ═══ */
+.quiz-card::before{content:"▶ REVEAL";position:absolute;top:14px;right:18px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-300);transition:all .3s;padding:3px 10px;border-radius:6px;border:1px solid var(--gray-200);background:var(--gray-50)}
+.quiz-card:hover::before{color:var(--teal);border-color:rgba(42,157,143,.2);background:rgba(42,157,143,.04)}
+.quiz-revealed::before{content:"✓";color:var(--green);border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.06)}
+.quiz-revealed .quiz-a{max-height:300px;opacity:1;padding:0 22px 18px}
+
+/* ═══ REFINED: Games Section ═══ */
+.games-list{display:flex;flex-direction:column;gap:14px}
+.game-embed-card{border-radius:16px;overflow:hidden}
+.game-embed-header{background:linear-gradient(135deg,var(--white),var(--gray-50))}
+.game-embed-title{display:flex;align-items:center;gap:8px}
+.game-embed-title::before{content:"🎮";font-size:1.1rem}
+.game-embed-play{border-radius:10px;gap:6px}
+.game-embed-play span{font-size:1rem}
+.rr-game{border-left-color:var(--gold)}
+.rr-game .resource-row-icon{background:linear-gradient(135deg,rgba(233,196,106,.12),rgba(233,196,106,.04));border-color:rgba(233,196,106,.15)}
+.rr-game:hover{border-left-color:#b8860b;box-shadow:0 6px 24px rgba(233,196,106,.15)}
+.rr-game:hover .resource-row-arrow{background:var(--gold);box-shadow:0 2px 8px rgba(233,196,106,.3)}
+
+[data-theme="dark"] .game-embed-header{background:linear-gradient(135deg,var(--gray-100),var(--gray-50))}
+[data-theme="dark"] .quiz-card::before{background:var(--gray-100);border-color:var(--gray-200)}

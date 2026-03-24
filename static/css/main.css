@@ -4513,3 +4513,8 @@ img, svg { transition: filter 0.3s ease; }
 @media (max-width: 400px) {
   .res-card-grid { grid-template-columns: 1fr; }
 }
+
+/* 4-column tool grid for homepage */
+.home-tools { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 900px) { .home-tools { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .home-tools { grid-template-columns: 1fr; } }

@@ -1,5 +1,5 @@
 // Pages Function: /api/explain
-// Antifragile visual AI tutor — model fallback, delimiter parsing, full error taxonomy
+// Visual AI tutor — reliable SVG diagrams, language support, model fallback
 
 const MODEL_CHAIN = [
   "claude-haiku-4-5-20251001",
@@ -16,8 +16,15 @@ const CORS = {
   "Content-Type": "application/json",
 };
 
-function buildSystemPrompt(gradeNum, subjectName) {
-  return "You are a world-class MYP " + subjectName + " tutor at an international school in Nanjing, China. Students are Grade " + gradeNum + " (age " + (gradeNum+5) + "-" + (gradeNum+6) + "). Many are EAL learners from China, South Korea, and Germany.\n\nYOU MUST RESPOND IN THIS EXACT FORMAT with these delimiters:\n\n===EXPLANATION===\nYour markdown explanation here.\n\nRules:\n- One-line summary then Chinese translation prefixed with the CN flag emoji\n- 3-5 short paragraphs, simple vocabulary, max 15 words per sentence\n- Bold **key terms**\n- Real-world analogies from Nanjing, Korea, or Germany\n- End with key words section: 3-5 terms with Chinese translations\n- Max 250 words\n\n===VISUALIZATION===\nA complete self-contained HTML page (with DOCTYPE, html, head, body tags, inline CSS and JS) for an interactive visualization.\n\nVisualization rules:\n- Dark theme: background #0f172a, text #e2e8f0, accent #2dd4bf (teal)\n- MUST be interactive: sliders, buttons, click events, animations\n- Use Canvas or SVG for diagrams\n- Include labels in simple English\n- Title at the top of the page\n- For maths: number lines, fraction bars, coordinate planes, equation solvers, dice/spinners\n- For science: force arrows, particle animations, cell diagrams, food chains, orbital models, Sankey diagrams\n- If no visual fits, create an interactive concept map or comparison table\n- Min 300px height\n\nCRITICAL: Always include BOTH ===EXPLANATION=== and ===VISUALIZATION=== delimiters. The visualization MUST be a complete HTML page starting with <!DOCTYPE html>.";
+function buildSystemPrompt(gradeNum, subjectName, lang) {
+  var langInstr = "";
+  if (lang === "zh") {
+    langInstr = "\n\nIMPORTANT: Write the ENTIRE explanation in Simplified Chinese (中文). Use simple Chinese suitable for a middle school student. Keep all technical terms in both Chinese and English in brackets like: 光合作用 (photosynthesis). The visualization labels should also be in Chinese.";
+  } else if (lang === "ko") {
+    langInstr = "\n\nIMPORTANT: Write the ENTIRE explanation in Korean (한국어). Use simple Korean suitable for a middle school student. Keep all technical terms in both Korean and English in brackets like: 광합성 (photosynthesis). The visualization labels should also be in Korean.";
+  }
+
+  return "You are an MYP " + subjectName + " tutor at an international school in Nanjing, China. Students are Grade " + gradeNum + " (age " + (gradeNum+5) + "-" + (gradeNum+6) + "). Many are EAL learners." + langInstr + "\n\nYou MUST respond using these exact delimiters:\n\n===EXPLANATION===\nYour explanation in markdown.\n\nRules for the explanation:\n" + (lang === "zh" ? "- Write entirely in Simplified Chinese\n- Include English terms in brackets after Chinese terms\n" : lang === "ko" ? "- Write entirely in Korean\n- Include English terms in brackets after Korean terms\n" : "- Start with a one-line summary, then add the Chinese translation on the next line prefixed with 🇨🇳\n") + "- 3-5 short paragraphs, simple vocabulary\n- Bold **key terms** on first use\n- Use a real-world analogy students can relate to\n- End with a 'Key Words' section: 3-5 terms" + (lang ? "" : " with Chinese translations") + "\n- Max 250 words\n\n===VISUALIZATION===\nA SINGLE self-contained SVG element. NOT an HTML page — just the raw <svg> tag.\n\nSVG Rules:\n- Start with <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 600 400\">\n- Dark background: fill the first rect with #0f172a\n- Use these colours: teal #2dd4bf, gold #e9c46a, coral #f97316, white #e2e8f0, muted #94a3b8\n- Include a title at the top in white, font-size 18\n- Use clear labels, arrows, and simple shapes to illustrate the concept\n- For maths: number lines, fraction bars, shape diagrams, coordinate grids, pie charts\n- For science: labelled diagrams, process flows with arrows, comparison charts, particle arrangements, force diagrams, food chain flows\n- Use <text> elements with fill colour and readable font-size (12-16px)\n- Use <line>, <rect>, <circle>, <polygon>, <path> for shapes\n- Use <marker> for arrowheads if needed\n- NO <script> tags. NO JavaScript. NO <foreignObject>. NO HTML inside the SVG. Pure SVG only.\n- Keep it simple, clear, and correct. A clean labelled diagram is better than a complex broken one.\n\nCRITICAL: The visualization MUST be a raw <svg> tag — NOT wrapped in HTML, NOT wrapped in ```code blocks. Just the SVG element itself.";
 }
 
 async function callClaude(apiKey, model, systemPrompt, userMessage) {
@@ -58,27 +65,18 @@ function parseResponse(rawText) {
     if (afterExp.indexOf("===VISUALIZATION===") !== -1) {
       explanation = afterExp.split("===VISUALIZATION===")[0].trim();
       var vizRaw = afterExp.split("===VISUALIZATION===")[1].trim();
-      vizRaw = vizRaw.replace(/^```(?:html)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
-      if (vizRaw.length > 50) visualization = vizRaw;
+      // Strip code fences
+      vizRaw = vizRaw.replace(/^```(?:svg|xml|html)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+      // Extract the SVG tag if wrapped in other content
+      var svgMatch = vizRaw.match(/<svg[\s\S]*<\/svg>/i);
+      if (svgMatch) {
+        vizRaw = svgMatch[0];
+      }
+      if (vizRaw.length > 50 && vizRaw.indexOf("<svg") !== -1) {
+        visualization = vizRaw;
+      }
     } else {
       explanation = afterExp.trim();
-    }
-  } else {
-    // Fallback: try JSON
-    try {
-      var cleaned = rawText.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
-      var parsed = JSON.parse(cleaned);
-      if (parsed.explanation) {
-        explanation = parsed.explanation;
-        visualization = parsed.visualization || null;
-      }
-    } catch(e) {
-      // Third fallback: look for HTML in the response
-      var htmlMatch = rawText.match(/<(!DOCTYPE|html)[^]*<\/html>/i);
-      if (htmlMatch) {
-        visualization = htmlMatch[0];
-        explanation = rawText.replace(visualization, "").trim();
-      }
     }
   }
 
@@ -95,6 +93,7 @@ export async function onRequestPost(context) {
     }
 
     var concept = body.concept, grade = body.grade, subject = body.subject;
+    var lang = body.lang || null; // null = English, "zh" = Chinese, "ko" = Korean
 
     if (!concept || typeof concept !== "string" || concept.trim().length < 2) {
       return new Response(JSON.stringify({ error: "Please type what you'd like explained." }), { status: 400, headers: CORS });
@@ -111,8 +110,8 @@ export async function onRequestPost(context) {
     var gradeNum = parseInt(grade) || 6;
     if (gradeNum < 1 || gradeNum > 12) gradeNum = 6;
     var subjectName = subject === "maths" ? "Mathematics" : "Science";
-    var systemPrompt = buildSystemPrompt(gradeNum, subjectName);
-    var userMessage = "Explain this concept and create an interactive visualization: " + concept.trim();
+    var systemPrompt = buildSystemPrompt(gradeNum, subjectName, lang);
+    var userMessage = "Explain this concept and create a clear SVG diagram: " + concept.trim();
 
     var lastError = null;
 
@@ -129,30 +128,23 @@ export async function onRequestPost(context) {
           }), { headers: CORS });
         }
 
-        // Retryable errors
         if (result.status === 404 || result.status === 529 ||
             (result.status === 400 && result.data.error && result.data.error.message && result.data.error.message.indexOf("model") !== -1)) {
           lastError = (result.data.error ? result.data.error.message : "HTTP " + result.status);
           continue;
         }
 
-        // Auth — don't retry
         if (result.status === 401 || result.status === 403) {
           return new Response(JSON.stringify({ error: "Authentication error. Ask Mr Zocchi to check the API key." }), { status: 500, headers: CORS });
         }
 
-        // Rate limit — tell student
         if (result.status === 429) {
           return new Response(JSON.stringify({ error: "Too many students asking at once. Wait 30 seconds and try again." }), { status: 429, headers: CORS });
         }
 
         lastError = (result.data.error ? result.data.error.message : "HTTP " + result.status);
       } catch (fetchErr) {
-        if (fetchErr.name === "AbortError") {
-          lastError = "Request timed out after 25 seconds";
-        } else {
-          lastError = fetchErr.message;
-        }
+        lastError = fetchErr.name === "AbortError" ? "Request timed out after 25 seconds" : fetchErr.message;
       }
     }
 
@@ -162,12 +154,10 @@ export async function onRequestPost(context) {
   }
 }
 
-// Handle CORS preflight
 export async function onRequestOptions() {
   return new Response(null, { headers: CORS });
 }
 
-// Reject GET requests cleanly
 export async function onRequestGet() {
   return new Response(JSON.stringify({ error: "Use POST with a JSON body containing 'concept', 'grade', and 'subject'." }), { status: 405, headers: CORS });
 }

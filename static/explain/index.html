@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Explain to Me | Mr Zocchi</title>
   <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
-  <!-- fonts loaded from main site CSS -->
   <style>
     :root {
       --navy: #1B2A4A; --teal: #2A9D8F; --teal-dark: #1A7A6F; --gold: #E9C46A;
@@ -24,7 +23,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: var(--font-body); background: var(--cream); color: var(--gray-800); min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
 
-    /* Header */
     .header { background: #1B2A4A; padding: 12px 24px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
     [data-theme="dark"] .header { background: #080A10; }
     .header img { width: 32px; height: 32px; border-radius: 8px; }
@@ -35,16 +33,11 @@
     .header-back:hover { color: #fff; }
     .theme-toggle { background: none; border: none; font-size: 1.1rem; cursor: pointer; }
 
-    /* App layout — full height */
     .app { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-    /* Input bar — sticky at top */
     .input-bar {
-      padding: 16px 24px 12px;
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-200);
-      flex-shrink: 0;
-      z-index: 10;
+      padding: 16px 24px 12px; background: var(--white);
+      border-bottom: 1px solid var(--gray-200); flex-shrink: 0; z-index: 10;
     }
     .input-top { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
     .input-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--navy); white-space: nowrap; }
@@ -77,13 +70,11 @@
     }
     .send-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,157,143,0.35); }
     .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .char-ct { font-size: 0.65rem; color: var(--gray-400); margin-top: 4px; }
 
     .sug-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
     .sug { padding: 5px 12px; border-radius: 100px; border: 1px solid var(--gray-200); background: transparent; color: var(--gray-400); font-size: 0.72rem; cursor: pointer; transition: all 0.15s; font-family: var(--font-body); }
     .sug:hover { border-color: var(--teal); color: var(--teal); }
 
-    /* Results area — scrollable, full remaining height */
     .results { flex: 1; overflow-y: auto; padding: 20px 24px 40px; }
 
     .loading { display: none; text-align: center; padding: 60px 24px; }
@@ -98,7 +89,6 @@
     .error-msg { display: none; padding: 10px 16px; background: rgba(200,55,45,0.06); border: 1px solid rgba(200,55,45,0.12); border-radius: 10px; color: var(--red); font-size: 0.82rem; margin-bottom: 12px; }
     .error-msg.show { display: block; }
 
-    /* Response card — full width, prominent */
     .resp { display: none; border-radius: 16px; overflow: hidden; margin-bottom: 20px; animation: rSlide 0.4s cubic-bezier(0.22,1,0.36,1); border: 1px solid var(--gray-200); background: var(--white); }
     .resp.show { display: block; }
     @keyframes rSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
@@ -111,18 +101,22 @@
     .resp-dot { width: 32px; height: 32px; background: var(--teal); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
     .resp-q { font-family: var(--font-display); font-weight: 600; font-size: 0.88rem; color: var(--navy); }
     .resp-meta { font-size: 0.68rem; color: var(--gray-400); }
-    .resp-tabs { display: flex; border-bottom: 1px solid var(--gray-200); }
-    .resp-tab {
-      flex: 1; padding: 10px; text-align: center; font-size: 0.78rem; font-weight: 700;
-      color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent;
-      transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.04em;
-    }
-    .resp-tab:hover { color: var(--gray-600); }
-    .resp-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
-    .resp-pane { display: none; }
-    .resp-pane.active { display: block; }
 
-    .pane-text { padding: 24px; font-size: 0.9rem; line-height: 1.75; max-width: none; }
+    .resp-actions { display: flex; gap: 6px; margin-left: auto; flex-shrink: 0; }
+    .lang-btn {
+      padding: 5px 10px; border-radius: 7px; border: 1.5px solid var(--gray-200);
+      background: var(--white); color: var(--gray-600); font-size: 0.72rem; font-weight: 700;
+      cursor: pointer; transition: all 0.15s; font-family: var(--font-body);
+    }
+    .lang-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .lang-btn.loading-lang { opacity: 0.5; pointer-events: none; }
+    .lang-btn.active-lang { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+    .view-toggle { display: flex; gap: 4px; }
+    .vt-btn { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--gray-200); background: transparent; color: var(--gray-400); font-size: 0.7rem; cursor: pointer; font-weight: 600; transition: all 0.15s; }
+    .vt-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+    .pane-text { padding: 24px; font-size: 0.9rem; line-height: 1.75; }
     .pane-text p { margin-bottom: 10px; }
     .pane-text strong { color: var(--teal-dark); font-weight: 700; }
     [data-theme="dark"] .pane-text strong { color: #5EEAD4; }
@@ -131,18 +125,23 @@
     .pane-text li { margin-bottom: 4px; }
     .pane-text code { background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
 
-    .pane-viz { background: #0f172a; min-height: 450px; position: relative; }
-    .pane-viz iframe { width: 100%; border: none; min-height: 450px; background: #0f172a; display: block; }
+    .pane-viz { background: #0f172a; border-radius: 0 0 16px 16px; padding: 12px; min-height: 300px; display: flex; align-items: center; justify-content: center; }
+    .pane-viz svg { max-width: 100%; height: auto; display: block; }
 
-    /* Side-by-side on wide screens */
-    .resp-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 450px; }
+    .resp-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 400px; }
     .resp-split .pane-text { border-right: 1px solid var(--gray-200); overflow-y: auto; max-height: 550px; }
-    .resp-split .pane-viz { min-height: 450px; }
+    .resp-split .pane-viz { min-height: 400px; border-radius: 0; }
     .resp-split .pane-text, .resp-split .pane-viz { display: block !important; }
 
-    .view-toggle { display: flex; gap: 4px; margin-left: auto; }
-    .vt-btn { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--gray-200); background: transparent; color: var(--gray-400); font-size: 0.7rem; cursor: pointer; font-weight: 600; transition: all 0.15s; }
-    .vt-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+    /* Language translation panel */
+    .lang-panel { display: none; border-top: 1px solid var(--gray-200); }
+    .lang-panel.show { display: block; }
+    .lang-panel-head { padding: 10px 20px; background: var(--gray-50); display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--gray-200); }
+    .lang-panel-body { padding: 20px 24px; font-size: 0.9rem; line-height: 1.75; }
+    .lang-panel-body p { margin-bottom: 10px; }
+    .lang-panel-body strong { color: var(--teal-dark); font-weight: 700; }
+    [data-theme="dark"] .lang-panel-body strong { color: #5EEAD4; }
+    .lang-loading { text-align: center; padding: 24px; color: var(--gray-400); font-size: 0.82rem; }
 
     .empty-state { text-align: center; padding: 80px 24px; color: var(--gray-300); }
     .empty-state .big { font-size: 3rem; margin-bottom: 12px; }
@@ -152,9 +151,6 @@
     @media (max-width: 900px) {
       .resp-split { grid-template-columns: 1fr; }
       .resp-split .pane-text { max-height: none; border-right: none; border-bottom: 1px solid var(--gray-200); }
-      .resp-split .pane-viz { min-height: 350px; }
-      .pane-viz { min-height: 350px; }
-      .pane-viz iframe { min-height: 350px; }
     }
     @media (max-width: 640px) {
       .input-top { gap: 8px; }
@@ -162,6 +158,8 @@
       .input-row { flex-direction: column; }
       .send-btn { width: 100%; justify-content: center; }
       .results { padding: 16px; }
+      .resp-head { flex-wrap: wrap; }
+      .resp-actions { width: 100%; justify-content: flex-start; margin-left: 44px; margin-top: 4px; }
     }
   </style>
 </head>
@@ -176,7 +174,6 @@
   </div>
 
   <div class="app">
-    <!-- Sticky input bar -->
     <div class="input-bar">
       <div class="input-top">
         <span class="input-title">💡 <em>Explain to Me</em></span>
@@ -195,23 +192,22 @@
         </div>
       </div>
       <div class="input-row">
-        <textarea class="input-field" id="conceptInput" placeholder="Ask anything… e.g. 'How does photosynthesis work?' or 'Explain Pythagoras theorem'" rows="1" maxlength="300"></textarea>
+        <textarea class="input-field" id="conceptInput" placeholder="Ask anything… e.g. 'How does photosynthesis work?' or 'Explain fractions'" rows="1" maxlength="300"></textarea>
         <button class="send-btn" id="submitBtn" onclick="askExplain()">Explain ⚡</button>
       </div>
       <div class="sug-row" id="suggestions"></div>
     </div>
 
-    <!-- Scrollable results -->
     <div class="results" id="resultsArea">
       <div class="error-msg" id="errorMsg"></div>
       <div class="loading" id="loading">
         <div class="loading-dots"><span></span><span></span><span></span></div>
-        <p class="loading-text">Building your explanation and interactive visualization…</p>
+        <p class="loading-text">Building your explanation and diagram…</p>
       </div>
       <div id="responseArea">
         <div class="empty-state" id="emptyState">
           <div class="big">💡</div>
-          <p>Ask any Maths or Science question above.<br>You'll get a clear explanation with Chinese translation and an interactive visualization.</p>
+          <p>Ask any Maths or Science question above.<br>You'll get a clear explanation with a diagram. Use the 🇨🇳 and 🇰🇷 buttons for translations.</p>
         </div>
       </div>
     </div>
@@ -221,13 +217,11 @@
 var selectedGrade='6', selectedSubject='science', MAX_PER_DAY=10;
 var input=document.getElementById('conceptInput');
 
-// Auto-resize textarea
 input.addEventListener('input', function() {
   this.style.height='auto';
   this.style.height=Math.min(this.scrollHeight,120)+'px';
 });
 
-// Pills
 document.querySelectorAll('.pill-group').forEach(function(g){
   g.querySelectorAll('.pill').forEach(function(p){
     p.addEventListener('click',function(){
@@ -240,7 +234,6 @@ document.querySelectorAll('.pill-group').forEach(function(g){
   });
 });
 
-// Rate limit
 function getToday(){return new Date().toISOString().split('T')[0];}
 function getUsage(){try{var d=JSON.parse(localStorage.getItem('explain_usage')||'{}');return d.date===getToday()?d:{date:getToday(),count:0};}catch(e){return{date:getToday(),count:0};}}
 function setUsage(c){localStorage.setItem('explain_usage',JSON.stringify({date:getToday(),count:c}));}
@@ -253,7 +246,6 @@ function updateLimitDisplay(){
 }
 updateLimitDisplay();
 
-// Suggestions
 var sugMap={
   'science-6':['What are the layers of the Earth?','How do food chains work?','What is diffusion?','Explain states of matter','What are the Moon phases?','How does the water cycle work?'],
   'science-7':['How do cells work?','What is photosynthesis?','Explain balanced forces','How does chromatography work?','What causes seasons?','How do vaccines work?'],
@@ -269,7 +261,6 @@ function updateSuggestions(){
 updateSuggestions();
 function fillSug(el){input.value=el.textContent;input.dispatchEvent(new Event('input'));input.focus();}
 
-// Markdown
 function renderMd(t){
   if(!t) return '';
   return t
@@ -284,33 +275,92 @@ function renderMd(t){
 }
 function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
 
-// View toggle for response cards
 function setView(btn, id, mode) {
   var card = document.getElementById(id);
   if (!card) return;
   card.querySelectorAll('.vt-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   var split = card.querySelector('.resp-split');
-  var tabs = card.querySelector('.resp-tabs');
   var textPane = card.querySelector('.pane-text');
   var vizPane = card.querySelector('.pane-viz');
+  if (!split) return;
   if (mode === 'split') {
-    if (split) { split.style.display = 'grid'; split.style.gridTemplateColumns = '1fr 1fr'; }
-    if (tabs) tabs.style.display = 'none';
+    split.style.display = 'grid'; split.style.gridTemplateColumns = '1fr 1fr';
     if (textPane) textPane.style.display = 'block';
     if (vizPane) vizPane.style.display = 'block';
   } else if (mode === 'text') {
-    if (split) { split.style.display = 'block'; }
+    split.style.display = 'block';
     if (textPane) textPane.style.display = 'block';
     if (vizPane) vizPane.style.display = 'none';
   } else if (mode === 'viz') {
-    if (split) { split.style.display = 'block'; }
+    split.style.display = 'block';
     if (textPane) textPane.style.display = 'none';
     if (vizPane) vizPane.style.display = 'block';
   }
 }
 
-// Main
+// Sanitize SVG — strip any script tags or event handlers
+function sanitizeSvg(svgStr) {
+  svgStr = svgStr.replace(/<script[\s\S]*?<\/script>/gi, '');
+  svgStr = svgStr.replace(/\bon\w+\s*=\s*"[^"]*"/gi, '');
+  svgStr = svgStr.replace(/\bon\w+\s*=\s*'[^']*'/gi, '');
+  return svgStr;
+}
+
+// Language translation
+async function requestTranslation(btn, cardId, concept, grade, subject, lang) {
+  var card = document.getElementById(cardId);
+  if (!card) return;
+
+  var langLabel = lang === 'zh' ? '🇨🇳 中文' : '🇰🇷 한국어';
+  var panelId = cardId + '-' + lang;
+  var existing = document.getElementById(panelId);
+
+  // Toggle off if already showing
+  if (existing && existing.classList.contains('show')) {
+    existing.classList.remove('show');
+    btn.classList.remove('active-lang');
+    return;
+  }
+  // Show if already loaded
+  if (existing) {
+    existing.classList.add('show');
+    btn.classList.add('active-lang');
+    return;
+  }
+
+  // Create panel
+  var panel = document.createElement('div');
+  panel.className = 'lang-panel show';
+  panel.id = panelId;
+  panel.innerHTML = '<div class="lang-panel-head">' + langLabel + ' Translation</div><div class="lang-loading"><div class="loading-dots" style="display:inline-flex;gap:6px"><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out"></span><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out;animation-delay:0.16s"></span><span style="width:8px;height:8px;background:var(--teal);border-radius:50%;animation:ldB 1.4s infinite ease-in-out;animation-delay:0.32s"></span></div><p style="margin-top:8px">Translating…</p></div>';
+  card.appendChild(panel);
+  btn.classList.add('loading-lang');
+
+  try {
+    var res = await fetch('/api/explain', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ concept: concept, grade: grade, subject: subject, lang: lang }),
+    });
+    var data = await res.json();
+
+    if (data.error) {
+      panel.querySelector('.lang-loading').innerHTML = '<p style="color:var(--red)">' + data.error + '</p>';
+    } else {
+      var usage = getUsage();
+      setUsage(usage.count + 1);
+      updateLimitDisplay();
+      panel.innerHTML = '<div class="lang-panel-head">' + langLabel + ' Translation</div><div class="lang-panel-body"><p>' + renderMd(data.explanation) + '</p></div>';
+    }
+  } catch (err) {
+    panel.querySelector('.lang-loading').innerHTML = '<p style="color:var(--red)">Translation failed. Try again.</p>';
+  }
+
+  btn.classList.remove('loading-lang');
+  btn.classList.add('active-lang');
+}
+
 async function askExplain(){
   var concept=input.value.trim();
   if(!concept) return;
@@ -321,6 +371,8 @@ async function askExplain(){
   document.getElementById('loading').className='loading show';
   document.getElementById('submitBtn').disabled=true;
   document.getElementById('emptyState').style.display='none';
+
+  var retryBtn = ' <button onclick="askExplain()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Retry</button>';
 
   try {
     var controller=new AbortController();
@@ -335,71 +387,63 @@ async function askExplain(){
     var data=await res.json();
 
     if(data.error){
-      document.getElementById('errorMsg').innerHTML=data.error+' <button onclick="askExplain()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Retry</button>';
+      document.getElementById('errorMsg').innerHTML=data.error+retryBtn;
       document.getElementById('errorMsg').className='error-msg show';
     } else {
       setUsage(usage.count+1);
       updateLimitDisplay();
 
-      var hasViz=data.visualization&&data.visualization.length>50;
-      var cardId='r-'+Date.now();
-      var vizId='v-'+Date.now();
-      var card=document.createElement('div');
-      card.className='resp show';
-      card.id=cardId;
+      var hasViz = data.visualization && data.visualization.length > 50 && data.visualization.indexOf('<svg') !== -1;
+      var cardId = 'r-'+Date.now();
+      var card = document.createElement('div');
+      card.className = 'resp show';
+      card.id = cardId;
 
-      var headHtml='<div class="resp-head"><div class="resp-dot">💡</div><div style="flex:1"><div class="resp-q">'+esc(concept)+'</div><div class="resp-meta">Grade '+selectedGrade+' · '+(selectedSubject==='maths'?'Mathematics':'Science')+'</div></div>';
+      // Store metadata for translation
+      card.dataset.concept = concept;
+      card.dataset.grade = selectedGrade;
+      card.dataset.subject = selectedSubject;
+
+      var headHtml = '<div class="resp-head"><div class="resp-dot">💡</div><div style="flex:1"><div class="resp-q">'+esc(concept)+'</div><div class="resp-meta">Grade '+selectedGrade+' · '+(selectedSubject==='maths'?'Mathematics':'Science')+'</div></div>';
+
+      // Language + view buttons
+      headHtml += '<div class="resp-actions">';
+      headHtml += '<button class="lang-btn" onclick="requestTranslation(this,\''+cardId+'\',\''+esc(concept).replace(/'/g,"\\'")+'\',\''+selectedGrade+'\',\''+selectedSubject+'\',\'zh\')">🇨🇳 中文</button>';
+      headHtml += '<button class="lang-btn" onclick="requestTranslation(this,\''+cardId+'\',\''+esc(concept).replace(/'/g,"\\'")+'\',\''+selectedGrade+'\',\''+selectedSubject+'\',\'ko\')">🇰🇷 한국어</button>';
       if(hasViz){
-        headHtml+='<div class="view-toggle"><button class="vt-btn active" onclick="setView(this,\''+cardId+'\',\'split\')">Split</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'text\')">Text</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'viz\')">Visual</button></div>';
+        headHtml += '<div class="view-toggle" style="margin-left:4px"><button class="vt-btn active" onclick="setView(this,\''+cardId+'\',\'split\')">Split</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'text\')">Text</button><button class="vt-btn" onclick="setView(this,\''+cardId+'\',\'viz\')">Visual</button></div>';
       }
-      headHtml+='</div>';
+      headHtml += '</div></div>';
 
       var bodyHtml;
       if(hasViz){
-        bodyHtml='<div class="resp-split"><div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div><div class="pane-viz"><iframe id="'+vizId+'" sandbox="allow-scripts" title="Visualization"></iframe></div></div>';
+        var cleanSvg = sanitizeSvg(data.visualization);
+        bodyHtml = '<div class="resp-split"><div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div><div class="pane-viz">'+cleanSvg+'</div></div>';
       } else {
-        bodyHtml='<div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div>';
+        bodyHtml = '<div class="pane-text"><p>'+renderMd(data.explanation)+'</p></div>';
       }
 
-      card.innerHTML=headHtml+bodyHtml;
+      card.innerHTML = headHtml + bodyHtml;
 
-      var area=document.getElementById('responseArea');
-      var empty=document.getElementById('emptyState');
+      var area = document.getElementById('responseArea');
+      var empty = document.getElementById('emptyState');
       if(empty) empty.style.display='none';
-      if(!area.querySelector('.history-label')&&area.querySelectorAll('.resp').length>0){
-        var lbl=document.createElement('div');
-        lbl.className='history-label';
-        lbl.textContent='Previous questions';
-        area.insertBefore(lbl,area.querySelector('.resp'));
+      if(!area.querySelector('.history-label') && area.querySelectorAll('.resp').length > 0){
+        var lbl = document.createElement('div');
+        lbl.className = 'history-label';
+        lbl.textContent = 'Previous questions';
+        area.insertBefore(lbl, area.querySelector('.resp'));
       }
-      area.insertBefore(card,area.firstChild);
+      area.insertBefore(card, area.firstChild);
+      document.getElementById('resultsArea').scrollTop = 0;
 
-      // Scroll to top of results
-      document.getElementById('resultsArea').scrollTop=0;
-
-      // Inject viz
-      if(hasViz){
-        var iframe=document.getElementById(vizId);
-        if(iframe){
-          iframe.addEventListener('load',function(){
-            try{iframe.style.height=Math.max(400,iframe.contentDocument.body.scrollHeight+20)+'px';}catch(e){}
-          });
-          var vizHtml=data.visualization;
-          if(!vizHtml.includes('<!DOCTYPE')&&!vizHtml.includes('<html')){
-            vizHtml='<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0f172a;color:#e2e8f0;font-family:system-ui,sans-serif;padding:16px;min-height:100vh}</style></head><body>'+vizHtml+'</body></html>';
-          }
-          iframe.srcdoc=vizHtml;
-        }
-      }
-
-      input.value='';
-      input.style.height='auto';
-      input.dispatchEvent(new Event('input'));
+      input.value = '';
+      input.style.height = 'auto';
     }
   } catch(err){
-    var emsg=err.name==='AbortError'?'Request timed out (30s). The AI might be busy.':'Could not connect. Check your internet.';
-    document.getElementById('errorMsg').innerHTML=emsg+' <button onclick="askExplain()" style="margin-left:8px;padding:4px 12px;border-radius:6px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer;font-weight:600;font-size:0.78rem">↻ Retry</button>';
-    document.getElementById('errorMsg').className='error-msg show';
+    var emsg = err.name==='AbortError' ? 'Request timed out (30s). The AI might be busy.' : 'Could not connect. Check your internet.';
+    document.getElementById('errorMsg').innerHTML = emsg + retryBtn;
+    document.getElementById('errorMsg').className = 'error-msg show';
   }
   document.getElementById('loading').className='loading';
   document.getElementById('submitBtn').disabled=getUsage().count>=MAX_PER_DAY;
@@ -407,7 +451,6 @@ async function askExplain(){
 
 input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askExplain();}});
 
-// Theme
 function toggleTheme(){
   var isDark=document.documentElement.getAttribute('data-theme')==='dark';
   document.documentElement.setAttribute('data-theme',isDark?'':'dark');

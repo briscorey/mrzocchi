@@ -18,21 +18,30 @@ const CORS = {
 };
 
 async function callClaude(apiKey, model, prompt) {
-  const res = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      "anthropic-version": API_VERSION,
-    },
-    body: JSON.stringify({
-      model,
-      max_tokens: 4000,
-      messages: [{ role: "user", content: prompt }],
-    }),
-  });
-  const data = await res.json();
-  return { ok: res.ok, status: res.status, data };
+  var controller = new AbortController();
+  var timeoutId = setTimeout(function() { controller.abort(); }, 30000);
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": API_VERSION,
+      },
+      body: JSON.stringify({
+        model,
+        max_tokens: 4000,
+        messages: [{ role: "user", content: prompt }],
+      }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    const data = await res.json();
+    return { ok: res.ok, status: res.status, data };
+  } catch (err) {
+    clearTimeout(timeoutId);
+    throw err;
+  }
 }
 
 export async function onRequestPost(context) {
@@ -98,8 +107,12 @@ export async function onRequestPost(context) {
         lastError = data.error ? data.error.message : "HTTP " + status;
 
       } catch (fetchErr) {
-        console.warn("Model " + model + " fetch error: " + fetchErr.message);
-        lastError = fetchErr.message;
+        if (fetchErr.name === "AbortError") {
+          lastError = "Request timed out after 30 seconds";
+        } else {
+          console.warn("Model " + model + " fetch error: " + fetchErr.message);
+          lastError = fetchErr.message;
+        }
       }
     }
 
@@ -118,4 +131,8 @@ export async function onRequestPost(context) {
 
 export async function onRequestOptions() {
   return new Response(null, { headers: CORS });
+}
+
+export async function onRequestGet() {
+  return new Response(JSON.stringify({ error: "Use POST with worksheet data." }), { status: 405, headers: CORS });
 }

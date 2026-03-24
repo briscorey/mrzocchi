@@ -1,18 +1,10 @@
 // Pages Function: /api/explain
-// Bulletproof version: model fallback chain + retry + diagnostics
-//
-// WHY THIS EXISTS: Anthropic model strings change (e.g. dated strings expire,
-// new versions release). A single hardcoded string will eventually break.
-// This function tries multiple models in order, so if one stops working,
-// the next picks up automatically — no code change needed.
+// World-class visual AI tutor — returns text explanation + interactive visualization
 
-// Model fallback chain — tried in order. When Anthropic releases new models,
-// add the new string to the TOP of this list. Old strings that stop working
-// simply get skipped. The function self-heals.
 const MODEL_CHAIN = [
-  "claude-haiku-4-5-20251001",   // current dated Haiku 4.5
-  "claude-3-5-haiku-20241022",   // older Haiku 3.5
-  "claude-sonnet-4-6",           // fallback to Sonnet if all Haiku fail
+  "claude-haiku-4-5-20251001",
+  "claude-3-5-haiku-20241022",
+  "claude-sonnet-4-6",
 ];
 
 const API_URL = "https://api.anthropic.com/v1/messages";
@@ -26,26 +18,59 @@ const CORS = {
 };
 
 function buildSystemPrompt(gradeNum, subjectName) {
-  return `You are a warm, patient MYP ${subjectName} teacher at an international school in Nanjing, China. Your students are Grade ${gradeNum} (age ${gradeNum + 5}-${gradeNum + 6}). Many are EAL (English as Additional Language) learners from China, South Korea, and Germany.
+  return `You are a world-class MYP ${subjectName} tutor at an international school in Nanjing, China. Your students are Grade ${gradeNum} (age ${gradeNum + 5}-${gradeNum + 6}). Many are EAL learners from China, South Korea, and Germany.
 
-YOUR RESPONSE FORMAT — follow this exactly:
+You MUST respond with ONLY a valid JSON object (no markdown fences, no preamble). The JSON has exactly two keys:
 
-1. Start with a one-line summary in simple English (1 sentence max)
-2. Then give the Chinese translation of that summary line, prefixed with 🇨🇳
-3. Then explain the concept in 3-5 short paragraphs using:
-   - Simple vocabulary (avoid jargon unless you define it)
-   - Short sentences (max 15 words each)
-   - A real-world analogy the student can picture
-   - Bold the key terms using **term**
-4. End with "🔑 Key words" — list 3-5 important English terms with their Chinese translations
+{
+  "explanation": "Your text explanation in markdown",
+  "visualization": "A complete self-contained HTML page for an interactive visualization"
+}
 
-RULES:
-- Never exceed 250 words total
-- Use analogies from everyday life in Nanjing (cooking, sports, school, weather, metro)
-- If the concept involves a formula, show it clearly and explain each part
-- If the question is off-topic (not science or maths), politely redirect: "Great question! But I'm best at explaining science and maths. Try asking me about those!"
-- Never mention you are an AI — you are "Mr Zocchi's study helper"
-- Be encouraging: "Great question!" or "Lots of students find this tricky"`;
+EXPLANATION RULES:
+- Start with a one-line summary then its Chinese translation prefixed with 🇨🇳
+- Explain in 3-5 short paragraphs, simple vocabulary, max 15 words per sentence
+- Bold **key terms** using markdown
+- Use real-world analogies from Nanjing, Korea, or Germany
+- End with "🔑 Key words" — 3-5 terms with Chinese translations
+- Max 250 words
+
+VISUALIZATION RULES:
+- Write a COMPLETE self-contained HTML page with inline CSS and JS
+- The page must be visually striking with a dark theme (background #0f172a, text #e2e8f0)
+- Use the accent color #2dd4bf (teal) for key elements
+- Choose the RIGHT type of visualization for the concept:
+
+  FOR MATHS:
+  - Number concepts: interactive number line or place value chart
+  - Fractions: visual fraction bars/pie charts with sliders
+  - Algebra: step-by-step equation solver with balance scale animation
+  - Geometry: interactive SVG with draggable points or angle measurement
+  - Graphs: interactive coordinate plane with plotted functions
+  - Statistics: bar charts or pie charts with the data
+  - Probability: interactive dice/spinner simulator
+
+  FOR SCIENCE:
+  - Forces: force diagram with arrows showing magnitude
+  - Energy: Sankey diagram or energy transfer chain
+  - Particles: animated particles showing state of matter
+  - Cells: labeled SVG diagram of the relevant cell/organelle
+  - Chemistry: atom structure diagram or periodic table highlight
+  - Ecology: food chain/web diagram with arrows
+  - Space: orbital diagram or scale model
+  - Earth Science: cross-section diagram with labeled layers
+
+  GENERAL RULES FOR ALL VISUALIZATIONS:
+  - Must be interactive where possible (sliders, buttons, click events)
+  - Use Canvas or SVG for diagrams, not just text
+  - Include labels and annotations in simple English
+  - Size: width 100%, height auto, min-height 300px
+  - Font: system-ui, sans-serif
+  - Make it educational — the visualization should TEACH, not just illustrate
+  - Include a title at the top of the visualization
+  - If the concept doesn't suit a visual (e.g. pure vocabulary), create a visual comparison table or concept map
+
+CRITICAL: Output ONLY valid JSON. No text before or after. No markdown fences.`;
 }
 
 async function callClaude(apiKey, model, systemPrompt, userMessage) {
@@ -58,12 +83,11 @@ async function callClaude(apiKey, model, systemPrompt, userMessage) {
     },
     body: JSON.stringify({
       model,
-      max_tokens: 1000,
+      max_tokens: 4000,
       system: systemPrompt,
       messages: [{ role: "user", content: userMessage }],
     }),
   });
-
   const data = await res.json();
   return { ok: res.ok, status: res.status, data };
 }
@@ -73,13 +97,11 @@ export async function onRequestPost(context) {
     const body = await context.request.json();
     const { concept, grade, subject } = body;
 
-    // Validation
     if (!concept || typeof concept !== "string" || concept.trim().length < 2) {
       return new Response(JSON.stringify({ error: "Please type what you'd like explained." }), {
         status: 400, headers: CORS,
       });
     }
-
     if (concept.trim().length > 300) {
       return new Response(JSON.stringify({ error: "Please keep your question under 300 characters." }), {
         status: 400, headers: CORS,
@@ -88,18 +110,16 @@ export async function onRequestPost(context) {
 
     const apiKey = context.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
-      return new Response(JSON.stringify({ error: "Explain service is not configured. Ask Mr Zocchi to check the API key." }), {
+      return new Response(JSON.stringify({ error: "Service not configured. Ask Mr Zocchi to check the API key." }), {
         status: 500, headers: CORS,
       });
     }
 
-    // Build prompt
     const gradeNum = parseInt(grade) || 6;
     const subjectName = subject === "maths" ? "Mathematics" : "Science";
     const systemPrompt = buildSystemPrompt(gradeNum, subjectName);
-    const userMessage = `Explain this to me: ${concept.trim()}`;
+    const userMessage = "Explain this concept and create an interactive visualization: " + concept.trim();
 
-    // Try each model in the fallback chain
     let lastError = null;
 
     for (const model of MODEL_CHAIN) {
@@ -107,52 +127,56 @@ export async function onRequestPost(context) {
         const { ok, status, data } = await callClaude(apiKey, model, systemPrompt, userMessage);
 
         if (ok && data.content && data.content[0] && data.content[0].text) {
-          // Success
+          const rawText = data.content[0].text;
+
+          // Try to parse as JSON
+          try {
+            const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+              const parsed = JSON.parse(jsonMatch[0]);
+              if (parsed.explanation) {
+                return new Response(JSON.stringify({
+                  explanation: parsed.explanation,
+                  visualization: parsed.visualization || null,
+                }), { headers: CORS });
+              }
+            }
+          } catch (parseErr) {
+            // JSON parse failed — return as text-only explanation
+          }
+
+          // Fallback: return raw text as explanation without visualization
           return new Response(JSON.stringify({
-            explanation: data.content[0].text,
+            explanation: rawText,
+            visualization: null,
           }), { headers: CORS });
         }
 
-        // Model not found or invalid — try next
         if (status === 404 || (status === 400 && data.error && data.error.message && data.error.message.includes("model")) || status === 529) {
-          console.warn("Model " + model + " failed (" + status + "): " + (data.error ? data.error.message : "unknown") + ". Trying next.");
           lastError = data.error ? data.error.message : "HTTP " + status;
           continue;
         }
-
-        // Auth error — key is bad, don't try more models
         if (status === 401 || status === 403) {
-          console.error("API key error (" + status + "): " + (data.error ? data.error.message : ""));
-          return new Response(JSON.stringify({ error: "Explain service has an authentication problem. Ask Mr Zocchi to check the API key." }), {
+          return new Response(JSON.stringify({ error: "Authentication error. Ask Mr Zocchi to check the API key." }), {
             status: 500, headers: CORS,
           });
         }
-
-        // Rate limit
         if (status === 429) {
-          return new Response(JSON.stringify({ error: "Too many students asking at once! Wait 30 seconds and try again." }), {
+          return new Response(JSON.stringify({ error: "Too many requests! Wait 30 seconds and try again." }), {
             status: 429, headers: CORS,
           });
         }
-
-        // Any other error — try next model
-        console.warn("Model " + model + " returned " + status);
         lastError = data.error ? data.error.message : "HTTP " + status;
-
       } catch (fetchErr) {
-        console.warn("Model " + model + " fetch failed: " + fetchErr.message);
         lastError = fetchErr.message;
       }
     }
 
-    // All models failed
-    console.error("All models exhausted. Last error: " + lastError);
-    return new Response(JSON.stringify({
-      error: "The explain service is temporarily unavailable. Please try again in a few minutes.",
-    }), { status: 503, headers: CORS });
+    return new Response(JSON.stringify({ error: "Service temporarily unavailable. Try again in a few minutes." }), {
+      status: 503, headers: CORS,
+    });
 
   } catch (err) {
-    console.error("Function error:", err.message);
     return new Response(JSON.stringify({ error: "Something went wrong. Please try again." }), {
       status: 500, headers: CORS,
     });

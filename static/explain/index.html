@@ -8,20 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #1B2A4A;
-      --teal: #2A9D8F;
-      --teal-dark: #1A7A6F;
-      --gold: #E9C46A;
-      --red: #C8372D;
-      --cream: #FAF8F5;
-      --white: #FFFFFF;
-      --gray-50: #F9F8F6;
-      --gray-100: #F3F1EE;
-      --gray-200: #E5E2DC;
-      --gray-300: #D1CEC7;
-      --gray-400: #9B9690;
-      --gray-600: #6B6660;
-      --gray-800: #3D3A36;
+      --navy: #1B2A4A; --teal: #2A9D8F; --teal-dark: #1A7A6F; --gold: #E9C46A;
+      --red: #C8372D; --cream: #FAF8F5; --white: #FFFFFF;
+      --gray-50: #F9F8F6; --gray-100: #F3F1EE; --gray-200: #E5E2DC;
+      --gray-300: #D1CEC7; --gray-400: #9B9690; --gray-600: #6B6660; --gray-800: #3D3A36;
       --font-display: 'Fraunces', Georgia, serif;
       --font-body: 'DM Sans', system-ui, sans-serif;
     }
@@ -33,121 +23,133 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: var(--font-body); background: var(--cream); color: var(--gray-800); min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
-
     .header { background: #1B2A4A; padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
     [data-theme="dark"] .header { background: #0D0F16; }
     .header img { width: 36px; height: 36px; border-radius: 8px; }
     .header a { color: #fff; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; }
     .header a span { color: var(--gold); }
-    .header-back { margin-left: auto; color: rgba(255,255,255,0.5); font-size: 0.85rem; text-decoration: none; }
+    .header-right { margin-left: auto; display: flex; gap: 12px; align-items: center; }
+    .header-back { color: rgba(255,255,255,0.5); font-size: 0.85rem; text-decoration: none; }
     .header-back:hover { color: #fff; }
+    .theme-toggle { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
 
-    .main { flex: 1; max-width: 720px; width: 100%; margin: 0 auto; padding: 40px 24px 80px; }
+    .main { flex: 1; max-width: 960px; width: 100%; margin: 0 auto; padding: 32px 24px 80px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: linear-gradient(135deg, rgba(42,157,143,0.1), rgba(233,196,106,0.06)); border: 1px solid rgba(42,157,143,0.15); border-radius: 100px; font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-bottom: 12px; }
+    .hero-title { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 6px; }
+    .hero-sub { color: var(--gray-400); font-size: 0.92rem; line-height: 1.5; margin-bottom: 24px; max-width: 620px; }
 
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: linear-gradient(135deg, rgba(42,157,143,0.1), rgba(233,196,106,0.06)); border: 1px solid rgba(42,157,143,0.15); border-radius: 100px; font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-bottom: 16px; }
-    .hero-title { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
-    .hero-sub { color: var(--gray-400); font-size: 0.95rem; line-height: 1.6; margin-bottom: 32px; max-width: 520px; }
-
-    .selectors { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-    .sel-group { display: flex; flex-direction: column; gap: 6px; }
-    .sel-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); }
-    .sel-pills { display: flex; gap: 4px; }
-    .sel-pill { padding: 8px 16px; border-radius: 10px; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .controls-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: flex-end; }
+    .sel-group { display: flex; flex-direction: column; gap: 4px; }
+    .sel-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); }
+    .sel-pills { display: flex; gap: 3px; }
+    .sel-pill { padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
     .sel-pill:hover { border-color: var(--gray-300); color: var(--gray-800); }
     .sel-pill.active { background: var(--teal); border-color: var(--teal); color: #fff; }
-
-    .input-card { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 24px; margin-bottom: 24px; transition: border-color 0.3s, box-shadow 0.3s; }
-    .input-card:focus-within { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(42,157,143,0.08); }
-    .input-textarea { width: 100%; border: none; outline: none; resize: none; font-family: var(--font-body); font-size: 1.05rem; color: var(--gray-800); background: transparent; line-height: 1.6; min-height: 80px; }
-    .input-textarea::placeholder { color: var(--gray-300); }
-    .input-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
-    .char-count { font-size: 0.75rem; color: var(--gray-400); }
-    .char-count.warn { color: var(--red); }
-    .submit-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; border: none; border-radius: 14px; font-family: var(--font-body); font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: all 0.25s; box-shadow: 0 2px 8px rgba(42,157,143,0.2); }
-    .submit-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,157,143,0.3); }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    .loading { display: none; text-align: center; padding: 48px 24px; }
-    .loading.show { display: block; }
-    .loading-dots { display: inline-flex; gap: 6px; }
-    .loading-dots span { width: 10px; height: 10px; background: var(--teal); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out; }
-    .loading-dots span:nth-child(2) { animation-delay: 0.16s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.32s; }
-    @keyframes bounce { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
-    .loading-text { margin-top: 16px; color: var(--gray-400); font-size: 0.88rem; }
-
-    .response { display: none; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 20px; overflow: hidden; animation: slideUp 0.4s cubic-bezier(0.22,1,0.36,1); margin-bottom: 16px; }
-    .response.show { display: block; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    .response-header { padding: 20px 24px; background: linear-gradient(135deg, rgba(42,157,143,0.06), rgba(233,196,106,0.03)); border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 12px; }
-    .response-icon { width: 40px; height: 40px; background: var(--teal); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #fff; flex-shrink: 0; }
-    .response-meta { font-size: 0.78rem; color: var(--gray-400); }
-    .response-q { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; color: var(--navy); }
-    .response-body { padding: 24px; font-size: 0.92rem; line-height: 1.75; color: var(--gray-800); }
-    .response-body p { margin-bottom: 12px; }
-    .response-body p:last-child { margin-bottom: 0; }
-    .response-body strong { color: var(--teal-dark); font-weight: 700; }
-    [data-theme="dark"] .response-body strong { color: #5EEAD4; }
-
-    .limit-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--gray-50); border-radius: 12px; margin-bottom: 24px; font-size: 0.78rem; color: var(--gray-400); }
-    .limit-dots { display: flex; gap: 4px; }
-    .limit-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); transition: all 0.3s; }
+    .limit-info { margin-left: auto; font-size: 0.75rem; color: var(--gray-400); display: flex; align-items: center; gap: 6px; }
+    .limit-dots { display: flex; gap: 3px; }
+    .limit-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); transition: all 0.3s; }
     .limit-dot.used { background: var(--gray-200); }
 
-    .suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    .sug-chip { padding: 8px 16px; border-radius: 100px; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-size: 0.8rem; font-family: var(--font-body); cursor: pointer; transition: all 0.2s; }
+    .input-card { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 16px; padding: 18px; margin-bottom: 20px; transition: border-color 0.3s, box-shadow 0.3s; }
+    .input-card:focus-within { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(42,157,143,0.08); }
+    .input-textarea { width: 100%; border: none; outline: none; resize: none; font-family: var(--font-body); font-size: 1rem; color: var(--gray-800); background: transparent; line-height: 1.5; min-height: 60px; }
+    .input-textarea::placeholder { color: var(--gray-300); }
+    .input-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-100); }
+    .char-count { font-size: 0.72rem; color: var(--gray-400); }
+    .submit-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; border: none; border-radius: 12px; font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.25s; box-shadow: 0 2px 8px rgba(42,157,143,0.2); }
+    .submit-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,157,143,0.3); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .sug-chip { padding: 7px 14px; border-radius: 100px; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
     .sug-chip:hover { border-color: var(--teal); color: var(--teal); background: rgba(42,157,143,0.04); }
 
-    .error-msg { display: none; padding: 14px 20px; background: rgba(200,55,45,0.06); border: 1px solid rgba(200,55,45,0.15); border-radius: 12px; color: var(--red); font-size: 0.88rem; margin-bottom: 16px; }
+    .loading { display: none; text-align: center; padding: 40px 24px; }
+    .loading.show { display: block; }
+    .loading-dots { display: inline-flex; gap: 6px; }
+    .loading-dots span { width: 10px; height: 10px; background: var(--teal); border-radius: 50%; animation: ldBounce 1.4s infinite ease-in-out; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.16s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.32s; }
+    @keyframes ldBounce { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+    .loading-text { margin-top: 14px; color: var(--gray-400); font-size: 0.85rem; }
+
+    .error-msg { display: none; padding: 12px 18px; background: rgba(200,55,45,0.06); border: 1px solid rgba(200,55,45,0.15); border-radius: 12px; color: var(--red); font-size: 0.85rem; margin-bottom: 16px; }
     .error-msg.show { display: block; }
 
-    .history-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-300); margin: 32px 0 12px; }
+    /* ── Response Card ── */
+    .response-card { display: none; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 20px; overflow: hidden; animation: cardSlide 0.5s cubic-bezier(0.22,1,0.36,1); margin-bottom: 20px; }
+    .response-card.show { display: block; }
+    @keyframes cardSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .response-head { padding: 16px 20px; background: linear-gradient(135deg, rgba(42,157,143,0.06), rgba(233,196,106,0.03)); border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 12px; }
+    .response-icon { width: 36px; height: 36px; background: var(--teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+    .response-q { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; color: var(--navy); }
+    .response-meta { font-size: 0.72rem; color: var(--gray-400); }
 
-    @media (max-width: 640px) {
-      .main { padding: 24px 16px 60px; }
+    /* Two-panel layout */
+    .response-panels { display: grid; grid-template-columns: 1fr 1fr; }
+    .response-panels.no-viz { grid-template-columns: 1fr; }
+    .panel-text { padding: 20px; font-size: 0.88rem; line-height: 1.7; color: var(--gray-800); border-right: 1px solid var(--gray-100); overflow-y: auto; max-height: 600px; }
+    .panel-text p { margin-bottom: 10px; }
+    .panel-text strong { color: var(--teal-dark); font-weight: 700; }
+    [data-theme="dark"] .panel-text strong { color: #5EEAD4; }
+    .panel-text h3, .panel-text h4 { font-family: var(--font-display); color: var(--navy); margin: 14px 0 6px; font-size: 1rem; }
+    .panel-text ul, .panel-text ol { margin: 6px 0 10px 18px; }
+    .panel-text li { margin-bottom: 4px; }
+    .panel-text code { background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+
+    .panel-viz { position: relative; background: #0f172a; min-height: 300px; display: flex; align-items: stretch; }
+    .panel-viz-label { position: absolute; top: 8px; left: 12px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(45,212,191,0.5); z-index: 2; }
+    .panel-viz iframe { width: 100%; border: none; min-height: 300px; background: #0f172a; }
+    .panel-viz .viz-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; color: rgba(255,255,255,0.3); font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .response-panels { grid-template-columns: 1fr; }
+      .panel-text { border-right: none; border-bottom: 1px solid var(--gray-100); max-height: none; }
+      .panel-viz { min-height: 280px; }
+      .main { padding: 20px 16px 60px; }
       .hero-title { font-size: 1.5rem; }
-      .sel-pill { padding: 6px 12px; font-size: 0.78rem; }
-      .input-card { padding: 16px; }
+      .controls-row { flex-direction: column; align-items: stretch; }
+      .limit-info { margin-left: 0; }
       .submit-btn { width: 100%; justify-content: center; }
-      .response-header { padding: 16px; }
-      .response-body { padding: 16px; }
     }
+    .history-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-300); margin: 24px 0 10px; }
   </style>
 </head>
 <body>
   <div class="header">
     <a href="/"><img src="/images/logo.svg" alt="Logo"></a>
     <a href="/">Mr <span>Zocchi</span></a>
-    <a href="/" class="header-back">← Back to Home</a>
+    <div class="header-right">
+      <a href="/" class="header-back">&larr; Back</a>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
   </div>
 
   <div class="main">
-    <div class="hero-badge">💡 Study Helper</div>
+    <div class="hero-badge">💡 AI Study Helper</div>
     <h1 class="hero-title">Explain to Me</h1>
-    <p class="hero-sub">Type any concept you're stuck on. Get a clear explanation in simple English with Chinese translation — written for your grade level.</p>
+    <p class="hero-sub">Ask any science or maths question. Get a clear explanation with Chinese translation <strong>and an interactive visualization</strong> to help you understand.</p>
 
-    <div class="selectors">
+    <div class="controls-row">
       <div class="sel-group">
         <span class="sel-label">Grade</span>
         <div class="sel-pills" id="gradePills">
-          <button class="sel-pill active" data-val="6">Grade 6</button>
-          <button class="sel-pill" data-val="7">Grade 7</button>
-          <button class="sel-pill" data-val="8">Grade 8</button>
+          <button class="sel-pill active" data-val="6">G6</button>
+          <button class="sel-pill" data-val="7">G7</button>
+          <button class="sel-pill" data-val="8">G8</button>
         </div>
       </div>
       <div class="sel-group">
         <span class="sel-label">Subject</span>
         <div class="sel-pills" id="subjectPills">
-          <button class="sel-pill active" data-val="science">Science</button>
-          <button class="sel-pill" data-val="maths">Maths</button>
+          <button class="sel-pill active" data-val="science">🔬 Science</button>
+          <button class="sel-pill" data-val="maths">📐 Maths</button>
         </div>
       </div>
-    </div>
-
-    <div class="limit-bar" id="limitBar">
-      <span>Questions today:</span>
-      <div class="limit-dots" id="limitDots"></div>
-      <span id="limitText">10 remaining</span>
+      <div class="limit-info">
+        <div class="limit-dots" id="limitDots"></div>
+        <span id="limitText"></span>
+      </div>
     </div>
 
     <div class="suggestions" id="suggestions"></div>
@@ -155,24 +157,27 @@
     <div class="error-msg" id="errorMsg"></div>
 
     <div class="input-card">
-      <textarea class="input-textarea" id="conceptInput" placeholder="Type your question here... e.g. 'Why is the inner core solid even though it's the hottest layer?'" rows="3" maxlength="300"></textarea>
+      <textarea class="input-textarea" id="conceptInput" placeholder="e.g. 'How does photosynthesis work?' or 'Explain Pythagoras theorem'" rows="2" maxlength="300"></textarea>
       <div class="input-footer">
         <span class="char-count" id="charCount">0 / 300</span>
-        <button class="submit-btn" id="submitBtn" onclick="askExplain()">💡 Explain</button>
+        <button class="submit-btn" id="submitBtn" onclick="askExplain()">💡 Explain &amp; Visualize</button>
       </div>
     </div>
 
     <div class="loading" id="loading">
       <div class="loading-dots"><span></span><span></span><span></span></div>
-      <p class="loading-text">Thinking about your question...</p>
+      <p class="loading-text">Building your explanation and visualization...</p>
     </div>
 
     <div id="responseArea"></div>
   </div>
 
-  <script>
-  var selectedGrade = '6', selectedSubject = 'science', MAX_PER_DAY = 10;
+<script>
+  var selectedGrade = '6', selectedSubject = 'science';
+  var MAX_PER_DAY = 10;
+  var input = document.getElementById('conceptInput');
 
+  // Pill selectors
   document.querySelectorAll('.sel-pills').forEach(function(g) {
     g.querySelectorAll('.sel-pill').forEach(function(p) {
       p.addEventListener('click', function() {
@@ -185,46 +190,65 @@
     });
   });
 
+  // Rate limiting
   function getToday() { return new Date().toISOString().split('T')[0]; }
   function getUsage() { try { var d = JSON.parse(localStorage.getItem('explain_usage') || '{}'); return d.date === getToday() ? d : { date: getToday(), count: 0 }; } catch(e) { return { date: getToday(), count: 0 }; } }
   function setUsage(c) { localStorage.setItem('explain_usage', JSON.stringify({ date: getToday(), count: c })); }
 
   function updateLimitDisplay() {
-    var u = getUsage(), rem = Math.max(0, MAX_PER_DAY - u.count), html = '';
-    for (var i = 0; i < MAX_PER_DAY; i++) html += '<div class="limit-dot' + (i < u.count ? ' used' : '') + '"></div>';
-    document.getElementById('limitDots').innerHTML = html;
-    document.getElementById('limitText').textContent = rem > 0 ? rem + ' remaining' : 'Come back tomorrow!';
+    var usage = getUsage();
+    var rem = Math.max(0, MAX_PER_DAY - usage.count);
+    var dots = '';
+    for (var i = 0; i < MAX_PER_DAY; i++) dots += '<span class="limit-dot' + (i < usage.count ? ' used' : '') + '"></span>';
+    document.getElementById('limitDots').innerHTML = dots;
+    document.getElementById('limitText').textContent = rem + ' left today';
     document.getElementById('submitBtn').disabled = rem === 0;
   }
   updateLimitDisplay();
 
-  var input = document.getElementById('conceptInput');
+  // Character counter
   input.addEventListener('input', function() {
-    var l = input.value.length;
-    document.getElementById('charCount').textContent = l + ' / 300';
-    document.getElementById('charCount').className = 'char-count' + (l > 280 ? ' warn' : '');
+    var len = input.value.length;
+    var el = document.getElementById('charCount');
+    el.textContent = len + ' / 300';
+    el.className = 'char-count' + (len > 280 ? ' warn' : '');
   });
 
-  var sugs = {
-    'science-6': ['What is photosynthesis?', 'How do tectonic plates move?', 'Explain convection currents', 'What is the particle model?', 'Why do we have seasons?'],
-    'science-7': ["What is Newton's first law?", 'How do chemical reactions work?', 'What are transverse waves?', 'Explain atoms and elements', 'How does electricity flow?'],
-    'science-8': ['What is a food web?', 'Explain kinetic energy', 'How do cells divide?', 'What is an exothermic reaction?', 'How do stars form?'],
-    'maths-6': ['What are equivalent fractions?', 'Why do we need BIDMAS?', 'How do I find area of a triangle?', 'What is a prime number?', 'Explain probability'],
-    'maths-7': ['How do I solve equations?', 'What is a ratio?', 'Explain percentages of amounts', 'What are angles in parallel lines?', 'How does probability work?'],
-    'maths-8': ["What is Pythagoras' theorem?", 'How do simultaneous equations work?', 'Explain standard form', 'What is direct proportion?', 'How do I factorise?'],
+  // Suggestions
+  var sugMap = {
+    'science-6': ['What are the layers of the Earth?', 'How do food chains work?', 'What is diffusion?', 'Explain states of matter', 'What are the Moon phases?'],
+    'science-7': ['How do cells work?', 'What is photosynthesis?', 'Explain balanced forces', 'How does chromatography work?', 'What causes seasons?'],
+    'science-8': ['What is the periodic table?', 'How does energy transfer?', 'Explain food webs', 'What is an ecosystem?', 'How do atoms work?'],
+    'maths-6': ['How does BIDMAS work?', 'Explain fractions', 'What is a prime number?', 'How to find the mean', 'What is probability?'],
+    'maths-7': ['How to simplify ratios', 'What is standard form?', 'Explain parallel line angles', 'How do tree diagrams work?', 'What is direct proportion?'],
+    'maths-8': ['How to solve equations', 'Explain Pythagoras theorem', 'What are inequalities?', 'How does enlargement work?', 'What is compound interest?'],
   };
   function updateSuggestions() {
-    var key = selectedSubject + '-' + selectedGrade, arr = sugs[key] || sugs['science-6'];
+    var key = selectedSubject + '-' + selectedGrade;
+    var arr = sugMap[key] || sugMap['science-6'];
     document.getElementById('suggestions').innerHTML = arr.map(function(s) { return '<button class="sug-chip" onclick="fillSug(this)">' + s + '</button>'; }).join('');
   }
   updateSuggestions();
+
   function fillSug(el) { input.value = el.textContent; input.dispatchEvent(new Event('input')); input.focus(); }
 
+  // Markdown renderer
   function renderMd(t) {
-    return t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/^/, '<p>').replace(/$/, '</p>');
+    if (!t) return '';
+    return t
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+      .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\n{2,}/g, '</p><p>')
+      .replace(/\n/g, '<br>');
   }
   function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
 
+  // Main function
   async function askExplain() {
     var concept = input.value.trim();
     if (!concept) return;
@@ -249,11 +273,47 @@
       } else {
         setUsage(usage.count + 1);
         updateLimitDisplay();
+
+        var hasViz = data.visualization && data.visualization.length > 50;
         var card = document.createElement('div');
-        card.className = 'response show';
-        card.innerHTML = '<div class="response-header"><div class="response-icon">💡</div><div><div class="response-q">' + esc(concept) + '</div><div class="response-meta">Grade ' + selectedGrade + ' ' + (selectedSubject === 'maths' ? 'Mathematics' : 'Science') + '</div></div></div><div class="response-body">' + renderMd(data.explanation) + '</div>';
+        card.className = 'response-card show';
+
+        var panelClass = hasViz ? 'response-panels' : 'response-panels no-viz';
+        var vizPanel = '';
+        if (hasViz) {
+          var vizId = 'viz-' + Date.now();
+          vizPanel = '<div class="panel-viz"><span class="panel-viz-label">Interactive Visualization</span><iframe id="' + vizId + '" sandbox="allow-scripts" title="Visualization"></iframe></div>';
+        }
+
+        card.innerHTML = '<div class="response-head"><div class="response-icon">💡</div><div><div class="response-q">' + esc(concept) + '</div><div class="response-meta">Grade ' + selectedGrade + ' ' + (selectedSubject === 'maths' ? 'Mathematics' : 'Science') + '</div></div></div><div class="' + panelClass + '"><div class="panel-text"><p>' + renderMd(data.explanation) + '</p></div>' + vizPanel + '</div>';
+
         var area = document.getElementById('responseArea');
+        if (!area.querySelector('.history-label') && area.children.length > 0) {
+          var lbl = document.createElement('div');
+          lbl.className = 'history-label';
+          lbl.textContent = 'Previous questions';
+          area.insertBefore(lbl, area.firstChild);
+        }
         area.insertBefore(card, area.firstChild);
+
+        // Inject visualization into iframe
+        if (hasViz) {
+          var iframe = document.getElementById(vizId);
+          if (iframe) {
+            iframe.addEventListener('load', function() {
+              try {
+                iframe.style.height = Math.max(300, iframe.contentDocument.body.scrollHeight + 20) + 'px';
+              } catch(e) {}
+            });
+            var vizHtml = data.visualization;
+            // Ensure it has proper HTML structure
+            if (!vizHtml.includes('<!DOCTYPE') && !vizHtml.includes('<html')) {
+              vizHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0f172a;color:#e2e8f0;font-family:system-ui,sans-serif;padding:16px;min-height:100vh}</style></head><body>' + vizHtml + '</body></html>';
+            }
+            iframe.srcdoc = vizHtml;
+          }
+        }
+
         input.value = '';
         input.dispatchEvent(new Event('input'));
       }
@@ -261,15 +321,26 @@
       document.getElementById('errorMsg').textContent = 'Could not connect. Check your internet and try again.';
       document.getElementById('errorMsg').className = 'error-msg show';
     }
+
     document.getElementById('loading').className = 'loading';
     document.getElementById('submitBtn').disabled = getUsage().count >= MAX_PER_DAY;
   }
 
-  input.addEventListener('keydown', function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askExplain(); } });
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askExplain(); }
+  });
 
+  // Theme
+  function toggleTheme() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
+  }
   if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeBtn').textContent = '☀️';
   }
-  </script>
+</script>
 </body>
 </html>

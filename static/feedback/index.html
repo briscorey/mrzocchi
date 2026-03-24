@@ -7,6 +7,7 @@
   <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
   <!-- fonts loaded from main site CSS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script>if(typeof PDFLib==='undefined'){document.write('<script src="/js/pdf-lib.min.js"><\/script>');}</script>
   <style>
     :root {
       --navy: #1B2A4A;
@@ -295,11 +296,15 @@ submitBtn.addEventListener("click", async () => {
     }
 
     // 2. Send to the worker
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 35000);
     const response = await fetch(WORKER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ worksheet: worksheetName, answers }),
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
 
     if (!response.ok) throw new Error("Feedback service unavailable. Try again later.");
 
@@ -314,7 +319,11 @@ submitBtn.addEventListener("click", async () => {
   } catch (err) {
     loadingSection.classList.remove("show");
     uploadSection.style.display = "block";
-    errorMsg.textContent = err.message || "Something went wrong. Please try again.";
+    if (err.name === "AbortError") {
+      errorMsg.textContent = "Request timed out. The AI is busy — please try again.";
+    } else {
+      errorMsg.textContent = err.message || "Something went wrong. Please try again.";
+    }
     errorMsg.classList.add("show");
   }
 });

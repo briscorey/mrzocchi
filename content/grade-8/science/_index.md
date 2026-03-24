@@ -688,10 +688,10 @@ terms:
 - name: Colonising Mars
   emoji: 🚀
   num: 4
-  unit_name: Coming Soon...
+  unit_name: Colonising Mars — Science × Humanities IDU
   unit_tag: IDU — Science × Humanities
   unit_dates: April – June 2026
-  unit_description: Something exciting is coming. Stay tuned.
+  unit_description: We are exploring whether humans should colonise Mars, combining scientific evidence about the planet's conditions with ethical and historical perspectives on colonisation.
   extensions:
   - emoji: 🪐
     title: Mars Colony Architect
@@ -708,4 +708,132 @@ terms:
     type: Practical Investigation
     description: Astronauts on the ISS grow lettuce in space. Design an experiment to test how one variable (light colour, gravity simulation, soil type) affects plant growth. Run it in class and compare
       your results with real space farming data.
+  key_concept: Systems
+  related_concepts: Environment, Models
+  global_context: Fairness and Development
+  soi: Understanding the systems that sustain life on Earth helps us evaluate whether we can recreate them on another planet.
+  powerpoints:
+  - name: Mars — The Red Planet
+    url: /ppts/G8_Sci_T4_Mars_Planet.pptx
+  - name: Challenges of Living on Mars
+    url: /ppts/G8_Sci_T4_Mars_Challenges.pptx
+  - name: Designing a Mars Colony
+    url: /ppts/G8_Sci_T4_Mars_Colony.pptx
+  - name: The Global Space Race
+    url: /ppts/G8_Sci_T4_Mars_Space_Race.pptx
+  - name: Ethics of Colonisation
+    url: /ppts/G8_Sci_T4_Mars_Ethics.pptx
+  - name: 📚 Full Revision (all topics)
+    url: /ppts/G8_Sci_T4_Full_Revision.pptx
+  worksheets:
+  - name: 📖 Revision Booklet
+    url: /worksheets/G8_T4_Mars_Revision_Booklet.pdf
+  - name: 📝 Mars — The Red Planet
+    url: /worksheets/G8_T4_Mars_Planet_WS.pdf
+  - name: 📝 Challenges of Living on Mars
+    url: /worksheets/G8_T4_Mars_Challenges_WS.pdf
+  - name: 📝 Designing a Mars Colony
+    url: /worksheets/G8_T4_Mars_Colony_WS.pdf
+  - name: 📝 The Global Space Race
+    url: /worksheets/G8_T4_Mars_Space_Race_WS.pdf
+  - name: 📝 Ethics of Colonisation
+    url: /worksheets/G8_T4_Mars_Ethics_WS.pdf
+  - name: 💻 Full Revision (Fillable)
+    url: /worksheets/G8_T4_Mars_Full_WS_FILLABLE.pdf
+  - name: 🤖 Upload → Get Instant Feedback
+    url: /feedback/
+  journey:
+  - topic: Mars the Planet
+    desc: Compare Mars and Earth — atmosphere, gravity, temperature, water evidence
+    status: done
+  - topic: Challenges
+    desc: Radiation, atmosphere, temperature, gravity, psychology — the 5 deadly challenges
+    status: done
+  - topic: Colony Design
+    desc: Design a self-sustaining habitat with food, water, oxygen, and energy systems
+    status: current
+  - topic: Space Race
+    desc: Compare China, NASA, SpaceX, ESA, and Korea's Mars programmes
+    status: upcoming
+  - topic: Ethics
+    desc: Should we colonise? Who decides? What about Mars life?
+    status: upcoming
+  games:
+  - name: 🚀 Mars Review
+    emoji: 🚀
+    url: /games/review/g8-mars.html
+    embed_url: /games/review/g8-mars.html?embed=1
+  quiz:
+  - q: What percentage of Earth's gravity does Mars have?
+    a: 38%
+    d: 0.38g — a 60kg person weighs ~23kg on Mars
+  - q: What gas makes up 95% of Mars's atmosphere?
+    a: Carbon dioxide (CO2)
+    d: Unbreathable. MOXIE can convert CO2 → O2
+  - q: How long is a Mars day?
+    a: 24 hours 37 minutes
+    d: Almost identical to Earth — one of the similarities
+  - q: What is MOXIE?
+    a: A NASA device that produces oxygen from CO2
+    d: Successfully tested on Mars by the Perseverance rover
+  - q: Name China's Mars rover
+    a: Zhurong
+    d: Named after the god of fire. Landed in Utopia Planitia, 2021
+  - q: What is hydroponics?
+    a: Growing plants without soil using nutrient water
+    d: Essential for Mars — there is no fertile soil
+  - q: What does the Outer Space Treaty (1967) say?
+    a: No nation can claim ownership of celestial bodies
+    d: Mars belongs to everyone — or no one
+  - q: Name the 5 deadly challenges of Mars
+    a: Radiation, atmosphere, temperature, gravity, psychology
+    d: Each requires a different engineering solution
+  - q: How long does a signal take to travel from Mars to Earth?
+    a: 4 to 24 minutes one way
+    d: No real-time communication possible
+  - q: What is terraforming?
+    a: Transforming a planet to be more like Earth
+    d: Controversial — would destroy Mars's natural state
+  glossary:
+  - emoji: 🔴
+    category: Mars Vocabulary
+    terms:
+    - term: Regolith
+      def: Rocky soil on Mars's surface — used for 3D printing habitats
+    - term: Hydroponics
+      def: Growing plants in nutrient water without soil
+    - term: MOXIE
+      def: Mars Oxygen In-Situ Resource Utilisation Experiment
+    - term: Terraforming
+      def: Transforming a planet's environment to support Earth life
+    - term: Bioregenerative
+      def: Life support that recycles air, water, and waste biologically
+    - term: Planetary protection
+      def: Preventing biological contamination between worlds
+  - emoji: 🚀
+    category: Space Programmes
+    terms:
+    - term: CNSA
+      def: China National Space Administration
+    - term: Zhurong
+      def: China's Mars rover (2021–present)
+    - term: Tiangong
+      def: China's space station
+    - term: Artemis
+      def: NASA's Moon-then-Mars human spaceflight programme
+    - term: Starship
+      def: SpaceX's reusable rocket designed for Mars
+    - term: Danuri
+      def: Korea's first lunar orbiter (2022)
+  tools:
+  - emoji: 🌙
+    name: Moon Phases Simulator
+    source: Mr Zocchi
+    task: Understand orbital mechanics by dragging the Moon around Earth.
+    embed_url: /learn/moon-phases.html
+  - emoji: 🔭
+    name: Solar System Scale
+    source: NASA
+    link_url: https://solarsystem.nasa.gov/solar-system/our-solar-system/overview/
+    task: Explore the scale of the solar system and compare planet sizes.
 ---

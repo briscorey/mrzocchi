@@ -4294,3 +4294,76 @@ img, svg { transition: filter 0.3s ease; }
 /* Term Pill Polish */
 .term-pill { transition: all 0.3s cubic-bezier(0.22,1,0.36,1) !important; }
 .term-pill:hover { transform: translateY(-2px) !important; box-shadow: 0 4px 12px rgba(27,42,74,0.1) !important; }
+
+/* ════════════════════════════════════
+   HOMEPAGE — DoL-READY UPGRADE
+   Stats strip, pedagogy framework, tools
+   ════════════════════════════════════ */
+
+/* Fix hero text visibility */
+.home-hero-title { color: var(--navy) !important; }
+[data-theme="dark"] .home-hero-title { color: var(--gray-800) !important; }
+
+/* Stats strip */
+.home-stats {
+  display: flex; justify-content: center; gap: 32px;
+  position: relative; z-index: 1;
+  margin-bottom: 32px; padding: 18px 24px;
+  background: rgba(27,42,74,0.04); border-radius: 16px;
+  max-width: 700px; width: 100%;
+}
+[data-theme="dark"] .home-stats { background: rgba(255,255,255,0.04); }
+.home-stat { text-align: center; }
+.home-stat strong {
+  display: block; font-family: var(--font-display); font-size: 1.4rem;
+  font-weight: 800; color: var(--teal);
+}
+.home-stat span { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-400); }
+@media (max-width: 640px) {
+  .home-stats { gap: 16px; flex-wrap: wrap; padding: 14px 16px; }
+  .home-stat strong { font-size: 1.1rem; }
+  .home-stat span { font-size: 0.6rem; }
+}
+
+/* Pedagogy framework strip */
+.home-pedagogy {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  max-width: 1100px; width: 100%; padding: 0 20px;
+  position: relative; z-index: 1; margin-top: 40px;
+}
+.home-ped-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 16px; border-radius: 14px;
+  background: var(--white); border: 1px solid var(--gray-200);
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.home-ped-item:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(27,42,74,0.06); }
+[data-theme="dark"] .home-ped-item { background: var(--gray-100); border-color: var(--gray-300); }
+.home-ped-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.home-ped-item strong { display: block; font-family: var(--font-display); font-size: 0.88rem; color: var(--navy); margin-bottom: 4px; }
+.home-ped-item span { font-size: 0.78rem; color: var(--gray-400); line-height: 1.45; }
+@media (max-width: 900px) { .home-pedagogy { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .home-pedagogy { grid-template-columns: 1fr; padding: 0; } }
+
+/* Tool cards */
+.home-tools {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  max-width: 1100px; width: 100%; padding: 0 20px;
+  position: relative; z-index: 1; margin-top: 24px; margin-bottom: 40px;
+}
+.home-tool-card {
+  display: flex; flex-direction: column; gap: 6px; padding: 20px;
+  border-radius: 16px; background: var(--white); border: 1.5px solid var(--gray-200);
+  text-decoration: none; color: var(--gray-800);
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.home-tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(42,157,143,0.1); border-color: var(--teal); }
+[data-theme="dark"] .home-tool-card { background: var(--gray-100); border-color: var(--gray-300); }
+.home-tool-emoji { font-size: 1.6rem; }
+.home-tool-card strong { font-family: var(--font-display); font-size: 0.95rem; color: var(--navy); }
+.home-tool-card span { font-size: 0.78rem; color: var(--gray-400); line-height: 1.45; }
+@media (max-width: 640px) { .home-tools { grid-template-columns: 1fr; padding: 0; } }
+
+/* Tighten homepage layout — don't vertically center, push content up */
+.home-fullpage { justify-content: flex-start !important; padding-top: 32px !important; }
+@media (max-width: 640px) { .home-fullpage { padding-top: 16px !important; } }

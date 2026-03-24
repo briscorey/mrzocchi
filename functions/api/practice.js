@@ -39,7 +39,9 @@ export async function onRequestPost(context) {
     }
 
     var grade = body.grade, subject = body.subject, topic = body.topic;
-    var interests = body.interests || "", heritage = body.heritage || "", difficulty = body.difficulty || "medium";
+    var rawInterests = body.interests || "";
+    var interests = Array.isArray(rawInterests) ? rawInterests.join(", ") : String(rawInterests);
+    var heritage = String(body.heritage || ""), difficulty = body.difficulty || "medium";
 
     if (!topic || topic.trim().length < 2) {
       return new Response(JSON.stringify({ error: "Please select a topic." }), { status: 400, headers: CORS });

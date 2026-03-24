@@ -124,9 +124,38 @@
             </div>
           </div>
           {{ end }}
-        </div>
 
-        {{/* Criteria (shared — rendered from page-level) */}}
+          {{/* Quick Start — visual resource cards */}}
+          {{ if and .powerpoints .worksheets }}
+          <div class="quick-start">
+            <h4 class="quick-start-title">⚡ Start Here</h4>
+            <div class="quick-start-grid">
+              {{ if ge (len .powerpoints) 2 }}{{ with (index .powerpoints (sub (len .powerpoints) 2)) }}
+              <a href="{{ .url }}" class="quick-card qc-ppt" target="_blank">
+                <span class="quick-card-icon">📊</span>
+                <span class="quick-card-label">Lesson Slides</span>
+                <span class="quick-card-name">{{ .name }}</span>
+              </a>
+              {{ end }}{{ end }}
+              {{ with (index .worksheets 0) }}
+              <a href="{{ .url }}" class="quick-card qc-ws" target="_blank">
+                <span class="quick-card-icon">📝</span>
+                <span class="quick-card-label">Revision Booklet</span>
+                <span class="quick-card-name">{{ .name }}</span>
+              </a>
+              {{ end }}
+              {{ if .games }}{{ with (index .games 0) }}
+              <a href="{{ .url }}" class="quick-card qc-game" target="_blank">
+                <span class="quick-card-icon">🎮</span>
+                <span class="quick-card-label">Review Game</span>
+                <span class="quick-card-name">{{ .name }}</span>
+              </a>
+              {{ end }}{{ end }}
+            </div>
+          </div>
+          {{ end }}
+
+        </div>
         {{ $page := $ }}
         <div class="dash-content-section" id="criteria-t{{ .num }}">
           <h2 class="content-heading" data-i18n="heading.criteria">Assessment Criteria</h2>

@@ -3944,3 +3944,353 @@ img, svg { transition: filter 0.3s ease; }
   .criteria-level { padding: 10px 12px; gap: 10px; }
   .criteria-range { min-width: 38px; }
 }
+
+/* ════════════════════════════════════
+   VISUAL QUALITY UPGRADE
+   Quick Start · Resource Polish · Hover Effects · Depth
+   ════════════════════════════════════ */
+
+/* ── Quick Start Cards ── */
+.quick-start { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--gray-200); }
+.quick-start-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+.quick-start-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.quick-card {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 20px 14px; border-radius: 16px; text-decoration: none;
+  border: 1.5px solid var(--gray-200); background: var(--white);
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  position: relative; overflow: hidden;
+}
+.quick-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  transition: opacity 0.3s;
+}
+.quick-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(27,42,74,0.1); }
+.quick-card:hover::before { opacity: 1; }
+.qc-ppt::before { background: linear-gradient(135deg, rgba(42,157,143,0.06), rgba(42,157,143,0.02)); }
+.qc-ppt:hover { border-color: var(--teal); }
+.qc-ws::before { background: linear-gradient(135deg, rgba(233,196,106,0.08), rgba(233,196,106,0.02)); }
+.qc-ws:hover { border-color: var(--gold); }
+.qc-game::before { background: linear-gradient(135deg, rgba(200,55,45,0.06), rgba(200,55,45,0.02)); }
+.qc-game:hover { border-color: var(--red); }
+.quick-card-icon { font-size: 1.8em; position: relative; z-index: 1; }
+.quick-card-label {
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--gray-400); position: relative; z-index: 1;
+}
+.quick-card-name {
+  font-size: 0.78rem; font-weight: 600; color: var(--navy);
+  text-align: center; line-height: 1.3; position: relative; z-index: 1;
+}
+[data-theme="dark"] .quick-card { background: var(--gray-100); border-color: var(--gray-300); }
+[data-theme="dark"] .quick-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+@media (max-width: 768px) {
+  .quick-start-grid { grid-template-columns: 1fr; }
+  .quick-card { flex-direction: row; padding: 14px 18px; gap: 12px; }
+  .quick-card-icon { font-size: 1.4em; }
+}
+
+/* ── Enhanced Resource Rows ── */
+.resource-row {
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.resource-row:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(27,42,74,0.06) !important;
+}
+.resource-row-icon {
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+.resource-row:hover .resource-row-icon {
+  transform: scale(1.15);
+}
+.resource-row-arrow {
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0.4;
+}
+.resource-row:hover .resource-row-arrow {
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+/* ── Better Section Headers ── */
+.content-heading {
+  position: relative;
+  padding-bottom: 10px;
+}
+.content-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 40px; height: 3px;
+  border-radius: 2px;
+  background: var(--teal);
+}
+[data-theme="dark"] .content-heading::after {
+  background: var(--teal);
+  opacity: 0.6;
+}
+
+/* ── Improved Explore & Extension Cards ── */
+.explore-card {
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.explore-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 32px rgba(27,42,74,0.08) !important;
+  border-color: var(--teal) !important;
+}
+.explore-emoji {
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.explore-card:hover .explore-emoji {
+  transform: scale(1.15) rotate(-5deg);
+}
+.explore-btn {
+  transition: all 0.25s !important;
+}
+.explore-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(42,157,143,0.2) !important;
+}
+
+/* ── Sidebar Hover Polish ── */
+.sidebar-item {
+  transition: all 0.2s cubic-bezier(0.22,1,0.36,1) !important;
+  position: relative;
+}
+.sidebar-item:hover {
+  transform: translateX(3px);
+  background: var(--gray-50) !important;
+}
+.sidebar-item.active {
+  box-shadow: 0 2px 8px rgba(42,157,143,0.1);
+}
+.sidebar-item .sidebar-icon {
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+.sidebar-item:hover .sidebar-icon {
+  transform: scale(1.2);
+}
+
+/* ── Game Embed Cards Polish ── */
+.game-embed-card {
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.game-embed-card:hover {
+  box-shadow: 0 8px 24px rgba(27,42,74,0.08) !important;
+  border-color: var(--teal) !important;
+}
+.game-embed-play {
+  transition: all 0.25s !important;
+}
+.game-embed-play:hover {
+  transform: scale(1.03) !important;
+  box-shadow: 0 4px 16px rgba(42,157,143,0.25) !important;
+}
+
+/* ── Quiz Cards Polish ── */
+.quiz-card {
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.quiz-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(27,42,74,0.06) !important;
+}
+
+/* ── Glossary Cards Polish ── */
+.glossary-card {
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.glossary-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(27,42,74,0.06) !important;
+  border-color: var(--teal) !important;
+}
+.glossary-emoji {
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+.glossary-card:hover .glossary-emoji {
+  transform: scale(1.2);
+}
+
+/* ── Journey Section Enhancement ── */
+.journey-section {
+  position: relative;
+}
+.journey-section::before {
+  content: '🗺️';
+  position: absolute;
+  top: -2px; right: 0;
+  font-size: 1.4rem;
+  opacity: 0.15;
+}
+.journey-step {
+  transition: all 0.2s;
+}
+.journey-step:hover {
+  transform: translateX(4px);
+}
+.journey-step.journey-current .journey-topic {
+  position: relative;
+}
+.journey-step.journey-current .journey-topic::after {
+  content: ' ← You are here';
+  font-size: 0.65em;
+  font-weight: 600;
+  color: var(--teal);
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+}
+
+/* ── Unit Card Enhancement ── */
+.unit-card {
+  position: relative;
+  overflow: hidden;
+}
+.unit-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Term Pill Enhancement ── */
+.term-pill {
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.term-pill:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(27,42,74,0.1) !important;
+}
+
+/* ── Smooth page-level scroll for sidebar clicks ── */
+.dash-content-section {
+  scroll-margin-top: 20px;
+}
+
+/* ── Print improvements ── */
+@media print {
+  .sidebar, .term-strip, .header, .footer { display: none !important; }
+  .dash-main { margin: 0 !important; max-width: 100% !important; }
+  .quick-start-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
+/* ════════════════════════════════════
+   VISUAL QUALITY UPGRADE
+   Quick Start · Resource Polish · Hover Effects · Depth
+   ════════════════════════════════════ */
+
+/* Quick Start Cards */
+.quick-start { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--gray-200); }
+.quick-start-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+.quick-start-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.quick-card {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 20px 14px; border-radius: 16px; text-decoration: none;
+  border: 1.5px solid var(--gray-200); background: var(--white);
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  position: relative; overflow: hidden;
+}
+.quick-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  transition: opacity 0.3s;
+}
+.quick-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(27,42,74,0.1); }
+.quick-card:hover::before { opacity: 1; }
+.qc-ppt::before { background: linear-gradient(135deg, rgba(42,157,143,0.06), rgba(42,157,143,0.02)); }
+.qc-ppt:hover { border-color: var(--teal); }
+.qc-ws::before { background: linear-gradient(135deg, rgba(233,196,106,0.08), rgba(233,196,106,0.02)); }
+.qc-ws:hover { border-color: var(--gold); }
+.qc-game::before { background: linear-gradient(135deg, rgba(200,55,45,0.06), rgba(200,55,45,0.02)); }
+.qc-game:hover { border-color: var(--red); }
+.quick-card-icon { font-size: 1.8em; position: relative; z-index: 1; }
+.quick-card-label {
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--gray-400); position: relative; z-index: 1;
+}
+.quick-card-name {
+  font-size: 0.78rem; font-weight: 600; color: var(--navy);
+  text-align: center; line-height: 1.3; position: relative; z-index: 1;
+}
+[data-theme="dark"] .quick-card { background: var(--gray-100); border-color: var(--gray-300); }
+[data-theme="dark"] .quick-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+@media (max-width: 768px) {
+  .quick-start-grid { grid-template-columns: 1fr; }
+  .quick-card { flex-direction: row; padding: 14px 18px; gap: 12px; }
+  .quick-card-icon { font-size: 1.4em; }
+}
+
+/* Enhanced Resource Rows */
+.resource-row { transition: all 0.25s cubic-bezier(0.22,1,0.36,1) !important; }
+.resource-row:hover { transform: translateX(4px); box-shadow: 0 4px 16px rgba(27,42,74,0.06) !important; }
+.resource-row-icon { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.resource-row:hover .resource-row-icon { transform: scale(1.15); }
+.resource-row-arrow { transition: transform 0.2s, opacity 0.2s; opacity: 0.4; }
+.resource-row:hover .resource-row-arrow { transform: translateX(3px); opacity: 1; }
+
+/* Better Section Headers */
+.content-heading { position: relative; padding-bottom: 10px; }
+.content-heading::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 40px; height: 3px; border-radius: 2px; background: var(--teal);
+}
+
+/* Improved Explore and Extension Cards */
+.explore-card { transition: all 0.3s cubic-bezier(0.22,1,0.36,1) !important; }
+.explore-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 32px rgba(27,42,74,0.08) !important;
+  border-color: var(--teal) !important;
+}
+.explore-emoji { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+.explore-card:hover .explore-emoji { transform: scale(1.15) rotate(-5deg); }
+.explore-btn { transition: all 0.25s !important; }
+.explore-btn:hover { transform: translateY(-1px) !important; box-shadow: 0 4px 12px rgba(42,157,143,0.2) !important; }
+
+/* Sidebar Hover Polish */
+.sidebar-item { transition: all 0.2s cubic-bezier(0.22,1,0.36,1) !important; position: relative; }
+.sidebar-item:hover { transform: translateX(3px); background: var(--gray-50) !important; }
+.sidebar-item.active { box-shadow: 0 2px 8px rgba(42,157,143,0.1); }
+.sidebar-item .sidebar-icon { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.sidebar-item:hover .sidebar-icon { transform: scale(1.2); }
+
+/* Game Embed Cards */
+.game-embed-card { transition: all 0.3s cubic-bezier(0.22,1,0.36,1) !important; }
+.game-embed-card:hover { box-shadow: 0 8px 24px rgba(27,42,74,0.08) !important; border-color: var(--teal) !important; }
+.game-embed-play { transition: all 0.25s !important; }
+.game-embed-play:hover { transform: scale(1.03) !important; box-shadow: 0 4px 16px rgba(42,157,143,0.25) !important; }
+
+/* Quiz Cards */
+.quiz-card { transition: all 0.25s cubic-bezier(0.22,1,0.36,1) !important; }
+.quiz-card:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px rgba(27,42,74,0.06) !important; }
+
+/* Glossary Cards */
+.glossary-card { transition: all 0.25s cubic-bezier(0.22,1,0.36,1) !important; }
+.glossary-card:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px rgba(27,42,74,0.06) !important; border-color: var(--teal) !important; }
+.glossary-emoji { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.glossary-card:hover .glossary-emoji { transform: scale(1.2); }
+
+/* Journey Enhancement */
+.journey-step { transition: all 0.2s; }
+.journey-step:hover { transform: translateX(4px); }
+.journey-step.journey-current .journey-topic { position: relative; }
+.journey-step.journey-current .journey-topic::after {
+  content: ' \2190  You are here'; font-size: 0.65em; font-weight: 600;
+  color: var(--teal); font-family: var(--font-body); letter-spacing: 0.02em;
+}
+
+/* Unit Card Gradient */
+.unit-card { position: relative; overflow: hidden; }
+.unit-card::after {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Term Pill Polish */
+.term-pill { transition: all 0.3s cubic-bezier(0.22,1,0.36,1) !important; }
+.term-pill:hover { transform: translateY(-2px) !important; box-shadow: 0 4px 12px rgba(27,42,74,0.1) !important; }

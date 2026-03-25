@@ -148,6 +148,60 @@
       .q-text{font-size:1.1rem}
       .results-ring{width:120px;height:120px}
     }
+
+    /* ── MODE SELECTOR ── */
+    .mode-row{display:flex;gap:8px;margin-bottom:20px}
+    .mode-card{flex:1;padding:18px 16px;border-radius:var(--radius);border:2px solid var(--gray-200);background:var(--white);cursor:pointer;transition:all 0.2s;text-align:center;position:relative;overflow:hidden}
+    .mode-card:hover{border-color:var(--gray-300);transform:translateY(-2px)}
+    .mode-card.active{border-color:var(--teal);box-shadow:0 4px 16px rgba(42,157,143,0.15)}
+    .mode-card.active::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal)}
+    .mode-emoji{font-size:1.8rem;margin-bottom:6px;display:block}
+    .mode-name{font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:2px}
+    .mode-desc{font-size:0.78rem;color:var(--gray-400);line-height:1.4}
+
+    /* ── PERSONAL BEST ── */
+    .pb-bar{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+    .pb-stat{padding:8px 16px;border-radius:10px;background:var(--gray-50);border:1px solid var(--gray-200);display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--gray-600);font-weight:600}
+    .pb-stat .pb-val{color:var(--gold);font-weight:800}
+
+    /* ── CHALLENGE TIMER ── */
+    .challenge-bar{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:12px 18px;background:linear-gradient(135deg,#1B2A4A,#243660);border-radius:var(--radius);color:#fff}
+    [data-theme="dark"] .challenge-bar{background:linear-gradient(135deg,#0B0D14,#141722);border:1px solid var(--gray-200)}
+    .ch-timer{font-size:1.8rem;font-weight:800;font-family:var(--font-display);min-width:56px;text-align:center}
+    .ch-timer.ch-warning{color:var(--red);animation:pulse 0.5s ease infinite alternate}
+    @keyframes pulse{from{transform:scale(1)}to{transform:scale(1.08)}}
+    .ch-score-live{display:flex;align-items:center;gap:6px;font-size:1.1rem;font-weight:700}
+    .ch-mult{padding:3px 10px;border-radius:6px;background:var(--gold);color:#1B2A4A;font-weight:800;font-size:0.85rem;animation:pop 0.3s ease}
+    .ch-progress{flex:1;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;overflow:hidden}
+    .ch-progress-fill{height:100%;background:var(--teal);border-radius:3px;transition:width 0.3s}
+
+    /* ── EXPLAIN REASONING ── */
+    .explain-prompt{display:none;margin-top:14px;padding:16px;border-radius:12px;background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.12);animation:slideUp 0.3s ease}
+    .explain-prompt.show{display:block}
+    .explain-prompt-title{font-weight:700;font-size:0.88rem;color:#7C3AED;margin-bottom:6px}
+    [data-theme="dark"] .explain-prompt-title{color:#C4B5FD}
+    .explain-prompt textarea{width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid var(--gray-200);font-family:var(--font-body);font-size:0.9rem;resize:vertical;min-height:60px;outline:none;background:var(--white);color:var(--gray-800)}
+    .explain-prompt textarea:focus{border-color:#7C3AED}
+    .explain-prompt .ep-hint{font-size:0.75rem;color:var(--gray-400);margin-top:4px}
+
+    /* ── BONUS QUESTION ── */
+    .bonus-card{background:linear-gradient(135deg,rgba(233,196,106,0.08),rgba(231,111,81,0.04));border:2px solid var(--gold);border-radius:var(--radius);padding:28px 24px;margin-top:20px;animation:pop 0.5s ease}
+    .bonus-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:8px;background:var(--gold);color:#1B2A4A;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px}
+    .bonus-q{font-size:1.15rem;line-height:1.7;color:var(--navy);font-weight:500;margin-bottom:14px}
+
+    /* ── CHALLENGE RESULTS ── */
+    .ch-results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0 20px;text-align:center}
+    .ch-stat{padding:14px;border-radius:12px;background:var(--gray-50);border:1px solid var(--gray-200)}
+    .ch-stat-val{font-size:1.6rem;font-weight:800;font-family:var(--font-display);color:var(--teal)}
+    .ch-stat-label{font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.05em;margin-top:2px}
+    .ch-stat-val.gold{color:var(--gold)}
+    .ch-new-pb{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:8px;background:rgba(233,196,106,0.15);color:var(--gold);font-weight:800;font-size:0.88rem;animation:pop 0.5s ease;margin-bottom:12px}
+
+    @media(max-width:600px){
+      .mode-row{flex-direction:column}
+      .ch-results-grid{grid-template-columns:1fr 1fr}
+      .challenge-bar{flex-wrap:wrap;gap:8px}
+    }
   </style>
 </head>
 <body>
@@ -176,6 +230,22 @@
         <div><label class="form-label" for="pTopic">Topic</label>
           <select class="form-select" id="pTopic"><option value="">Choose a topic...</option></select></div>
       </div>
+
+      <label class="form-label">Mode</label>
+      <div class="mode-row" id="modeRow">
+        <div class="mode-card active" data-mode="standard">
+          <span class="mode-emoji">📝</span>
+          <div class="mode-name">Standard</div>
+          <div class="mode-desc">8 mixed questions at your own pace</div>
+        </div>
+        <div class="mode-card" data-mode="challenge">
+          <span class="mode-emoji">⚡</span>
+          <div class="mode-name">Challenge</div>
+          <div class="mode-desc">12 MCQs in 90 seconds — streak multiplier</div>
+        </div>
+      </div>
+
+      <div class="pb-bar" id="pbBar"></div>
 
       <label class="form-label">Difficulty</label>
       <div class="diff-row" id="diffRow">
@@ -263,12 +333,19 @@
 
   var LD_MSGS=['Creating your personalised practice...','Connecting questions to your interests...','Building interactive exercises...','Checking the answers are correct...','Almost ready...'];
   var tags={h:[],i:[]};
-  var diff='medium';
+  var diff='medium', mode='standard';
   var ws=null, qi=0, score=0, streakN=0, answered=[];
+  // Challenge mode state
+  var chTimer=null, chTimeLeft=90, chScore=0, chMult=1, chCorrect=0, chWrong=0;
+  // Adaptive difficulty
+  var adaptiveStreak=0;
+  var ldI=0, ldSec=0, ldTimerInterval=null;
 
   var $=function(id){return document.getElementById(id)};
   function esc(t){var d=document.createElement('div');d.textContent=String(t==null?'':t);return d.innerHTML;}
   function show(id){document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});$(id).classList.add('active');}
+  function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 
   // ── Topics ──
   function updateTopics(){
@@ -287,11 +364,36 @@
     b.classList.add('active');diff=b.getAttribute('data-d');
   });
 
-  // ── Tags ──
-  function addTag(type,text){
-    text=text.trim();if(!text||tags[type].indexOf(text)!==-1)return;
-    tags[type].push(text);renderTags(type);
+  // ── Mode selector ──
+  $('modeRow').addEventListener('click',function(e){
+    var c=e.target.closest('.mode-card');if(!c)return;
+    document.querySelectorAll('.mode-card').forEach(function(x){x.classList.remove('active')});
+    c.classList.add('active');mode=c.dataset.mode;
+    updatePBBar();
+  });
+
+  // ── Personal Best ──
+  function getPB(topic,m){
+    try{var d=JSON.parse(lsGet('pb_'+m)||'{}');return d[topic]||null;}catch(e){return null;}
   }
+  function setPB(topic,m,data){
+    try{var d=JSON.parse(lsGet('pb_'+m)||'{}');d[topic]=data;lsSet('pb_'+m,JSON.stringify(d));}catch(e){}
+  }
+  function updatePBBar(){
+    var topic=$('pTopic').value;
+    if(!topic){$('pbBar').innerHTML='';return;}
+    var pb=getPB(topic,mode);
+    if(!pb){$('pbBar').innerHTML='<div class="pb-stat">No personal best yet — be the first! 🎯</div>';return;}
+    if(mode==='challenge'){
+      $('pbBar').innerHTML='<div class="pb-stat">🏆 Best Score: <span class="pb-val">'+pb.score+'</span></div><div class="pb-stat">🔥 Best Streak: <span class="pb-val">'+pb.streak+'</span></div><div class="pb-stat">✅ Best Accuracy: <span class="pb-val">'+pb.accuracy+'%</span></div>';
+    }else{
+      $('pbBar').innerHTML='<div class="pb-stat">🏆 Best: <span class="pb-val">'+pb.score+'/'+pb.total+'</span></div><div class="pb-stat">🔥 Streak: <span class="pb-val">'+pb.streak+'</span></div>';
+    }
+  }
+  $('pTopic').addEventListener('change',updatePBBar);
+
+  // ── Tags ──
+  function addTag(type,text){text=text.trim();if(!text||tags[type].indexOf(text)!==-1)return;tags[type].push(text);renderTags(type);}
   function removeTag(type,idx){tags[type].splice(idx,1);renderTags(type);}
   function renderTags(type){
     var wrap=$(type+'Wrap'),input=$(type+'In');
@@ -308,24 +410,20 @@
   $('hIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim()){e.preventDefault();addTag('h',this.value);this.value='';}});
   $('iIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim()){e.preventDefault();addTag('i',this.value);this.value='';}});
 
-  // ── Loading messages + timer ──
-  var ldI=0, ldSec=0, ldTimerInterval=null;
+  // ── Loading timer ──
   setInterval(function(){if($('panelLoading').classList.contains('active')){ldI=(ldI+1)%LD_MSGS.length;$('ldMsg').textContent=LD_MSGS[ldI];}},2800);
-  function startLoadingTimer() {
-    ldSec = 0;
-    if (ldTimerInterval) clearInterval(ldTimerInterval);
-    $('ldTimer').textContent = 'This usually takes 10-20 seconds';
-    ldTimerInterval = setInterval(function() {
+  function startLoadingTimer(){
+    ldSec=0;if(ldTimerInterval)clearInterval(ldTimerInterval);
+    $('ldTimer').textContent='This usually takes 10-20 seconds';
+    ldTimerInterval=setInterval(function(){
       ldSec++;
-      if (ldSec < 10) $('ldTimer').textContent = 'This usually takes 10-20 seconds';
-      else if (ldSec < 25) $('ldTimer').textContent = ldSec + 's — generating questions...';
-      else if (ldSec < 40) $('ldTimer').textContent = ldSec + 's — almost there...';
-      else $('ldTimer').textContent = ldSec + 's — still working, please wait...';
-    }, 1000);
+      if(ldSec<10)$('ldTimer').textContent='This usually takes 10-20 seconds';
+      else if(ldSec<25)$('ldTimer').textContent=ldSec+'s — generating questions...';
+      else if(ldSec<40)$('ldTimer').textContent=ldSec+'s — almost there...';
+      else $('ldTimer').textContent=ldSec+'s — still working, please wait...';
+    },1000);
   }
-  function stopLoadingTimer() {
-    if (ldTimerInterval) { clearInterval(ldTimerInterval); ldTimerInterval = null; }
-  }
+  function stopLoadingTimer(){if(ldTimerInterval){clearInterval(ldTimerInterval);ldTimerInterval=null;}}
 
   // ── Error ──
   function showErr(msg){
@@ -339,17 +437,16 @@
   async function generate(){
     var topic=$('pTopic').value;
     if(!topic){showErr('Please choose a topic.');return;}
-    $('err').className='err';
-    show('panelLoading');
-    startLoadingTimer();
-    qi=0;score=0;streakN=0;answered=[];
+    $('err').className='err';show('panelLoading');startLoadingTimer();
+    qi=0;score=0;streakN=0;answered=[];adaptiveStreak=0;
+    chScore=0;chMult=1;chCorrect=0;chWrong=0;chTimeLeft=90;
 
     try{
       var ctrl=new AbortController();
       var tid=setTimeout(function(){ctrl.abort();},42000);
       var res=await fetch('/api/practice',{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({grade:$('pGrade').value,subject:$('pSubject').value,topic:topic,difficulty:diff,heritage:tags.h.join(', '),interests:tags.i.join(', ')}),
+        body:JSON.stringify({grade:$('pGrade').value,subject:$('pSubject').value,topic:topic,difficulty:diff,heritage:tags.h.join(', '),interests:tags.i.join(', '),mode:mode}),
         signal:ctrl.signal
       });
       clearTimeout(tid);
@@ -359,28 +456,27 @@
       if(!data.questions||data.questions.length===0){stopLoadingTimer();showErr('No questions generated. Try again.');return;}
       stopLoadingTimer();
       ws=data;
-      startQuiz();
+      if(mode==='challenge')startChallenge();
+      else startQuiz();
     }catch(err){
       stopLoadingTimer();showErr(err.name==='AbortError'?'Request timed out — the AI is busy. Try again.':'Could not connect. Check your internet.');
     }
   }
 
-  // ── Quiz flow ──
+  // ═══════════════════════════════════
+  // STANDARD MODE
+  // ═══════════════════════════════════
   function startQuiz(){
-    qi=0;score=0;streakN=0;answered=new Array(ws.questions.length).fill(null);
-    show('panelQuiz');
-    renderQuestion();
+    qi=0;score=0;streakN=0;answered=new Array(ws.questions.length).fill(null);adaptiveStreak=0;
+    show('panelQuiz');renderQuestion();
   }
 
   function renderQuestion(){
     var q=ws.questions[qi];
-    // Guard: skip malformed questions
-    if (!q || !q.question || q.question.trim().length < 3) {
-      answered[qi] = {correct: null, type: 'skipped'};
-      qi++;
-      if (qi >= ws.questions.length) { showResults(); return; }
-      renderQuestion();
-      return;
+    if(!q||!q.question||q.question.trim().length<3){
+      answered[qi]={correct:null,type:'skipped'};qi++;
+      if(qi>=ws.questions.length){showResults();return;}
+      renderQuestion();return;
     }
     var total=ws.questions.length;
     $('progFill').style.width=((qi)/total*100)+'%';
@@ -391,32 +487,32 @@
     var badge='q-badge-'+type;
     var typeLabel={mcq:'Multiple Choice',short:'Short Answer',calculation:'Calculation',extended:'Extended Response'}[type]||type;
 
-    var h='<div class="q-card"><span class="q-badge '+badge+'">'+esc(typeLabel)+'</span>';
+    // Adaptive difficulty indicator
+    var adaptLabel='';
+    if(adaptiveStreak>=5)adaptLabel=' <span style="color:var(--red);font-size:0.7rem;font-weight:700">🔥 HARD MODE</span>';
+    else if(adaptiveStreak>=3)adaptLabel=' <span style="color:var(--gold);font-size:0.7rem;font-weight:700">⬆ STEPPING UP</span>';
+
+    var h='<div class="q-card"><span class="q-badge '+badge+'">'+esc(typeLabel)+'</span>'+adaptLabel;
     h+='<div class="q-text">'+esc(q.question||'(Question text missing)')+'</div>';
 
     if(type==='mcq'&&q.options&&q.options.length>0){
       h+='<div class="q-opts" id="qOpts">';
-      q.options.forEach(function(opt,oi){
-        h+='<button class="q-opt" data-oi="'+oi+'">'+esc(opt)+'</button>';
-      });
+      q.options.forEach(function(opt,oi){h+='<button class="q-opt" data-oi="'+oi+'">'+esc(opt)+'</button>';});
       h+='</div>';
     }else{
       h+='<textarea class="q-input" id="qInput" placeholder="Type your answer..." rows="3"></textarea>';
       h+='<div class="q-actions"><button class="btn btn-primary" id="checkBtn">Check Answer</button></div>';
     }
     h+='<div class="q-fb" id="qFb"></div>';
+    // Explain reasoning prompt (shown randomly after correct MCQ answers)
+    h+='<div class="explain-prompt" id="explainPrompt"><div class="explain-prompt-title">🧠 Can you explain WHY this is correct?</div><textarea placeholder="Type your reasoning here..."></textarea><div class="ep-hint">This is optional — but explaining strengthens your understanding.</div></div>';
     h+='<div class="q-actions" id="nextWrap" style="display:none"><button class="btn btn-primary" id="nextBtn">'+(qi<total-1?'Next Question →':'See My Results')+'</button></div>';
     h+='<div class="q-actions" id="skipWrap"><button class="btn btn-ghost" id="skipBtn" style="font-size:0.85rem;padding:10px 20px">Skip →</button></div>';
     h+='</div>';
 
     $('qContainer').innerHTML=h;
-    // Enter key submits short answer
-    var qInput = document.getElementById('qInput');
-    if (qInput) {
-      qInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleShort(); }
-      });
-    }
+    var qInput=document.getElementById('qInput');
+    if(qInput)qInput.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleShort();}});
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -436,26 +532,22 @@
 
   // ── Event delegation ──
   document.addEventListener('click',function(e){
-    // MCQ option click
     var opt=e.target.closest('.q-opt');
     if(opt&&!opt.classList.contains('locked')){
-      handleMCQ(opt);return;
+      if(mode==='challenge')handleChallengeMCQ(opt);
+      else handleMCQ(opt);
+      return;
     }
-    // Check button (short/calc)
     if(e.target.closest('#checkBtn')){handleShort();return;}
-    // Next button
     if(e.target.closest('#nextBtn')){nextQuestion();return;}
-    // Skip button
     if(e.target.closest('#skipBtn')){
-      answered[qi]={correct:null,type:'skipped'};
+      answered[qi]={correct:null,type:'skipped'};streakN=0;adaptiveStreak=0;
       nextQuestion();return;
     }
-    // Results buttons
-    if(e.target.closest('#tryAgainBtn')){startQuiz();return;}
-    if(e.target.closest('#newTopicBtn')){show('panelSetup');return;}
+    if(e.target.closest('#tryAgainBtn')){if(mode==='challenge')startChallenge();else startQuiz();return;}
+    if(e.target.closest('#newTopicBtn')){show('panelSetup');updatePBBar();return;}
     if(e.target.closest('#reviewBtn')){
-      var rl=document.querySelector('.review-list');
-      if(rl)rl.classList.toggle('show');return;
+      var rl=document.querySelector('.review-list');if(rl)rl.classList.toggle('show');return;
     }
   });
 
@@ -463,43 +555,35 @@
     var q=ws.questions[qi];
     var allOpts=document.querySelectorAll('.q-opt');
     var correct=isMatch(opt.textContent,q.answer,q.options);
-
-    // Lock all options
     allOpts.forEach(function(b){b.classList.add('locked');});
-
-    // Highlight
     allOpts.forEach(function(b){
       if(isMatch(b.textContent,q.answer,q.options))b.classList.add('correct');
       else if(b===opt)b.classList.add('wrong');
     });
-
-    if(correct){score++;streakN++;} else{streakN=0;}
+    if(correct){score++;streakN++;adaptiveStreak++;}else{streakN=0;adaptiveStreak=Math.max(0,adaptiveStreak-2);}
     answered[qi]={correct:correct,type:'mcq'};
     updateStreak();
     showFeedback(q,correct);
+    // Show "explain your reasoning" ~30% of the time on correct MCQ answers
+    if(correct&&Math.random()<0.3){
+      var ep=document.getElementById('explainPrompt');if(ep)ep.classList.add('show');
+    }
     showNext();
   }
 
   function handleShort(){
     var q=ws.questions[qi];
-    var input=document.querySelector('#qInput');
-    if(input)input.setAttribute('readonly','true');
-    var checkBtn=document.querySelector('#checkBtn');
-    if(checkBtn)checkBtn.style.display='none';
+    var input=document.querySelector('#qInput');if(input)input.setAttribute('readonly','true');
+    var checkBtn=document.querySelector('#checkBtn');if(checkBtn)checkBtn.style.display='none';
     answered[qi]={correct:null,type:'open'};
-    showFeedback(q,null);
-    showNext();
+    showFeedback(q,null);showNext();
   }
 
   function showFeedback(q,correct){
     var fb=$('qFb');
-    if(correct===true){
-      fb.className='q-fb show ok';
-      fb.textContent='✅ Correct! '+(q.explanation||'');
-    }else if(correct===false){
-      fb.className='q-fb show no';
-      fb.textContent='❌ '+(q.explanation||'The correct answer is highlighted above.');
-    }else{
+    if(correct===true){fb.className='q-fb show ok';fb.textContent='✅ Correct! '+(q.explanation||'');}
+    else if(correct===false){fb.className='q-fb show no';fb.textContent='❌ '+(q.explanation||'The correct answer is highlighted above.');}
+    else{
       fb.className='q-fb show ok';
       var m='📝 Model answer: '+(q.answer||'');
       if(q.working)m+='\n📐 Working: '+q.working;
@@ -508,33 +592,102 @@
     }
   }
 
-  function showNext(){
-    $('nextWrap').style.display='flex';
-    var skipWrap = document.getElementById('skipWrap');
-    if (skipWrap) skipWrap.style.display = 'none';
-  }
-
-  function updateStreak(){
-    var el=$('streak');
-    if(streakN>=2){el.className='streak show';el.textContent='🔥 '+streakN;}
-    else{el.className='streak';}
-  }
+  function showNext(){$('nextWrap').style.display='flex';var sw=document.getElementById('skipWrap');if(sw)sw.style.display='none';}
+  function updateStreak(){var el=$('streak');if(streakN>=2){el.className='streak show';el.textContent='🔥 '+streakN;}else{el.className='streak';}}
 
   function nextQuestion(){
-    qi++;
-    if(qi>=ws.questions.length){showResults();return;}
+    qi++;if(qi>=ws.questions.length){showResults();return;}
     $('progFill').style.width=(qi/ws.questions.length*100)+'%';
     renderQuestion();
   }
 
-  // ── Results ──
+  // ═══════════════════════════════════
+  // CHALLENGE MODE
+  // ═══════════════════════════════════
+  function startChallenge(){
+    qi=0;chScore=0;chMult=1;chCorrect=0;chWrong=0;streakN=0;chTimeLeft=90;
+    answered=new Array(ws.questions.length).fill(null);
+    show('panelQuiz');
+
+    // Replace progress bar with challenge bar
+    var quizBar=document.querySelector('.quiz-bar');
+    quizBar.innerHTML='<div class="challenge-bar"><span class="ch-timer" id="chTimerDisp">90</span><div class="ch-score-live"><span>⚡</span><span id="chScoreLive">0</span><span class="ch-mult" id="chMultDisp">1×</span></div><div class="ch-progress"><div class="ch-progress-fill" id="chProgFill"></div></div><span class="quiz-counter" id="qCounter" style="color:rgba(255,255,255,0.5)">1 / '+ws.questions.length+'</span></div>';
+
+    renderChallengeQ();
+    startChallengeTimer();
+  }
+
+  function startChallengeTimer(){
+    if(chTimer)clearInterval(chTimer);
+    chTimer=setInterval(function(){
+      chTimeLeft--;
+      var disp=$('chTimerDisp');
+      if(disp){
+        disp.textContent=chTimeLeft;
+        disp.className=chTimeLeft<=10?'ch-timer ch-warning':'ch-timer';
+      }
+      if(chTimeLeft<=0){
+        clearInterval(chTimer);chTimer=null;
+        showChallengeResults();
+      }
+    },1000);
+  }
+
+  function renderChallengeQ(){
+    if(qi>=ws.questions.length){clearInterval(chTimer);showChallengeResults();return;}
+    var q=ws.questions[qi];
+    if(!q||!q.question||q.type!=='mcq'||!q.options||q.options.length<2){
+      answered[qi]={correct:null,type:'skipped'};qi++;renderChallengeQ();return;
+    }
+    $('qCounter').textContent=(qi+1)+' / '+ws.questions.length;
+    var fill=$('chProgFill');if(fill)fill.style.width=(qi/ws.questions.length*100)+'%';
+
+    var h='<div class="q-card"><span class="q-badge q-badge-mcq">⚡ CHALLENGE</span>';
+    h+='<div class="q-text">'+esc(q.question)+'</div>';
+    h+='<div class="q-opts" id="qOpts">';
+    q.options.forEach(function(opt,oi){h+='<button class="q-opt" data-oi="'+oi+'">'+esc(opt)+'</button>';});
+    h+='</div></div>';
+    $('qContainer').innerHTML=h;
+  }
+
+  function handleChallengeMCQ(opt){
+    var q=ws.questions[qi];
+    var allOpts=document.querySelectorAll('.q-opt');
+    var correct=isMatch(opt.textContent,q.answer,q.options);
+    allOpts.forEach(function(b){b.classList.add('locked');});
+    allOpts.forEach(function(b){
+      if(isMatch(b.textContent,q.answer,q.options))b.classList.add('correct');
+      else if(b===opt)b.classList.add('wrong');
+    });
+
+    if(correct){
+      streakN++;chCorrect++;
+      if(streakN>=5)chMult=3;
+      else if(streakN>=3)chMult=2;
+      else chMult=1;
+      chScore+=10*chMult;
+    }else{
+      streakN=0;chMult=1;chWrong++;
+    }
+    answered[qi]={correct:correct,type:'mcq'};
+
+    // Update live score
+    var sl=$('chScoreLive');if(sl)sl.textContent=chScore;
+    var md=$('chMultDisp');if(md){md.textContent=chMult+'×';md.style.animation='none';md.offsetHeight;md.style.animation='pop 0.3s ease';}
+
+    // Auto-advance after 600ms
+    setTimeout(function(){qi++;renderChallengeQ();},600);
+  }
+
+  // ═══════════════════════════════════
+  // RESULTS (STANDARD)
+  // ═══════════════════════════════════
   function showResults(){
     $('progFill').style.width='100%';
     var total=ws.questions.length;
     var mcqTotal=answered.filter(function(a){return a&&a.type==='mcq'}).length;
     var pct=mcqTotal>0?Math.round(score/mcqTotal*100):(answered.filter(function(a){return a&&a.correct!==null}).length>0?50:0);
-    var circ=2*Math.PI*62;
-    var offset=circ-(pct/100*circ);
+    var circ=2*Math.PI*62;var offset=circ-(pct/100*circ);
 
     var msg,emoji;
     if(pct===100){emoji='🏆';msg='Perfect score! Every MCQ correct.';}
@@ -542,7 +695,15 @@
     else if(pct>=50){emoji='💪';msg='Good effort! Review the questions you missed.';}
     else{emoji='📚';msg='Keep practising! Try an easier difficulty or review the topic.';}
 
-    var h='<div class="results-ring"><svg viewBox="0 0 140 140" width="140" height="140">';
+    // Save personal best
+    var topic=$('pTopic').value;
+    var pb=getPB(topic,'standard');
+    var isNewPB=!pb||score>pb.score||streakN>pb.streak;
+    if(isNewPB)setPB(topic,'standard',{score:score,total:mcqTotal,streak:Math.max(streakN,pb?pb.streak:0)});
+
+    var h='';
+    if(isNewPB&&pb)h+='<div class="ch-new-pb">🏆 NEW PERSONAL BEST!</div>';
+    h+='<div class="results-ring"><svg viewBox="0 0 140 140" width="140" height="140">';
     h+='<circle class="ring-bg" cx="70" cy="70" r="62"/>';
     h+='<circle class="ring-fill" cx="70" cy="70" r="62" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="ringFill"/>';
     h+='</svg><div class="ring-text"><span class="ring-score">'+(mcqTotal>0?score+'/'+mcqTotal:'✓')+'</span><span class="ring-label">'+(mcqTotal>0?'MCQs correct':'Completed')+'</span></div></div>';
@@ -551,8 +712,17 @@
     h+='<div class="results-actions">';
     h+='<button class="btn btn-primary" id="tryAgainBtn">🔄 Try Again</button>';
     h+='<button class="btn btn-ghost" id="newTopicBtn">🎯 New Topic</button>';
-    h+='<button class="btn btn-ghost" id="reviewBtn">📋 Review Answers</button>';
+    h+='<button class="btn btn-ghost" id="reviewBtn">📋 Review</button>';
     h+='</div>';
+
+    // Bonus question (if available)
+    if(ws.bonus&&ws.bonus.question){
+      h+='<div class="bonus-card"><div class="bonus-badge">⭐ BONUS CHALLENGE</div>';
+      h+='<div class="bonus-q">'+esc(ws.bonus.question)+'</div>';
+      h+='<textarea class="q-input" placeholder="Take on the bonus challenge..." rows="4"></textarea>';
+      h+='<div class="q-fb show ok" style="margin-top:12px"><strong>Model answer:</strong> '+esc(ws.bonus.answer||'')+'\n💡 '+esc(ws.bonus.explanation||'')+'</div>';
+      h+='</div>';
+    }
 
     // Review list
     h+='<div class="review-list" id="reviewList">';
@@ -568,15 +738,60 @@
     });
     h+='</div>';
 
-    $('resultsInner').innerHTML=h;
-    show('panelResults');
+    $('resultsInner').innerHTML=h;show('panelResults');
     window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(function(){var ring=document.getElementById('ringFill');if(ring)ring.style.strokeDashoffset=offset;},100);
+  }
 
-    // Animate ring
-    setTimeout(function(){
-      var ring=document.getElementById('ringFill');
-      if(ring)ring.style.strokeDashoffset=offset;
-    },100);
+  // ═══════════════════════════════════
+  // CHALLENGE RESULTS
+  // ═══════════════════════════════════
+  function showChallengeResults(){
+    if(chTimer){clearInterval(chTimer);chTimer=null;}
+    var total=ws.questions.length;
+    var attempted=chCorrect+chWrong;
+    var accuracy=attempted>0?Math.round(chCorrect/attempted*100):0;
+    var timeUsed=90-chTimeLeft;
+
+    var emoji,msg;
+    if(chScore>=200){emoji='🏆';msg='Incredible performance! You crushed it.';}
+    else if(chScore>=120){emoji='⭐';msg='Excellent speed and accuracy!';}
+    else if(chScore>=60){emoji='💪';msg='Good effort! Try again to beat your score.';}
+    else{emoji='🔄';msg='Keep practising — speed comes with mastery.';}
+
+    var topic=$('pTopic').value;
+    var pb=getPB(topic,'challenge');
+    var isNewPB=!pb||chScore>pb.score;
+    if(isNewPB||!pb)setPB(topic,'challenge',{score:Math.max(chScore,pb?pb.score:0),streak:Math.max(streakN,pb?pb.streak:0),accuracy:Math.max(accuracy,pb?pb.accuracy:0)});
+
+    var h='';
+    if(isNewPB&&pb)h+='<div class="ch-new-pb">🏆 NEW HIGH SCORE!</div>';
+    h+='<div class="results-title" style="font-size:2.2rem">'+emoji+' '+chScore+' points</div>';
+    h+='<div class="results-msg">'+esc(msg)+'</div>';
+    h+='<div class="ch-results-grid">';
+    h+='<div class="ch-stat"><div class="ch-stat-val">'+chCorrect+'/'+attempted+'</div><div class="ch-stat-label">Correct</div></div>';
+    h+='<div class="ch-stat"><div class="ch-stat-val gold">'+accuracy+'%</div><div class="ch-stat-label">Accuracy</div></div>';
+    h+='<div class="ch-stat"><div class="ch-stat-val">'+timeUsed+'s</div><div class="ch-stat-label">Time Used</div></div>';
+    h+='</div>';
+
+    if(streakN>=3)h+='<div style="margin-bottom:16px;color:var(--gold);font-weight:700;font-size:1.1rem">🔥 Best streak: '+streakN+' in a row!</div>';
+
+    h+='<div class="results-actions">';
+    h+='<button class="btn btn-primary" id="tryAgainBtn">⚡ Challenge Again</button>';
+    h+='<button class="btn btn-ghost" id="newTopicBtn">🎯 New Topic</button>';
+    h+='</div>';
+
+    // Bonus question
+    if(ws.bonus&&ws.bonus.question){
+      h+='<div class="bonus-card"><div class="bonus-badge">⭐ BONUS CHALLENGE</div>';
+      h+='<div class="bonus-q">'+esc(ws.bonus.question)+'</div>';
+      h+='<textarea class="q-input" placeholder="Can you answer this synthesis question?" rows="4"></textarea>';
+      h+='<div class="q-fb show ok" style="margin-top:12px"><strong>Model answer:</strong> '+esc(ws.bonus.answer||'')+'\n💡 '+esc(ws.bonus.explanation||'')+'</div>';
+      h+='</div>';
+    }
+
+    $('resultsInner').innerHTML=h;show('panelResults');
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 
   // ── Theme ──
@@ -584,14 +799,12 @@
   themeBtn.addEventListener('click',function(){
     var isDark=document.documentElement.getAttribute('data-theme')==='dark';
     document.documentElement.setAttribute('data-theme',isDark?'':'dark');
-    try{localStorage.setItem('mz-theme',isDark?'light':'dark');}catch(e){}
+    lsSet('mz-theme',isDark?'light':'dark');
     themeBtn.textContent=isDark?'🌙':'☀️';
   });
-  try{
-    if(localStorage.getItem('mz-theme')==='dark'||(!localStorage.getItem('mz-theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
-      document.documentElement.setAttribute('data-theme','dark');themeBtn.textContent='☀️';
-    }
-  }catch(e){}
+  if(lsGet('mz-theme')==='dark'||(!lsGet('mz-theme')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+    document.documentElement.setAttribute('data-theme','dark');themeBtn.textContent='☀️';
+  }
 })();
 </script>
 </body>

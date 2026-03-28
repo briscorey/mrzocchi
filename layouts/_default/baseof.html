@@ -37,12 +37,19 @@
   <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/images/logo.svg">
 
+  {{/* ── Preconnect to font origins ── */}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"></noscript>
+
   {{/* ── Styles (preload for faster render) ── */}}
   <link rel="preload" href="/css/main.css" as="style">
   <link rel="stylesheet" href="/css/main.css">
 
   {{/* ── Theme (load early to prevent flash) ── */}}
-  <script src="/js/theme.js"></script>
+  <script>!function(){var e="mrzocchi-theme";function t(t){document.documentElement.setAttribute("data-theme",t),localStorage.setItem(e,t);var a=document.querySelector(".theme-toggle");a&&(a.querySelector(".theme-icon").textContent="dark"===t?"☀️":"🌙",a.setAttribute("aria-label","dark"===t?"Switch to light mode":"Switch to dark mode"))}function a(){t("dark"===(document.documentElement.getAttribute("data-theme")||"light")?"light":"dark")}function n(){var e=document.querySelector(".site-header");if(e){var t=document.createElement("button");t.className="theme-toggle",t.setAttribute("aria-label","Toggle dark mode"),t.innerHTML='<span class="theme-icon"></span>',t.addEventListener("click",a);var n=e.querySelector(".header-nav");n?n.appendChild(t):e.appendChild(t);var r=document.documentElement.getAttribute("data-theme")||"light";t.querySelector(".theme-icon").textContent="dark"===r?"☀️":"🌙"}}t(localStorage.getItem(e)||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n):n(),window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(a){localStorage.getItem(e)||t(a.matches?"dark":"light")})}();</script>
 
   {{/* ── JSON-LD Structured Data ── */}}
   {{ if .IsHome }}

@@ -1,0 +1,610 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Change Classifier — LearnLattice</title>
+<!-- MYP Alignment
+   Criteria: A – Knowing & Understanding, D – Reflecting on Impacts of Science
+   Key Concept: Change
+   Related Concepts: Properties, Evidence
+   ATL: Critical thinking (classifying, analysing evidence)
+   Global Context: Scientific and Technical Innovation
+   Debrief Questions:
+   1. What is the ONE question you should always ask to decide if a change is chemical? (Was a new substance made?)
+   2. Why can bubbles be misleading as an indicator?
+   3. Can you think of a change that shows multiple indicators but is still physical?
+   4. How does understanding chemical changes help a chef? A builder? A doctor?
+   5. Can a single event involve BOTH physical and chemical changes at the same time?
+   Differentiation:
+   - Support: Allow students to replay stages. Chinese/Korean translations scaffold vocabulary.
+   - Extension: Challenge students to find a Stage 4 scenario the game didn't include.
+   Estimated play time: 12–18 minutes total (3–5 min per stage)
+-->
+<style>
+@import url(https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap);
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a0a2e;color:#e2e8f0;font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* Header */
+.hdr{padding:10px 20px;background:rgba(168,85,247,.06);border-bottom:1px solid rgba(168,85,247,.15);display:flex;justify-content:space-between;align-items:center}
+h1{font-size:1.1rem;color:#c084fc;font-weight:700}
+.hdr-right{display:flex;align-items:center;gap:14px}
+.pts{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#c084fc}
+.streak-badge{font-family:'JetBrains Mono',monospace;font-size:.78rem;padding:3px 8px;border-radius:6px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:#fb923c;display:none}
+.streak-badge.active{display:inline-flex;align-items:center;gap:4px}
+.streak-badge.hot{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#f87171;animation:flamePulse .6s infinite alternate}
+@keyframes flamePulse{from{transform:scale(1)}to{transform:scale(1.08)}}
+
+/* Progress */
+.progress{display:flex;gap:6px;padding:10px 20px;background:rgba(0,0,0,.2)}
+.pg{flex:1;text-align:center}.pg-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.06);margin-bottom:4px}
+.pg-bar.done{background:#a855f7}.pg-bar.active{background:#f59e0b;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.pg-label{font-size:.55rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px}
+.pg.done .pg-label{color:#a855f7}.pg.active .pg-label{color:#f59e0b}
+
+/* Game area */
+.game{max-width:640px;margin:0 auto;padding:20px}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes popIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@keyframes floatUp{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-60px)}}
+.shake{animation:shake .4s}
+.pop{animation:popIn .3s}
+
+/* Confetti */
+.confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;overflow:hidden}
+.confetti{position:absolute;width:8px;height:8px;border-radius:2px;top:-10px;animation:confettiFall 2s ease-in forwards}
+@keyframes confettiFall{to{top:110vh;transform:rotate(720deg)}}
+
+/* Float score */
+.float-pts{position:absolute;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:#a855f7;pointer-events:none;animation:floatUp 1s forwards;z-index:50}
+.float-pts.bonus{color:#f59e0b;font-size:1rem}
+
+/* Intro screen */
+.intro{text-align:center;padding:32px 16px;animation:fadeIn .5s}
+.s-num{font-size:.6rem;color:#a855f7;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.s-name{font-size:1.5rem;font-weight:700;margin-bottom:8px}
+.s-desc{font-size:.85rem;color:#94a3b8;margin-bottom:4px}
+.s-ican{font-size:.78rem;color:#d8b4fe;font-style:italic;margin-bottom:20px}
+.concept-box{padding:14px 18px;background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.15);border-radius:10px;margin-bottom:20px;font-size:.8rem;color:#d8b4fe;line-height:1.5;text-align:left}
+.concept-label{font-size:.6rem;color:#a855f7;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.mechanic-hint{font-size:.75rem;color:#94a3b8;margin-top:16px;padding:10px 14px;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid rgba(255,255,255,.05)}
+
+/* Buttons */
+.btn{padding:12px 28px;border-radius:10px;border:1px solid rgba(168,85,247,.3);background:rgba(168,85,247,.1);color:#d8b4fe;font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn:hover{background:rgba(168,85,247,.2);border-color:#a855f7;transform:translateY(-2px)}
+.btn-go{background:#a855f7;color:#fff;border-color:#a855f7}.btn-go:hover{background:#9333ea}
+
+/* Question card */
+.q{animation:fadeIn .4s}
+.q-card{padding:24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;margin-bottom:16px;position:relative}
+.q-num{font-size:.65rem;color:#a855f7;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.q-text{font-size:1rem;font-weight:600;color:#fff;margin-bottom:16px;line-height:1.5}
+.q-context{font-size:.78rem;color:#94a3b8;margin-bottom:12px;padding:8px 12px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.1);border-radius:8px;line-height:1.4}
+.q-lang{font-size:.75rem;color:#a78bfa;margin-bottom:14px}
+.q-type{display:inline-block;font-size:.6rem;padding:3px 8px;border-radius:4px;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.q-type.tf{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:#93c5fd}
+.q-type.classify{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:#86efac}
+.q-type.reason{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:#fde68a}
+.q-type.connect{background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.2);color:#f9a8d4}
+
+/* Options grid */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opts-1{grid-template-columns:1fr}
+.opt{padding:14px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#e2e8f0;font-size:.85rem;cursor:pointer;transition:all .15s;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:500}
+.opt:hover:not(.locked){border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.06);transform:translateY(-2px)}
+.opt.correct{border-color:#22c55e;background:rgba(34,197,94,.12);transform:scale(1.02)}
+.opt.wrong{border-color:#ef4444;background:rgba(239,68,68,.08)}
+.opt.locked{cursor:default;opacity:.5}.opt.locked.correct{opacity:1}
+
+/* True/False big buttons */
+.tf-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tf-btn{padding:24px;border-radius:14px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;font-family:'Space Grotesk',sans-serif}
+.tf-btn.tf-true{border:2px solid rgba(34,197,94,.25);background:rgba(34,197,94,.06);color:#86efac}
+.tf-btn.tf-false{border:2px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#fca5a5}
+.tf-btn:hover:not(.locked){transform:translateY(-3px)}
+.tf-btn.tf-true:hover:not(.locked){background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.4)}
+.tf-btn.tf-false:hover:not(.locked){background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.4)}
+.tf-btn.correct{border-color:#22c55e;background:rgba(34,197,94,.2)}
+.tf-btn.wrong{border-color:#ef4444;background:rgba(239,68,68,.15)}
+.tf-btn.locked{cursor:default;opacity:.4}.tf-btn.locked.correct{opacity:1}
+
+/* Classify mode — two columns */
+.classify-zone{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.classify-col{padding:16px;border-radius:12px;text-align:center;cursor:pointer;transition:all .15s;min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.classify-col.phys{border:2px solid rgba(59,130,246,.2);background:rgba(59,130,246,.04)}
+.classify-col.chem{border:2px solid rgba(168,85,247,.2);background:rgba(168,85,247,.04)}
+.classify-col:hover:not(.locked){transform:translateY(-2px)}
+.classify-col.phys:hover:not(.locked){border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.1)}
+.classify-col.chem:hover:not(.locked){border-color:rgba(168,85,247,.5);background:rgba(168,85,247,.1)}
+.classify-col .col-label{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;font-weight:700}
+.classify-col.phys .col-label{color:#93c5fd}
+.classify-col.chem .col-label{color:#c084fc}
+.classify-col .col-icon{font-size:1.5rem}
+.classify-col.correct{border-color:#22c55e;background:rgba(34,197,94,.1)}
+.classify-col.wrong{border-color:#ef4444;background:rgba(239,68,68,.1)}
+.classify-col.locked{cursor:default;opacity:.4}.classify-col.locked.correct{opacity:1}
+
+/* Feedback */
+.fb{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:.82rem;line-height:1.5;animation:fadeIn .3s}
+.fb-ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#86efac}
+.fb-no{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);color:#fca5a5}
+.fb strong{display:block;margin-bottom:2px}
+.next{text-align:center;margin-top:12px}
+
+/* Stage done */
+.sd{text-align:center;padding:28px;animation:fadeIn .5s}
+.sd-stars{font-size:2rem;margin-bottom:6px}
+.sd-stat{font-size:.75rem;color:#94a3b8;margin:4px 0}
+
+/* Results */
+.results{text-align:center;padding:36px 16px;animation:fadeIn .5s}
+.r-score{font-family:'JetBrains Mono',monospace;font-size:3rem;color:#a855f7;font-weight:700}
+.r-label{font-size:1.1rem;font-weight:700;margin:6px 0}
+.r-detail{font-size:.85rem;color:#94a3b8;margin-bottom:20px;line-height:1.5}
+.r-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px}
+.r-stat{padding:10px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}
+.r-stat-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:#c084fc;font-weight:700}
+.r-stat-lbl{font-size:.6rem;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.r-transfer{padding:14px 18px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.15);border-radius:10px;font-size:.85rem;color:#fde68a;margin-bottom:20px;line-height:1.5;text-align:left}
+.r-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+
+/* Embed */
+.embed-mode .hdr{display:none!important}
+</style>
+<script>if(location.search.indexOf("embed=1")>-1)document.documentElement.classList.add("embed-mode")</script>
+</head><body>
+<div class="hdr">
+<h1>🧪 Change Classifier</h1>
+<div class="hdr-right">
+<span class="streak-badge" id="streak-badge">🔥 <span id="streak-num">0</span></span>
+<span class="pts" id="pts">0 pts</span>
+</div>
+</div>
+<div class="progress" id="prog"></div>
+<div class="game" id="game"></div>
+
+<script>
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let stage=0, qIdx=0, pts=0, correct=0, total=0, sc=0;
+let streak=0, bestStreak=0, mistakes=[], recycled=0;
+let questions=[], stageStartTime=0;
+
+const STG=[
+{name:"Identify",desc:"True or false — quick-fire definitions",ican:"I can identify whether a statement about physical or chemical changes is true or false.",type:"tf",qs:6},
+{name:"Classify",desc:"Sort real-world examples into physical or chemical",ican:"I can classify everyday examples as physical or chemical changes.",type:"classify",qs:6},
+{name:"Reason",desc:"Explain WHY — find the flaw, pick the evidence",ican:"I can explain my reasoning using evidence and the concept of new substances.",type:"reason",qs:6},
+{name:"Connect",desc:"Apply to heritage, culture, and real life",ican:"I can explain why understanding changes matters in my own life and culture.",type:"connect",qs:6}
+];
+
+// ═══════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════
+function sh(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function pick(a,n){return sh(a).slice(0,n)}
+function $(id){return document.getElementById(id)}
+
+function confetti(){
+const c=document.createElement('div');c.className='confetti-container';document.body.appendChild(c);
+const colors=['#a855f7','#f59e0b','#22c55e','#3b82f6','#ec4899','#f97316'];
+for(let i=0;i<30;i++){const p=document.createElement('div');p.className='confetti';p.style.left=Math.random()*100+'%';p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=Math.random()*0.8+'s';p.style.animationDuration=(1.5+Math.random())+'s';p.style.width=(5+Math.random()*6)+'px';p.style.height=(5+Math.random()*6)+'px';c.appendChild(p)}
+setTimeout(()=>c.remove(),3000)}
+
+function floatPts(el,val,bonus){
+const r=el.getBoundingClientRect();const f=document.createElement('div');
+f.className='float-pts'+(bonus?' bonus':'');f.textContent='+'+val;
+f.style.left=r.left+r.width/2-20+'px';f.style.top=r.top-10+'px';
+document.body.appendChild(f);setTimeout(()=>f.remove(),1000)}
+
+function updateStreak(){
+const badge=$('streak-badge');const num=$('streak-num');
+if(streak>=2){badge.classList.add('active');num.textContent=streak;
+badge.classList.toggle('hot',streak>=5)}else{badge.classList.remove('active','hot')}}
+
+function addPts(base,el){
+const mult=streak>=5?3:streak>=3?2:1;
+const earned=base*mult;pts+=earned;
+$('pts').textContent=pts+' pts';
+if(el)floatPts(el,earned,mult>1)}
+
+// ═══════════════════════════════════════
+// STAGE 1: TRUE/FALSE — Recognition
+// ═══════════════════════════════════════
+function gen0(){return pick([
+{statement:"A physical change creates a new substance.",answer:false,
+hint:"Physical changes alter appearance only — no new substance.",
+why:"False — physical changes alter form or appearance, but the substance stays the same. No new substance is formed."},
+
+{statement:"Melting ice is a physical change.",answer:true,
+hint:"Ice (H₂O) becomes water (H₂O). Same substance, different state.",
+why:"True — ice and water are both H₂O. Only the state changes from solid to liquid. No new substance."},
+
+{statement:"Burning wood is a physical change because the wood changes shape.",answer:false,
+hint:"Burning doesn't just change shape. What new substances form?",
+why:"False — burning is a chemical change. Wood reacts with oxygen to produce ash, CO₂, and water vapour. These are new substances."},
+
+{statement:"Bubbles always mean a chemical change is happening.",answer:false,
+hint:"Think about boiling water. Bubbles, but is steam a new substance?",
+why:"False — boiling water has bubbles, but it is a physical change. Steam is still H₂O. Bubbles alone do not prove a chemical change."},
+
+{statement:"Chemical changes are usually irreversible.",answer:true,
+hint:"Can you un-burn wood? Un-cook an egg?",
+why:"True — in a chemical change, atoms rearrange into new substances. You usually cannot reverse this. You cannot un-burn or un-cook."},
+
+{statement:"Dissolving sugar in water is a chemical change.",answer:false,
+hint:"Are the sugar molecules still sugar? Could you get the sugar back?",
+why:"False — the sugar molecules are still sugar, just spread out in water. Evaporate the water and the sugar returns. Physical change."},
+
+{statement:"Colour change can be a sign of a chemical change.",answer:true,
+hint:"When iron turns orange (rust), is the orange colour from a new substance?",
+why:"True — colour change CAN indicate a chemical change, like iron turning orange when it rusts (iron oxide is a new substance). But not always — adding food colouring is physical."},
+
+{statement:"You can always reverse a physical change.",answer:false,
+hint:"'Usually' reversible, not 'always'. Can you un-shatter glass easily?",
+why:"False — physical changes are USUALLY reversible, but not always. Shattering glass is a physical change (still glass) but very hard to reverse."},
+
+{statement:"A precipitate is a gas that forms during a chemical change.",answer:false,
+hint:"Precipitate means a solid appears. Gas production is a different indicator.",
+why:"False — a precipitate is a SOLID that forms when two liquids are mixed. Gas production (bubbles/fizzing) is a separate indicator."},
+
+{statement:"Cooking an egg is an irreversible chemical change.",answer:true,
+hint:"The proteins in the egg change permanently. Can you un-cook it?",
+why:"True — heat permanently changes the protein structure. The cooked egg is chemically different from the raw egg. Irreversible."}
+],STG[0].qs)}
+
+// ═══════════════════════════════════════
+// STAGE 2: CLASSIFY — Procedural
+// ═══════════════════════════════════════
+function gen1(){return pick([
+{scenario:"Cutting vegetables for stir-fry",lang:"切菜 qiē cài | 야채썰기",answer:"physical",
+hint:"The vegetable is still the same substance. Only size/shape changed.",
+why:"Physical — the vegetable is still the same substance. No new substance formed. Only size and shape changed."},
+
+{scenario:"Making kimchi — cabbage ferments over weeks",lang:"做泡菜 | 김치 담그기 gimchi damgeugi",answer:"chemical",
+hint:"Bacteria produce lactic acid — a NEW substance.",
+why:"Chemical — fermentation produces lactic acid and other new compounds. The cabbage becomes chemically different. Irreversible."},
+
+{scenario:"Dissolving salt in hot soup",lang:"溶盐 róng yán | 소금녹이기",answer:"physical",
+hint:"The salt molecules are still salt. Evaporate the water → salt returns.",
+why:"Physical — salt molecules stay as salt, just dispersed in water. Evaporate the water and the salt comes back. Reversible."},
+
+{scenario:"A bicycle chain turning orange with rust",lang:"铁链生锈 | 자전거녹슬기",answer:"chemical",
+hint:"Rust = iron oxide. A completely different substance from iron.",
+why:"Chemical — iron reacts with oxygen → iron oxide (rust). New substance. Indicator: colour change."},
+
+{scenario:"Boiling water for tea",lang:"烧开水 shāo kāishuǐ | 물끓이기",answer:"physical",
+hint:"Bubbles ≠ chemical change! Is steam a new substance?",
+why:"Physical — water (H₂O) becomes steam (H₂O). Same substance, different state. Bubbles are misleading here!"},
+
+{scenario:"Firecrackers at Spring Festival",lang:"放鞭炮 fàng biānpào | 폭죽놓기",answer:"chemical",
+hint:"Light + colour + gas + heat = many indicators of chemical change.",
+why:"Chemical — gunpowder reacts with oxygen → new substances. Indicators: light, colour, gas, temperature change. Irreversible."},
+
+{scenario:"Bending a metal spoon",lang:"弯勺子 wān sháozi | 숟가락구부리기",answer:"physical",
+hint:"The metal is still the same metal. What changed?",
+why:"Physical — the metal is still the same substance. Only the shape changed. You could bend it back."},
+
+{scenario:"Mixing baking soda and vinegar — fizzing",lang:"小苏打加醋 | 베이킹소다+식초",answer:"chemical",
+hint:"The fizzing is CO₂ gas — a NEW substance produced by the reaction.",
+why:"Chemical — sodium bicarbonate reacts with acetic acid → CO₂ gas + water + sodium acetate. All new substances. Irreversible."},
+
+{scenario:"Ice cream melting on a hot day",lang:"冰淇淋融化 | 아이스크림녹기",answer:"physical",
+hint:"The ice cream is still ice cream, just liquid now.",
+why:"Physical — the ice cream changes from solid to liquid. Same substance, different state. You could refreeze it."},
+
+{scenario:"Cooking an egg in a pan",lang:"煎蛋 jiān dàn | 달걀부치기",answer:"chemical",
+hint:"Can you un-cook an egg? The proteins changed permanently.",
+why:"Chemical — heat denatures proteins permanently. A cooked egg is chemically different from a raw one. Irreversible."}
+],STG[1].qs)}
+
+// ═══════════════════════════════════════
+// STAGE 3: REASON — Justify with evidence
+// ═══════════════════════════════════════
+function gen2(){return pick([
+{q:"A student says: 'Boiling water is a chemical change because bubbles form.' What is the flaw in their reasoning?",
+opts:["Bubbles here are water vapour (still H₂O) — no new substance formed","There are no bubbles in boiling water","Boiling is too slow to be chemical","Water can't undergo chemical changes"],correct:0,
+hint:"The bubbles are steam — still H₂O. The student confused a state change with a substance change.",
+why:"The flaw: bubbles alone don't prove chemical change. In boiling water, the bubbles are water vapour (H₂O → H₂O). No new substance = physical change. Always ask: was a NEW substance made?"},
+
+{q:"Dissolving sugar in tea is physical, but caramelising sugar over heat is chemical. What is the key difference?",
+opts:["Dissolving keeps sugar molecules intact; caramelising breaks them into new substances","One uses water and one uses heat","Caramel is brown","Dissolving is faster"],correct:0,
+hint:"In dissolving, sugar stays as sugar. In caramelising, the sugar molecules actually break apart...",
+why:"Dissolving = sugar molecules stay intact, just spread out (physical). Caramelising = heat breaks sugar molecules and rearranges atoms into new compounds (chemical). Same start, completely different processes."},
+
+{q:"A silver necklace turns black over time. A student says 'it just looks different, so it's physical.' Why are they wrong?",
+opts:["The black layer is silver sulfide (Ag₂S) — a new substance formed by reacting with sulfur in air","Black is just dirty silver","Colour change is always physical","Jewellery can't undergo chemical changes"],correct:0,
+hint:"The black coating isn't dirt. It's silver sulfide — a substance that didn't exist before.",
+why:"Silver reacts with sulfur in air → silver sulfide (Ag₂S), a new substance. The colour change IS evidence of chemical change here because a new substance formed. The student's error: assuming all appearance changes are physical."},
+
+{q:"Fireworks show light, colour change, gas, and heat. Why do MULTIPLE indicators give stronger evidence than just one?",
+opts:["A single indicator can be misleading, but multiple indicators together strongly suggest new substances formed","One indicator is always enough","Multiple indicators cancel out","More indicators means it's faster"],correct:0,
+hint:"Boiling water has bubbles (one indicator) but is physical. When you see 3-4 indicators together...",
+why:"A single indicator can mislead (bubbles in boiling water = physical). Multiple indicators together = much stronger evidence that atoms rearranged and new substances formed."},
+
+{q:"Shaping tangyuan dough into balls is physical. Which evidence BEST supports this claim?",
+lang:"做汤圆 zuò tāngyuán | 탕위안 만들기",
+opts:["The rice flour is still rice flour — only the shape changed, no new substance","The dough is white","The balls are round","You use your hands"],correct:0,
+hint:"Focus on the substance itself. Did the rice flour become something chemically different?",
+why:"The rice flour dough is still rice flour dough. Only shape changed. The key test: is the substance the same? Yes. No new substance = physical change."},
+
+{q:"When you cook rice, it goes from hard to soft. Why is this a chemical change, not just a physical one?",
+lang:"煮饭 zhǔ fàn | 밥짓기 bap-jitgi",
+opts:["Heat breaks down starch molecules into new substances — you can't un-cook rice","The rice absorbs water","The rice gets bigger","The colour barely changes"],correct:0,
+hint:"Can you turn cooked rice back into raw rice? What happened to the starch molecules?",
+why:"Cooking breaks down starch molecules — a chemical change. The rice cannot return to its original raw state (irreversible). Absorbing water is physical, but the molecular change is chemical."},
+
+{q:"Adding food colouring to water changes the colour. A student claims this is a chemical change because of the colour change indicator. Are they correct?",
+opts:["No — the dye molecules are still the same substance, just dispersed. No new substance formed","Yes — colour change always means chemical","Yes — the water turned a new colour","No — food colouring isn't a chemical"],correct:0,
+hint:"The dye dissolved. Are the dye molecules still the same molecules?",
+why:"No — the dye molecules are still the same substance, just spread out in water (like dissolving salt). No new substance formed. Colour change is an indicator, not a guarantee. Always ask: was a NEW substance made?"},
+
+{q:"Ice melting and iron rusting both involve colour change. Why is one physical and the other chemical?",
+opts:["Ice stays H₂O (same substance); rust is iron oxide (new substance)","One is faster","One involves metal","One uses heat"],correct:0,
+hint:"What is the substance before and after in each case?",
+why:"Ice → water: both H₂O, same substance, physical. Iron → rust: iron oxide is a completely different substance, chemical. The test is always: did a new substance form?"}
+],STG[2].qs)}
+
+// ═══════════════════════════════════════
+// STAGE 4: CONNECT — Transfer to real life
+// ═══════════════════════════════════════
+function gen3(){return pick([
+{q:"Nanjing salted duck (盐水鸭) is made by curing duck in salt for days. The meat changes colour and texture permanently. What type of change, and why does it matter?",
+lang:"盐水鸭 yánshuǐ yā | 난징소금오리",
+context:"Nanjing's most famous dish. Salt denatures (permanently changes) the proteins over time.",
+opts:["Chemical — understanding this helps chefs control curing time for safe, flavourful meat","Physical — salt just adds flavour","Physical — the duck is still duck meat","Chemical — because salt is a chemical"],correct:0,
+hint:"Can you un-cure the duck? The proteins changed structure permanently.",
+why:"Chemical — salt denatures proteins irreversibly. Understanding this helps chefs know exactly how long to cure for safety and flavour. Too short = unsafe. Too long = too salty."},
+
+{q:"Korean pickled radish (치킨무) is made with vinegar. The acid reacts with compounds in the radish. Why is understanding this useful for food producers?",
+lang:"腌萝卜 yān luóbo | 치킨무 chikinmu",
+context:"Vinegar (acetic acid) reacts with radish compounds to create new flavour molecules.",
+opts:["It helps them control fermentation time, acidity, and food safety","It makes the food more colourful","Vinegar is expensive","Chemical changes taste better"],correct:0,
+hint:"If you don't understand the chemical change, you can't control it — the food might spoil or taste wrong.",
+why:"Chemical change — acid creates new flavour compounds. Understanding this lets food producers control acidity (pH), fermentation time, and shelf life. Without this knowledge, food could spoil or become unsafe."},
+
+{q:"Construction workers in Nanjing mix cement with water. It hardens in 24 hours and cannot be softened again. Why is understanding this chemical change critical?",
+lang:"水泥 shuǐní | 시멘트 simenteu",
+context:"Cement hydration: water reacts with cement compounds to form new crystalline structures.",
+opts:["Workers have limited time before it hardens — poor timing wastes materials and risks safety","Cement is expensive","The colour changes","It gets heavy"],correct:0,
+hint:"Once the chemical reaction starts, it cannot be stopped. Workers must plan carefully.",
+why:"Cement hydration is irreversible chemical change. Workers must pour and shape within hours. Understanding this prevents wasted materials, structural weakness, and safety risks on construction sites."},
+
+{q:"Korean BBQ (고기구이): meat browns on the grill while charcoal burns underneath. How many chemical changes are happening simultaneously?",
+lang:"烤肉 kǎoròu | 고기구이 gogigui",
+context:"The Maillard reaction browns meat. Combustion burns charcoal to ash.",
+opts:["Two — Maillard reaction (meat browning) AND combustion (charcoal burning)","One — only the charcoal burns","Zero — grilling is just heating","Three — smoke is a separate change"],correct:0,
+hint:"Meat browning = proteins + sugars react → new flavour compounds. Charcoal + oxygen → CO₂ + ash.",
+why:"Two chemical changes: (1) Maillard reaction — proteins and sugars form new brown flavour compounds in the meat. (2) Combustion — charcoal reacts with oxygen → CO₂ + ash. Both irreversible, both happening at the same time."},
+
+{q:"A student says: 'Physical and chemical changes are only important in science class.' Give the strongest counter-argument.",
+context:"Think about cooking, medicine, construction, environment, and daily decisions.",
+opts:["These changes happen everywhere — understanding them helps us cook safely, build stronger structures, and make better daily decisions","Science is important for exams","Teachers say it matters","It helps get a good job"],correct:0,
+hint:"Every time you cook, clean, build, or even breathe, physical and chemical changes happen.",
+why:"Physical and chemical changes are everywhere: cooking food safely (proteins must chemically change), understanding rust damage on buildings, how medicines work, why recycling matters. This science helps you make informed decisions — not just pass exams."},
+
+{q:"A Chinese medicine shop (中药店) sells dried herbs. Boiling herbs in water releases medicinal compounds. Is this process physical, chemical, or both — and why does it matter for dosing?",
+lang:"中药 zhōngyào | 한약 hanyak",
+context:"Traditional medicine: heat extracts active compounds. Some dissolve (physical), some react with water (chemical).",
+opts:["Both — dissolving is physical, but heat also breaks down compounds into new active molecules. Understanding this controls dosage","Only physical — herbs just dissolve","Only chemical — heat changes everything","Neither — herbs don't change"],correct:0,
+hint:"Some compounds dissolve unchanged (physical). Others are transformed by heat into new molecules (chemical). Both happen.",
+why:"Both types occur simultaneously. Dissolving = physical (substances spread out). Heat-driven molecular breakdown = chemical (new active compounds form). Understanding which is which helps practitioners control dosage and potency — too much heat might destroy useful compounds."},
+
+{q:"Fireworks over Xuanwu Lake (玄武湖) on National Day produce spectacular colours. Different metal compounds produce different colours when they burn. Why does this chemistry knowledge matter beyond entertainment?",
+lang:"烟花 yānhuā | 불꽃놀이 bulkkot-nori",
+opts:["The same chemistry is used in signal flares, emergency lighting, and flame tests in forensic science","Fireworks are expensive","It makes better parties","Colour is just decoration"],correct:0,
+hint:"Metal salts burning → specific colours. Where else would you need to identify metals by colour?",
+why:"Metal combustion colours have practical uses: emergency signal flares (visible for kilometres), flame tests in forensic labs (identifying unknown metals), and safety lighting. The chemistry of fireworks has real-world applications far beyond celebration."},
+
+{q:"Your grandmother makes doubanjiang (豆瓣酱) — fermented chilli bean paste. The fermentation takes months. Why would understanding the chemistry help a food company scale this up?",
+lang:"豆瓣酱 dòubànjiàng | 두반장 dubanjang",
+context:"Fermentation = chemical change. Enzymes and bacteria produce new flavour compounds over time.",
+opts:["Understanding the chemical reactions lets them control temperature, time, and bacteria to produce consistent flavour at large scale","Bigger jars = more paste","They just need more beans","Chemical changes happen automatically"],correct:0,
+hint:"If you don't understand what the bacteria are doing chemically, you can't control the process.",
+why:"Chemical change — bacteria and enzymes produce new flavour compounds. Scaling up requires understanding reaction conditions (temperature, pH, time, bacterial strains). Without this chemistry knowledge, results are inconsistent, batches spoil, and quality suffers."}
+],STG[3].qs)}
+
+const generators=[gen0,gen1,gen2,gen3];
+
+// ═══════════════════════════════════════
+// RENDERING
+// ═══════════════════════════════════════
+function renderProg(){
+$("prog").innerHTML=STG.map((s,i)=>
+`<div class="pg ${i<stage?"done":i===stage?"active":""}"><div class="pg-bar ${i<stage?"done":i===stage?"active":""}"></div><span class="pg-label">${s.name}</span></div>`
+).join("")}
+
+function showIntro(){
+sc=0;questions=generators[stage]();qIdx=0;stageStartTime=Date.now();
+const types={tf:"True / False — tap fast!",classify:"Sort into Physical or Chemical",reason:"Pick the best explanation",connect:"Real-world connections"};
+const mechHints={
+0:"<strong>🔥 Streak bonus:</strong> Get 3+ correct in a row for 2× points. 5+ in a row for 3× points! Mistakes reset the streak.",
+1:"<strong>🔄 Mistake recycler:</strong> Any questions you get wrong will come back as bonus questions later. Mistakes = more chances to learn.",
+2:"<strong>💡 Evidence focus:</strong> Every question asks you to reason with evidence. Look for the word 'because' in your answer.",
+3:"<strong>🌍 Heritage bonus:</strong> These questions connect chemistry to Chinese, Korean, and global cultures. Your life experience is your advantage."
+};
+let conceptHTML=stage===0?`<div class="concept-box"><div class="concept-label">Key Concept</div><strong>Change</strong> — Understanding how and why matter changes helps us make sense of the world.<br><em>Statement of Inquiry: Changes in matter can be classified and explained by observing the evidence they produce.</em></div>`:"";
+$("game").innerHTML=
+`<div class="intro">${conceptHTML}<div class="s-num">Stage ${stage+1} of ${STG.length}</div><div class="s-name">${STG[stage].name}</div><div class="s-desc">${types[stage]}</div><div class="s-ican">"${STG[stage].ican}"</div><div class="mechanic-hint">${mechHints[stage]}</div><br><button class="btn btn-go" onclick="showQ()">Begin →</button></div>`;
+renderProg()}
+
+function showQ(){
+if(qIdx>=questions.length){
+// Check for recycled mistakes before ending stage
+if(stage<=2 && mistakes.length>0 && recycled===0){
+recycled=1;
+const recycleQs=mistakes.splice(0,Math.min(mistakes.length,3));
+questions.push(...recycleQs);
+$("game").innerHTML=`<div class="intro pop"><div class="s-name">🔄 Mistake Recycler!</div><div class="s-desc">${recycleQs.length} question${recycleQs.length>1?'s':''} you got wrong ${recycleQs.length>1?'are':'is'} coming back.<br>This is your chance to learn from ${recycleQs.length>1?'them':'it'}!</div><br><button class="btn btn-go" onclick="showQ()">Let's Go →</button></div>`;
+return}
+recycled=0;return void showSD()}
+
+const q=questions[qIdx];
+const stageType=STG[stage].type;
+
+// Route to correct renderer
+if(q._recycled){renderMCQ(q,"reason")}
+else if(stageType==="tf"){renderTF(q)}
+else if(stageType==="classify"){renderClassify(q)}
+else{renderMCQ(q,stageType)}
+}
+
+// TRUE/FALSE renderer
+function renderTF(q){
+$("game").innerHTML=`<div class="q"><div class="q-card">
+<div class="q-num">Q${qIdx+1} of ${questions.length}</div>
+<span class="q-type tf">True or False</span>
+<div class="q-text">"${q.statement}"</div>
+${q.lang?`<div class="q-lang">${q.lang}</div>`:""}
+<div class="tf-opts">
+<button class="tf-btn tf-true" id="tf-true" onclick="checkTF(true)">✓ TRUE</button>
+<button class="tf-btn tf-false" id="tf-false" onclick="checkTF(false)">✗ FALSE</button>
+</div></div><div id="fb"></div><div class="next" id="nx"></div></div>`}
+
+function checkTF(answer){
+const q=questions[qIdx];total++;
+document.querySelectorAll('.tf-btn').forEach(b=>b.classList.add('locked'));
+const correctBtn=$('tf-'+(q.answer?'true':'false'));
+const wrongBtn=$('tf-'+(!q.answer?'true':'false'));
+if(answer===q.answer){
+correctBtn.classList.add('correct');onCorrect(correctBtn,q)
+}else{
+(answer?$('tf-true'):$('tf-false')).classList.add('wrong');
+correctBtn.classList.add('correct');onWrong(q)}}
+
+// CLASSIFY renderer (Physical / Chemical two-column choice)
+function renderClassify(q){
+$("game").innerHTML=`<div class="q"><div class="q-card">
+<div class="q-num">Q${qIdx+1} of ${questions.length}</div>
+<span class="q-type classify">Classify</span>
+<div class="q-text">${q.scenario}</div>
+${q.lang?`<div class="q-lang">${q.lang}</div>`:""}
+<div class="classify-zone">
+<div class="classify-col phys" id="cl-physical" onclick="checkClassify('physical')">
+<div class="col-icon">🧊</div><div class="col-label">Physical</div>
+</div>
+<div class="classify-col chem" id="cl-chemical" onclick="checkClassify('chemical')">
+<div class="col-icon">🔥</div><div class="col-label">Chemical</div>
+</div>
+</div></div><div id="fb"></div><div class="next" id="nx"></div></div>`}
+
+function checkClassify(answer){
+const q=questions[qIdx];total++;
+document.querySelectorAll('.classify-col').forEach(c=>c.classList.add('locked'));
+const correctEl=$('cl-'+q.answer);
+if(answer===q.answer){
+correctEl.classList.add('correct');onCorrect(correctEl,q)
+}else{
+$('cl-'+answer).classList.add('wrong');
+correctEl.classList.add('correct');onWrong(q)}}
+
+// MCQ renderer (Stage 3 + 4)
+function renderMCQ(q,type){
+const typeLabels={reason:"Reason",connect:"Connect"};
+const typeClass=q._recycled?"reason":type;
+// Shuffle options while tracking correct answer
+const correctText=q.opts[q.correct];
+const shuffled=sh(q.opts.map((o,i)=>({text:o,origIdx:i})));
+q._shuffledCorrect=shuffled.findIndex(s=>s.origIdx===q.correct);
+let optHTML;
+const longOpt=shuffled.some(s=>s.text.length>50);
+optHTML=`<div class="opts ${longOpt?"opts-1":""}">${shuffled.map((s,i)=>
+`<button class="opt" onclick="checkMCQ(${i})" id="o${i}">${s.text}</button>`).join("")}</div>`;
+
+$("game").innerHTML=`<div class="q"><div class="q-card">
+<div class="q-num">${q._recycled?"🔄 RECYCLED":"Q"+(qIdx+1)+" of "+questions.length}</div>
+<span class="q-type ${typeClass}">${q._recycled?"Second Chance":typeLabels[type]||type}</span>
+${q.context?`<div class="q-context">${q.context}</div>`:""}
+<div class="q-text">${q.q}</div>
+${q.lang?`<div class="q-lang">${q.lang}</div>`:""}
+${optHTML}</div><div id="fb"></div><div class="next" id="nx"></div></div>`}
+
+function checkMCQ(idx){
+const q=questions[qIdx];total++;
+const correctIdx=q._shuffledCorrect!=null?q._shuffledCorrect:q.correct;
+document.querySelectorAll('.opt').forEach(o=>o.classList.add('locked'));
+if(idx===correctIdx){
+$('o'+idx).classList.add('correct');onCorrect($('o'+idx),q)
+}else{
+$('o'+idx).classList.add('wrong');
+$('o'+correctIdx).classList.add('correct');onWrong(q)}}
+
+// ═══════════════════════════════════════
+// FEEDBACK HANDLERS
+// ═══════════════════════════════════════
+function onCorrect(el,q){
+correct++;sc++;streak++;
+if(streak>bestStreak)bestStreak=streak;
+updateStreak();addPts(10,el);
+if(streak===5||streak===10)confetti();
+$("fb").innerHTML=`<div class="fb fb-ok pop"><strong>✅ ${streak>=5?"🔥 ON FIRE! ":""}${streak>=3?"Streak ×"+(streak>=5?3:2)+"! ":""}Correct!</strong>${q.why}</div>`;
+$("nx").innerHTML='<button class="btn" onclick="qIdx++;showQ()">Next →</button>'}
+
+function onWrong(q){
+streak=0;updateStreak();
+// Convert to recycled format for mistake bank
+const recycleQ={...q,_recycled:true};
+if(!recycleQ.q){
+if(recycleQ.statement)recycleQ.q="True or false: \""+recycleQ.statement+"\"";
+if(recycleQ.scenario)recycleQ.q="Is this physical or chemical? "+recycleQ.scenario}
+if(!recycleQ.opts){
+if(recycleQ.answer===true||recycleQ.answer===false)recycleQ.opts=["True","False"],recycleQ.correct=recycleQ.answer?0:1;
+if(recycleQ.answer==="physical"||recycleQ.answer==="chemical")recycleQ.opts=["Physical change","Chemical change"],recycleQ.correct=recycleQ.answer==="physical"?0:1}
+mistakes.push(recycleQ);
+const card=document.querySelector('.q-card');if(card)card.classList.add('shake');
+$("fb").innerHTML=`<div class="fb fb-no"><strong>💡 Not quite — this will come back later!</strong>${q.hint}<br><br><em>${q.why}</em></div>`;
+$("nx").innerHTML='<button class="btn" onclick="qIdx++;showQ()">Next →</button>'}
+
+// ═══════════════════════════════════════
+// STAGE COMPLETE
+// ═══════════════════════════════════════
+function showSD(){
+const pct=Math.round(sc/questions.length*100);
+const stars=pct>=80?"⭐⭐⭐":pct>=60?"⭐⭐":"⭐";
+const elapsed=Math.round((Date.now()-stageStartTime)/1000);
+const canAdvance=pct>=50;
+
+if(stage<STG.length-1){
+$("game").innerHTML=`<div class="sd pop">
+<div class="sd-stars">${stars}</div>
+<div class="s-name">${STG[stage].name} Complete!</div>
+<p style="color:#94a3b8;margin:8px 0;font-size:1.1rem">${sc}/${questions.length} correct</p>
+<div class="sd-stat">⏱ ${elapsed}s${bestStreak>=3?" • 🔥 Best streak: "+bestStreak:""}</div>
+${canAdvance
+?`<br><button class="btn btn-go" onclick="stage++;showIntro()">Next Stage →</button>`
+:`<p style="color:#fca5a5;margin:12px 0;font-size:.82rem">You need 50% to advance. Let's strengthen those foundations!</p><button class="btn" onclick="showIntro()">Retry →</button>`}
+</div>`
+}else{showResults()}}
+
+function showResults(){
+const pct=Math.round(correct/total*100);
+let title="🧪 Change Master!",msg="You can identify, classify, reason about, and connect physical and chemical changes to real life.";
+if(pct<50){title="🔬 Keep Exploring!";msg="Review the definitions and 5 indicators. The mistake recycler will help — play again!"}
+else if(pct<75){title="🧪 Good Progress!";msg="Solid foundations. Focus on explaining your reasoning with evidence next time."}
+
+confetti();
+$("game").innerHTML=`<div class="results">
+<div class="r-score">${correct}/${total}</div>
+<div class="r-label">${title}</div>
+<div class="r-detail">${msg}</div>
+<div class="r-stats">
+<div class="r-stat"><div class="r-stat-val">${pts}</div><div class="r-stat-lbl">Points</div></div>
+<div class="r-stat"><div class="r-stat-val">🔥 ${bestStreak}</div><div class="r-stat-lbl">Best Streak</div></div>
+<div class="r-stat"><div class="r-stat-val">${pct}%</div><div class="r-stat-lbl">Accuracy</div></div>
+</div>
+<div class="r-transfer">🌍 <strong>Changes are everywhere in your world:</strong> When your family cooks dinner — chemical changes make food safe and delicious. When ice melts in summer — physical change. When fireworks light up Xuanwu Lake — chemical reactions create light and colour. When kimchi ferments — bacteria drive chemical changes that create new flavours. When cement hardens on a building site — irreversible chemistry keeps structures standing. Now you can see the science in everything around you.</div>
+<div class="r-actions">
+<button class="btn" onclick="resetAll()">🔄 Play Again</button>
+<a class="btn" href="/" target="_top" style="text-decoration:none">← Back to Mr Zocchi</a>
+</div></div>`;
+renderProg()}
+
+function resetAll(){stage=0;correct=0;total=0;pts=0;streak=0;bestStreak=0;mistakes=[];recycled=0;
+$('pts').textContent='0 pts';updateStreak();showIntro()}
+
+// ═══════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════
+showIntro();
+</script></body></html>
